@@ -1,0 +1,18 @@
+{
+    "UIDh": "sha256",
+
+    "hash_byte_input" : "0x01",
+    "hash_byte_digest": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
+
+    "hash_octectstring_input" : "0x0102030405",
+    "hash_octectstring_digest": "16df7d2d0c3882334fe0457d298a7b2413e1e5b7a880f0b5ec79eeeae7f58dd8",
+
+    "hash_null_input" : null,
+    "hash_null_digest": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+
+    "hash_list_input" : ["0x01", "0x0102030405", null],
+    "hash_list_digest": "dfd6a31f867566ffeb6c657af1dafb564c3de74485058426633d4b6c8bad6732",
+
+    "hash_group_EC_input" : "1.3.6.1.4.1.311.75.1.2.1",
+    "hash_group_EC_digest": "02bb879cb2f89c19579105be662247db15ab45875cfc63a58745361d193ba248"
+}

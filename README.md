@@ -1,14 +1,38 @@
-# Project
+# U-Prove Node Reference Implementation
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+This project provides a Node reference implementation of the Lite profile of the [U-Prove Specification 1.1 (Revision 4)](./doc/U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf). The [U-Prove technology](https://microsoft.com/uprove) enables the creation of unlinkable credentials which can encode attributes of any types, supporting selective subset disclosure. The Lite profile of the specification simplifies the implementation by limiting the feature set; namely it _does not_ support:
+* The subgroup construction
+* Device binding
+* Scope-exclusive pseudonyms
+* Presenting committed attributes
 
-As the maintainer of this project, please make a few updates:
+## Setup
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+Make sure [node.js](https://nodejs.org/) and [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) are installed on your system; the latest Long-Term Support (LTS) version is recommended for both.
+
+1. Get the source, for example using `git`
+```
+git clone -b main https://github.com/microsoft/uprove-node-reference.git
+cd uprove-node-reference
+```
+
+2. Build the `npm` package
+```
+npm install
+npm run build
+```
+
+3. Optionally, run the unit tests
+
+```
+npm test
+```
+
+4. Optionally, run the sample program
+
+```
+npm run sample
+```
 
 ## Contributing
 
