@@ -59,7 +59,6 @@ function sec1EncodingFp(): {
     encodePoint(point: EllipticCurvePointFp): EncodedCurve,
     decodePoint(encoded: EncodedCurve, curve: EllipticCurveFp)
 }
-function validatePoint(curveName: string, x: Bytes, y: Bytes, z: Bytes): boolean;
 function ModularSquareRootSolver(modulus: Digits): {
     squareRoot(digits: Digits): Digits,
     jacobiSymbol(digits: Digits): number
@@ -74,6 +73,7 @@ function EllipticCurveOperatorFp(curve: EllipticCurveFp) : {
     mixedDoubleAdd(jacobianPoint: EllipticCurvePointFp, affinePoint: EllipticCurvePointFp, outputPoint: EllipticCurvePointFp) : void,
     double(point: EllipticCurvePointFp, outputPoint: EllipticCurvePointFp) : void,
     negate(point: EllipticCurvePointFp, outputPoint: EllipticCurvePointFp) : void,
+    validatePoint(point: EllipticCurvePointFp) : boolean,
 }
 
 export const cryptoECC = {

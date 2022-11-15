@@ -244,10 +244,6 @@ export class Group {
     }
 
     isValid(g: GroupElement): boolean {
-        // const point = g.point;
-        // const z: number[] = [];
-        // const isValid = cryptoECC.validatePoint(this.curve.name, cryptoMath.digitsToBytes(point.x), cryptoMath.digitsToBytes(point.y), z);
-        // return isValid;
-        return true; // TODO: FIXME: there is an issue with this call, need to use another method one taking a point directly
+        return this.ecOperator.validatePoint(g.point);
     }
 }
