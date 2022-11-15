@@ -7,9 +7,9 @@ import { GroupElement, Group, FieldZqElement } from './math';
 import { arrayEqual, checkUnsignedInt } from './utils';
 
 export enum ECGroup {
-    P256 = "P256", // OID: 1.3.6.1.4.1.311.75.1.2.1
-    P384 = "P384", // OID: 1.3.6.1.4.1.311.75.1.2.2
-    P521 = "P521"  // OID: 1.3.6.1.4.1.311.75.1.2.3
+    P256 = "1.3.6.1.4.1.311.75.1.2.1",
+    P384 = "1.3.6.1.4.1.311.75.1.2.2",
+    P521 = "1.3.6.1.4.1.311.75.1.2.3"
 }
 
 export class IssuerParams {
@@ -215,7 +215,7 @@ export interface FirstIssuanceMessage {
 }
 
 export interface SecondIssuanceMessage {
-    sigmaC: FieldZqElement[],
+    sigmaC: FieldZqElement[]
 }
 
 export interface ThirdIssuanceMessage {
