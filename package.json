@@ -8,14 +8,13 @@
   },
   "scripts": {
     "build": "tsc",
-    "postinstall": "tsc ./crypto/configureECC.ts --allowSyntheticDefaultImports true --module Node16 && node ./crypto/configureECC.js",
     "sample": "ts-node --files sample/sample.ts",
     "test": "jest --silent"
   },
   "author": "Christian Paquin",
   "license": "MIT",
   "dependencies": {
-    "@microsoft/msrcrypto": "github:microsoft/MSR-JavaScript-Crypto",
+    "@microsoft/msrcrypto": "github:microsoft/MSR-JavaScript-Crypto#export-math-lib",
     "jest": "^29.1.2",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1"
