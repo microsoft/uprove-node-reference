@@ -1,14 +1,16 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import { cryptoECC, cryptoMath, Digits, EllipticCurvePointFp, IIntegerGroup, IIntegerGroupElement, WeierstrassCurve } from "../node_modules/@microsoft/msrcrypto/scripts/cryptoECCLib.js";
+import cryptoECC, { Digits, EllipticCurvePointFp, WeierstrassCurve} from "@microsoft/msrcrypto/scripts/cryptoECC.js";
+import cryptoMath, { IntegerGroupElement, IntegerGroup } from "@microsoft/msrcrypto/scripts/cryptoMath.js";
+import "@microsoft/msrcrypto/scripts/curves_NIST.js";
 import { ECGroup } from "./uprove";
 import { Hash } from "./hash";
 import * as crypto from "crypto";
 
 export class FieldZqElement {
-    public scalar: IIntegerGroupElement;
-    constructor(scalar: IIntegerGroupElement) {
+    public scalar: IntegerGroupElement;
+    constructor(scalar: IntegerGroupElement) {
         this.scalar = scalar;
     }
 
@@ -25,7 +27,7 @@ export class FieldZqElement {
 export class FieldZq {
     public ZERO: FieldZqElement;
     public ONE: FieldZqElement;
-    private Zq: IIntegerGroup;
+    private Zq: IntegerGroup;
     private q: Digits;
     private elementLength: number;
     
@@ -33,7 +35,7 @@ export class FieldZq {
         this.q = q;
         const qBytes = cryptoMath.digitsToBytes(q);
         this.elementLength = qBytes.length;
-        this.Zq = cryptoMath.IntegerGroup(qBytes);
+        this.Zq = new cryptoMath.IntegerGroup(qBytes);
         this.ZERO = new FieldZqElement(this.Zq.createElementFromInteger(0));
         this.ONE = new FieldZqElement(this.Zq.createElementFromInteger(1));
     }
