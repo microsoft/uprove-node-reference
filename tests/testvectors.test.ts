@@ -141,9 +141,9 @@ function run(tv: TestVectors) {
         h: Gq.getElement(hexToBytes(encodePoint(tv.h_x, tv.h_y))),
         TI: TI,
         PI: PI,
-        sigmaZPrime: Gq.getElement(hexToBytes(encodePoint(tv.sigmaZPrime_x, tv.sigmaZPrime_y))),
-        sigmaCPrime: Zq.getElement(hexToBytes(tv.sigmaCPrime)),
-        sigmaRPrime: Zq.getElement(hexToBytes(tv.sigmaRPrime))
+        sZp: Gq.getElement(hexToBytes(encodePoint(tv.sigmaZPrime_x, tv.sigmaZPrime_y))),
+        sCp: Zq.getElement(hexToBytes(tv.sigmaCPrime)),
+        sRp: Zq.getElement(hexToBytes(tv.sigmaRPrime))
     }
 
     const D: number[] = tv.D.split(',').filter(i => i != '').map(i => parseInt(i));
@@ -155,7 +155,7 @@ function run(tv: TestVectors) {
     const r = [ Zq.getElement(hexToBytes(tv.r0)), ...rInU.map(r => Zq.getElement(hexToBytes(r)))]; 
         
     const proof: uprove.PresentationProof = {
-        disclosedA: A.filter((A, i, arr) => D.includes(i+1)),
+        dA: A.filter((A, i, arr) => D.includes(i+1)),
         a: hexToBytes(tv.a),
         r: r  
     }

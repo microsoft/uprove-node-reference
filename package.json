@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "sample": "ts-node --files sample/sample.ts",
+    "samples": "ts-node --files samples/samples.ts",
     "test": "jest --silent"
   },
   "author": "Christian Paquin",

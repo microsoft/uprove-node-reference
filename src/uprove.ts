@@ -7,9 +7,9 @@ import { GroupElement, Group, FieldZqElement } from './math';
 import { arrayEqual, checkUnsignedInt } from './utils';
 
 export enum ECGroup {
-    P256 = "1.3.6.1.4.1.311.75.1.2.1",
-    P384 = "1.3.6.1.4.1.311.75.1.2.2",
-    P521 = "1.3.6.1.4.1.311.75.1.2.3"
+    P256 = "P-256", //"1.3.6.1.4.1.311.75.1.2.1",
+    P384 = "P-384", //"1.3.6.1.4.1.311.75.1.2.2",
+    P521 = "P-521" //"1.3.6.1.4.1.311.75.1.2.3"
 }
 
 export class IssuerParams {
@@ -68,8 +68,8 @@ export interface IssuerKeyPair {
 // Create Issuer parameters. If UIDP is empty, it will be set to the hash of the other variables
 // c.f. spec section 2.3.1
 export function createIssuerKeyAndParams(descGq: ECGroup, n: number, e: Byte[] | undefined = undefined, S: Uint8Array = new Uint8Array(), issKeyPair?: IssuerKeyPair | undefined, UIDP?: Uint8Array | undefined): IssuerKeyAndParams{
-    if ( n < 1 || n > 50 ) {
-        throw "n must be between 1 and 50";
+    if ( n < 0 || n > 50 ) {
+        throw "n must be between 0 and 50";
     }
     if (!e) {
         e = new Array(n).fill(new Byte(1));
@@ -98,6 +98,7 @@ export function createIssuerKeyAndParams(descGq: ECGroup, n: number, e: Byte[] |
     g.push(groupParams.gt);
 
     if (!UIDP) {
+        // TODO: define that in [UPJF]
         // UIDP not define, let's set it to the hash of the other fields
         const hash = new Hash(descGq);
         hash.update(g);
@@ -122,9 +123,9 @@ export interface UProveToken {
     h: GroupElement,
     TI: Uint8Array,
     PI: Uint8Array,
-    sigmaZPrime: GroupElement,
-    sigmaCPrime: FieldZqElement,
-    sigmaRPrime: FieldZqElement
+    sZp: GroupElement,
+    sCp: FieldZqElement,
+    sRp: FieldZqElement
 }
 
 export interface UProveKeyAndToken {
@@ -166,13 +167,13 @@ export function verifyTokenSignature(ip: IssuerParams, upt: UProveToken) {
     const H = Gq.getHash();
     H.update(upt.h);
     H.update(upt.PI);
-    H.update(upt.sigmaZPrime);
+    H.update(upt.sZp);
 
-    const exponents = [upt.sigmaRPrime, Zq.negate(upt.sigmaCPrime)];
+    const exponents = [upt.sRp, Zq.negate(upt.sCp)];
     H.update(Gq.multiModExp([Gq.g, ip.g[0]], exponents));
-    H.update(Gq.multiModExp([upt.h, upt.sigmaZPrime], exponents));
+    H.update(Gq.multiModExp([upt.h, upt.sZp], exponents));
     const value = Zq.getElement(H.digest());
-    if (!upt.sigmaCPrime.equals(value)) {
+    if (!upt.sCp.equals(value)) {
         throw `invalid token`;
     }
 }
@@ -181,9 +182,9 @@ export function verifyTokenSignature(ip: IssuerParams, upt: UProveToken) {
 function computeTokenId(Gq: Group, upt: UProveToken): Uint8Array {
     const H = Gq.getHash();
     H.update(upt.h);
-    H.update(upt.sigmaZPrime);
-    H.update(upt.sigmaCPrime);
-    H.update(upt.sigmaRPrime);
+    H.update(upt.sZp);
+    H.update(upt.sCp);
+    H.update(upt.sRp);
     return H.digest();
 }
 
@@ -209,17 +210,17 @@ function computePresentationChallenge(Gq: Group, upt: UProveToken, a: Uint8Array
 
 // Issuance messages
 export interface FirstIssuanceMessage {
-    sigmaZ: GroupElement,
-    sigmaA: GroupElement[],
-    sigmaB: GroupElement[]
+    sZ: GroupElement,
+    sA: GroupElement[],
+    sB: GroupElement[]
 }
 
 export interface SecondIssuanceMessage {
-    sigmaC: FieldZqElement[]
+    sC: FieldZqElement[]
 }
 
 export interface ThirdIssuanceMessage {
-    sigmaR: FieldZqElement[]
+    sR: FieldZqElement[]
 }
 
 export class IssuanceParticipant {
@@ -278,17 +279,17 @@ export class Prover extends IssuanceParticipant {
 
     public createSecondMessage(msg1: FirstIssuanceMessage): SecondIssuanceMessage {
         // second message
-        if (this.n != msg1.sigmaA.length ||
-            this.n != msg1.sigmaB.length) {
+        if (this.n != msg1.sA.length ||
+            this.n != msg1.sB.length) {
             throw `invalid first message`;
         }
         const sigmaC: FieldZqElement[] = [];
         const Gq = this.ip.Gq;
         const Zq = Gq.Zq;
         for (let i=0; i<this.n; i++) {
-            this.sigmaZPrime.push(Gq.modExp(msg1.sigmaZ, this.alpha[i]));
-            this.sigmaAPrime.push(Gq.mul(this.t1[i], msg1.sigmaA[i]));
-            this.sigmaBPrime.push(Gq.multiModExp([this.sigmaZPrime[i], this.t2[i], msg1.sigmaB[i]],[this.beta1[i], Zq.ONE, this.alpha[i]]));
+            this.sigmaZPrime.push(Gq.modExp(msg1.sZ, this.alpha[i]));
+            this.sigmaAPrime.push(Gq.mul(this.t1[i], msg1.sA[i]));
+            this.sigmaBPrime.push(Gq.multiModExp([this.sigmaZPrime[i], this.t2[i], msg1.sB[i]],[this.beta1[i], Zq.ONE, this.alpha[i]]));
             const H = Gq.getHash();
             H.update(this.h[i]);
             H.update(this.PI);
@@ -299,19 +300,19 @@ export class Prover extends IssuanceParticipant {
             sigmaC.push(Zq.add(this.sigmaCPrime[i], this.beta1[i]));
         }
 
-        return {sigmaC: sigmaC};
+        return {sC: sigmaC};
     }
 
     public createTokens(msg3: ThirdIssuanceMessage, skipValidation = false): UProveKeyAndToken[] {
         // U-Prove token generation
-        if (this.n != msg3.sigmaR.length) {
+        if (this.n != msg3.sR.length) {
             throw `invalid third message`;
         }
         const Gq = this.ip.Gq;
         const Zq = Gq.Zq;
         const uptk: UProveKeyAndToken[] = [];
         for (let i=0; i<this.n; i++) {
-            const sigmaRPrime = Zq.add(msg3.sigmaR[i], this.beta2[i]);
+            const sigmaRPrime = Zq.add(msg3.sR[i], this.beta2[i]);
             if (!skipValidation) {
                 const lhs = Gq.mul(this.sigmaAPrime[i], this.sigmaBPrime[i]);
                 const rhs = Gq.multiModExp(
@@ -327,9 +328,9 @@ export class Prover extends IssuanceParticipant {
                     h: this.h[i],
                     TI: this.TI,
                     PI: this.PI,
-                    sigmaZPrime: this.sigmaZPrime[i],
-                    sigmaCPrime: this.sigmaCPrime[i],
-                    sigmaRPrime: sigmaRPrime
+                    sZp: this.sigmaZPrime[i],
+                    sCp: this.sigmaCPrime[i],
+                    sRp: sigmaRPrime
                 },
                 alphaInverse: Zq.invert(this.alpha[i])
             })
@@ -364,29 +365,29 @@ export class Issuer extends IssuanceParticipant {
 
     public createFirstMessage(): FirstIssuanceMessage {
         return {
-            sigmaZ: this.sigmaZ,
-            sigmaA: this.sigmaA,
-            sigmaB: this.sigmaB
+            sZ: this.sigmaZ,
+            sA: this.sigmaA,
+            sB: this.sigmaB
         }
     }
 
     public createThirdMessage(msg2: SecondIssuanceMessage): ThirdIssuanceMessage {
-        if (this.n != msg2.sigmaC.length) {
+        if (this.n != msg2.sC.length) {
             throw `invalid second message`;
         }
         const Zq = this.Gq.Zq;
         const sigmaR = this.w.map((w_i, i, array) => 
-            Zq.add(Zq.mul(msg2.sigmaC[i], this.y0), w_i)
+            Zq.add(Zq.mul(msg2.sC[i], this.y0), w_i)
         );
         return {
-            sigmaR: sigmaR
+            sR: sigmaR
         };
     }
 }
 
 
 export interface PresentationProof {
-    disclosedA: Uint8Array[],
+    dA: Uint8Array[], // TODO: make that an object {d_i: A_i}
     a: Uint8Array,
     r: FieldZqElement[]
 }
@@ -424,7 +425,7 @@ export function generatePresentationProof(ip: IssuerParams, D: number[], upkt: U
         r.push(Zq.add(Zq.mul(negC, x[U[i]-1]), w[i]));
     }
     return {
-        disclosedA: A.filter((A,i,arr) => D.includes(i+1)),
+        dA: A.filter((A,i,arr) => D.includes(i+1)),
         a: a,
         r: r
     }
@@ -439,7 +440,7 @@ export function verifyPresentationProof(ip: IssuerParams, D:number[], upt: UProv
 
     // presentation proof verification
     const xt = computeXt(ip, upt.TI);
-    const x = pp.disclosedA.map((A,i,arr) => computeXi(D[i], ip, A));
+    const x = pp.dA.map((A,i,arr) => computeXi(D[i], ip, A));
     const c = computePresentationChallenge(Gq, upt, pp.a, D, x, m, md);
     const t = ip.g.length - 1;
     const base0 = Gq.multiModExp(
