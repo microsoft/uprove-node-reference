@@ -1,7 +1,6 @@
 # U-Prove Node Reference Implementation
 
-This project provides a Node reference implementation of the Lite profile of the [U-Prove Specification 1.1 (Revision 4)](./doc/U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf). The [U-Prove technology](https://microsoft.com/uprove) enables the creation of unlinkable credentials which can encode attributes of any types, supporting selective subset disclosure. The Lite profile of the specification simplifies the implementation by limiting the feature set; namely it _does not_ support:
-* The subgroup construction
+This project provides a Node reference implementation of the Lite profile of the [U-Prove Specification 1.1 (Revision 5)](./doc/U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%205.pdf). The [U-Prove technology](https://microsoft.com/uprove) enables the creation of unlinkable credentials which can encode attributes of any types, supporting selective subset disclosure. The Lite profile of the specification simplifies the implementation by limiting the feature set; namely it _does not_ support:
 * Device binding
 * Scope-exclusive pseudonyms
 * Presenting committed attributes
@@ -28,10 +27,10 @@ npm run build
 npm test
 ```
 
-4. Optionally, run the sample program
+4. Optionally, run the sample programs
 
 ```
-npm run sample
+npm run samples
 ```
 
 ## Contributing
