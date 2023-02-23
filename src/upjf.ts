@@ -3,6 +3,7 @@
 
 import { getEcGroup } from "./ecparams";
 import { Byte, groupToHash } from "./hash";
+import { FieldZqElement } from "./math";
 import { createIssuerKeyAndParams, ECGroup, IssuerKeyAndParams, IssuerKeyPair, IssuerParams } from "./uprove"
 
 // Implements the U-Prove JSON Framework (UPJF)
@@ -34,6 +35,14 @@ export interface IssuerParamsJWK {
     e?: number[];
     S: string;
     spec?: Specification; // maybe that should stay encoded to make sure it won't change
+}
+
+export function encodePrivateKeyAsBase64Url(y0: FieldZqElement): string {
+    return toBase64Url(y0.getBytes());
+}
+
+export function decodeBase64UrlAsPrivateKey(ip: IssuerParams, b64: string): FieldZqElement {
+    return ip.Gq.Zq.getElement(fromBase64Url(b64));
 }
 
 // TODO: rewrite
