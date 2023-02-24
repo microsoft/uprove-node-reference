@@ -4,10 +4,10 @@
   "description": "U-Prove JSON Framework sample",
   "scripts": {
     "build": "tsc",
-    "setup-issuer": "ts-node src/setup.ts",
-    "deploy-issuer": "ts-node src/issuer.ts",
-    "deploy-verifier": "ts-node src/verifier.ts",
-    "prover": "ts-node src/prover.ts"
+    "setup-issuer": "node ./js/samples/upjf/src/setup.js",
+    "deploy-issuer": "node ./js/samples/upjf/src/issuer.js",
+    "deploy-verifier": "node ./js/samples/upjf/src/verifier.js",
+    "prover": "node ./js/samples/upjf/src/prover.js"
   },
   "license": "MIT",
   "dependencies": {

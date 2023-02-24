@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import settings from './settings.json';// assert {type: "json"};
+import settings from './settings.json' assert {type: "json"};
 import * as UPJF from '../../../src/upjf.js';
 import * as uprove from '../../../src/uprove.js';
 import * as serialization from '../../../src/serialization.js';

@@ -7,7 +7,7 @@ import * as uprove from '../../../src/uprove.js';
 import { ECGroup } from '../../../src/uprove.js';
 import * as jose from 'jose'; // TODO: do away with jose dependency
 import fs from 'fs';
-import settings from './settings.json';// assert {type: "json"};
+import settings from './settings.json' assert {type: "json"};
 
 
 interface Options {

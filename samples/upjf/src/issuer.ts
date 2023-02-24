@@ -6,7 +6,7 @@ import express from 'express';
 import http from 'http';
 import rateLimit from 'express-rate-limit';
 import fs from 'fs';
-import settings from './settings.json';
+import settings from './settings.json' assert {type: "json"};
 import * as crypto from "crypto";
 import * as UPJF from '../../../src/upjf.js';
 import * as uprove from '../../../src/uprove.js';
