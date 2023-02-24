@@ -2,12 +2,12 @@
 // Licensed under the MIT license.
 
 import { Command } from 'commander';
-import * as UPJF from '../../../src/upjf';
-import * as uprove from '../../../src/uprove';
-import { ECGroup } from '../../../src/uprove';
+import * as UPJF from '../../../src/upjf.js';
+import * as uprove from '../../../src/uprove.js';
+import { ECGroup } from '../../../src/uprove.js';
 import * as jose from 'jose'; // TODO: do away with jose dependency
 import fs from 'fs';
-import * as settings from './settings.json';
+import settings from './settings.json';// assert {type: "json"};
 
 
 interface Options {
@@ -36,11 +36,11 @@ void (async () => {
             jwksUpdate = true;
         } else {
             // create a new JWKS
-            jwks = {keys: []};
+            jwks = { keys: [] };
         }
-        
+
         const descGq = ECGroup.P256 // TODO: use the curve option
-        const ikp = UPJF.createIssuerKeyAndParamsUPJF(descGq, {n: 0}, undefined);
+        const ikp = UPJF.createIssuerKeyAndParamsUPJF(descGq, { n: 0 }, undefined);
         const jwk = UPJF.encodeIPAsJWK(ikp.ip);
 
         // write out updated JWKS        

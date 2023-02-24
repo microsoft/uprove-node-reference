@@ -2,10 +2,10 @@
 // Licensed under the MIT license.
 
 import * as crypto from 'crypto';
-import { Byte } from '../src/hash';
-import * as uprove from '../src/uprove';
-import * as UPJF from '../src/upjf';
-import * as serialization from '../src/serialization';
+import { Byte } from '../src/hash.js';
+import * as uprove from '../src/uprove.js';
+import * as UPJF from '../src/upjf.js';
+import * as serialization from '../src/serialization.js';
 
 const genericSample = () => {
     console.log("\nGeneric U-Prove issuance and presentation sample\n");

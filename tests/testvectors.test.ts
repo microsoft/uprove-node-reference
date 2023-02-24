@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import EC_D0 from '../doc/testvectors/testvectors_EC_D0_lite_doc.json';
-import EC_D2 from '../doc/testvectors/testvectors_EC_D2_lite_doc.json';
-import EC_D5 from '../doc/testvectors/testvectors_EC_D5_lite_doc.json';
-import * as uprove from '../src/uprove';
-import { Byte } from '../src/hash';
-import { hexToBytes } from '../src/utils';
+import EC_D0 from '../doc/testvectors/testvectors_EC_D0_lite_doc.json' assert {type: "json"};
+import EC_D2 from '../doc/testvectors/testvectors_EC_D2_lite_doc.json' assert {type: "json"};
+import EC_D5 from '../doc/testvectors/testvectors_EC_D5_lite_doc.json' assert {type: "json"};
+import * as uprove from '../src/uprove.js';
+import { Byte } from '../src/hash.js';
+import { hexToBytes } from '../src/utils.js';
 
 interface TestVectors {
     UIDh: string,

@@ -1,10 +1,10 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import * as settings from './settings.json';
-import * as UPJF from '../../../src/upjf';
-import * as uprove from '../../../src/uprove';
-import * as serialization from '../../../src/serialization';
+import settings from './settings.json';// assert {type: "json"};
+import * as UPJF from '../../../src/upjf.js';
+import * as uprove from '../../../src/uprove.js';
+import * as serialization from '../../../src/serialization.js';
 import got from 'got';
 
 void (async () => {

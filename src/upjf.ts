@@ -1,10 +1,10 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import { getEcGroup } from "./ecparams";
-import { Byte, groupToHash } from "./hash";
-import { FieldZqElement } from "./math";
-import { createIssuerKeyAndParams, ECGroup, IssuerKeyAndParams, IssuerKeyPair, IssuerParams } from "./uprove"
+import { getEcGroup } from "./ecparams.js";
+import { Byte, groupToHash } from "./hash.js";
+import { FieldZqElement } from "./math.js";
+import { createIssuerKeyAndParams, ECGroup, IssuerKeyAndParams, IssuerKeyPair, IssuerParams } from "./uprove.js"
 
 // Implements the U-Prove JSON Framework (UPJF)
 

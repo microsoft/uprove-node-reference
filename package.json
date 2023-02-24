@@ -8,8 +8,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "samples": "ts-node --files samples/samples.ts",
-    "test": "jest --silent"
+    "samples": "ts-node samples/samples.ts",
+    "test0": "jest --silent",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --no-cache"
   },
   "author": "Christian Paquin",
   "license": "MIT",
@@ -20,6 +21,8 @@
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
-    "@types/jest": "^29.1.2"
-  }
+    "@types/jest": "^29.1.2",
+    "jest-ts-webcompat-resolver": "^1.0.0"
+  },
+  "type": "module"
 }

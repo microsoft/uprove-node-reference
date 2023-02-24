@@ -6,11 +6,11 @@ import express from 'express';
 import http from 'http';
 import rateLimit from 'express-rate-limit';
 import fs from 'fs';
-import * as settings from './settings.json';
+import settings from './settings.json';
 import * as crypto from "crypto";
-import * as UPJF from '../../../src/upjf';
-import * as uprove from '../../../src/uprove';
-import * as serialization from '../../../src/serialization';
+import * as UPJF from '../../../src/upjf.js';
+import * as uprove from '../../../src/uprove.js';
+import * as serialization from '../../../src/serialization.js';
 
 // some issuer settings
 const MAX_TOKEN_COUNT = 10; // maximum number of tokens to issue in parallel
@@ -19,11 +19,11 @@ const PRIVATE_KEY_PATH = "private/ip.key" // created by the setup script
 
 export interface IssuerParamsJWKS {
     keys: UPJF.IssuerParamsJWK[]
-  }
-  
+}
+
 // read the issuer parameters
 const jwksString = fs.readFileSync(ISSUER_PARAMS_PATH, 'utf8');
-const jwk:UPJF.IssuerParamsJWK = (JSON.parse(jwksString) as IssuerParamsJWKS).keys[0]; // we assume there is one param in the key set
+const jwk: UPJF.IssuerParamsJWK = (JSON.parse(jwksString) as IssuerParamsJWKS).keys[0]; // we assume there is one param in the key set
 const issuerParams = UPJF.decodeJWKAsIP(jwk);
 console.log("Issuer parameters loaded from: " + ISSUER_PARAMS_PATH);
 
@@ -36,7 +36,7 @@ console.log("Issuer private key loaded from: " + PRIVATE_KEY_PATH);
 const issuerKeyAndParams: uprove.IssuerKeyAndParams = {
     ip: issuerParams,
     y0: privateKey
-} 
+}
 
 // setup server
 const app = express();
@@ -46,10 +46,10 @@ app.use(express.static('./public')) // public files
 
 // apply a rate limiter to incoming request (as suggested by CodeQL)
 const limiter = rateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutes
-	max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-	standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 })
 app.use(limiter)
 
@@ -76,7 +76,7 @@ app.post('/issue', async (req, res) => {
         if ('sID' in req.body) {
             // 2nd issuance message
             const msg = req.body as SecondIssuanceMessage;
-            
+
             // check if we have an issuance session with this ID
             const issuer = sessionDB.get(msg.sID);
             if (issuer) {
@@ -115,10 +115,10 @@ app.post('/issue', async (req, res) => {
                 exp: 1000 // expiration date
             };
             const TI = Buffer.from(JSON.stringify(TiJson));
-        
+
             const issuer = new uprove.Issuer(issuerKeyAndParams, [], TI, n);
             const message1 = serialization.encodeFirstIssuanceMessage(issuer.createFirstMessage());
-        
+
             response = {
                 sID: sessionID,
                 msg: message1
@@ -132,7 +132,7 @@ app.post('/issue', async (req, res) => {
     } catch (err) {
         const errString = err as string;
         console.log("Error: " + errString);
-        res.send({error: errString});
+        res.send({ error: errString });
     }
 });
 
@@ -140,7 +140,7 @@ app.post('/issue', async (req, res) => {
 //     key: fs.readFileSync('/path/to/key.pem'),
 //     cert: fs.readFileSync('/path/to/cert.pem'),
 //   };
-  
+
 // https.createServer(options, app).listen(port, () => {
 //     console.log(`Server listening on port ${port}`);
 // });
