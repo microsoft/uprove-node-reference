@@ -1,5 +1,5 @@
 {
     "ISSUER_PORT": "8080",
-    "ISSUER_URL": "localhost:8080",
+    "ISSUER_URL": "http://localhost:8080",
     "IP_SUFFIX": "/.well-known/jwks.json"
 }
