@@ -12,7 +12,7 @@ test("Check hash alg from P256 group", async () => {
 });
 
 test("Check hash API", async () => {
-    var hash;
+    let hash;
     const input1 = Buffer.from("foo", 'utf-8');
     const input2 = Buffer.from("bar", 'utf-8');
     

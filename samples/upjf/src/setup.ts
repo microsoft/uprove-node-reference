@@ -3,11 +3,11 @@
 
 import { Command } from 'commander';
 import * as UPJF from '../../../src/upjf.js';
-import * as uprove from '../../../src/uprove.js';
 import { ECGroup } from '../../../src/uprove.js';
 import * as jose from 'jose'; // TODO: do away with jose dependency
 import fs from 'fs';
 import settings from './settings.json' assert {type: "json"};
+import process from 'process';
 
 
 interface Options {
