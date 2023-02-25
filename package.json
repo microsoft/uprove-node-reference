@@ -9,8 +9,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf js",
-    "samples": "node js/src/samples/samples.js",
-    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --no-cache"
+    "samples": "node js/samples/samples.js",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js"
   },
   "author": "Christian Paquin",
   "license": "MIT",
@@ -27,6 +27,7 @@
   },
   "type": "module",
   "jest": {
-    "testRegex": "/js/tests/.*\\.js$"
+    "testRegex": "/js/tests/.*\\.js$",
+    "transform": {}
   }
 }
