@@ -90,7 +90,7 @@ interface BareTokenIssuerSetupData {
 }
 const BareTokenIssuerSetup = (descGq: uprove.ECGroup): BareTokenIssuerSetupData => {
     // Issuer creates its parameters set, and encodes them as a JWK
-    const ikp = UPJF.createIssuerKeyAndParamsUPJF(descGq, {n: 0}, undefined);
+    const ikp = UPJF.createIssuerKeyAndParamsUPJF(descGq, {n: 0, expType: UPJF.ExpirationType.day}, undefined);
     const jwk = UPJF.encodeIPAsJWK(ikp.ip);
     console.log(jwk);
 
@@ -108,11 +108,11 @@ const BareTokenIssuance = (id: BareTokenIssuerSetupData, ip: uprove.IssuerParams
     // The Prover requests U-Prove Access Tokens from the Issuer
 
     // token information contains always-disclosed data
-    const TiJson = {
+    const spec = UPJF.parseSpecification(ip.S);
+    const TI = UPJF.encodeTokenInformation({
         iss: id.issuerUrl,
-        exp: 1000
-    };
-    const TI = Buffer.from(JSON.stringify(TiJson));
+        exp: UPJF.getExp(spec.expType, 100) // 100 days
+    })
 
     // number of tokens to issue in batch
     const numberOfTokens = 5;
@@ -171,7 +171,11 @@ const accessTokenSample = () => {
     // The Verifier validates the token and presentation proof
     const upt = serialization.decodeUProveToken(ip, uproveToken)
     uprove.verifyTokenSignature(ip, upt);
-    // TODO: check expiration
+    const spec = UPJF.parseSpecification(ip.S);
+    const tokenInfo = UPJF.parseTokenInformation(upt.TI);
+    if (UPJF.isExpired(spec.expType, tokenInfo.exp)) {
+        throw "token is expired";
+    }
     uprove.verifyPresentationProof(
         ip,
         [],
@@ -212,7 +216,7 @@ const signingSample = () => {
     uprove.verifyPresentationProof(
         ip,
         [],
-        serialization.decodeUProveToken(ip, uproveToken),
+        upt,
         message,
         serialization.decodePresentationProof(ip, proof));
 
@@ -226,7 +230,6 @@ try {
     // Bare token profile samples (tokens with no attributes)
     accessTokenSample();
     signingSample();
-
 } 
 catch (e) {
     console.log(e);

@@ -21,7 +21,7 @@ export function checkUnsignedInt(n: number | number[]) {
         n = [n];
     }
     n.forEach(n => {
-        if (!Number.isInteger(n) || n <= 0) {
+        if (!Number.isInteger(n) || n < 0) {
             throw `invalid integer ${n}`;
         }    
     })

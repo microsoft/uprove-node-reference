@@ -18,10 +18,9 @@ interface Options {
 
 // process options
 const program = new Command();
-program.option('-k, --jwksPath <jwksPath>', "path to the JWKS file to add the issuer parameters; create it if doesn't exist", "public" + settings.IP_SUFFIX);
+program.option('-k, --jwksPath <jwksPath>', "path to the JWKS file to add the issuer parameters; create it if doesn't exist", "public" + settings.JWKS_SUFFIX);
 program.option('-p, --privatePath <privatePath>', "path to the output private key file", "private/ip.key");
 program.option('-c, --curve <curve>', "recommended curve to use", "P256");
-//program.addOption(new Option('-c, --curve <curve>', 'recommended curve to use').choices(['P256', 'P384', 'P521']).default('P256')); TODO: choices not supported?
 program.parse(process.argv);
 const options = program.opts() as Options;
 
@@ -40,7 +39,7 @@ void (async () => {
         }
 
         const descGq = ECGroup.P256 // TODO: use the curve option
-        const ikp = UPJF.createIssuerKeyAndParamsUPJF(descGq, { n: 0 }, undefined);
+        const ikp = UPJF.createIssuerKeyAndParamsUPJF(descGq, { n: 0, expType: UPJF.ExpirationType.year }, undefined);
         const jwk = UPJF.encodeIPAsJWK(ikp.ip);
 
         // write out updated JWKS        
