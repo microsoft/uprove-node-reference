@@ -12,7 +12,6 @@ import got from 'got';
 import * as UPJF from '../../../src/upjf.js';
 import * as uprove from '../../../src/uprove.js';
 
-
 // setup server
 const app = express();
 //const port = 443;
@@ -26,27 +25,29 @@ const limiter = rateLimit({
 })
 app.use(limiter)
 
-// issuance protocol handler
+// verifier protocol handler
+const nonceDB = new Set<string>();
+const FIVE_MIN_IN_MS = 5 * 60 * 1000;
 app.post(settings.PRESENTATION_SUFFIX, async (req, res) => {
     console.log('Received POST for', settings.PRESENTATION_SUFFIX, req.body);
     res.type('json');
     try {
         const presentation = req.body as io.Presentation;
-
-        // fetch the Issuer parameters (FIXME TODO: Issuer URL must be retrieved from token, but this needs IP. Parse TI first...)
-        const jwksUrl = settings.ISSUER_URL + settings.JWKS_SUFFIX;
-        const jwksJson = await got(jwksUrl).json() as io.IssuerParamsJWKS;
-        console.log("received Issuer JWKS", jwksJson);
-        const jwk: UPJF.IssuerParamsJWK = jwksJson.keys[0]; // we assume there is one param in the key set
-        const issuerParams = UPJF.decodeJWKAsIP(jwk);
-
         if (!presentation.upt) {
             throw "upt missing from presentation";
         }
+
+        // fetch the Issuer parameters: (read the issuer url from the token information field)
+        const tokenInfo = UPJF.parseTokenInformation(Buffer.from(presentation.upt.TI, 'base64'));
+        const jwksUrl = tokenInfo.iss + settings.JWKS_SUFFIX;
+        const jwksJson = await got(jwksUrl).json() as io.IssuerParamsJWKS;
+        console.log("received Issuer JWKS", jwksJson);
+        const jwk: UPJF.IssuerParamsJWK = jwksJson.keys[0]; // we assume that there is one param in the key set
+        const issuerParams = UPJF.decodeJWKAsIP(jwk);
+
         const upt = serialization.decodeUProveToken(issuerParams, presentation.upt)
         uprove.verifyTokenSignature(issuerParams, upt); // TODO: skip in repeat presentations
         const spec = UPJF.parseSpecification(issuerParams.S);
-        const tokenInfo = UPJF.parseTokenInformation(upt.TI);
         if (UPJF.isExpired(spec.expType, tokenInfo.exp)) {
             throw "token is expired";
         }
@@ -55,11 +56,18 @@ app.post(settings.PRESENTATION_SUFFIX, async (req, res) => {
         if (pm.vID !== settings.VERIFIER_URL) {
             throw "wrong scope: " + pm.vID;
         }
-        const FIVE_MIN_IN_MS = 5 * 60 * 1000;
+        // make sure the timestamp is close enough to the current time
         if (Math.abs(parseInt(pm.ts) - Date.now()) > FIVE_MIN_IN_MS) {
             throw "invalid timestamp: " + pm.ts;
         }
-        // TODO: make sure the nonce is not reused within the timeout window
+        if (nonceDB.has(pm.nce)) {
+            throw "invalid nonce: " + pm.nce;
+        } else {
+            // remember the nonce to make sure we don't accept it again, and delete it
+            // after a timeout period because the timestamp + nonce insures a unique challenge
+            nonceDB.add(pm.nce);
+            setTimeout(() => nonceDB.delete(pm.nce), FIVE_MIN_IN_MS);
+        }
         uprove.verifyPresentationProof(
             issuerParams,
             [],
