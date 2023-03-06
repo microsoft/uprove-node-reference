@@ -24,7 +24,7 @@ For more information about the U-Prove technology, see the [U-Prove Technology O
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC2119](https://www.rfc-editor.org/rfc/rfc2119).
 
-BASE64URL(X) denotes the base64url encoding of octet string representation of X, as defined in section 5 of [RFC4648]((https://www.rfc-editor.org/rfc/rfc4648) (Note that the base64url encoding of the empty octet string is the empty string.) The octect string representation of mathematical values X (elliptic curve points of $Gq$ and elements of $Z_q$) are obtained as explained in section 2.2 of [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf).
+BASE64URL(X) denotes the base64url encoding of octet string representation of X, as defined in section 5 of [RFC4648](https://www.rfc-editor.org/rfc/rfc4648) (Note that the base64url encoding of the empty octet string is the empty string.) The octet string representation of mathematical values X (elliptic curve points of $Gq$ and elements of $Z_q$) are obtained as explained in section 2.2 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf).
 
 
 ## U-Prove JSON profile
@@ -33,10 +33,10 @@ This section defines a JSON profile for the U-Prove artifacts. Issuer parameters
 
 ### Issuer Parameters
 
-An Issuer generates its parameters as described in section 2.3.1 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf) using a group from the [U-Prove Recommended Parameters Profile [UPRPP]](./U-Prove%20Recommended%20Parameters%20Profile%20V1.1%20Revision%202.pdf), and encodes them as JSON Web Key objects ([RFC7517](https://www.rfc-editor.org/rfc/rfc7517)) with the following parameters:
+An Issuer generates its parameters as described in section 2.3.1 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf) using a group from the [UPRPP](./U-Prove%20Recommended%20Parameters%20Profile%20V1.1%20Revision%202.pdf), and encodes them as JSON Web Key objects ([RFC7517](https://www.rfc-editor.org/rfc/rfc7517)) with the following parameters:
 * The key type parameter `kty` MUST be set to "UP".
 * The algorithm parameter `alg` MUST be set to "UP115" corresponding to the current version of the U-Prove Cryptographic specification.
-* The curve parameter `crv` corresponds to the Issuer parameters' group description and hash algorithm identifier $\texttt{UID}_H$ specified in the [U-Prove Recommended Parameters Profile](./U-Prove%20Recommended%20Parameters%20Profile%20V1.1%20Revision%202.pdf); the following three values are supported:
+* The curve parameter `crv` corresponds to the Issuer parameters' group description and hash algorithm identifier $\texttt{UID}_H$ specified in the [UPRPP](./U-Prove%20Recommended%20Parameters%20Profile%20V1.1%20Revision%202.pdf); the following three values are supported:
   * "P-256": corresponds to the `P-256` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.1`), with a $\texttt{UID}_H$ of "SHA-256".
   * "P-384": corresponds to the `P-384` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.2`), with a $\texttt{UID}_H$ of "SHA-384".
   * "P-521": corresponds to the `P-521` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.3`), with a $\texttt{UID}_H$ of "SHA-512".
