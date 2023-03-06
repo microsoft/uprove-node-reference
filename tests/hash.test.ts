@@ -1,18 +1,18 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import {Byte, groupToHash, Hash} from '../src/hash';
-import testvectors from '../doc/testvectors/testvectors_hashing.json';
-import { ECGroup } from '../src/uprove';
-import * as utils from '../src/utils';
-import { Group } from '../src/math';
+import {Byte, groupToHash, Hash} from '../src/hash.js';
+import testvectors from '../doc/testvectors/testvectors_hashing.json' assert {type: "json"};
+import { ECGroup } from '../src/uprove.js';
+import * as utils from '../src/utils.js';
+import { Group } from '../src/math.js';
 
 test("Check hash alg from P256 group", async () => {
     expect(testvectors.UIDh).toBe(groupToHash(ECGroup.P256));
 });
 
 test("Check hash API", async () => {
-    var hash;
+    let hash;
     const input1 = Buffer.from("foo", 'utf-8');
     const input2 = Buffer.from("bar", 'utf-8');
     

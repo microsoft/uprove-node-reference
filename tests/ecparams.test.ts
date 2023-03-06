@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import { Byte } from "../src/hash";
-import * as uprove from "../src/uprove";
+import { Byte } from "../src/hash.js";
+import * as uprove from "../src/uprove.js";
 
 const n = 50;
 

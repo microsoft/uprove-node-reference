@@ -2,10 +2,10 @@
 // Licensed under the MIT license.
 
 import * as crypto from 'crypto';
-import { Byte } from '../src/hash';
-import * as uprove from '../src/uprove';
-import * as UPJF from '../src/upjf';
-import * as serialization from '../src/serialization';
+import { Byte } from '../src/hash.js';
+import * as uprove from '../src/uprove.js';
+import * as UPJF from '../src/upjf.js';
+import * as serialization from '../src/serialization.js';
 
 const genericSample = () => {
     console.log("\nGeneric U-Prove issuance and presentation sample\n");
@@ -90,7 +90,7 @@ interface BareTokenIssuerSetupData {
 }
 const BareTokenIssuerSetup = (descGq: uprove.ECGroup): BareTokenIssuerSetupData => {
     // Issuer creates its parameters set, and encodes them as a JWK
-    const ikp = UPJF.createIssuerKeyAndParamsUPJF(descGq, {n: 0}, undefined);
+    const ikp = UPJF.createIssuerKeyAndParamsUPJF(descGq, {n: 0, expType: UPJF.ExpirationType.day}, undefined);
     const jwk = UPJF.encodeIPAsJWK(ikp.ip);
     console.log(jwk);
 
@@ -108,11 +108,11 @@ const BareTokenIssuance = (id: BareTokenIssuerSetupData, ip: uprove.IssuerParams
     // The Prover requests U-Prove Access Tokens from the Issuer
 
     // token information contains always-disclosed data
-    const TiJson = {
+    const spec = UPJF.parseSpecification(ip.S);
+    const TI = UPJF.encodeTokenInformation({
         iss: id.issuerUrl,
-        exp: 1000
-    };
-    const TI = Buffer.from(JSON.stringify(TiJson));
+        exp: UPJF.getExp(spec.expType, 100) // 100 days
+    })
 
     // number of tokens to issue in batch
     const numberOfTokens = 5;
@@ -171,7 +171,11 @@ const accessTokenSample = () => {
     // The Verifier validates the token and presentation proof
     const upt = serialization.decodeUProveToken(ip, uproveToken)
     uprove.verifyTokenSignature(ip, upt);
-    // TODO: check expiration
+    const spec = UPJF.parseSpecification(ip.S);
+    const tokenInfo = UPJF.parseTokenInformation(upt.TI);
+    if (UPJF.isExpired(spec.expType, tokenInfo.exp)) {
+        throw "token is expired";
+    }
     uprove.verifyPresentationProof(
         ip,
         [],
@@ -182,7 +186,12 @@ const accessTokenSample = () => {
     console.log("Success");
 }
 
-// TODO: add a on-demand U-Prove token (TI = challenge)
+// TODO: add a on-demand U-Prove token (TI = challenge) example
+
+export interface SignedMessage {
+    ts: string, // timestamp, in ms
+    msg: Uint8Array // signed message
+}
 
 const signingSample = () => {
     console.log("\nSigning sample\n");
@@ -198,22 +207,30 @@ const signingSample = () => {
     const uproveKeysAndTokens = BareTokenIssuance(issuerSetup, ip);
 
     // The Prover can later use a token to sign some arbitrary message
-    const message = Buffer.from("This is a signed message."); // TODO: add timestamp
+    const signedMessageBytes = Buffer.from(JSON.stringify({
+        ts: Date.now().toString(),
+        msg: Buffer.from("Signed message")}), 'utf8');
+
     const uproveToken = serialization.encodeUProveToken(uproveKeysAndTokens[0].upt);
     console.log("U-Prove Token", uproveToken);
     const proof = serialization.encodePresentationProof(
-        uprove.generatePresentationProof(ip, [], uproveKeysAndTokens[0], message, [])); // TODO: create sig API
+        uprove.generatePresentationProof(ip, [], uproveKeysAndTokens[0], signedMessageBytes, [])); // TODO: create sig API
     console.log("Presentation Proof", proof);
 
     // The Verifier can later validate the token and signature
+    const signedMessage: SignedMessage = JSON.parse(Buffer.from(signedMessageBytes).toString()) as SignedMessage;
     const upt = serialization.decodeUProveToken(ip, uproveToken)
     uprove.verifyTokenSignature(ip, upt);
-    // TODO: check expiration is after timestamp
+    const spec = UPJF.parseSpecification(ip.S);
+    const tokenInfo = UPJF.parseTokenInformation(upt.TI);
+    if (UPJF.isExpired(spec.expType, tokenInfo.exp, UPJF.msToTypedTime(spec.expType, parseInt(signedMessage.ts)))) {
+        throw "token is expired";
+    }
     uprove.verifyPresentationProof(
         ip,
         [],
-        serialization.decodeUProveToken(ip, uproveToken),
-        message,
+        upt,
+        signedMessageBytes,
         serialization.decodePresentationProof(ip, proof));
 
     console.log("Success");
@@ -226,7 +243,6 @@ try {
     // Bare token profile samples (tokens with no attributes)
     accessTokenSample();
     signingSample();
-
 } 
 catch (e) {
     console.log(e);

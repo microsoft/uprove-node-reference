@@ -1,9 +1,9 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import { getEcGroup } from "../src/ecparams";
-import { Group } from "../src/math";
-import { ECGroup } from "../src/uprove";
+import { getEcGroup } from "../src/ecparams.js";
+import { Group } from "../src/math.js";
+import { ECGroup } from "../src/uprove.js";
 
 function testGroup(descGq: ECGroup) {
     const Gq = new Group(descGq);

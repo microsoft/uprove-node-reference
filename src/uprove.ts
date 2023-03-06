@@ -1,10 +1,10 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import { getEcGroup } from './ecparams';
-import { Byte, groupToHash, Hash } from './hash';
-import { GroupElement, Group, FieldZqElement } from './math';
-import { arrayEqual, checkUnsignedInt } from './utils';
+import { getEcGroup } from './ecparams.js';
+import { Byte, groupToHash, Hash } from './hash.js';
+import { GroupElement, Group, FieldZqElement } from './math.js';
+import { arrayEqual, checkUnsignedInt } from './utils.js';
 
 export enum ECGroup {
     P256 = "P-256", //"1.3.6.1.4.1.311.75.1.2.1",

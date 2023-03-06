@@ -3,9 +3,9 @@
 
 // This file defines a JSON serialization format for the U-Prove artifacts
 
-import {ECGroup, FirstIssuanceMessage, IssuerParams, PresentationProof, SecondIssuanceMessage, ThirdIssuanceMessage, UProveToken} from './uprove';
-import { getEcGroup } from './ecparams';
-import { Byte } from './hash';
+import {ECGroup, FirstIssuanceMessage, IssuerParams, PresentationProof, SecondIssuanceMessage, ThirdIssuanceMessage, UProveToken} from './uprove.js';
+import { getEcGroup } from './ecparams.js';
+import { Byte } from './hash.js';
 
 const toB64 = (a: Uint8Array) => Buffer.from(a).toString('base64');
 const fromB64 = (b64: string): Uint8Array => Buffer.from(b64, 'base64');

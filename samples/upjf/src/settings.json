@@ -1,0 +1,9 @@
+{
+    "ISSUER_PORT": "8080",
+    "ISSUER_URL": "http://localhost:8080",
+    "ISSUANCE_SUFFIX": "/issue",
+    "JWKS_SUFFIX": "/.well-known/jwks.json",
+    "VERIFIER_PORT": "8081",
+    "VERIFIER_URL": "http://localhost:8081",
+    "PRESENTATION_SUFFIX": "/verify"
+}
