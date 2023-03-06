@@ -21,10 +21,10 @@ npm run setup-issuer
 
 The Issuer can then be deployed by running:
 ```
-npm run deploy-servers
+npm run deploy-issuer
 ```
 
-The Issuer parameters will be hosted at the deployment `url/.well-known/jwks.json`.
+The Issuer parameters will be hosted at the `http://localhost/.well-known/jwks.json`.
 
 The Verifier can be deployed by running:
 
