@@ -186,7 +186,12 @@ const accessTokenSample = () => {
     console.log("Success");
 }
 
-// TODO: add a on-demand U-Prove token (TI = challenge)
+// TODO: add a on-demand U-Prove token (TI = challenge) example
+
+export interface SignedMessage {
+    ts: string, // timestamp, in ms
+    msg: Uint8Array // signed message
+}
 
 const signingSample = () => {
     console.log("\nSigning sample\n");
@@ -202,22 +207,30 @@ const signingSample = () => {
     const uproveKeysAndTokens = BareTokenIssuance(issuerSetup, ip);
 
     // The Prover can later use a token to sign some arbitrary message
-    const message = Buffer.from("This is a signed message."); // TODO: add timestamp
+    const signedMessageBytes = Buffer.from(JSON.stringify({
+        ts: Date.now().toString(),
+        msg: Buffer.from("Signed message")}), 'utf8');
+
     const uproveToken = serialization.encodeUProveToken(uproveKeysAndTokens[0].upt);
     console.log("U-Prove Token", uproveToken);
     const proof = serialization.encodePresentationProof(
-        uprove.generatePresentationProof(ip, [], uproveKeysAndTokens[0], message, [])); // TODO: create sig API
+        uprove.generatePresentationProof(ip, [], uproveKeysAndTokens[0], signedMessageBytes, [])); // TODO: create sig API
     console.log("Presentation Proof", proof);
 
     // The Verifier can later validate the token and signature
+    const signedMessage: SignedMessage = JSON.parse(Buffer.from(signedMessageBytes).toString()) as SignedMessage;
     const upt = serialization.decodeUProveToken(ip, uproveToken)
     uprove.verifyTokenSignature(ip, upt);
-    // TODO: check expiration is after timestamp
+    const spec = UPJF.parseSpecification(ip.S);
+    const tokenInfo = UPJF.parseTokenInformation(upt.TI);
+    if (UPJF.isExpired(spec.expType, tokenInfo.exp, UPJF.msToTypedTime(spec.expType, parseInt(signedMessage.ts)))) {
+        throw "token is expired";
+    }
     uprove.verifyPresentationProof(
         ip,
         [],
         upt,
-        message,
+        signedMessageBytes,
         serialization.decodePresentationProof(ip, proof));
 
     console.log("Success");
