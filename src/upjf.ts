@@ -22,7 +22,7 @@ const MS_PER_WEEK = MS_PER_DAY * 7;
 const MS_PER_YEAR = MS_PER_WEEK * 52;
 
 
-function msToTypedTime(type:ExpirationType, t:number): number {
+export function msToTypedTime(type:ExpirationType, t:number): number {
     let typedT;
     switch (type) {
         case ExpirationType.sec:  typedT = t / MS_PER_SECOND; break;

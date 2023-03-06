@@ -4,10 +4,10 @@
 import { Command } from 'commander';
 import * as UPJF from '../../../src/upjf.js';
 import { ECGroup } from '../../../src/uprove.js';
-import * as jose from 'jose'; // TODO: do away with jose dependency
 import fs from 'fs';
 import settings from './settings.json' assert {type: "json"};
 import process from 'process';
+import { IssuerParamsJWKS } from './io.js';
 
 
 interface Options {
@@ -18,7 +18,7 @@ interface Options {
 
 // process options
 const program = new Command();
-program.option('-k, --jwksPath <jwksPath>', "path to the JWKS file to add the issuer parameters; create it if doesn't exist", "public" + settings.JWKS_SUFFIX);
+program.option('-k, --jwksPath <jwksPath>', "path to the output JWKS file to create", "public" + settings.JWKS_SUFFIX);
 program.option('-p, --privatePath <privatePath>', "path to the output private key file", "private/ip.key");
 program.option('-c, --curve <curve>', "recommended curve to use", "P256");
 program.parse(process.argv);
@@ -26,26 +26,17 @@ const options = program.opts() as Options;
 
 void (async () => {
     try {
-        let jwks: jose.JSONWebKeySet | undefined;
-        let jwksUpdate = false;
-        if (fs.existsSync(options.jwksPath)) {
-            // read the JWKS file to update
-            const jwksBytes = fs.readFileSync(options.jwksPath, 'utf8');
-            jwks = JSON.parse(jwksBytes) as jose.JSONWebKeySet;
-            jwksUpdate = true;
-        } else {
-            // create a new JWKS
-            jwks = { keys: [] };
-        }
+        // create a new JWKS
+        const jwks: IssuerParamsJWKS = { keys: [] };
 
         const descGq = ECGroup.P256 // TODO: use the curve option
         const ikp = UPJF.createIssuerKeyAndParamsUPJF(descGq, { n: 0, expType: UPJF.ExpirationType.year }, undefined);
         const jwk = UPJF.encodeIPAsJWK(ikp.ip);
 
         // write out updated JWKS        
-        jwks.keys.push(jwk as unknown as jose.JWK);
+        jwks.keys.push(jwk);
         fs.writeFileSync(options.jwksPath, JSON.stringify(jwks, null, 4));
-        console.log(`Public JWKS ${jwksUpdate ? 'added' : 'written'} to ${options.jwksPath}`);
+        console.log(`Public JWKS written to ${options.jwksPath}`);
 
         // write out private key
         fs.writeFileSync(options.privatePath, UPJF.encodePrivateKeyAsBase64Url(ikp.y0));
