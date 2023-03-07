@@ -188,7 +188,12 @@ function computeTokenId(Gq: Group, upt: UProveToken): Uint8Array {
     return H.digest();
 }
 
-function computePresentationChallenge(Gq: Group, upt: UProveToken, a: Uint8Array, D: number[], xInD: FieldZqElement[], m: Uint8Array, md: Uint8Array): FieldZqElement {
+interface ChallengeData {
+    UIDT: Uint8Array,
+    c: FieldZqElement
+}
+
+function computePresentationChallenge(Gq: Group, upt: UProveToken, a: Uint8Array, D: number[], xInD: FieldZqElement[], m: Uint8Array, md: Uint8Array): ChallengeData {
     const UIDT = computeTokenId(Gq, upt);
     let H = Gq.getHash();
     H.update(UIDT);
@@ -205,7 +210,10 @@ function computePresentationChallenge(Gq: Group, upt: UProveToken, a: Uint8Array
     const cp = H.digest();
     H = Gq.getHash();
     H.update([cp, md]);
-    return Gq.Zq.getElement(H.digest());
+    return {
+        UIDT: UIDT,
+        c: Gq.Zq.getElement(H.digest())
+    }
 }
 
 // Issuance messages
@@ -392,6 +400,11 @@ export interface PresentationProof {
     r: FieldZqElement[]
 }
 
+export interface PresentationProofData {
+    UIDT: Uint8Array,
+    pp: PresentationProof
+}
+
 function sanitizeD(D: number[]) {
     checkUnsignedInt(D);
     const SetD = new Set<number>(D);
@@ -399,7 +412,7 @@ function sanitizeD(D: number[]) {
     return D;
 }
 
-export function generatePresentationProof(ip: IssuerParams, D: number[], upkt: UProveKeyAndToken, m: Uint8Array, A: Uint8Array[], md: Uint8Array = new Uint8Array()): PresentationProof {
+export function generatePresentationProof(ip: IssuerParams, D: number[], upkt: UProveKeyAndToken, m: Uint8Array, A: Uint8Array[], md: Uint8Array = new Uint8Array()): PresentationProofData {
     const n = A.length;
     D = sanitizeD(D);
     const USet = new Set<number>(Array.from({length: n}, (e, i)=> i+1));
@@ -417,18 +430,25 @@ export function generatePresentationProof(ip: IssuerParams, D: number[], upkt: U
         [upkt.upt.h, ...ip.g.slice(1,n+1).filter((g,i,arr) => U.includes(i+1))],
         [w0, ...w]));
     
-    const c = computePresentationChallenge(Gq, upkt.upt, a, D, x.filter((x,i,a) => D.includes(i+1)), m, md);
-    const negC = Zq.negate(c);
+    const challengeData = computePresentationChallenge(Gq, upkt.upt, a, D, x.filter((x,i,a) => D.includes(i+1)), m, md);
+    const negC = Zq.negate(challengeData.c);
 
-    const r = [Zq.add(Zq.mul(c, upkt.alphaInverse), w0)]
+    const r = [Zq.add(Zq.mul(challengeData.c, upkt.alphaInverse), w0)]
     for (let i=0; i<U.length; i++) {
         r.push(Zq.add(Zq.mul(negC, x[U[i]-1]), w[i]));
     }
     return {
-        dA: A.filter((A,i,arr) => D.includes(i+1)),
-        a: a,
-        r: r
-    }
+        UIDT: challengeData.UIDT,
+        pp: {
+            dA: A.filter((A,i,arr) => D.includes(i+1)),
+            a: a,
+            r: r
+        }
+}
+}
+
+export interface VerificationData {
+    UIDT: Uint8Array
 }
 
 export function verifyPresentationProof(ip: IssuerParams, D:number[], upt: UProveToken, m: Uint8Array, pp: PresentationProof, md: Uint8Array = new Uint8Array()) {
@@ -441,16 +461,19 @@ export function verifyPresentationProof(ip: IssuerParams, D:number[], upt: UProv
     // presentation proof verification
     const xt = computeXt(ip, upt.TI);
     const x = pp.dA.map((A,i,arr) => computeXi(D[i], ip, A));
-    const c = computePresentationChallenge(Gq, upt, pp.a, D, x, m, md);
+    const challengeData = computePresentationChallenge(Gq, upt, pp.a, D, x, m, md);
     const t = ip.g.length - 1;
     const base0 = Gq.multiModExp(
         [ip.g[0], ...ip.g.filter((g,i,arr) => D.includes(i)), ip.g[t]],
         [Zq.ONE, ...x, xt]);
     const hashInput = Gq.multiModExp(
         [base0, upt.h, ...ip.g.slice(1,t).filter((g,i,arr) => !D.includes(i+1))],
-        [Zq.negate(c), pp.r[0], ...pp.r.slice(1)]
+        [Zq.negate(challengeData.c), pp.r[0], ...pp.r.slice(1)]
     )
     if (!arrayEqual(pp.a, Gq.getHash().digest(hashInput))) {
         throw `invalid presentation proof`;
+    }
+    return {
+        UIDT: challengeData.UIDT
     }
 }

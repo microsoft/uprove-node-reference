@@ -6,7 +6,7 @@ import EC_D2 from '../doc/testvectors/testvectors_EC_D2_lite_doc.json' assert {t
 import EC_D5 from '../doc/testvectors/testvectors_EC_D5_lite_doc.json' assert {type: "json"};
 import * as uprove from '../src/uprove.js';
 import { Byte } from '../src/hash.js';
-import { hexToBytes } from '../src/utils.js';
+import { arrayEqual, hexToBytes } from '../src/utils.js';
 
 interface TestVectors {
     UIDh: string,
@@ -159,7 +159,8 @@ function run(tv: TestVectors) {
         a: hexToBytes(tv.a),
         r: r  
     }
-    uprove.verifyPresentationProof(ip, D, upt, hexToBytes(tv.m), proof, hexToBytes(tv.md));
+    const verificationData = uprove.verifyPresentationProof(ip, D, upt, hexToBytes(tv.m), proof, hexToBytes(tv.md));
+    arrayEqual(verificationData.UIDT, hexToBytes(tv.UIDt));
 
 }
 

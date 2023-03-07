@@ -175,3 +175,18 @@ export function decodePresentationProof(ip: IssuerParams, ppJSON: PresentationPr
         r: ppJSON.r.map(r => Zq.getElement(fromB64(r)))
     }
 }
+
+export function encodeUIDT(UIDT: Uint8Array): string {
+    return toB64(UIDT);
+}
+
+export function dncodeUIDT(UIDT: string): Uint8Array {
+    return fromB64(UIDT);
+}
+
+// presentation
+export interface TokenPresentation {
+    upt?: UProveTokenJSON,
+    uidt?: string,
+    pp: PresentationProofJSON
+}
