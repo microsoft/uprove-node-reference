@@ -11,15 +11,23 @@ import * as crypto from 'crypto';
 
 void (async () => {
     try {
+
+        //
+        // Setup (done once per Issuer)
+        //
+
+        // first fetch the Issuer parameters
         const jwksUrl = settings.ISSUER_URL + settings.JWKS_SUFFIX;
         const issuanceUrl = settings.ISSUER_URL + settings.ISSUANCE_SUFFIX;
-        
-        // fetch the Issuer parameters
         const jwksJson = await got(jwksUrl).json() as io.IssuerParamsJWKS;
         console.log("received Issuer JWKS", jwksJson);
         const jwk: UPJF.IssuerParamsJWK = jwksJson.keys[0]; // we assume there is one param set in the key set
         const issuerParams = UPJF.decodeJWKAsIP(jwk);
 
+        //
+        // Token issuance (can be repeated when the Prover runs out of tokens)
+        //
+        
         // send token issuance request to Issuer
         const requestedNumberOfTokens = 5;
         const request: io.TokenRequestMessage = {
@@ -54,26 +62,54 @@ void (async () => {
         // create the U-Prove tokens
         const uproveKeysAndTokens = prover.createTokens(msg3);
 
+        //
+        // Register token with Verifier by presenting it
+        //
+
         // present one token to the Verifier
-        const message = io.encodePresentationMessage({
+        let message = io.encodePresentationMessage({
             vID: settings.VERIFIER_URL,
             nce: crypto.randomBytes(16).toString('base64'),
             ts: Date.now().toString()
         });
       
         const uproveToken = serialization.encodeUProveToken(uproveKeysAndTokens[0].upt);
-        const proof = serialization.encodePresentationProof(
-            uprove.generatePresentationProof(issuerParams, [], uproveKeysAndTokens[0], message, []));
-        const presentation: io.Presentation = {
+        let presentationData = uprove.generatePresentationProof(issuerParams, [], uproveKeysAndTokens[0], message, []);
+        let proof = serialization.encodePresentationProof(presentationData.pp);
+        let tp:serialization.TokenPresentation = {
             upt: uproveToken,
-            pm: Buffer.from(message).toString('base64'),
             pp: proof
         }
-        console.log("Presentation", presentation);
+        let jws = UPJF.createJWS(UPJF.descGqToUPAlg(issuerParams.descGq), message, tp);
+        console.log("JWS", jws);
         const verifierUrl = settings.VERIFIER_URL + settings.PRESENTATION_SUFFIX;
         console.log("posting to " + verifierUrl);
-        const response = await got.post(verifierUrl, { json: presentation }).json();
+        let response = await got.post(verifierUrl, { json: {jws: jws} }).json();
         console.log("verifier response", response);
+
+        //
+        // Later, present same token to Verifier, without sending the token again
+        //
+
+        // present the same token to the Verifier
+        message = io.encodePresentationMessage({
+            vID: settings.VERIFIER_URL,
+            nce: crypto.randomBytes(16).toString('base64'),
+            ts: Date.now().toString()
+        });
+        presentationData = uprove.generatePresentationProof(issuerParams, [], uproveKeysAndTokens[0], message, []);
+        proof = serialization.encodePresentationProof(presentationData.pp);
+        // this time we only send the token identifier UIDT instead of the full token
+        tp = {
+            uidt: serialization.encodeUIDT(presentationData.UIDT),
+            pp: proof
+        }
+        jws = UPJF.createJWS(UPJF.descGqToUPAlg(issuerParams.descGq), message, tp);
+        console.log("JWS", jws);
+        console.log("getting from " + verifierUrl);
+        response = await got(verifierUrl, { searchParams: {p: jws} }).json();
+        console.log("verifier response", response);
+        
     } catch (err) {
         console.log(err);
     }

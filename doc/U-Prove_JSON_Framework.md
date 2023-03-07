@@ -35,13 +35,12 @@ This section defines a JSON profile for the U-Prove artifacts. Issuer parameters
 
 An Issuer generates its parameters as described in section 2.3.1 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf) using a group from the [UPRPP](./U-Prove%20Recommended%20Parameters%20Profile%20V1.1%20Revision%202.pdf), and encodes them as JSON Web Key objects ([RFC7517](https://www.rfc-editor.org/rfc/rfc7517)) with the following parameters:
 * The key type parameter `kty` MUST be set to "UP".
-* The algorithm parameter `alg` MUST be set to "UP115" corresponding to the current version of the U-Prove Cryptographic specification.
-* The curve parameter `crv` corresponds to the Issuer parameters' group description and hash algorithm identifier $\texttt{UID}_H$ specified in the [UPRPP](./U-Prove%20Recommended%20Parameters%20Profile%20V1.1%20Revision%202.pdf); the following three values are supported:
-  * "P-256": corresponds to the `P-256` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.1`), with a $\texttt{UID}_H$ of "SHA-256".
-  * "P-384": corresponds to the `P-384` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.2`), with a $\texttt{UID}_H$ of "SHA-384".
-  * "P-521": corresponds to the `P-521` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.3`), with a $\texttt{UID}_H$ of "SHA-512".
+* The algorithm parameter `alg` MUST be set to the value corresponding to the Issuer parameters' group description and hash algorithm identifier $\texttt{UID}_H$ specified in the [UPRPP](./U-Prove%20Recommended%20Parameters%20Profile%20V1.1%20Revision%202.pdf); the following three values are supported:
+  * "UP256": corresponds to the `P-256` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.1`), with a $\texttt{UID}_H$ of "SHA-256".
+  * "UP384": corresponds to the `P-384` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.2`), with a $\texttt{UID}_H$ of "SHA-384".
+  * "UP521": corresponds to the `P-521` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.3`), with a $\texttt{UID}_H$ of "SHA-512".
 * The key identifier parameter `kid` MUST be set to BASE64URL($\texttt{UID}_P$) value (TODO: explain how to generate it)
-* The specification parameter `spec` is a JSON object containing application-specific parameters. The Issuer parameters specification field $S$ is obtained by taking the UTF8 encoding of the `spec` JSON object. The `spec` MUST contain a parameter `n` set to an integer value between 0 and 50 inclusively indicating how many attributes can be issued with these Issuer parameters. It MAY contain a parameter `expType` describing how to interpret the expiration whose possible values are `sec`, `hour`, `day`, `mon`; see the [token validity period](#token-validity-period).
+* The specification parameter `spec` is a JSON object containing application-specific parameters. The Issuer parameters specification field $S$ is obtained by taking the UTF8 encoding of the `spec` JSON object. The `spec` MUST contain a parameter `n` set to an integer value between 0 and 50 inclusively indicating how many attributes can be issued with these Issuer parameters. It MAY contain a parameter `expType` describing how to interpret the expiration whose possible values are `sec`, `hour`, `day`, `week`, `year`; see the [token validity period](#token-validity-period).
 * The `g0` parameters is BASE64URL($g_0$).
 * The optional `e` parameter contains an array of integers (either 0 or 1) representing the Issuer parameters' $e$ values. If omitted, it is assumed that $e$ values are 1 (i.e., attributes are hashed).
 
@@ -91,11 +90,15 @@ The Prover creates a presentation proof, described in section 2.6 of the [UPCS](
 * `r` is an array containing the d+1 BASE64URL($r_i$) responses for the undisclosed attributes ($r_0$ followed by the d responses for each undisclosed attributes, ordered by index number)
 * `A` is an object containing key-value pairs for each disclosed attributes (the key is an attribute index $i$, the value is the attribute $A_i$) TODO: change the implementation
 
-A U-Prove token and a presentation proof can be packaged into one presentation object with the following parameters:
-* `upt`: the JSON representation of a [U-Prove token](#u-prove-token)
+A U-Prove token (or a reference to it) and a presentation proof can be packaged into one token presentation object with the following parameters (either `uidt` or `upt` MUST be set):
+* `uidt`: an optional parameter encoding the token identifier, set to BASE64URL($\texttt{UID}_P$) 
+* `upt`: an optional parameter encoding the JSON representation of a [U-Prove token](#u-prove-token)
 * `pp`: the JSON representation of a presentation proof as described above
 
-TODO: define as a JWS?
+The token presentation object MAY be encoded as a compact JSON Web Signature (JWS) (see [RFC7515](https://www.rfc-editor.org/rfc/rfc7515)) with the following constraints:
+* The JWS Protected Header MUST contain an `alg` parameter matching the `alg` value of the [Issuer parameters](#issuer-parameters) used to generate the U-Prove token.
+* The JWS Payload is set to BASE64URL($m$).
+* The JWS Signature is set to BASE64URL(UTF8(the presentation object's `pp` value)).
 
 ## Security Considerations
 
@@ -106,8 +109,8 @@ U-Prove can be either on-demand (ephemeral) or long-lived.
 On-demand token are requested from the Issuer by the Prover and immediately presented to the Verifier. A Verifier MAY specify a presentation challenge to be included in the token's Prover Information field, which will insure that the token was freshly obtained by the Prover.
 
 Long-lived token should can be used multiple time. Tokens MAY contain an expiration date to limit their validity period; the expiration date SHOULD be encoded in a manner that protects the privacy of users without introducing undesirable correlation elements. The following approach is RECOMMENDED:
-* Issuer decides on a validity period type: seconds (`sec`), hours (`hour`), days (`day`), months (`mon`); and encodes it in its Issuer parameters [specification](#issuer-parameters).
-* For each token, the numerical expiration date is encoded in the [token information](#u-prove-token) field, using the `exp` parameter. The `exp` value depends on the expiration type: it indicates the number of seconds (`sec`), hours (`hour`), days (`day`) or months (`mon`) since the Unix epoch (1970-01-01T00:00:00Z). Note that if `expType` is set to `sec`, then the expiration date is of the same format as JSON Web Tokens (see section 4.1.4 of [RFC7519](https://www.rfc-editor.org/rfc/rfc7519)).
+* Issuer decides on a validity period type: seconds (`sec`), hours (`hour`), days (`day`), weeks (`week`), and years (`year`); and encodes it in its Issuer parameters [specification](#issuer-parameters).
+* For each token, the numerical expiration date is encoded in the [token information](#u-prove-token) field, using the `exp` parameter. The `exp` value depends on the expiration type: it indicates the number of seconds (`sec`), hours (`hour`), days (`day`), weeks (`week`), and years (`year`) since the Unix epoch (1970-01-01T00:00:00Z). Note that if `expType` is set to `sec`, then the expiration date is of the same format as JSON Web Tokens (see section 4.1.4 of [RFC7519](https://www.rfc-editor.org/rfc/rfc7519)).
 
 ## Token profiles
 

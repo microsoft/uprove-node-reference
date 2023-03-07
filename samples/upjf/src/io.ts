@@ -45,12 +45,3 @@ export function parsePresentationMessage(pm: Uint8Array): PresentationMessage {
 export function encodePresentationMessage(pm: PresentationMessage): Uint8Array {
     return Buffer.from(JSON.stringify(pm));
 }
-
-// presentation
-export interface Presentation {
-    upt?: serialization.UProveTokenJSON,
-    uidt?: string,
-    pm: string, // base64-encoded presentation message
-    pp: serialization.PresentationProofJSON
-}
-

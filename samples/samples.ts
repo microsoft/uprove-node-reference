@@ -69,7 +69,7 @@ const genericSample = () => {
     const presentationMessage = Buffer.from("Presentation message", "utf-8");
     const disclosedAttributesArray: number[] = [1,3];
     const proof = serialization.encodePresentationProof(
-        uprove.generatePresentationProof(issuerParams, disclosedAttributesArray, uproveKeysAndTokens[0], presentationMessage, attributes));
+        uprove.generatePresentationProof(issuerParams, disclosedAttributesArray, uproveKeysAndTokens[0], presentationMessage, attributes).pp);
     console.log("Presentation Proof", proof);
     
     // verifier validates the presentation proof
@@ -79,7 +79,6 @@ const genericSample = () => {
         serialization.decodeUProveToken(issuerParams, uproveToken),
         presentationMessage,
         serialization.decodePresentationProof(issuerParams, proof));
-
     console.log("Success");
 }
 
@@ -165,7 +164,7 @@ const accessTokenSample = () => {
     const uproveToken = serialization.encodeUProveToken(uproveKeysAndTokens[0].upt);
     console.log("U-Prove Token", uproveToken);
     const proof = serialization.encodePresentationProof(
-        uprove.generatePresentationProof(ip, [], uproveKeysAndTokens[0], presentationChallenge, []));
+        uprove.generatePresentationProof(ip, [], uproveKeysAndTokens[0], presentationChallenge, []).pp);
     console.log("Presentation Proof", proof);
 
     // The Verifier validates the token and presentation proof
@@ -214,7 +213,7 @@ const signingSample = () => {
     const uproveToken = serialization.encodeUProveToken(uproveKeysAndTokens[0].upt);
     console.log("U-Prove Token", uproveToken);
     const proof = serialization.encodePresentationProof(
-        uprove.generatePresentationProof(ip, [], uproveKeysAndTokens[0], signedMessageBytes, [])); // TODO: create sig API
+        uprove.generatePresentationProof(ip, [], uproveKeysAndTokens[0], signedMessageBytes, []).pp); // TODO: create sig API
     console.log("Presentation Proof", proof);
 
     // The Verifier can later validate the token and signature
