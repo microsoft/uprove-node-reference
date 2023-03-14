@@ -153,13 +153,17 @@ function run(tv: TestVectors) {
 
     const rInU : string[] = U.map(i => (tv as unknown as Record<string, string>)["r" + i]);
     const r = [ Zq.getElement(hexToBytes(tv.r0)), ...rInU.map(r => Zq.getElement(hexToBytes(r)))]; 
-        
+    
+    const disclosedA: { [key: number]: Uint8Array } = {};
+    for (const d of D) {
+        disclosedA[d] = A[d-1];
+    }
     const proof: uprove.PresentationProof = {
-        dA: A.filter((A, i, arr) => D.includes(i+1)),
+        A: disclosedA,
         a: hexToBytes(tv.a),
         r: r  
     }
-    const verificationData = uprove.verifyPresentationProof(ip, D, upt, hexToBytes(tv.m), proof, hexToBytes(tv.md));
+    const verificationData = uprove.verifyPresentationProof(ip, upt, hexToBytes(tv.m), proof, hexToBytes(tv.md));
     arrayEqual(verificationData.UIDT, hexToBytes(tv.UIDt));
 
 }

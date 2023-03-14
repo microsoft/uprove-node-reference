@@ -150,7 +150,9 @@ export function decodeThirdIssuanceMessage(ip: IssuerParams, m3JSON: ThirdIssuan
 }
 
 export interface PresentationProofJSON {
-    dA?: string[] | undefined,
+    A?: {
+        [index: number]: string;
+    }
     a: string,
     r: string[]
 }
@@ -161,19 +163,28 @@ export function encodePresentationProof(pp: PresentationProof): PresentationProo
         a: toB64(pp.a),
         r: pp.r.map(r => toB64(r.getBytes()))
     }
-    if (pp.dA.length > 0) {
-        ppJSON.dA = pp.dA.map(A => toB64(A));
+    if (pp.A && Object.keys(pp.A).length  > 0) {
+        ppJSON.A =  Object.entries(pp.A).reduce((acc, [i, Ai]) => {
+            acc[Number(i)] = toB64(Ai);
+            return acc;
+          }, {} as { [index: number]: string });
     }
     return ppJSON;
 }
 
 export function decodePresentationProof(ip: IssuerParams, ppJSON: PresentationProofJSON): PresentationProof {
     const Zq = ip.Gq.Zq;
-    return {
-        dA: ppJSON.dA ? ppJSON.dA.map(A => fromB64(A)) : [],
+    let pp: PresentationProof = {
         a: fromB64(ppJSON.a),
         r: ppJSON.r.map(r => Zq.getElement(fromB64(r)))
     }
+    if (ppJSON.A) {
+        pp.A = Object.entries(ppJSON.A).reduce((acc, [i, Ai]) => {
+            acc[Number(i)] = fromB64(Ai);
+            return acc;
+            }, {} as { [index: number]: Uint8Array });
+    }
+    return pp;
 }
 
 export function encodeUIDT(UIDT: Uint8Array): string {

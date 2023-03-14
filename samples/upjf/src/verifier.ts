@@ -23,7 +23,27 @@ const limiter = rateLimit({
 })
 app.use(limiter)
 
+// stores the issuer parameters, indexed by the issuer url
+const issuerDB = new Map<string, UPJF.IssuerParamsJWK>();
+const getIssuerParams = async (issuerUrl: string): Promise<uprove.IssuerParams> => {
+    let jwk: UPJF.IssuerParamsJWK;
+    // check if we have the issuer params in our DB, otherwise fetch them
+    if (issuerDB.has(issuerUrl)) {
+        jwk = issuerDB.get(issuerUrl)!;
+    } else {
+        const jwksUrl = issuerUrl + settings.JWKS_SUFFIX;
+        const jwksJson = await got(jwksUrl).json() as io.IssuerParamsJWKS;
+        console.log("Retrieved Issuer JWKS", jwksJson);
+        jwk = jwksJson.keys[0]; // we assume (in this sample) that there is one param in the key set
+        issuerDB.set(issuerUrl, jwk);
+    }
+    return UPJF.decodeJWKAsIP(jwk);
+}
+
+// stores the user tokens for repeat visits, indexed byt the base64-encoded uidt
 const userDB = new Map<string, serialization.UProveTokenJSON>();
+
+// stores the previously seen nonces (for 5 minutes)
 const nonceDB = new Set<string>();
 const FIVE_MIN_IN_MS = 5 * 60 * 1000;
 
@@ -31,8 +51,9 @@ async function verifyJWS(jws: string, expectToken: boolean) {
     const upJWS: UPJF.UPJWS = UPJF.parseJWS(jws);
     console.log("Received U-Prove JWS", upJWS);
     const header = upJWS.header;
-    if (!header || !header.alg) { // TODO: check alg
-        throw "invalid JWS header";
+    // check the header alg (we'll check it matches the issuer params later)
+    if (!header || !header.alg || !Object.values(UPJF.UPAlg).includes(header.alg)) {
+        throw "invalid header alg: " + header.alg;
     }
     const message = upJWS.payload;
     const tp = upJWS.sig;
@@ -59,14 +80,16 @@ async function verifyJWS(jws: string, expectToken: boolean) {
         throw "pp missing from JWS";
     }
 
-    // fetch the Issuer parameters: (read the issuer url from the token information field) // TODO: only do that once, create a issuerDB
+    // fetch the Issuer parameters: (read the issuer url from the token information field)
     const tokenInfo = UPJF.parseTokenInformation(Buffer.from(uptJSON.TI, 'base64'));
-    const jwksUrl = tokenInfo.iss + settings.JWKS_SUFFIX;
-    const jwksJson = await got(jwksUrl).json() as io.IssuerParamsJWKS;
-    console.log("Retrieved Issuer JWKS", jwksJson);
-    const jwk: UPJF.IssuerParamsJWK = jwksJson.keys[0]; // we assume that there is one param in the key set
-    const issuerParams = UPJF.decodeJWKAsIP(jwk);
-
+    const issuerParams = await getIssuerParams(tokenInfo.iss);
+    // check that JWS alg matches the issuer params's group
+    if ((issuerParams.descGq == uprove.ECGroup.P256 && header.alg !== UPJF.UPAlg.UP256) ||
+        (issuerParams.descGq == uprove.ECGroup.P384 && header.alg !== UPJF.UPAlg.UP384) ||
+        (issuerParams.descGq == uprove.ECGroup.P521 && header.alg !== UPJF.UPAlg.UP521))
+    {
+        throw `header alg ${header.alg} doesn't match the Issuer params' group ${issuerParams.descGq}`;
+    }
     const upt = serialization.decodeUProveToken(issuerParams, uptJSON)
     if (expectToken) {
         // we only need to verify the token the first time we see it
@@ -94,7 +117,6 @@ async function verifyJWS(jws: string, expectToken: boolean) {
     }
     const verificationData = uprove.verifyPresentationProof(
         issuerParams,
-        [],
         upt,
         message,
         serialization.decodePresentationProof(issuerParams, tp.pp));

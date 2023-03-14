@@ -395,7 +395,9 @@ export class Issuer extends IssuanceParticipant {
 
 
 export interface PresentationProof {
-    dA: Uint8Array[], // TODO: make that an object {d_i: A_i}
+    A?: {
+        [index: number]: Uint8Array;
+    }
     a: Uint8Array,
     r: FieldZqElement[]
 }
@@ -437,10 +439,15 @@ export function generatePresentationProof(ip: IssuerParams, D: number[], upkt: U
     for (let i=0; i<U.length; i++) {
         r.push(Zq.add(Zq.mul(negC, x[U[i]-1]), w[i]));
     }
+
+    const disclosedA: { [key: number]: Uint8Array } = {};
+    for (const d of D) {
+        disclosedA[d] = A[d-1];
+    }
     return {
         UIDT: challengeData.UIDT,
         pp: {
-            dA: A.filter((A,i,arr) => D.includes(i+1)),
+            A: disclosedA,
             a: a,
             r: r
         }
@@ -451,16 +458,27 @@ export interface VerificationData {
     UIDT: Uint8Array
 }
 
-export function verifyPresentationProof(ip: IssuerParams, D:number[], upt: UProveToken, m: Uint8Array, pp: PresentationProof, md: Uint8Array = new Uint8Array()) {
-    D = sanitizeD(D);
+export function verifyPresentationProof(ip: IssuerParams, upt: UProveToken, m: Uint8Array, pp: PresentationProof, md: Uint8Array = new Uint8Array()): VerificationData {
     const Gq = ip.Gq;
     const Zq = Gq.Zq;
+
     // U-Prove token verification
     verifyTokenSignature(ip, upt);
 
     // presentation proof verification
     const xt = computeXt(ip, upt.TI);
-    const x = pp.dA.map((A,i,arr) => computeXi(D[i], ip, A));
+    let D: number[] = [];
+    let x: FieldZqElement[] = [];
+    if (pp.A) {
+        Object.entries(pp.A).forEach(([iStr, Ai]) => {
+        const i = Number(iStr);
+        D.push(i);
+        x.push(computeXi(i, ip, Ai));
+        });
+        // sort the values in case they were out of order in pp.A
+        D = D.sort((a, b) => a - b);
+        x = D.map(i => x[D.indexOf(i)]);
+    }
     const challengeData = computePresentationChallenge(Gq, upt, pp.a, D, x, m, md);
     const t = ip.g.length - 1;
     const base0 = Gq.multiModExp(

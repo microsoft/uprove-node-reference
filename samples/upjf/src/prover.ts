@@ -11,7 +11,6 @@ import * as crypto from 'crypto';
 
 void (async () => {
     try {
-
         //
         // Setup (done once per Issuer)
         //

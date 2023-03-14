@@ -75,7 +75,6 @@ const genericSample = () => {
     // verifier validates the presentation proof
     uprove.verifyPresentationProof(
         issuerParams,
-        disclosedAttributesArray,
         serialization.decodeUProveToken(issuerParams, uproveToken),
         presentationMessage,
         serialization.decodePresentationProof(issuerParams, proof));
@@ -177,15 +176,12 @@ const accessTokenSample = () => {
     }
     uprove.verifyPresentationProof(
         ip,
-        [],
         upt,
         presentationChallenge,
         serialization.decodePresentationProof(ip, proof));
 
     console.log("Success");
 }
-
-// TODO: add a on-demand U-Prove token (TI = challenge) example
 
 export interface SignedMessage {
     ts: string, // timestamp, in ms
@@ -227,7 +223,6 @@ const signingSample = () => {
     }
     uprove.verifyPresentationProof(
         ip,
-        [],
         upt,
         signedMessageBytes,
         serialization.decodePresentationProof(ip, proof));

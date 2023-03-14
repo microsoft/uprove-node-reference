@@ -88,7 +88,7 @@ The corresponding secret key value $\alpha^{-1} MUST be kept secret by the Prove
 The Prover creates a presentation proof, described in section 2.6 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf), using a U-Prove token and an application-specific presentation message $m$. It is encoded as a JSON object with the following parameters:
 * `a` is set to BASE64URL($a$)
 * `r` is an array containing the d+1 BASE64URL($r_i$) responses for the undisclosed attributes ($r_0$ followed by the d responses for each undisclosed attributes, ordered by index number)
-* `A` is an object containing key-value pairs for each disclosed attributes (the key is an attribute index $i$, the value is the attribute $A_i$) TODO: change the implementation
+* `A` is an object containing key-value pairs for each disclosed attributes (the key is an attribute index 1 <= i <= `n`, the value is set to BASE64URL($A_i$))
 
 A U-Prove token (or a reference to it) and a presentation proof can be packaged into one token presentation object with the following parameters (either `uidt` or `upt` MUST be set):
 * `uidt`: an optional parameter encoding the token identifier, set to BASE64URL($\texttt{UID}_P$) 
@@ -111,6 +111,14 @@ On-demand token are requested from the Issuer by the Prover and immediately pres
 Long-lived token should can be used multiple time. Tokens MAY contain an expiration date to limit their validity period; the expiration date SHOULD be encoded in a manner that protects the privacy of users without introducing undesirable correlation elements. The following approach is RECOMMENDED:
 * Issuer decides on a validity period type: seconds (`sec`), hours (`hour`), days (`day`), weeks (`week`), and years (`year`); and encodes it in its Issuer parameters [specification](#issuer-parameters).
 * For each token, the numerical expiration date is encoded in the [token information](#u-prove-token) field, using the `exp` parameter. The `exp` value depends on the expiration type: it indicates the number of seconds (`sec`), hours (`hour`), days (`day`), weeks (`week`), and years (`year`) since the Unix epoch (1970-01-01T00:00:00Z). Note that if `expType` is set to `sec`, then the expiration date is of the same format as JSON Web Tokens (see section 4.1.4 of [RFC7519](https://www.rfc-editor.org/rfc/rfc7519)).
+
+### Token revocation
+
+Long-lived tokens might need to be invalidated by their issuers before they expire. +++
+
+### Reusing U-Prove tokens
+
+A token can be presented multiple times to establish +++
 
 ## Token profiles
 

@@ -29,7 +29,14 @@ void (async () => {
         // create a new JWKS
         const jwks: IssuerParamsJWKS = { keys: [] };
 
-        const descGq = ECGroup.P256 // TODO: use the curve option
+        let descGq: ECGroup;
+        // parse the curve option (ignore case and dashes)
+        switch (options.curve.toUpperCase().replace(/-/g, "")) {
+            case "P256": descGq = ECGroup.P256; break;
+            case "P384": descGq = ECGroup.P384; break;
+            case "P521": descGq = ECGroup.P521; break;
+            default: throw new Error(`Unsupported curve ${options.curve}`);
+        }
         const ikp = UPJF.createIssuerKeyAndParamsUPJF(descGq, { n: 0, expType: UPJF.ExpirationType.year }, undefined);
         const jwk = UPJF.encodeIPAsJWK(ikp.ip);
 

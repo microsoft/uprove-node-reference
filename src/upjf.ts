@@ -7,7 +7,7 @@ import { getEcGroup } from "./ecparams.js";
 import { Byte, groupToHash } from "./hash.js";
 import { FieldZqElement } from "./math.js";
 import { TokenPresentation } from "./serialization.js";
-import { createIssuerKeyAndParams, ECGroup, IssuerKeyAndParams, IssuerKeyPair, IssuerParams } from "./uprove.js"
+import { createIssuerKeyAndParams, ECGroup, IssuerKeyAndParams, IssuerKeyPair, IssuerParams, UProveToken } from "./uprove.js"
 import { checkUnsignedInt } from "./utils.js";
 
 const toBase64Url = (a: Uint8Array) => Buffer.from(a).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, ''); // FIXME: isn't base64url encoding supported?
@@ -204,3 +204,19 @@ export function parseJWS(jws: string): UPJWS {
         throw "can't parse jws" + err;
     }
 }
+
+
+// export function sign(ip: IssuerParams, upt: UProveToken): string {
+//     return "";
+// }
+
+
+// export interface SignatureData {
+//     ip: IssuerParams,
+//     upJWS: UPJWS,
+//     uidt: Uint8Array
+// }
+
+// export async function verify(jws: string, ipResolver: (str: string) => Promise<IssuerParams>): Promise<SignatureData> {
+//     const upJws = parseJWS(jws);
+// }
