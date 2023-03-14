@@ -38,7 +38,6 @@ export class IssuerParams {
         this.Gq = new Group(this.descGq);
 
         // pre-compute the Issuer params digest P, used in computeXt
-        // (TODO: lazy-initialize at first retrieval of this.P)
         const hash = this.Gq.getHash();
         hash.update(this.UIDP);
         this.Gq.updateHash(hash);
@@ -98,7 +97,6 @@ export function createIssuerKeyAndParams(descGq: ECGroup, n: number, e: Byte[] |
     g.push(groupParams.gt);
 
     if (!UIDP) {
-        // TODO: define that in [UPJF]
         // UIDP not define, let's set it to the hash of the other fields
         const hash = new Hash(descGq);
         hash.update(g);
