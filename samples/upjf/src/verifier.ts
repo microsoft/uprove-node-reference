@@ -4,10 +4,12 @@
 import express from 'express';
 import http from 'http';
 import rateLimit from 'express-rate-limit';
-import settings from './settings.json' assert {type: "json"};
-import * as io from './io.js';
-import * as serialization from '../../../src/serialization.js';
 import got from 'got';
+
+import * as settings from './settings.js';
+import * as io from './io.js';
+
+import * as serialization from '../../../src/serialization.js';
 import * as UPJF from '../../../src/upjf.js';
 import * as uprove from '../../../src/uprove.js';
 

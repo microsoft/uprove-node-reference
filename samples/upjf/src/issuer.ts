@@ -2,17 +2,18 @@
 // Licensed under the MIT license.
 
 import express from 'express';
-//import https from 'https';
 import http from 'http';
 import rateLimit from 'express-rate-limit';
 import fs from 'fs';
-import settings from './settings.json' assert {type: "json"};
 import * as crypto from "crypto";
+
+import * as io from './io.js';
+import * as settings from './settings.js';
+
 import * as UPJF from '../../../src/upjf.js';
 import * as uprove from '../../../src/uprove.js';
 import * as utils from '../../../src/utils.js';
 import * as serialization from '../../../src/serialization.js';
-import * as io from './io.js';
 
 // some issuer settings
 const MAX_TOKEN_COUNT = 10; // maximum number of tokens to issue in parallel
@@ -38,7 +39,6 @@ const issuerKeyAndParams: uprove.IssuerKeyAndParams = {
 
 // setup server
 const app = express();
-//const port = 443;
 app.use(express.json()) // for parsing application/json
 app.use(express.static('./public')) // public files
 
@@ -131,16 +131,6 @@ app.post(settings.ISSUANCE_SUFFIX, async (req, res) => {
         res.send({ error: errString })
     }
 });
-
-// const options = {
-//     key: fs.readFileSync('/path/to/key.pem'),
-//     cert: fs.readFileSync('/path/to/cert.pem'),
-//   };
-
-// https.createServer(options, app).listen(port, () => {
-//     console.log(`Server listening on port ${port}`);
-// });
-
 
 http.createServer(app).listen(settings.ISSUER_PORT, () => {
     console.log("Issuer listening at: " + settings.ISSUER_URL);

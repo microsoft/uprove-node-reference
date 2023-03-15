@@ -1,14 +1,15 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
+import fs from 'fs';
 import { Command } from 'commander';
+import process from 'process';
+
+import { IssuerParamsJWKS } from './io.js';
+import * as settings from './settings.js';
+
 import * as UPJF from '../../../src/upjf.js';
 import { ECGroup } from '../../../src/uprove.js';
-import fs from 'fs';
-import settings from './settings.json' assert {type: "json"};
-import process from 'process';
-import { IssuerParamsJWKS } from './io.js';
-
 
 interface Options {
     curve: string;

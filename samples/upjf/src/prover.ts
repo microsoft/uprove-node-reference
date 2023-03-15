@@ -1,13 +1,15 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import settings from './settings.json' assert {type: "json"};
+import got from 'got';
+import * as crypto from 'crypto';
+
+import * as io from './io.js';
+import * as settings from './settings.js';
+
 import * as UPJF from '../../../src/upjf.js';
 import * as uprove from '../../../src/uprove.js';
 import * as serialization from '../../../src/serialization.js';
-import * as io from './io.js';
-import got from 'got';
-import * as crypto from 'crypto';
 
 void (async () => {
     try {
