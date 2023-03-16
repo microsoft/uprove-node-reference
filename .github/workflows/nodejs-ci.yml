@@ -2,9 +2,13 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - 'main'
+      - 'march2023'
   pull_request:
-    branches: [ main ]
+    branches:
+      - 'main'
+      - 'march2023'
 
 jobs:
   build:
