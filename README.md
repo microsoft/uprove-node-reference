@@ -5,6 +5,8 @@ This project provides a Node reference implementation of the Lite profile of the
 * Scope-exclusive pseudonyms
 * Presenting committed attributes
 
+The project also implements the [U-Prove JSON Framework (UPJF)](./doc/U-Prove_JSON_Framework.md), describing a deployment model and JSON serialization for the U-Prove artifacts.
+
 ## Setup
 
 Make sure [node.js](https://nodejs.org/) and [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) are installed on your system; the latest Long-Term Support (LTS) version is recommended for both.
@@ -27,11 +29,13 @@ npm run build
 npm test
 ```
 
-4. Optionally, run the sample programs
+4. Optionally, run the samples program
 
 ```
 npm run samples
 ```
+
+Additionally, the `samples/upjf` folder contains its own npm project demonstrating a sample 3-party system using the U-Prove JSON Framework; see its [README](./samples/upjf/README.md) for details.
 
 ## Contributing
 
