@@ -10,7 +10,7 @@
     "build": "tsc",
     "clean": "rm -rf js",
     "samples": "node js/samples/samples.js",
-    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --verbose"
   },
   "author": "Christian Paquin",
   "license": "MIT",
