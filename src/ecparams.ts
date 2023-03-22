@@ -3,8 +3,8 @@
 
 // U-Prove Recommended Parameters Profile Lite (elliptic curve construction)
 
-import { Group, GroupElement } from "./math";
-import { ECGroup } from "./uprove";
+import { Group, GroupElement } from "./math.js";
+import { ECGroup } from "./uprove.js";
 
 interface ECGroupParams {
     descGq: ECGroup,

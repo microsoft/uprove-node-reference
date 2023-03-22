@@ -3,8 +3,8 @@
 
 // implements the U-Prove hash formatting
 import * as crypto from 'crypto';
-import { GroupElement, FieldZqElement } from './math';
-import { ECGroup } from './uprove';
+import { GroupElement, FieldZqElement } from './math.js';
+import { ECGroup } from './uprove.js';
 
 export const groupToHash = (g: ECGroup) => { 
     switch(g) {

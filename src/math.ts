@@ -4,8 +4,8 @@
 import cryptoECC, { Digits, EllipticCurvePointFp, WeierstrassCurve} from "@microsoft/msrcrypto/scripts/cryptoECC.js";
 import cryptoMath, { IntegerGroupElement, IntegerGroup } from "@microsoft/msrcrypto/scripts/cryptoMath.js";
 import "@microsoft/msrcrypto/scripts/curves_NIST.js";
-import { ECGroup } from "./uprove";
-import { Hash } from "./hash";
+import { ECGroup } from "./uprove.js";
+import { Hash } from "./hash.js";
 import * as crypto from "crypto";
 
 export class FieldZqElement {

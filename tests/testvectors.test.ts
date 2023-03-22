@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import EC_D0 from '../doc/testvectors/testvectors_EC_D0_lite_doc.json';
-import EC_D2 from '../doc/testvectors/testvectors_EC_D2_lite_doc.json';
-import EC_D5 from '../doc/testvectors/testvectors_EC_D5_lite_doc.json';
-import * as uprove from '../src/uprove';
-import { Byte } from '../src/hash';
-import { hexToBytes } from '../src/utils';
+import EC_D0 from '../doc/testvectors/testvectors_EC_D0_lite_doc.json' assert {type: "json"};
+import EC_D2 from '../doc/testvectors/testvectors_EC_D2_lite_doc.json' assert {type: "json"};
+import EC_D5 from '../doc/testvectors/testvectors_EC_D5_lite_doc.json' assert {type: "json"};
+import * as uprove from '../src/uprove.js';
+import { Byte } from '../src/hash.js';
+import { arrayEqual, hexToBytes } from '../src/utils.js';
 
 interface TestVectors {
     UIDh: string,
@@ -141,9 +141,9 @@ function run(tv: TestVectors) {
         h: Gq.getElement(hexToBytes(encodePoint(tv.h_x, tv.h_y))),
         TI: TI,
         PI: PI,
-        sigmaZPrime: Gq.getElement(hexToBytes(encodePoint(tv.sigmaZPrime_x, tv.sigmaZPrime_y))),
-        sigmaCPrime: Zq.getElement(hexToBytes(tv.sigmaCPrime)),
-        sigmaRPrime: Zq.getElement(hexToBytes(tv.sigmaRPrime))
+        sZp: Gq.getElement(hexToBytes(encodePoint(tv.sigmaZPrime_x, tv.sigmaZPrime_y))),
+        sCp: Zq.getElement(hexToBytes(tv.sigmaCPrime)),
+        sRp: Zq.getElement(hexToBytes(tv.sigmaRPrime))
     }
 
     const D: number[] = tv.D.split(',').filter(i => i != '').map(i => parseInt(i));
@@ -153,13 +153,18 @@ function run(tv: TestVectors) {
 
     const rInU : string[] = U.map(i => (tv as unknown as Record<string, string>)["r" + i]);
     const r = [ Zq.getElement(hexToBytes(tv.r0)), ...rInU.map(r => Zq.getElement(hexToBytes(r)))]; 
-        
+    
+    const disclosedA: { [key: number]: Uint8Array } = {};
+    for (const d of D) {
+        disclosedA[d] = A[d-1];
+    }
     const proof: uprove.PresentationProof = {
-        disclosedA: A.filter((A, i, arr) => D.includes(i+1)),
+        A: disclosedA,
         a: hexToBytes(tv.a),
         r: r  
     }
-    uprove.verifyPresentationProof(ip, D, upt, hexToBytes(tv.m), proof, hexToBytes(tv.md));
+    const verificationData = uprove.verifyPresentationProof(ip, upt, hexToBytes(tv.m), proof, hexToBytes(tv.md));
+    arrayEqual(verificationData.UIDT, hexToBytes(tv.UIDt));
 
 }
 
