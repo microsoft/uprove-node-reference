@@ -4,7 +4,7 @@ This document defines a JSON-based framework for the use of the [U-Prove technol
 
 ## U-Prove Technology Overview
 
-This section summarizes the U-Prove features specified in the [U-Prove Cryptographic Specification [UPCS]](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf).
+This section summarizes the U-Prove features specified in the [U-Prove Cryptographic Specification [UPCS]](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%205.pdf).
 
 A U-Prove token (UPT) is a cryptographically protected container of claims (a.k.a. attributes) that is issued to a Prover (a.k.a. the client) by an Issuer (a.k.a. the Identity Provider), and presented to a Verifier (a.k.a. the Relying Party). Each UPT corresponds to a private key needed to present the token, and contains an Issuer’s signature that attests to its origin and integrity.
 
@@ -18,7 +18,7 @@ A Prover typically gets multiple UPTs certifying the same set of claims in one i
 
 Optionally, an Issuer can issue a UPT to a Prover in such a manner that the Prover cannot use the token without the assistance of a trusted Device (e.g., a smartcard, a mobile phone, or an online server). The Device can efficiently protect multiple tokens issued by any number of Issuers, and can dynamically (i.e., at token use time) enforce policies on behalf of the Issuer, Verifiers, or third parties — all without being able to compromise the Prover’s privacy and without needing to interact with the Issuer.
 
-For more information about the U-Prove technology, see the [U-Prove Technology Overview](./U-Prove%20Technology%20Overview%20V1.1%20Revision%202.pdf).
+For more information about the U-Prove technology, see the [U-Prove Technology Overview](./U-Prove%20Technology%20Overview%20V1.1%20Revision%203.pdf).
 
 ## Terminology
 
@@ -36,21 +36,21 @@ For more information about the U-Prove technology, see the [U-Prove Technology O
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC2119](https://www.rfc-editor.org/rfc/rfc2119).
 
-BASE64URL(X) denotes the base64url encoding of octet string representation of X, as defined in section 5 of [RFC4648](https://www.rfc-editor.org/rfc/rfc4648) (Note that the base64url encoding of the empty octet string is the empty string.) The octet string representation of mathematical values X (elliptic curve points of $Gq$ and elements of $Z_q$) are obtained as explained in section 2.2 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf).
+BASE64URL(X) denotes the base64url encoding of octet string representation of X, as defined in section 5 of [RFC4648](https://www.rfc-editor.org/rfc/rfc4648) (Note that the base64url encoding of the empty octet string is the empty string.) The octet string representation of mathematical values X (elliptic curve points of $Gq$ and elements of $Z_q$) are obtained as explained in section 2.2 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%205.pdf).
 
 ## U-Prove JSON profile
 
-This section defines a JSON profile for the U-Prove artifacts. Issuer parameters MUST use the [U-Prove Recommended Parameters Profile [UPRPP]](./U-Prove%20Recommended%20Parameters%20Profile%20V1.1%20Revision%202.pdf).
+This section defines a JSON profile for the U-Prove artifacts. Issuer parameters MUST use the [U-Prove Recommended Parameters Profile [UPRPP]](./U-Prove%20Recommended%20Parameters%20Profile%20V1.1%20Revision%203.pdf).
 
 ### Issuer Parameters
 
-An Issuer generates its parameters as described in section 2.3.1 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf) using a group from the [UPRPP](./U-Prove%20Recommended%20Parameters%20Profile%20V1.1%20Revision%202.pdf), and encodes them as JSON Web Key objects ([RFC7517](https://www.rfc-editor.org/rfc/rfc7517)) with the following parameters:
+An Issuer generates its parameters as described in section 2.3.1 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%205.pdf) using a group from the [UPRPP](./U-Prove%20Recommended%20Parameters%20Profile%20V1.1%20Revision%203.pdf), and encodes them as JSON Web Key objects ([RFC7517](https://www.rfc-editor.org/rfc/rfc7517)) with the following parameters:
 * The key type parameter `kty` MUST be set to "UP".
-* The algorithm parameter `alg` MUST be set to the value corresponding to the Issuer parameters' group description and hash algorithm identifier $\texttt{UID}_H$ specified in the [UPRPP](./U-Prove%20Recommended%20Parameters%20Profile%20V1.1%20Revision%202.pdf); the following three values are supported:
+* The algorithm parameter `alg` MUST be set to the value corresponding to the Issuer parameters' group description and hash algorithm identifier $\texttt{UID}_H$ specified in the [UPRPP](./U-Prove%20Recommended%20Parameters%20Profile%20V1.1%20Revision%203.pdf); the following three values are supported:
   * "UP256": corresponds to the `P-256` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.1`), with a $\texttt{UID}_H$ of "SHA-256".
   * "UP384": corresponds to the `P-384` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.2`), with a $\texttt{UID}_H$ of "SHA-384".
   * "UP521": corresponds to the `P-521` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.3`), with a $\texttt{UID}_H$ of "SHA-512".
-* The key identifier parameter `kid` MUST be set to BASE64URL($\texttt{UID}_P$) value. It is RECOMMENDED to define $\texttt{UID}_P$ as $H(g_0, g_1, ..., g_n>, <e_1, ..., e_n>, S)$, using the hash notation defined in section 2.2 of [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf).
+* The key identifier parameter `kid` MUST be set to BASE64URL($\texttt{UID}_P$) value. It is RECOMMENDED to define $\texttt{UID}_P$ as $H(g_0, g_1, ..., g_n>, <e_1, ..., e_n>, S)$, using the hash notation defined in section 2.2 of [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%205.pdf).
 * The specification parameter `spec` is a JSON object containing application-specific parameters. The Issuer parameters specification field $S$ is obtained by taking the UTF8 encoding of the `spec` JSON object. The `spec` MUST contain a parameter `n` set to an integer value between 0 and 50 inclusively indicating how many attributes can be issued with these Issuer parameters. It MAY contain a parameter `expType` describing how to interpret the expiration whose possible values are `sec`, `hour`, `day`, `week`, `year`; see the [token validity period](#token-validity-period).
 * The `g0` parameters is BASE64URL($g_0$).
 * The optional `e` parameter contains an array of integers (either 0 or 1) representing the Issuer parameters' $e$ values. If omitted, it is assumed that $e$ values are 1 (i.e., attributes are hashed).
@@ -61,7 +61,7 @@ It is RECOMMENDED to publish the public JWK in a JWK set (see section 5 of [RFC7
 
 ### Issuance protocol
 
-The issuance protocol is described in section 2.5 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf). The protocol inputs are application-specific; application profiles (including [the ones](#token-profiles) defined in this framework) can further define token contents. The protocol messages are JSON objects defined in the following subsections. Many U-Prove tokens MAY be issued in parallel; the number of issued tokens N is application-specific (it can be requested by the Prover, but is ultimately decided by the Issuer). It MUST be conducted over HTTPS.
+The issuance protocol is described in section 2.5 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%205.pdf). The protocol inputs are application-specific; application profiles (including [the ones](#token-profiles) defined in this framework) can further define token contents. The protocol messages are JSON objects defined in the following subsections. Many U-Prove tokens MAY be issued in parallel; the number of issued tokens N is application-specific (it can be requested by the Prover, but is ultimately decided by the Issuer). It MUST be conducted over HTTPS.
 
 #### First issuance message
 
@@ -82,7 +82,7 @@ The third issuance message (to issue N tokens) is a JSON object with the followi
 
 ### U-Prove Token
 
-U-Prove tokens are described in section 2.3.3 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf); the Prover generates them at the end of the [issuance protocol](#issuance-protocol). U-Prove tokens are encoded as JSON objects with the following parameters:
+U-Prove tokens are described in section 2.3.3 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%205.pdf); the Prover generates them at the end of the [issuance protocol](#issuance-protocol). U-Prove tokens are encoded as JSON objects with the following parameters:
 * `UIDP` is set to BASE64URL($\texttt{UID}_P$)
 * `h` is set to BASE64URL($h$)
 * `TI` is set to BASE64URL(UTF8($TI$)), where $TI$ is a JSON object encoding application-specific token information parameters
@@ -96,7 +96,7 @@ The corresponding secret key value $\alpha^{-1} and the attributes MUST be kept 
 
 ### Presentation protocol
 
-The Prover creates a presentation proof, described in section 2.6 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%204.pdf), using a U-Prove token and an application-specific presentation message $m$. It is encoded as a JSON object with the following parameters:
+The Prover creates a presentation proof, described in section 2.6 of the [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%205.pdf), using a U-Prove token and an application-specific presentation message $m$. It is encoded as a JSON object with the following parameters:
 * `a` is set to BASE64URL($a$)
 * `r` is an array containing the d+1 BASE64URL($r_i$) responses for the undisclosed attributes ($r_0$ followed by the d responses for each undisclosed attributes, ordered by index number)
 * `A` is an object containing key-value pairs for each disclosed attributes (the key is an attribute index 1 <= i <= `n`, the value is set to BASE64URL($A_i$))
