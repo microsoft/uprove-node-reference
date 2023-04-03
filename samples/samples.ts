@@ -8,7 +8,7 @@ import * as UPJF from '../src/upjf.js';
 import * as serialization from '../src/serialization.js';
 
 const genericSample = () => {
-    console.log("\nGeneric U-Prove issuance and presentation sample\n");
+    console.log("Generic U-Prove issuance and presentation sample");
 
     // issuer creates its key and parameters
     const issuerKeyAndParams = uprove.createIssuerKeyAndParams(uprove.ECGroup.P256, 4, [new Byte(1), new Byte(1), new Byte(0), new Byte(1)], Buffer.from('Sample Specification', 'utf-8'));
@@ -161,7 +161,7 @@ const UPJFTokenIssuance = (id: UPJFIssuerSetupData, ip: uprove.IssuerParams, att
 
 // This sample shows how to use the U-Prove JSON Framework (UPJF) to issue and present U-Prove tokens
 const JSONFrameworkSample = () => {
-    console.log("\nU-Prove JSON Framework sample\n");
+    console.log("U-Prove JSON Framework sample");
 
     // Issuer creates its Issuer parameters
     const issuerSetup = UPJFIssuerSetup(uprove.ECGroup.P256, ["name", "email", "over-21"]);
@@ -184,8 +184,16 @@ const JSONFrameworkSample = () => {
         uprove.generatePresentationProof(ip, [over21Index], uproveKeysAndTokens[0], presentationChallenge, attributes).pp);
     console.log("Presentation Proof", proof);
 
+    let tp:serialization.TokenPresentation = {
+        upt: uproveToken,
+        pp: proof
+    }
+    let jws = UPJF.createJWS(UPJF.descGqToUPAlg(ip.descGq), presentationChallenge, tp);
+    console.log("JWS", jws);
+
     // The Verifier validates the token and presentation proof
-    const upt = serialization.decodeUProveToken(ip, uproveToken)
+    const parsedJWS = UPJF.parseJWS(jws);
+    const upt = serialization.decodeUProveToken(ip, parsedJWS.sig.upt as serialization.UProveTokenJSON)
     uprove.verifyTokenSignature(ip, upt);
     const spec = UPJF.parseSpecification(ip.S);
     const tokenInfo = UPJF.parseTokenInformation(upt.TI);
@@ -196,14 +204,14 @@ const JSONFrameworkSample = () => {
         ip,
         upt,
         presentationChallenge,
-        serialization.decodePresentationProof(ip, proof));
+        serialization.decodePresentationProof(ip, parsedJWS.sig.pp));
 
     console.log("Success");
 }
 
 // This sample illustrates how Bare tokens can be used to create privacy-protecting access tokens.
 const accessTokenSample = () => {
-    console.log("\nAccess token sample\n");
+    console.log("Access token sample");
 
     // Issuer creates its Issuer parameters
     const issuerSetup = UPJFIssuerSetup(uprove.ECGroup.P256);
@@ -247,7 +255,7 @@ export interface SignedMessage {
 }
 
 const signingSample = () => {
-    console.log("\nSigning sample\n");
+    console.log("Signing sample");
 
     // Issuer creates its Issuer parameters
     const issuerSetup = UPJFIssuerSetup(uprove.ECGroup.P256);
@@ -289,13 +297,19 @@ const signingSample = () => {
 }
 
 try {
+    const printLine = () => console.log("\n------------------------------------------------------------\n");
+
     // U-Prove samples
     genericSample();
+    printLine();
     JSONFrameworkSample();
+    printLine();
 
     // Bare token profile samples (tokens with no attributes)
     accessTokenSample();
+    printLine();
     signingSample();
+    printLine();
 } 
 catch (e) {
     console.log(e);
