@@ -14,7 +14,7 @@ const toBase64Url = (a: Uint8Array) => Buffer.from(a).toString('base64').replace
 const fromBase64Url = (b64: string): Uint8Array => Buffer.from(b64, 'base64');
 
 // expiration functions
-export enum ExpirationType { sec, hour, day, week, year }
+export enum ExpirationType { sec = "sec", hour = "hour", day = "day", week = "week", year = "year" }
 
 const MS_PER_SECOND = 1000;
 const MS_PER_HOUR = MS_PER_SECOND * 60 * 60;
@@ -96,7 +96,7 @@ export interface IssuerParamsJWK {
     kid: string;
     g0: string;
     e?: number[];
-    S: string;
+    spec: string;
 }
 
 export function encodePrivateKeyAsBase64Url(y0: FieldZqElement): string {
@@ -121,7 +121,7 @@ export function encodeIPAsJWK(ip: IssuerParams): IssuerParamsJWK {
         alg: descGqToUPAlg(ip.descGq),
         kid: toBase64Url(ip.UIDP),
         g0: toBase64Url(ip.g[0].getBytes()),
-        S: toBase64Url(ip.S)
+        spec: toBase64Url(ip.S)
     };
 }
 
@@ -136,7 +136,7 @@ export function decodeJWKAsIP(jwk: IssuerParamsJWK): IssuerParams {
         case UPAlg.UP521: descGq = ECGroup.P521; break;
         default: throw `${jwk.alg} is not a valid algorithm`;
     }
-    const SBytes = fromBase64Url(jwk.S);
+    const SBytes = fromBase64Url(jwk.spec);
     const spec = JSON.parse(SBytes.toString());
     const n = spec.n;
     const groupParams = getEcGroup(descGq);
@@ -204,19 +204,3 @@ export function parseJWS(jws: string): UPJWS {
         throw "can't parse jws" + err;
     }
 }
-
-
-// export function sign(ip: IssuerParams, upt: UProveToken): string {
-//     return "";
-// }
-
-
-// export interface SignatureData {
-//     ip: IssuerParams,
-//     upJWS: UPJWS,
-//     uidt: Uint8Array
-// }
-
-// export async function verify(jws: string, ipResolver: (str: string) => Promise<IssuerParams>): Promise<SignatureData> {
-//     const upJws = parseJWS(jws);
-// }
