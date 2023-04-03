@@ -81,14 +81,30 @@ const genericSample = () => {
     console.log("Success");
 }
 
-interface BareTokenIssuerSetupData {
+interface UPJFIssuerSetupData {
     ikp: uprove.IssuerKeyAndParams,
     jwk: UPJF.IssuerParamsJWK,
     issuerUrl: string
 }
-const BareTokenIssuerSetup = (descGq: uprove.ECGroup): BareTokenIssuerSetupData => {
+
+interface UPJFIssuerSpecification {
+    n: number,
+    expType: UPJF.ExpirationType,
+    attrTypes?: string[]
+}
+
+const UPJFIssuerSetup = (descGq: uprove.ECGroup, attributes: string[] = []): UPJFIssuerSetupData => {
+    // The issuer parameters specification
+    const spec:UPJFIssuerSpecification = {
+        n: attributes.length,
+        expType: UPJF.ExpirationType.day,
+    }
+    // add the attribute field names to the specification
+    if (attributes.length > 0) {
+        spec.attrTypes = attributes;
+    }
     // Issuer creates its parameters set, and encodes them as a JWK
-    const ikp = UPJF.createIssuerKeyAndParamsUPJF(descGq, {n: 0, expType: UPJF.ExpirationType.day}, undefined);
+    const ikp = UPJF.createIssuerKeyAndParamsUPJF(descGq, spec, undefined);
     const jwk = UPJF.encodeIPAsJWK(ikp.ip);
     console.log(jwk);
 
@@ -102,8 +118,8 @@ const BareTokenIssuerSetup = (descGq: uprove.ECGroup): BareTokenIssuerSetupData 
     };
 }
 
-const BareTokenIssuance = (id: BareTokenIssuerSetupData, ip: uprove.IssuerParams): uprove.UProveKeyAndToken[] => {
-    // The Prover requests U-Prove Access Tokens from the Issuer
+// performs the issuance of a batch of U-Prove tokens
+const UPJFTokenIssuance = (id: UPJFIssuerSetupData, ip: uprove.IssuerParams, attributes: Uint8Array[] = []): uprove.UProveKeyAndToken[] => {
 
     // token information contains always-disclosed data
     const spec = UPJF.parseSpecification(ip.S);
@@ -116,8 +132,8 @@ const BareTokenIssuance = (id: BareTokenIssuerSetupData, ip: uprove.IssuerParams
     const numberOfTokens = 5;
 
     // setup participants
-    const issuer = new uprove.Issuer(id.ikp, [], TI, numberOfTokens);
-    const prover = new uprove.Prover(ip, [], TI, new Uint8Array(), numberOfTokens);
+    const issuer = new uprove.Issuer(id.ikp, attributes, TI, numberOfTokens);
+    const prover = new uprove.Prover(ip, attributes, TI, new Uint8Array(), numberOfTokens);
 
     // issuer creates the first message
     const message1 = serialization. encodeFirstIssuanceMessage(
@@ -143,19 +159,61 @@ const BareTokenIssuance = (id: BareTokenIssuerSetupData, ip: uprove.IssuerParams
     return uproveKeysAndTokens;
 }
 
-// This sample illustrates how Bare tokens can be used to create privacy-protecting access tokens.
-const accessTokenSample = () => {
-    console.log("\nAccess token sample\n");
+// This sample shows how to use the U-Prove JSON Framework (UPJF) to issue and present U-Prove tokens
+const JSONFrameworkSample = () => {
+    console.log("\nU-Prove JSON Framework sample\n");
 
     // Issuer creates its Issuer parameters
-    const issuerSetup = BareTokenIssuerSetup(uprove.ECGroup.P256);
+    const issuerSetup = UPJFIssuerSetup(uprove.ECGroup.P256, ["name", "email", "over-21"]);
 
     // Prover and Verifier retrieve the JWK from the well-known URL, and parse and verify the Issuer params
     const ip = UPJF.decodeJWKAsIP(issuerSetup.jwk);
     ip.verify();
 
     // Prover requests Bare U-Prove tokens from the Issuer
-    const uproveKeysAndTokens = BareTokenIssuance(issuerSetup, ip);
+    const attributes = ["Joe Example", "joe@example.com", "true"].map(a => Buffer.from(a, "utf-8"));
+    const uproveKeysAndTokens = UPJFTokenIssuance(issuerSetup, ip, attributes);
+
+    // To later present a token to the Verifier, the Prover obtains a challenge from the Verifier
+    // and creates a presentation proof disclosing the over-21 attribute (index 3)
+    const over21Index = 3;
+    const presentationChallenge = crypto.randomBytes(16);
+    const uproveToken = serialization.encodeUProveToken(uproveKeysAndTokens[0].upt);
+    console.log("U-Prove Token", uproveToken);
+    const proof = serialization.encodePresentationProof(
+        uprove.generatePresentationProof(ip, [over21Index], uproveKeysAndTokens[0], presentationChallenge, attributes).pp);
+    console.log("Presentation Proof", proof);
+
+    // The Verifier validates the token and presentation proof
+    const upt = serialization.decodeUProveToken(ip, uproveToken)
+    uprove.verifyTokenSignature(ip, upt);
+    const spec = UPJF.parseSpecification(ip.S);
+    const tokenInfo = UPJF.parseTokenInformation(upt.TI);
+    if (UPJF.isExpired(spec.expType, tokenInfo.exp)) {
+        throw "token is expired";
+    }
+    uprove.verifyPresentationProof(
+        ip,
+        upt,
+        presentationChallenge,
+        serialization.decodePresentationProof(ip, proof));
+
+    console.log("Success");
+}
+
+// This sample illustrates how Bare tokens can be used to create privacy-protecting access tokens.
+const accessTokenSample = () => {
+    console.log("\nAccess token sample\n");
+
+    // Issuer creates its Issuer parameters
+    const issuerSetup = UPJFIssuerSetup(uprove.ECGroup.P256);
+
+    // Prover and Verifier retrieve the JWK from the well-known URL, and parse and verify the Issuer params
+    const ip = UPJF.decodeJWKAsIP(issuerSetup.jwk);
+    ip.verify();
+
+    // Prover requests Bare U-Prove tokens from the Issuer
+    const uproveKeysAndTokens = UPJFTokenIssuance(issuerSetup, ip);
 
     // To later present an access token to the Verifier, the Prover obtains a challenge from the Verifier
     // and creates a presentation proof
@@ -192,14 +250,14 @@ const signingSample = () => {
     console.log("\nSigning sample\n");
 
     // Issuer creates its Issuer parameters
-    const issuerSetup = BareTokenIssuerSetup(uprove.ECGroup.P256);
+    const issuerSetup = UPJFIssuerSetup(uprove.ECGroup.P256);
 
     // Prover and Verifier retrieve the JWK from the well-known URL, and parse and verify the Issuer params
     const ip = UPJF.decodeJWKAsIP(issuerSetup.jwk);
     ip.verify();
 
     // Prover requests Bare U-Prove tokens from the Issuer
-    const uproveKeysAndTokens = BareTokenIssuance(issuerSetup, ip);
+    const uproveKeysAndTokens = UPJFTokenIssuance(issuerSetup, ip);
 
     // The Prover can later use a token to sign some arbitrary message
     const signedMessageBytes = Buffer.from(JSON.stringify({
@@ -233,6 +291,7 @@ const signingSample = () => {
 try {
     // U-Prove samples
     genericSample();
+    JSONFrameworkSample();
 
     // Bare token profile samples (tokens with no attributes)
     accessTokenSample();
