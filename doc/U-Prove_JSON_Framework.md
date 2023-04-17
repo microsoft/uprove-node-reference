@@ -92,7 +92,7 @@ U-Prove tokens are described in section 2.3.3 of the [UPCS](./U-Prove%20Cryptogr
 * `sCp` is set to BASE64URL($\sigma_C'$)
 * `sRp` is set to BASE64URL($\sigma_R'$)
 
-The corresponding secret key value $\alpha^{-1} and the attributes MUST be kept secret by the Prover. If multiple tokens are issued in parallel, the `UIDP`, `TI`, and `PI` values will be shared among all of them, and MAY be stored separately to avoid duplication.
+The corresponding secret key value $\alpha^{-1}$ and the attributes MUST be kept secret by the Prover. If multiple tokens are issued in parallel, the `UIDP`, `TI`, and `PI` values will be shared among all of them, and MAY be stored separately to avoid duplication.
 
 ### Presentation protocol
 
