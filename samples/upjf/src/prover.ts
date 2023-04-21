@@ -11,8 +11,15 @@ import * as UPJF from '../../../src/upjf.js';
 import * as uprove from '../../../src/uprove.js';
 import * as serialization from '../../../src/serialization.js';
 
+interface KeyAndToken {
+    key: string,
+    token: serialization.UProveTokenJSON
+}
+
 void (async () => {
     try {
+        const tokenStore: KeyAndToken[] = [];
+
         //
         // Setup (done once per Issuer)
         //
@@ -60,22 +67,36 @@ void (async () => {
 
         // parse 3rd issuance message
         const msg3 = serialization.decodeThirdIssuanceMessage(issuerParams, thirdMsg.msg);
-        // create the U-Prove tokens
+        // create and store the U-Prove tokens
         const uproveKeysAndTokens = prover.createTokens(msg3);
+        uproveKeysAndTokens.forEach((upkt) => {
+            tokenStore.push({
+                key: UPJF.encodePrivateKeyAsBase64Url(upkt.alphaInverse),
+                token: serialization.encodeUProveToken(upkt.upt)
+            });
+        });
 
         //
         // Register token with Verifier by presenting it
         //
 
-        // present one token to the Verifier
+        // create presentation message
         let message = io.encodePresentationMessage({
             vID: settings.VERIFIER_URL,
             nce: crypto.randomBytes(16).toString('base64'),
             ts: Date.now().toString()
         });
       
-        const uproveToken = serialization.encodeUProveToken(uproveKeysAndTokens[0].upt);
-        let presentationData = uprove.generatePresentationProof(issuerParams, [], uproveKeysAndTokens[0], message, []);
+        // get token from the store
+        console.log("presenting token", tokenStore[0]);
+        let upkt:uprove.UProveKeyAndToken = {
+            alphaInverse: UPJF.decodeBase64UrlAsPrivateKey(issuerParams, tokenStore[0].key),
+            upt: serialization.decodeUProveToken(issuerParams, tokenStore[0].token)
+        }
+
+        // create presentation proof
+        const uproveToken = serialization.encodeUProveToken(upkt.upt);
+        let presentationData = uprove.generatePresentationProof(issuerParams, [], upkt, message, []);
         let proof = serialization.encodePresentationProof(presentationData.pp);
         let tp:serialization.TokenPresentation = {
             upt: uproveToken,
@@ -92,13 +113,21 @@ void (async () => {
         // Later, present same token to Verifier, without sending the token again
         //
 
-        // present the same token to the Verifier
+        // create presentation message
         message = io.encodePresentationMessage({
             vID: settings.VERIFIER_URL,
             nce: crypto.randomBytes(16).toString('base64'),
             ts: Date.now().toString()
         });
-        presentationData = uprove.generatePresentationProof(issuerParams, [], uproveKeysAndTokens[0], message, []);
+
+        // get the same token from the store
+        upkt = {
+            alphaInverse: UPJF.decodeBase64UrlAsPrivateKey(issuerParams, tokenStore[0].key),
+            upt: serialization.decodeUProveToken(issuerParams, tokenStore[0].token)
+        }
+
+        // create presentation proof
+        presentationData = uprove.generatePresentationProof(issuerParams, [], upkt, message, []);
         proof = serialization.encodePresentationProof(presentationData.pp);
         // this time we only send the token identifier UIDT instead of the full token
         tp = {

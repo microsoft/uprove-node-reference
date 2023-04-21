@@ -99,10 +99,12 @@ export interface IssuerParamsJWK {
     spec: string;
 }
 
-export function encodePrivateKeyAsBase64Url(y0: FieldZqElement): string {
-    return toBase64Url(y0.getBytes());
+// encodes Issuer parameters and U-Prove token private keys as base64url
+export function encodePrivateKeyAsBase64Url(key: FieldZqElement): string {
+    return toBase64Url(key.getBytes());
 }
 
+// decodes Issuer parameters and U-Prove token private keys from base64url
 export function decodeBase64UrlAsPrivateKey(ip: IssuerParams, b64: string): FieldZqElement {
     return ip.Gq.Zq.getElement(fromBase64Url(b64));
 }
