@@ -40,7 +40,6 @@ export function decodeIssuerParams(ipJSON: IssuerParamsJSON): IssuerParams {
     }
     const groupParams = getEcGroup(descGq);
     const Gq = groupParams.Gq;
-    const Zq = Gq.Zq;
     // g = [g0, g1, ... gn, gt]
     const g = groupParams.g.slice(0, n); // keep only n generators
     g.unshift(Gq.getElement(fromB64(ipJSON.g0)));
