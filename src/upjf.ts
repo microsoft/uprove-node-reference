@@ -6,12 +6,9 @@
 import { getEcGroup } from "./ecparams.js";
 import { Byte, groupToHash } from "./hash.js";
 import { FieldZqElement } from "./math.js";
-import { TokenPresentation } from "./serialization.js";
+import { TokenPresentation, toBase64Url, fromBase64Url } from "./serialization.js";
 import { createIssuerKeyAndParams, ECGroup, IssuerKeyAndParams, IssuerKeyPair, IssuerParams, UProveToken } from "./uprove.js"
 import { checkUnsignedInt } from "./utils.js";
-
-const toBase64Url = (a: Uint8Array) => Buffer.from(a).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, ''); // FIXME: isn't base64url encoding supported?
-const fromBase64Url = (b64: string): Uint8Array => Buffer.from(b64, 'base64');
 
 // expiration functions
 export enum ExpirationType { sec = "sec", hour = "hour", day = "day", week = "week", year = "year" }

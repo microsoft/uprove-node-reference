@@ -100,7 +100,7 @@ app.post(settings.ISSUANCE_SUFFIX, async (req, res) => {
                 n = msg.n <= MAX_TOKEN_COUNT ? msg.n : MAX_TOKEN_COUNT;
             }
             // create a random session ID to recognize the user session on the second call
-            const sessionID = crypto.randomBytes(32).toString('base64');
+            const sessionID = serialization.toBase64Url(crypto.randomBytes(32));
 
             // create the token information object; this will be included in every token and will be visible
             // to Verifiers
@@ -117,7 +117,7 @@ app.post(settings.ISSUANCE_SUFFIX, async (req, res) => {
 
             response = {
                 sID: sessionID,
-                TI: Buffer.from(TI).toString('base64'),
+                TI: serialization.toBase64Url(TI),
                 msg: message1
             };
 
