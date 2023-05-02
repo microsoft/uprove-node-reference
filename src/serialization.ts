@@ -190,7 +190,7 @@ export function encodeUIDT(UIDT: Uint8Array): string {
     return toB64(UIDT);
 }
 
-export function dncodeUIDT(UIDT: string): Uint8Array {
+export function decodeUIDT(UIDT: string): Uint8Array {
     return fromB64(UIDT);
 }
 
