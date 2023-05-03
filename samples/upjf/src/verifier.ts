@@ -98,9 +98,15 @@ async function verifyJWS(jws: string, expectToken: boolean) {
         uprove.verifyTokenSignature(issuerParams, upt);
     }
     const spec = UPJF.parseSpecification(issuerParams.S);
+    // check if token is expired
     if (UPJF.isExpired(spec.expType, tokenInfo.exp)) {
         throw "token is expired";
     }
+    // check the token label
+    const tokenLabel = spec.lblType[tokenInfo.lbl];
+    // <application specific logic goes here>
+    console.log("Token label:", tokenLabel);
+
     const pm = io.parsePresentationMessage(message);
     if (pm.vID !== settings.VERIFIER_URL) {
         throw "wrong scope: " + pm.vID;

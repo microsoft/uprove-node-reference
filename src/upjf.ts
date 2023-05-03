@@ -69,7 +69,8 @@ export function isExpired(type: ExpirationType, exp: number, target:number|undef
 // Issuer Parameters functions
 export interface Specification {
     n: number,
-    expType: ExpirationType
+    expType: ExpirationType,
+    [key: string]: any
 }
 
 export function parseSpecification(S: Uint8Array): Specification {
@@ -161,7 +162,8 @@ export function decodeJWKAsIP(jwk: IssuerParamsJWK): IssuerParams {
 
 export interface TokenInformation {
     iss: string,
-    exp: number
+    exp: number,
+    [key: string]: any
 }
 
 export function parseTokenInformation(TI: Uint8Array): TokenInformation {
@@ -174,7 +176,8 @@ export function encodeTokenInformation(TI: TokenInformation): Uint8Array {
 }
 
 export interface UPJWSHeader {
-    alg: UPAlg
+    alg: UPAlg,
+    [key: string]: any
 }
 
 export interface UPJWS {

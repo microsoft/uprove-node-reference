@@ -31,6 +31,7 @@ void (async () => {
         console.log("received Issuer JWKS", jwksJson);
         const jwk: UPJF.IssuerParamsJWK = jwksJson.keys[0]; // we assume there is one param set in the key set
         const issuerParams = UPJF.decodeJWKAsIP(jwk);
+        const spec = UPJF.parseSpecification(issuerParams.S);
 
         //
         // Token issuance (can be repeated when the Prover runs out of tokens)
@@ -48,6 +49,19 @@ void (async () => {
         const msg1 = serialization.decodeFirstIssuanceMessage(issuerParams, firstMsg.msg);
         const actualNumberOfTokens = msg1.sA.length;
         const TI: Uint8Array = Buffer.from(firstMsg.TI, "base64");
+        const tokenInfo = UPJF.parseTokenInformation(TI);
+        // check the the issuer URL is correct
+        if (tokenInfo.iss !== settings.ISSUER_URL) {
+            throw "invalid issuer URL: " + tokenInfo.iss;
+        }
+        // check that the token is not already expired
+        if (UPJF.isExpired(spec.expType, tokenInfo.exp)) {
+            throw "token is expired";
+        }
+        // check that the lbl value is contained in the specification (protects the user against "tagging attacks")
+        if (!spec.lblType[tokenInfo.lbl]) {
+            throw "invalid lbl value: " + tokenInfo.lbl;
+        }
         const prover = new uprove.Prover(issuerParams, [], TI, new Uint8Array(), actualNumberOfTokens);
 
         // prover creates the second message

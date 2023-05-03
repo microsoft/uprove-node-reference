@@ -107,7 +107,8 @@ app.post(settings.ISSUANCE_SUFFIX, async (req, res) => {
             const spec = UPJF.parseSpecification(issuerParams.S);
             const tokenInformation: UPJF.TokenInformation = {
                 iss: settings.ISSUER_URL,
-                exp: UPJF.getExp(spec.expType, 1) // expiration date, 1 year
+                exp: UPJF.getExp(spec.expType, 1), // expiration date, 1 year
+                lbl: 2, // application-specific label for the token
             }
             const TI = UPJF.encodeTokenInformation(tokenInformation);
 

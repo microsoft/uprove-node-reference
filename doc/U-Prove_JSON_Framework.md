@@ -50,7 +50,7 @@ An Issuer generates its parameters as described in section 2.3.1 of the [UPCS](.
   * "UP256": corresponds to the `P-256` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.1`), with a $\texttt{UID}_H$ of "SHA-256".
   * "UP384": corresponds to the `P-384` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.2`), with a $\texttt{UID}_H$ of "SHA-384".
   * "UP521": corresponds to the `P-521` group description (identified by OID `1.3.6.1.4.1.311.75.1.2.3`), with a $\texttt{UID}_H$ of "SHA-512".
-* The key identifier parameter `kid` MUST be set to BASE64URL($\texttt{UID}_P$) value. It is RECOMMENDED to define $\texttt{UID}_P$ as $H(g_0, g_1, ..., g_n>, <e_1, ..., e_n>, S)$, using the hash notation defined in section 2.2 of [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%205.pdf).
+* The key identifier parameter `kid` MUST be set to BASE64URL($\texttt{UID}_P$) value. It is RECOMMENDED to define $\texttt{UID}_P$ as $H( \langle g_0, g_1, ..., g_n \rangle, \langle e_1, ..., e_n \rangle, S)$, using the hash notation defined in section 2.2 of [UPCS](./U-Prove%20Cryptographic%20Specification%20V1.1%20Revision%205.pdf).
 * The specification parameter `spec` is set to the BASE64URL encoding of a JSON object "specJSON" containing application-specific parameters. The Issuer parameters specification field $S$ is set to UTF8(specJSON). The specification MUST contain a parameter `n` set to an integer value between 0 and 50 inclusively indicating how many attributes can be issued with these Issuer parameters. It MAY contain a parameter `expType` describing how to interpret the expiration field whose possible values are `sec`, `hour`, `day`, `week`, `year`; see the [token validity period](#token-validity-period).
 * The `g0` parameters is BASE64URL($g_0$).
 * The optional `e` parameter contains an array of integers (either 0 or 1) representing the Issuer parameters' $e$ values. If omitted, it is assumed that $e$ values are 1 (i.e., attributes are hashed).
@@ -130,3 +130,11 @@ Long-lived tokens might need to be invalidated by their Issuers before they expi
 ### Reusing U-Prove tokens
 
 A token can be presented multiple times to establish pseudonymous relationship with a Verifier. To insure that each presentation is fully unlinkable, a new token MUST be presented each time.
+
+### Minimizing tracking risks
+
+The cryptographic values of the U-Prove tokens (its public key and signature) are randomized to prevent user tracking. Care must however be taken to avoid introducing correlatable values in application-specific fields, especially in the always-disclosed Token Information field. It is RECOMMENDED to specify as much of the token "schema" into the Issuer parameters, to avoid the possibility of a rogue Issuer encoding special "tagging" values into a target User's tokens.
+
+As an example, an application-specific `xyz` property encoded into the Token Information field could be encoded as a numerical index referring to one of the possible values described in a `xyzValues` property encoded in the Issuer parameters' Specification field.
+
+The more is specified in the Issuer parameters, the less uniqueness can be maliciously encoded into a particular token. This applies to the attribute types and the order they appear in the token. Care must also be taken to prevent malicious Issuers from using a different set of Issuer parameters for a target User, which would make it trivial to track its tokens; conventional PKI certificate transparency techniques can be used in deployment to detect such attacks.
