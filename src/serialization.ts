@@ -7,8 +7,8 @@ import {ECGroup, FirstIssuanceMessage, IssuerParams, PresentationProof, SecondIs
 import { getEcGroup } from './ecparams.js';
 import { Byte } from './hash.js';
 
-const toB64 = (a: Uint8Array) => Buffer.from(a).toString('base64');
-const fromB64 = (b64: string): Uint8Array => Buffer.from(b64, 'base64');
+export const toBase64Url = (a: Uint8Array) => Buffer.from(a).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, ''); // FIXME: isn't base64url encoding supported?
+export const fromBase64Url = (b64: string): Uint8Array => Buffer.from(b64, 'base64');
 
 export interface IssuerParamsJSON {
     UIDP: string;
@@ -21,12 +21,12 @@ export interface IssuerParamsJSON {
 
 export function encodeIssuerParams(ip: IssuerParams): IssuerParamsJSON {
     return {
-        UIDP: toB64(ip.UIDP),
+        UIDP: toBase64Url(ip.UIDP),
         dGq: ip.descGq,
         UIDH: ip.UIDH,
-        g0: toB64(ip.g[0].getBytes()),
+        g0: toBase64Url(ip.g[0].getBytes()),
         e: ip.e.map(e => e.b[0]),
-        S: toB64(ip.S)
+        S: toBase64Url(ip.S)
     }
 }
 
@@ -42,16 +42,16 @@ export function decodeIssuerParams(ipJSON: IssuerParamsJSON): IssuerParams {
     const Gq = groupParams.Gq;
     // g = [g0, g1, ... gn, gt]
     const g = groupParams.g.slice(0, n); // keep only n generators
-    g.unshift(Gq.getElement(fromB64(ipJSON.g0)));
+    g.unshift(Gq.getElement(fromBase64Url(ipJSON.g0)));
     g.push(groupParams.gt);
 
     return new IssuerParams(
-        fromB64(ipJSON.UIDP),
+        fromBase64Url(ipJSON.UIDP),
         descGq,
         ipJSON.UIDH,
         g,
         ipJSON.e.map(e => new Byte(e)),
-        fromB64(ipJSON.S)
+        fromBase64Url(ipJSON.S)
     )
 }
 
@@ -67,13 +67,13 @@ export interface UProveTokenJSON {
 
 export function encodeUProveToken(upt: UProveToken): UProveTokenJSON {
     return {
-        UIDP: toB64(upt.UIDP),
-        h: toB64(upt.h.getBytes()),
-        TI: toB64(upt.TI),
-        PI: toB64(upt.PI),
-        sZp: toB64(upt.sZp.getBytes()),
-        sCp: toB64(upt.sCp.getBytes()),
-        sRp: toB64(upt.sRp.getBytes())
+        UIDP: toBase64Url(upt.UIDP),
+        h: toBase64Url(upt.h.getBytes()),
+        TI: toBase64Url(upt.TI),
+        PI: toBase64Url(upt.PI),
+        sZp: toBase64Url(upt.sZp.getBytes()),
+        sCp: toBase64Url(upt.sCp.getBytes()),
+        sRp: toBase64Url(upt.sRp.getBytes())
     }
 }
 
@@ -81,13 +81,13 @@ export function decodeUProveToken(ip: IssuerParams, uptJSON: UProveTokenJSON): U
     const Gq = ip.Gq;
     const Zq = Gq.Zq;
     return {
-        UIDP: fromB64(uptJSON.UIDP),
-        h: Gq.getElement(fromB64(uptJSON.h)),
-        TI: fromB64(uptJSON.TI),
-        PI: fromB64(uptJSON.PI),
-        sZp: Gq.getElement(fromB64(uptJSON.sZp)),
-        sCp: Zq.getElement(fromB64(uptJSON.sCp)),
-        sRp: Zq.getElement(fromB64(uptJSON.sRp))
+        UIDP: fromBase64Url(uptJSON.UIDP),
+        h: Gq.getElement(fromBase64Url(uptJSON.h)),
+        TI: fromBase64Url(uptJSON.TI),
+        PI: fromBase64Url(uptJSON.PI),
+        sZp: Gq.getElement(fromBase64Url(uptJSON.sZp)),
+        sCp: Zq.getElement(fromBase64Url(uptJSON.sCp)),
+        sRp: Zq.getElement(fromBase64Url(uptJSON.sRp))
     }
 }
 
@@ -99,18 +99,18 @@ export interface FirstIssuanceMessageJSON {
 
 export function encodeFirstIssuanceMessage(m1: FirstIssuanceMessage): FirstIssuanceMessageJSON {
     return {
-        sZ: toB64(m1.sZ.getBytes()),
-        sA: m1.sA.map(sigmaA => toB64(sigmaA.getBytes())),
-        sB: m1.sB.map(sigmaB => toB64(sigmaB.getBytes())),
+        sZ: toBase64Url(m1.sZ.getBytes()),
+        sA: m1.sA.map(sigmaA => toBase64Url(sigmaA.getBytes())),
+        sB: m1.sB.map(sigmaB => toBase64Url(sigmaB.getBytes())),
     }
 }
 
 export function decodeFirstIssuanceMessage(ip: IssuerParams, m1JSON: FirstIssuanceMessageJSON): FirstIssuanceMessage {
     const Gq = ip.Gq;
     return {
-        sZ: Gq.getElement(fromB64(m1JSON.sZ)),
-        sA: m1JSON.sA.map(sigmaA => Gq.getElement(fromB64(sigmaA))),
-        sB: m1JSON.sB.map(sigmaB => Gq.getElement(fromB64(sigmaB)))
+        sZ: Gq.getElement(fromBase64Url(m1JSON.sZ)),
+        sA: m1JSON.sA.map(sigmaA => Gq.getElement(fromBase64Url(sigmaA))),
+        sB: m1JSON.sB.map(sigmaB => Gq.getElement(fromBase64Url(sigmaB)))
     }
 }
 
@@ -120,14 +120,14 @@ export interface SecondIssuanceMessageJSON {
 
 export function encodeSecondIssuanceMessage(m2: SecondIssuanceMessage): SecondIssuanceMessageJSON {
     return {
-        sC: m2.sC.map(sigmaC => toB64(sigmaC.getBytes()))
+        sC: m2.sC.map(sigmaC => toBase64Url(sigmaC.getBytes()))
     }
 }
 
 export function decodeSecondIssuanceMessage(ip: IssuerParams, m2JSON: SecondIssuanceMessageJSON): SecondIssuanceMessage {
     const Zq = ip.Gq.Zq;
     return {
-        sC: m2JSON.sC.map(sigmaC => Zq.getElement(fromB64(sigmaC)))
+        sC: m2JSON.sC.map(sigmaC => Zq.getElement(fromBase64Url(sigmaC)))
     }
 }
 
@@ -137,14 +137,14 @@ export interface ThirdIssuanceMessageJSON {
 
 export function encodeThirdIssuanceMessage(m3: ThirdIssuanceMessage): ThirdIssuanceMessageJSON {
     return {
-        sR: m3.sR.map(sigmaR => toB64(sigmaR.getBytes()))
+        sR: m3.sR.map(sigmaR => toBase64Url(sigmaR.getBytes()))
     }
 }
 
 export function decodeThirdIssuanceMessage(ip: IssuerParams, m3JSON: ThirdIssuanceMessageJSON): ThirdIssuanceMessage {
     const Zq = ip.Gq.Zq;
     return {
-        sR: m3JSON.sR.map(sigmaR => Zq.getElement(fromB64(sigmaR)))
+        sR: m3JSON.sR.map(sigmaR => Zq.getElement(fromBase64Url(sigmaR)))
     }
 }
 
@@ -159,12 +159,12 @@ export interface PresentationProofJSON {
 export function encodePresentationProof(pp: PresentationProof): PresentationProofJSON {
     let ppJSON:PresentationProofJSON =
     {
-        a: toB64(pp.a),
-        r: pp.r.map(r => toB64(r.getBytes()))
+        a: toBase64Url(pp.a),
+        r: pp.r.map(r => toBase64Url(r.getBytes()))
     }
     if (pp.A && Object.keys(pp.A).length  > 0) {
         ppJSON.A =  Object.entries(pp.A).reduce((acc, [i, Ai]) => {
-            acc[Number(i)] = toB64(Ai);
+            acc[Number(i)] = toBase64Url(Ai);
             return acc;
           }, {} as { [index: number]: string });
     }
@@ -174,12 +174,12 @@ export function encodePresentationProof(pp: PresentationProof): PresentationProo
 export function decodePresentationProof(ip: IssuerParams, ppJSON: PresentationProofJSON): PresentationProof {
     const Zq = ip.Gq.Zq;
     let pp: PresentationProof = {
-        a: fromB64(ppJSON.a),
-        r: ppJSON.r.map(r => Zq.getElement(fromB64(r)))
+        a: fromBase64Url(ppJSON.a),
+        r: ppJSON.r.map(r => Zq.getElement(fromBase64Url(r)))
     }
     if (ppJSON.A) {
         pp.A = Object.entries(ppJSON.A).reduce((acc, [i, Ai]) => {
-            acc[Number(i)] = fromB64(Ai);
+            acc[Number(i)] = fromBase64Url(Ai);
             return acc;
             }, {} as { [index: number]: Uint8Array });
     }
@@ -187,11 +187,11 @@ export function decodePresentationProof(ip: IssuerParams, ppJSON: PresentationPr
 }
 
 export function encodeUIDT(UIDT: Uint8Array): string {
-    return toB64(UIDT);
+    return toBase64Url(UIDT);
 }
 
 export function decodeUIDT(UIDT: string): Uint8Array {
-    return fromB64(UIDT);
+    return fromBase64Url(UIDT);
 }
 
 // presentation

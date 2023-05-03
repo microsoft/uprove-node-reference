@@ -48,7 +48,7 @@ void (async () => {
         console.log("received 1st issuance message", firstMsg);
         const msg1 = serialization.decodeFirstIssuanceMessage(issuerParams, firstMsg.msg);
         const actualNumberOfTokens = msg1.sA.length;
-        const TI: Uint8Array = Buffer.from(firstMsg.TI, "base64");
+        const TI: Uint8Array = serialization.fromBase64Url(firstMsg.TI);
         const tokenInfo = UPJF.parseTokenInformation(TI);
         // check the the issuer URL is correct
         if (tokenInfo.iss !== settings.ISSUER_URL) {
@@ -97,7 +97,7 @@ void (async () => {
         // create presentation message
         let message = io.encodePresentationMessage({
             vID: settings.VERIFIER_URL,
-            nce: crypto.randomBytes(16).toString('base64'),
+            nce: serialization.toBase64Url(crypto.randomBytes(16)),
             ts: Date.now().toString()
         });
       
@@ -130,7 +130,7 @@ void (async () => {
         // create presentation message
         message = io.encodePresentationMessage({
             vID: settings.VERIFIER_URL,
-            nce: crypto.randomBytes(16).toString('base64'),
+            nce: serialization.toBase64Url(crypto.randomBytes(16)),
             ts: Date.now().toString()
         });
 

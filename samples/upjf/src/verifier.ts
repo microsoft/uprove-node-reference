@@ -42,7 +42,7 @@ const getIssuerParams = async (issuerUrl: string): Promise<uprove.IssuerParams> 
     return UPJF.decodeJWKAsIP(jwk);
 }
 
-// stores the user tokens for repeat visits, indexed byt the base64-encoded uidt
+// stores the user tokens for repeat visits, indexed by the base64url-encoded UIDT
 const userDB = new Map<string, serialization.UProveTokenJSON>();
 
 // stores the previously seen nonces (for 5 minutes)
@@ -83,7 +83,7 @@ async function verifyJWS(jws: string, expectToken: boolean) {
     }
 
     // fetch the Issuer parameters: (read the issuer url from the token information field)
-    const tokenInfo = UPJF.parseTokenInformation(Buffer.from(uptJSON.TI, 'base64'));
+    const tokenInfo = UPJF.parseTokenInformation(serialization.fromBase64Url(uptJSON.TI));
     const issuerParams = await getIssuerParams(tokenInfo.iss);
     // check that JWS alg matches the issuer params's group
     if ((issuerParams.descGq == uprove.ECGroup.P256 && header.alg !== UPJF.UPAlg.UP256) ||
