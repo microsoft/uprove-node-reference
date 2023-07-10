@@ -11,4 +11,5 @@ samples/upjf/node_modules/
 samples/upjf/private/ip.key
 samples/upjf/public/.well-known/jwks.json
 
-
+# .vscode
+.vscode
