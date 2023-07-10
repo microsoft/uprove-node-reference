@@ -4,12 +4,12 @@
 // config settings for the sample
 
 // issuer settings
-export const ISSUER_PORT: string =  "8080";
-export const ISSUER_URL: string = "http://localhost:8080";
-export const ISSUANCE_SUFFIX: string = "/issue";
-export const JWKS_SUFFIX: string = "/.well-known/jwks.json";
+export const ISSUER_PORT =  "8090";
+export const ISSUER_URL = `http://localhost:${ISSUER_PORT}`;
+export const ISSUANCE_SUFFIX = "/issue";
+export const JWKS_SUFFIX = "/.well-known/jwks.json";
 
 // verifier settings
-export const VERIFIER_PORT: string = "8081";
-export const VERIFIER_URL: string = "http://localhost:8081";
-export const PRESENTATION_SUFFIX: string = "/verify";
+export const VERIFIER_PORT = "8091";
+export const VERIFIER_URL = `http://localhost:${VERIFIER_PORT}`;
+export const PRESENTATION_SUFFIX = "/verify";

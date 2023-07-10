@@ -7,8 +7,8 @@ import { getEcGroup } from "./ecparams.js";
 import { Byte, groupToHash } from "./hash.js";
 import { FieldZqElement } from "./math.js";
 import { TokenPresentation, toBase64Url, fromBase64Url } from "./serialization.js";
-import { createIssuerKeyAndParams, ECGroup, IssuerKeyAndParams, IssuerKeyPair, IssuerParams, UProveToken } from "./uprove.js"
-import { checkUnsignedInt } from "./utils.js";
+import { createIssuerKeyAndParams, ECGroup, IssuerKeyAndParams, IssuerKeyPair, IssuerParams } from "./uprove.js"
+import { checkUnsignedInt, stringToBytes, bytesToString } from "./utils.js";
 
 // expiration functions
 export enum ExpirationType { sec = "sec", hour = "hour", day = "day", week = "week", year = "year" }
@@ -67,19 +67,19 @@ export function isExpired(type: ExpirationType, exp: number, target:number|undef
 export interface Specification {
     n: number,
     expType: ExpirationType,
-    [key: string]: any
+    [key: string]: unknown
 }
 
 export function parseSpecification(S: Uint8Array): Specification {
-    const spec = JSON.parse(S.toString()) as Specification;
+    const spec = JSON.parse(bytesToString(S)) as Specification;
     return spec;
 }
 
-export function createIssuerKeyAndParamsUPJF(descGq: ECGroup, specification: Specification, issKeyPair?: IssuerKeyPair | undefined): IssuerKeyAndParams {
+export async function createIssuerKeyAndParamsUPJF(descGq: ECGroup, specification: Specification, issKeyPair?: IssuerKeyPair | undefined): Promise<IssuerKeyAndParams> {
     const n = specification.n;
     checkUnsignedInt(n);
     if (n < 0 || n > 50) throw `${n} is not a valid value for n, must between 0 and 50 inclusively`;
-    return createIssuerKeyAndParams(descGq, n, undefined, Buffer.from(JSON.stringify(specification)), issKeyPair, undefined);
+    return await createIssuerKeyAndParams(descGq, n, undefined, stringToBytes(JSON.stringify(specification)), issKeyPair, undefined);
 }
 
 export enum UPAlg {
@@ -125,7 +125,7 @@ export function encodeIPAsJWK(ip: IssuerParams): IssuerParamsJWK {
     };
 }
 
-export function decodeJWKAsIP(jwk: IssuerParamsJWK): IssuerParams {
+export async function decodeJWKAsIP(jwk: IssuerParamsJWK): Promise<IssuerParams> {
     if (jwk.kty !== "UP") {
         throw `${jwk.kty} is not a valid key type, "UP" expected`;
     } 
@@ -137,7 +137,7 @@ export function decodeJWKAsIP(jwk: IssuerParamsJWK): IssuerParams {
         default: throw `${jwk.alg} is not a valid algorithm`;
     }
     const SBytes = fromBase64Url(jwk.spec);
-    const spec = JSON.parse(SBytes.toString());
+    const spec = JSON.parse(bytesToString(SBytes));
     const n = spec.n;
     const groupParams = getEcGroup(descGq);
     const Gq = groupParams.Gq;
@@ -147,7 +147,7 @@ export function decodeJWKAsIP(jwk: IssuerParamsJWK): IssuerParams {
     g.push(groupParams.gt);
     const e = jwk.e ? jwk.e : new Array(n).fill(1); 
 
-    return new IssuerParams(
+    return await IssuerParams.create(
         fromBase64Url(jwk.kid),
         descGq,
         groupToHash(descGq),
@@ -160,21 +160,21 @@ export function decodeJWKAsIP(jwk: IssuerParamsJWK): IssuerParams {
 export interface TokenInformation {
     iss: string,
     exp: number,
-    [key: string]: any
+    [key: string]: unknown
 }
 
 export function parseTokenInformation(TI: Uint8Array): TokenInformation {
-    const tokenInformation = JSON.parse(TI.toString()) as TokenInformation;
+    const tokenInformation = JSON.parse(bytesToString(TI)) as TokenInformation;
     return tokenInformation;
 }
 
 export function encodeTokenInformation(TI: TokenInformation): Uint8Array {
-    return Buffer.from(JSON.stringify(TI));
+    return stringToBytes(JSON.stringify(TI));
 }
 
 export interface UPJWSHeader {
     alg: UPAlg,
-    [key: string]: any
+    [key: string]: unknown
 }
 
 export interface UPJWS {
@@ -184,9 +184,9 @@ export interface UPJWS {
 }
 
 export function createJWS(alg: UPAlg, m: Uint8Array, tp: TokenPresentation): string {
-    const header = toBase64Url(Buffer.from(JSON.stringify({ alg: alg })));
+    const header = toBase64Url(stringToBytes(JSON.stringify({ alg: alg })));
     const payload = toBase64Url(m);
-    const sig = toBase64Url(Buffer.from(JSON.stringify( tp ))); 
+    const sig = toBase64Url(stringToBytes(JSON.stringify( tp ))); 
     return header + "." + payload + "." + sig;
 }
 
@@ -197,9 +197,9 @@ export function parseJWS(jws: string): UPJWS {
     }
     try {
         const upJws: UPJWS = {
-            header: JSON.parse(Buffer.from(parts[0], 'base64url').toString('utf8')) as UPJWSHeader,
-            payload: Buffer.from(parts[1], 'base64url'),
-            sig: JSON.parse(Buffer.from(parts[2], 'base64url').toString('utf8')) as TokenPresentation
+            header: JSON.parse(bytesToString(fromBase64Url(parts[0]))) as UPJWSHeader,
+            payload: fromBase64Url(parts[1]),
+            sig: JSON.parse(bytesToString(fromBase64Url(parts[2]))) as TokenPresentation
         }
         return upJws;
     } catch (err) {

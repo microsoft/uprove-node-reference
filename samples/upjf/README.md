@@ -44,6 +44,5 @@ npm run deploy-verifier
 
 Finally, the Prover can retrieve tokens from the Issuer and then present one to the Verifier by running:
 ```
-npm run run-prover
+npm run prover
 ```
-

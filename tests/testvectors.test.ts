@@ -102,10 +102,10 @@ function encodePoint(xHex: string, yHex: string) {
     return '04' + xHex + yHex;
 }
 
-function run(tv: TestVectors) {
+async function run(tv: TestVectors) {
     const n = 5;
     const e = parseEArray(tv);
-    const ikp = uprove.createIssuerKeyAndParams(
+    const ikp = await uprove.createIssuerKeyAndParams(
         uprove.ECGroup.P256,
         5,
         e,
@@ -121,15 +121,15 @@ function run(tv: TestVectors) {
     const A = [hexToBytes(tv.A1), hexToBytes(tv.A2), hexToBytes(tv.A3), hexToBytes(tv.A4), hexToBytes(tv.A5)];
     const TI = hexToBytes(tv.TI);
     const PI = hexToBytes(tv.PI);
-    
+
     // check the xi and xt
-    A.forEach((Ai,i,arr) => {
-        const xi = Zq.getElement(hexToBytes((tv as unknown as Record<string, string>)["x" + (i+1)]));
-        const computedXi = uprove.computeXi(i+1, ip, Ai);
+    A.forEach(async (Ai, i, arr) => {
+        const xi = Zq.getElement(hexToBytes((tv as unknown as Record<string, string>)["x" + (i + 1)]));
+        const computedXi = await uprove.computeXi(i + 1, ip, Ai);
         expect(xi.equals(computedXi)).toBeTruthy();
     });
     const xt = Zq.getElement(hexToBytes(tv.xt));
-    const computedXt = uprove.computeXt(ip, TI);
+    const computedXt = await uprove.computeXt(ip, TI);
     expect(xt.equals(computedXt)).toBeTruthy();
 
     // NOTE: skipping validation of issuance since we don't have a way
@@ -147,23 +147,23 @@ function run(tv: TestVectors) {
     }
 
     const D: number[] = tv.D.split(',').filter(i => i != '').map(i => parseInt(i));
-    const USet = new Set<number>(Array.from({length: n}, (e, i)=> i+1));
+    const USet = new Set<number>(Array.from({ length: n }, (e, i) => i + 1));
     D.forEach(i => USet.delete(i));
-    const U = Array.from(USet).sort((a,b) => a-b);
+    const U = Array.from(USet).sort((a, b) => a - b);
 
-    const rInU : string[] = U.map(i => (tv as unknown as Record<string, string>)["r" + i]);
-    const r = [ Zq.getElement(hexToBytes(tv.r0)), ...rInU.map(r => Zq.getElement(hexToBytes(r)))]; 
-    
+    const rInU: string[] = U.map(i => (tv as unknown as Record<string, string>)["r" + i]);
+    const r = [Zq.getElement(hexToBytes(tv.r0)), ...rInU.map(r => Zq.getElement(hexToBytes(r)))];
+
     const disclosedA: { [key: number]: Uint8Array } = {};
     for (const d of D) {
-        disclosedA[d] = A[d-1];
+        disclosedA[d] = A[d - 1];
     }
     const proof: uprove.PresentationProof = {
         A: disclosedA,
         a: hexToBytes(tv.a),
-        r: r  
+        r: r
     }
-    const verificationData = uprove.verifyPresentationProof(ip, upt, hexToBytes(tv.m), proof, hexToBytes(tv.md));
+    const verificationData = await uprove.verifyPresentationProof(ip, upt, hexToBytes(tv.m), proof, hexToBytes(tv.md));
     arrayEqual(verificationData.UIDT, hexToBytes(tv.UIDt));
 
 }

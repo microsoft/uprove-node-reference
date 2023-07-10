@@ -30,6 +30,7 @@
   "type": "module",
   "jest": {
     "testRegex": "/js/tests/.*\\.js$",
-    "transform": {}
+    "transform": {},
+    "testTimeout": 20000
   }
 }

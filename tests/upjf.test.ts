@@ -7,17 +7,17 @@ import { arrayEqual } from "../src/utils.js";
 
 test("UPJF issuer setup", async () => {
     // generate issuer params
-    const ikp = UPJF.createIssuerKeyAndParamsUPJF(ECGroup.P256, { n: 0, expType: UPJF.ExpirationType.sec}, undefined);
+    const ikp = await UPJF.createIssuerKeyAndParamsUPJF(ECGroup.P256, { n: 0, expType: UPJF.ExpirationType.sec}, undefined);
     // serialize values
     const jwk = UPJF.encodeIPAsJWK(ikp.ip);
     const key = UPJF.encodePrivateKeyAsBase64Url(ikp.y0)
     // deserialize values
-    const ip = UPJF.decodeJWKAsIP(jwk);
+    const ip = await UPJF.decodeJWKAsIP(jwk);
     ip.verify();
     const y0 = UPJF.decodeBase64UrlAsPrivateKey(ip, key);
 
     expect(ikp.y0.equals(y0)).toBeTruthy();
-    expect(arrayEqual(ikp.ip.P,ip.P)).toBeTruthy();
+    expect(arrayEqual(await ikp.ip.P, await ip.P)).toBeTruthy();
 });
 
 test("UPJF expiration", async () => {

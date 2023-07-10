@@ -103,7 +103,7 @@ async function verifyJWS(jws: string, expectToken: boolean) {
         throw "token is expired";
     }
     // check the token label
-    const tokenLabel = spec.lblType[tokenInfo.lbl];
+    const tokenLabel = (spec.lblType as Record<number, string>)[tokenInfo.lbl as number];
     // <application specific logic goes here>
     console.log("Token label:", tokenLabel);
 
@@ -123,7 +123,7 @@ async function verifyJWS(jws: string, expectToken: boolean) {
         nonceDB.add(pm.nce);
         setTimeout(() => nonceDB.delete(pm.nce), FIVE_MIN_IN_MS);
     }
-    const verificationData = uprove.verifyPresentationProof(
+    const verificationData = await uprove.verifyPresentationProof(
         issuerParams,
         upt,
         message,
@@ -145,9 +145,9 @@ app.post(settings.PRESENTATION_SUFFIX, async (req, res) => {
         const reqJson = req.body as {jws: string};
         const jws:string = reqJson.jws;
 
-        const verificationData = verifyJWS(jws, true);
+        const verificationData = await verifyJWS(jws, true);
 
-        let response = { status: "success" };
+        const response = { status: "success" };
         console.log('Response', response);
         res.send(response);
     } catch (err) {
@@ -166,7 +166,7 @@ app.get(settings.PRESENTATION_SUFFIX, async (req, res) => {
 
         verifyJWS(jws, false);
 
-        let response = { status: "success" };
+        const response = { status: "success" };
         console.log('Response', response);
         res.send(response);
     } catch (err) {
@@ -179,4 +179,3 @@ app.get(settings.PRESENTATION_SUFFIX, async (req, res) => {
 http.createServer(app).listen(settings.VERIFIER_PORT, () => {
     console.log("Verifier listening at: " + settings.VERIFIER_URL);
 });
-

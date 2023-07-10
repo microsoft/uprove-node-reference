@@ -1,5 +1,6 @@
 import * as serialization from '../../../src/serialization.js';
 import {IssuerParamsJWK} from '../../../src/upjf.js';
+import { stringToBytes, bytesToString } from '../../../src/utils.js';
 
 export interface IssuerParamsJWKS {
     keys: IssuerParamsJWK[]
@@ -38,10 +39,10 @@ export interface PresentationMessage {
 }
 
 export function parsePresentationMessage(pm: Uint8Array): PresentationMessage {
-    const presentationMessage = JSON.parse(Buffer.from(pm).toString()) as PresentationMessage;
+    const presentationMessage = JSON.parse(bytesToString(pm)) as PresentationMessage;
     return presentationMessage;
 }
 
 export function encodePresentationMessage(pm: PresentationMessage): Uint8Array {
-    return Buffer.from(JSON.stringify(pm));
+    return stringToBytes(JSON.stringify(pm));
 }
