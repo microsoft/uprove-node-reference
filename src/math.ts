@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import cryptoECC, { Digits, EllipticCurvePointFp, WeierstrassCurve} from "@microsoft/msrcrypto/scripts/cryptoECC.js";
+import cryptoECC, { Digits, EllipticCurvePointFp, WeierstrassCurve } from "@microsoft/msrcrypto/scripts/cryptoECC.js";
 import cryptoMath, { IntegerGroupElement, IntegerGroup } from "@microsoft/msrcrypto/scripts/cryptoMath.js";
 import "@microsoft/msrcrypto/scripts/curves_NIST.js";
 import { ECGroup } from "./uprove.js";
 import { Hash } from "./hash.js";
-import * as crypto from "crypto";
+import { webcrypto as crypto } from "crypto";
 
 export class FieldZqElement {
     public scalar: IntegerGroupElement;
@@ -30,7 +30,7 @@ export class FieldZq {
     private Zq: IntegerGroup;
     private q: Digits;
     private elementLength: number;
-    
+
     constructor(q: Digits) {
         this.q = q;
         const qBytes = cryptoMath.digitsToBytes(q);
@@ -56,7 +56,7 @@ export class FieldZq {
         let done = false;
         let randZq: Digits = cryptoMath.Zero;
         while (!done) {
-            const ranBytes = crypto.randomBytes(this.elementLength);
+            const ranBytes = crypto.getRandomValues(new Uint8Array(this.elementLength));            
             randZq = cryptoMath.bytesToDigits(Array.from(ranBytes));
             if (cryptoMath.compareDigits(randZq, this.q) < 0) {
                 done = true;
@@ -70,19 +70,19 @@ export class FieldZq {
 
     getRandomElements(n: number, nonZero = false): FieldZqElement[] {
         const r: FieldZqElement[] = [];
-        for (let i=0; i<n; i++) {
+        for (let i = 0; i < n; i++) {
             r.push(this.getRandomElement(nonZero));
         }
         return r;
     }
 
-    add(a: FieldZqElement, b:FieldZqElement): FieldZqElement {
+    add(a: FieldZqElement, b: FieldZqElement): FieldZqElement {
         const sum = this.Zq.createElementFromInteger(0);
         this.Zq.add(a.scalar, b.scalar, sum);
         return new FieldZqElement(sum);
     }
 
-    mul(a: FieldZqElement, b:FieldZqElement): FieldZqElement {
+    mul(a: FieldZqElement, b: FieldZqElement): FieldZqElement {
         const product = this.Zq.createElementFromInteger(0);
         this.Zq.multiply(a.scalar, b.scalar, product);
         return new FieldZqElement(product);
@@ -120,13 +120,13 @@ export class GroupElement {
 
 // the underlying cryptoMath lib expects points to be on the same curve object (===)
 // so we instantiate them once
-enum CurveNames {P256 = "P-256", P384 = "P-384", P521 = "P-521"}
+enum CurveNames { P256 = "P-256", P384 = "P-384", P521 = "P-521" }
 const P256Curve = cryptoECC.createCurve(CurveNames.P256) as WeierstrassCurve;
 const P384Curve = cryptoECC.createCurve(CurveNames.P384) as WeierstrassCurve;
 const P521Curve = cryptoECC.createCurve(CurveNames.P521) as WeierstrassCurve;
 
 export class Group {
-    private curve : WeierstrassCurve;
+    private curve: WeierstrassCurve;
     private descGq;
     public Zq: FieldZq;
     public g: GroupElement; // generator
@@ -184,7 +184,7 @@ export class Group {
     // return a.b = point + point
     mul(a: GroupElement, b: GroupElement): GroupElement {
 
-        if(a === undefined || b === undefined || a?.point === undefined || b?.point === undefined) {
+        if (a === undefined || b === undefined || a?.point === undefined || b?.point === undefined) {
             console.log('undefined point in mul');
         }
 

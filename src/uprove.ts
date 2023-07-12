@@ -3,7 +3,7 @@
 
 import { getEcGroup } from './ecparams.js';
 import { Byte, groupToHash, Hash } from './hash.js';
-import { GroupElement, Group, FieldZqElement, FieldZq } from './math.js';
+import { GroupElement, Group, FieldZqElement } from './math.js';
 import { arrayEqual, checkUnsignedInt } from './utils.js';
 
 export enum ECGroup {
@@ -20,14 +20,6 @@ export enum ECGroup {
  */
 export class IssuerParams {
 
-    // digest of Issuer parameters (used in computeXt)
-    #P: Promise<Uint8Array>;
-    P: Uint8Array;
-
-    // the prime-order group
-    public Gq: Group;
-
-
     /**
      * Private constructor that Creates an instance of IssuerParams.
      * Use IssuerParams.create() factory to create a new IssuerParams instance.
@@ -37,26 +29,22 @@ export class IssuerParams {
      * @param {GroupElement[]} g
      * @param {Byte[]} e
      * @param {Uint8Array} S
+     * @param {Group} Gq
+     * @param {Uint8Array} P
      * @memberof IssuerParams
      * @private
      * @constructor
      */
-    private constructor(public UIDP: Uint8Array, public descGq: ECGroup, public UIDH: string,
-        public g: GroupElement[], public e: Byte[], public S: Uint8Array) {
-
-        this.Gq = new Group(this.descGq);
-
-        // pre-compute the Issuer params digest P, used in computeXt
-        const hash = this.Gq.getHash();
-        hash.update(this.UIDP);
-        this.Gq.updateHash(hash);
-        hash.update(this.g);
-        hash.update(this.e);
-        hash.update(this.S);
-
-        this.#P = hash.digest();
-        this.P = new Uint8Array();
-    }
+    private constructor(
+        public UIDP: Uint8Array,
+        public descGq: ECGroup,
+        public UIDH: string,
+        public g: GroupElement[],
+        public e: Byte[],
+        public S: Uint8Array,
+        public Gq: Group,
+        public P: Uint8Array
+    ) { }
 
     /**
      * Static factory method to create a new instance of IssuerParams
@@ -77,14 +65,16 @@ export class IssuerParams {
      * @async
     */
     public static async create(UIDP: Uint8Array, descGq: ECGroup, UIDH: string, g: GroupElement[], e: Byte[], S: Uint8Array): Promise<IssuerParams> {
-        const parameters = new IssuerParams(UIDP, descGq, UIDH, g, e, S);
-        parameters.P = await parameters.#P;
-        return parameters;
+        const Gq = new Group(descGq);
+        const hash = Gq.getHash();
+        hash.update(UIDP);
+        Gq.updateHash(hash);
+        hash.update(g);
+        hash.update(e);
+        hash.update(S);
+        const P = await hash.digest()
+        return new IssuerParams(UIDP, descGq, UIDH, g, e, S, Gq, P);
     }
-
-    // public get P(): Promise<Uint8Array> {
-    //     return this.#P;
-    // }
 
     // c.f. spec section 2.3.1
     public verify() {
@@ -178,18 +168,6 @@ export async function computeXt(ip: IssuerParams, TI: Uint8Array): Promise<Field
     H.update(ip.P);
     H.update(TI);
     return ip.Gq.Zq.getElement(await H.digest());
-
-    // return new Promise<FieldZqElement>((resolve, reject) => {
-    //     ip.P.then(p => {
-    //         H.update(p);
-    //         H.update(TI);
-    //         H.digest().then(d => {
-    //             resolve(ip.Gq.Zq.getElement(d));
-    //         })
-    //     })
-
-    // })
-
 }
 
 // c.f. spec section 2.3.5
@@ -314,42 +292,18 @@ export class Prover extends IssuanceParticipant {
     private sigmaBPrime: GroupElement[] = [];
     private sigmaCPrime: FieldZqElement[] = [];
 
-    // public constructor(ip: IssuerParams, A: Uint8Array[], TI: Uint8Array, PI: Uint8Array, n: number) {
-    //     super(n);
-    //     this.ip = ip;
-    //     const Gq = ip.Gq;
-    //     const Zq = Gq.Zq;
-    //     this.TI = TI;
-    //     this.PI = PI;
-    //     const gamma = this.computeGamma(A, ip, TI);
-
-    //     // precomputation (NOTE: could move this out to its own function)
-    //     this.alpha = Zq.getRandomElements(n, true);
-    //     this.beta1 = Zq.getRandomElements(n);
-    //     this.beta2 = Zq.getRandomElements(n);
-    //     const t1Base = [ip.g[0], Gq.g];
-    //     for (let i=0; i<n; i++) {
-    //         this.h.push(Gq.modExp(gamma, this.alpha[i]));
-    //         this.t1.push(Gq.multiModExp(t1Base, [this.beta1[i], this.beta2[i]]));
-    //         this.t2.push(Gq.modExp(this.h[i], this.beta2[i]));
-    //     }
-    // }
-
     private constructor(ip: IssuerParams, TI: Uint8Array, PI: Uint8Array, n: number) {
-
         super(n);
         this.ip = ip;
         const Gq = ip.Gq;
         const Zq = Gq.Zq;
         this.TI = TI;
         this.PI = PI;
-
         // precomputation (NOTE: could move this out to its own function)
         this.alpha = Zq.getRandomElements(n, true);
         this.beta1 = Zq.getRandomElements(n);
         this.beta2 = Zq.getRandomElements(n);
     }
-
 
     /**
      * Static Factory for creating instances of Prover
@@ -447,20 +401,6 @@ export class Issuer extends IssuanceParticipant {
     private sigmaZ: GroupElement = {} as GroupElement;
     private sigmaA: GroupElement[] = []
     private sigmaB: GroupElement[] = []
-
-    // public constructor(ikp: IssuerKeyAndParams, A: Uint8Array[], TI: Uint8Array, n: number) {
-    //     super(n);
-    //     this.Gq = ikp.ip.Gq;
-    //     const Zq = this.Gq.Zq;
-    //     this.y0 = ikp.y0;
-    //     this.gamma = this.computeGamma(A, ikp.ip, TI);
-    //     this.sigmaZ = this.Gq.modExp(this.gamma, this.y0);
-        
-    //     // precomputation (NOTE: could move this out to its own function)
-    //     this.w = Zq.getRandomElements(n);
-    //     this.sigmaA = this.w.map(w_i => this.Gq.modExp(this.Gq.g, w_i));
-    //     this.sigmaB = this.w.map(w_i => this.Gq.modExp(this.gamma, w_i));
-    // }
 
     private constructor(private ikp: IssuerKeyAndParams, n: number) {
         super(n);

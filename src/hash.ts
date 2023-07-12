@@ -4,8 +4,7 @@
 // implements the U-Prove hash formatting
 import { GroupElement, FieldZqElement } from './math.js';
 import { ECGroup } from './uprove.js';
-
-const crypto = (await import('node:crypto'))?.webcrypto || globalThis.crypto
+import { webcrypto as crypto } from 'crypto';
 
 export const groupToHash = (g: ECGroup) => { 
     switch(g) {
