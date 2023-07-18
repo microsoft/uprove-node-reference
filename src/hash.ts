@@ -6,14 +6,14 @@ import { GroupElement, FieldZqElement } from './math.js';
 import { ECGroup } from './uprove.js';
 import { webcrypto as crypto } from 'crypto';
 
-export const groupToHash = (g: ECGroup) => { 
-    switch(g) {
+export const groupToHash = (g: ECGroup) => {
+    switch (g) {
         case ECGroup.P256: return 'sha256';
         case ECGroup.P384: return 'sha384';
         case ECGroup.P521: return 'sha512';
         default: throw 'invalid group';
     }
- };
+};
 
 export class Byte {
     b: Uint8Array;
@@ -23,7 +23,7 @@ export class Byte {
     }
 }
 
-export type HashInput = Byte | null | number | Uint8Array | GroupElement | FieldZqElement | ECGroup ;
+export type HashInput = Byte | null | number | Uint8Array | GroupElement | FieldZqElement | ECGroup;
 
 // c.f. spec section 2.2
 export class Hash {
@@ -77,9 +77,9 @@ export class Hash {
             this.update(data);
         }
 
-        return crypto.subtle.digest({name: groupToHash(this.descGq).replace('sha', 'sha-')}, this.hash)
-        .then(arrayBuffer => {
-            return new Uint8Array(arrayBuffer);
-        })
+        return crypto.subtle.digest({ name: groupToHash(this.descGq).replace('sha', 'sha-') }, this.hash)
+            .then(arrayBuffer => {
+                return new Uint8Array(arrayBuffer);
+            })
     }
 }

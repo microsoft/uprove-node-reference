@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "U-Prove node reference implementation",
   "main": "js/src/index.js",
-  "types": "js/src/index.d.ts",
+  "module": "js/src/index.js",
+  "browser": "browser/index.js",
+  "types": "types/index.d.ts",
   "directories": {
     "doc": "doc"
   },
   "scripts": {
     "build": "tsc",
-    "clean": "rm -rf js",
+    "build:browser": "rollup -c && tsc --emitDeclarationOnly -p tsconfig.browser.json",
+    "clean": "rimraf js browser/* types src/*.js src/*.d.ts src/*.map",
     "samples": "node js/samples/samples.js",
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --verbose",
     "prepare": "npm run build"
@@ -20,12 +23,18 @@
     "@microsoft/msrcrypto": "github:microsoft/MSR-JavaScript-Crypto#export-math-lib"
   },
   "devDependencies": {
-    "@types/jest": "^29.1.2",
-    "@types/node": "^18.14.1",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
-    "eslint": "^8.34.0",
-    "jest": "^29.1.2"
+    "@rollup/plugin-commonjs": "^25.0.2",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@types/jest": "^29.5.3",
+    "@types/node": "^20.4.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "jest": "^29.6.1",
+    "rollup": "^3.26.2",
+    "rollup-plugin-typescript2": "^0.35.0"
   },
   "type": "module",
   "jest": {

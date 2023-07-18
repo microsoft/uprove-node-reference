@@ -123,7 +123,7 @@ async function run(tv: TestVectors) {
     const PI = hexToBytes(tv.PI);
 
     // check the xi and xt
-    A.forEach(async (Ai, i, arr) => {
+    A.forEach(async (Ai, i) => {
         const xi = Zq.getElement(hexToBytes((tv as unknown as Record<string, string>)["x" + (i + 1)]));
         const computedXi = await uprove.computeXi(i + 1, ip, Ai);
         expect(xi.equals(computedXi)).toBeTruthy();

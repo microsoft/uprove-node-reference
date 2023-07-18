@@ -1,0 +1,14 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "target": "es2017",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "declarationMap": false,
+        "declaration": true,
+        "declarationDir": "types",
+    },
+    "include": [
+        "src"
+    ]
+}
