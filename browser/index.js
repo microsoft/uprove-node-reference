@@ -1,4 +1,8171 @@
+
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 /* eslint-disable */
-!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports,require("crypto")):"function"==typeof define&&define.amd?define(["exports","crypto"],e):e((t="undefined"!=typeof globalThis?globalThis:t||self).uproveNodeReference={},t.crypto)}(this,(function(t,e){"use strict";function r(t){return t&&t.__esModule&&Object.prototype.hasOwnProperty.call(t,"default")?t.default:t}var n,o={exports:{}},s={exports:{}};var a={exports:{}};!function(t,e){var r=r||function(){for(var t=24,e=Math.floor(t/8),n=(1<<t)-1,i=1<<t,o=n,s=1/i,a=[1,256],u=2;u<=e;u++)a[u]=256*a[u-1];var h=[0],c=[1];function l(t){var e,r=null;if(arguments.length&&"number"!=typeof arguments[0]){if("object"==typeof arguments[0])for(r=new Array(t.length),e=0;e<t.length;e+=1)r[e]=t[e]}else for(r=new Array(t),e=0;e<t;e+=1)r[e]=0;return r}function f(t,e,r,n,i){for(;i-- >0;)r[n+i]=t[e+i]}function g(t){var e,r=0;for(e=0;e<t.length;e+=1)r|=t[e];return!r}function p(t){var r=Math.floor((t.length+e-1)/e),n=new Array(r);n[0]=0;for(var o=0,s=0,u=0,h=t.length-1;h>=0;h--)o+=a[u++]*(255&t[h]),a[u]===i&&(u=0,n[s++]=o,o=0);for(0!==o&&(n[s]=o);null==n[--r];)n[r]=0;return n}function m(e,r){if(void 0===r)if(e<=1)r=1;else{var n=Math.log(e)/Math.LN2;r=Math.ceil(n/t)}for(var o=[];e>0;)o.push(e%i),e=Math.floor(e/i);for(;o.length<r;)o.push(0);return o}function d(t){for(var e=t.length-1;e>=0;e--)if(void 0!==t[e]&&0!==t[e])return e;return 0===t[0]?-1:0}function v(t,e){var r,n,i=0;for(n=0;n<Math.max(t.length,e.length);n++)i=(r=~~t[n]-~~e[n])+(i&-!r);return i}function y(t,e,r){var n=d(t);if(t.length=e||n+1,r)for(;++n<t.length;)t[n]=0;return t.length<=0&&(t[0]=0,t.length=1),t}function P(e,r,i,o){if(void 0===i)i=1;else if(i>=t||i<0)throw new Error("bit count must be smaller than DIGIT_BITS and positive in shiftLeft");void 0===o&&(o=e.length);var s=t-i;r[o]=e[o-1]>>>t-i||r[o];for(var a=o-1;a>0;a--)r[a]=(e[a]<<i|e[a-1]>>>s)&n;r[0]=e[0]<<i&n}function q(e,r,i){var o=e,s=r;r.length<e.length&&(o=r,s=e);var a,u=o.length,h=0;for(a=0;a<u;a+=1)h+=o[a]+s[a],i[a]=h&n,h>>=t;for(a=u;a<s.length;a+=1)h+=s[a],i[a]=h&n,h>>=t;return i.length=s.length,0!==h&&(i[a]=h&n),h}function w(e,r,i){var o=r.length;if(e.length<r.length&&(o=d(r)+1,e.length<o))throw new Error("Subtrahend is longer than minuend, not supported.");var s,a=0;for(s=0;s<o;s+=1)a+=e[s]-r[s],i[s]=a&n,a>>=t;for(;s<e.length;)a+=e[s],i[s++]=a&n,a>>=t;return a}function G(t,e,r){e="number"==typeof e?[e]:e;var i,o,a,u,h,c,l,f,g=t.length,p=e.length;for(i=0;i<g+p;i+=1)r[i]=0;i=0,u=0;for(var m=0;i<p;){for(u=Math.min(u+31,p);i<u;i++)for(f=e[i],o=0;o<g;o++)r[i+o]+=t[o]*f;for(h=0,a=m;a<i+g;a++)l=(c=r[a]+h)&n,r[a]=l,h=(c-l)*s;r[a]=h,m+=31}return r.length=g+p,r}function I(e,r,o,s,a,u){var h,c,l,g,p,m,v,q=d(e)+1,w=d(r)+1;if(q<w)return f(e,0,s,0,e.length),s.length=e.length,y(s),o[0]=0,void(o.length=1);if(0===w||1===w&&0===r[w-1])throw new Error("Division by zero.");if(1===w){for(p=r[0],c=0,v=q-1;v>=0;v--)g=c*i+e[v],o[v]=g/p&n,c=g-o[v]*p&n;return o.length=q,y(o),s[0]=c,void(s.length=1)}var G=t-1-function(e){for(var r=0,n=0;n<t;n++)r=Math.max(r,-(e>>>n&1)&n);return r}(r[w-1]),I=a||[];I.length=w,P(r,I,G,w);var M=u||[];for(M.length=q,P(e,M,G,q),M[q]=M[q]||0,o.length=q-w+1,s.length=w,v=q-w;v>=0;v--){for(h=Math.floor((M[v+w]*i+M[v+w-1])/I[w-1]),c=M[v+w]*i+M[v+w-1]-h*I[w-1];(h>=i||h*I[w-2]>c*i+M[v+w-2])&&(h-=1,(c+=I[w-1])<i););for(l=0,m=0;m<w;m++)g=h*I[m],p=M[m+v]-l-(g&n),M[m+v]=p&n,l=Math.floor(g/i)-Math.floor(p/i);if(p=M[v+w]-l,M[v+w]=p&n,o[v]=h&n,p<0){for(o[v]=o[v]-1,l=0,m=0;m<w;m++)p=M[m+v]+I[m]+l,M[m+v]=p&n,l=p>>t;M[v+w]=M[v+w]+l&n}}for(m=0;m<w;m++)s[m]=(M[m]>>>G|M[m+1]<<t-G)&n;y(o),y(s)}function M(t,e,r,n,i){var o;if(g(t))return f(e,0,i,0,e.length),i.length=e.length,0;if(g(e))return f(t,0,i,0,t.length),i.length=t.length,0;v(t,e)<0?(o=t.slice(0),f(e,0,i,0,e.length),i.length=e.length):(o=e.slice(0),f(t,0,i,0,t.length),i.length=t.length),y(i),y(o);var s,a,u=new Array(i.length),h=new Array(i.length),c=new Array(i.length),l=void 0!==n;l&&((s=new Array(i.length))[0]=1,s.length=1,n[0]=0,n.length=1);var p=new Array(i.length),m=void 0!==r;m&&((a=new Array(i.length))[0]=0,a.length=1,r[0]=1,r.length=1);for(var d,P=-1,w=r,M=n,b=i;!g(o);)I(i,o,u,h,p,c),m&&(G(u,a,p),q(p,r,p),y(p),d=r,r=a,a=p,p=d),l&&(G(u,s,c),q(c,n,c),y(c),d=n,n=s,s=c,c=d),d=i,i=o,o=h,h=d,P++;return m&&(f(r,0,w,0,r.length),w.length=r.length),l&&(f(n,0,M,0,n.length),M.length=n.length),f(i,0,b,0,i.length),b.length=i.length,P}function b(t,e,r,n){if(n=n||[],0===v(e,h))n[0]=1;else if(0===v(e,c))f(t,0,n,0,t.length),n.length=t.length;else{var i=new x(r);y(t,i.s,!0),i.modExp(t,e,n),n.length=r.length}return n}function x(e,i){function o(e){for(var r=1,i=2,o=3,s=o&e,a=2;a<=t;a+=1)i<s&&(r+=i),i<<=1,s=e*r&(o=o<<1|1);return 1+(~r&n)}function a(t,e,i,o){for(var a,u,c,f,g,p,m,d,v=(o=o||this).m,y=v.length,P=o.mPrime,q=o.m0,w=0,G=0,I=l(y+2);w<y;){for(G=Math.min(y,G+16);w<G;){for(a=~~e[w],c=((u=I[0]+t[0]*a)&n)*P&n,I[1]+=(q*c+u)*s|0,f=1,g=0;f<y;g=f,f+=1)I[g]=I[f]+v[f]*c+t[f]*a;I[g]=I[f],I[f]=0,w++}for(d=0,f=0;f<y;f++)m=(p=I[f]+d)&n,I[f]=m,d=(p-m)*s;I[f]=d}for(w=0;w<y;w+=1)i[w]=I[w];i.length=y;var M=+(r.compareDigits(I,v)>0);r.subtract(i,v,o.temp2),h(M,i,o.temp2)}function u(t,e,r){var n,i,o,s,a;for(n=0;n<t[0].length;n++)r[n]=0;for(i=0;i<t.length;i++)for(s=t[i],o=-(e===i),a=0;a<s.length;a++)r[a]=r[a]|s[a]&o}function h(t,e,r){for(var n=-t,i=~n,o=0;o<e.length;o++)e[o]=e[o]&i|r[o]&n}i=i||function(t){var e=t.length,r=t[0],n={m:t,mPrime:o(r),m0:r,temp1:l(2*e+1),temp2:l(2*e+1)},i=l(2*t.length);i[i.length]=1,n.mu=[],I(i,t,n.mu,[]);var s=l(2*e+1),u=l(e+1),h=l(2*e+1),c=l(2*e+1),f=u;f[e]=1,I(f,t,s,u,h,c),n.rModM=y(u,e,!0);var g=l(2*e+1),p=g;return p[2*e]=1,I(p,t,s,g,h,c),n.rSquaredModm=y(g,e,!0),n.rCubedModm=l(e),a(g,g,n.rCubedModm,n),n}(e);var c=i.m,f=i.mu,g=i.m0,p=c.length,m=l(p+1).slice(0,p);m[0]=1;var d=i.mPrime,P=i.rModM,q=i.rSquaredModm,M=i.rCubedModm,b=l(2*p+1),x=l(2*p+1),A=new Array(4);return A[0]=P,A[1]=new Array(p),A[2]=new Array(p),A[3]=new Array(p),{m:c,m0:g,mPrime:d,mu:f,rSquaredModm:q,s:p,rModM:P,rCubedModm:M,one:m,temp1:b,temp2:x,convertToMontgomeryForm:function(t){if(t.length<this.s){t.length=this.s;for(var e=0;e<this.s;e++)t[e]=isNaN(t[e])?0:t[e]}var r=l(t.length);for(this.montgomeryMultiply(t,this.rSquaredModm,r),e=0;e<this.s;e+=1)t[e]=r[e]},convertToStandardForm:function(t){this.montgomeryMultiply(t,this.one,this.temp1);for(var e=0;e<this.s;e+=1)t[e]=this.temp1[e]},montgomeryMultiply:a,modExp:function(e,r,n,i){i=!!i;var o,s,a=function(e){var r,n,i=2,o=e*t;n=4+3*Math.ceil(o/2)+1;do{i++,r=n,n=Math.pow(2,i)+Math.ceil(o/i)*(i+1)+1}while(n<r);return i-1}(r.length),h=function(e,r){var n=e.length;new Array(n*t);var i,o=0,s=0,a=0,u=0,h=new Array(Math.ceil(n*t/r));for(a=0,h[0]=0;o<n;o++)for(s=0,i=e[o];s<t;s++,i>>>=1)a===r&&(h[++u]=0,a=0),h[u]+=(1&i)<<a++;return h}(r,a).reverse(),c=this.rModM.slice(0),l=Math.pow(2,a),f=A;for(f.length=l,f[0]=this.rModM,o=1;o<l;o++)f[o]=[],G(f[o-1],e,f[o]),this.reduce(f[o]);var g,p=[];for(o=0;o<h.length;o++){for(s=0;s<a;s++)this.montgomeryMultiply(c,c,c);g=h[o],i?p=f[g]:u(f,g,p),this.montgomeryMultiply(c,p,c)}return this.montgomeryMultiply(c,this.one,n),n},reduce:function(t,e){var n,i,o,s,a,u,l=this.m.length,f=[];for(e=e||t,n=[],G(t.slice(l-1),this.mu,n),i=n.slice(l+1),o=t.slice(0,l+1),G(i,c,s=[]),s=s.slice(0,l+1),o[l+1]=v(o,s)>>>31,a=0;a<e.length;a++)e[a]=0;w(o,s,e),u=+(v(e,c)>0),r.subtract(e,c,f),h(u,e,f),y(e)},ctx:i}}return{DIGIT_BITS:t,DIGIT_NUM_BYTES:e,DIGIT_MASK:n,DIGIT_BASE:i,DIGIT_MAX:o,Zero:h,One:c,normalizeDigitArray:y,bytesToDigits:p,stringToDigits:function(t,e){t=t.replace(/^\s+|\s+$/g,"");var r=[0],n=[0];e=e||10;for(var i=0;i<t.length;i+=1){var o=parseInt(t[i],e);if(isNaN(o))throw new Error("Failed to convert string to integer in radix "+e.toString());G(r,e,n),q(n,[o],r),y(r)}return r},digitsToString:function(t,e){if(i<=(e=e||10))throw new Error("DIGIT_BASE is smaller than RADIX; cannot convert.");var r,n=t.length,o=[],s=[],a=[],u=[],h=[],c=[],l="",f="0";for(h[0]=e;Math.floor(i/h[0])>=e;)h[0]=h[0]*e,f=f.concat("0");for(r=0;r<n;r+=1)c[r]=t[r];for(;;){var g=!0;for(r=0;r<c.length;r+=1)if(0!==c[r]){g=!1;break}if(g)break;I(c,h,o,s,a,u),y(o,c.length,!0);var p=s[0].toString(e);l=f.substring(0,f.length-p.length)+p+l;var m=c;c=o,o=m}for(;0!==l.length&&"0"===l[0];)l=l.substring(1,l.length);return 0===l.length&&(l="0"),l},intToDigits:m,digitsToBytes:function(t,r,n){var i,o,s,a=[0];for(void 0===r&&(r=!0),i=0;i<t.length;i+=1)for(s=t[i],o=0;o<e;o+=1)a[i*e+o]=255&s,s=Math.floor(s/256);if(a.reverse(),void 0===n&&(n=1),r)for(;a.length>n&&0===a[0];)a.shift();return a},isZero:g,isEven:function(t){return 0==(1&t[0])},shiftRight:function(e,r,i,o){if(void 0===i)i=1;else if(i>=t||i<0)throw new Error("Invalid bit count for shiftRight");void 0===o&&(o=e.length);for(var s=o-1,a=t-i,u=0;u<s;u++)r[u]=(e[u+1]<<a|e[u]>>>i)&n;r[s]=e[s]>>>i},shiftLeft:P,compareDigits:v,bitLength:function(t){for(var e=0,r=0;e<t.length;){if(0===r)for(var n=7;n>=0&&0===r;){var i=1<<n;(t[e]&i)===i&&(r=n+1),n--}else r+=8;e+=1}return r},fixedWindowRecode:function(t,e,n){t=t.slice();for(var i=[],o=Math.pow(2,e),s=Math.pow(2,e-1),a=0;a<n;a++)i[a]=t[0]%o-s,t[0]=t[0]-i[a],r.shiftRight(t,t,e-1);return i[a]=t[0],i},IntegerGroup:function(e){var i=p(e),o=i.length,s=m(0,o),a=m(1,o),u=l(o),h=l(o);function c(t,e){return{m_digits:t,m_group:e,equals:function(t){return 0===v(this.m_digits,t.m_digits)&&this.m_group.equals(this.m_group,t.m_group)}}}return{m_modulus:i,m_digitWidth:o,montmul:new x(i),createElementFromInteger:function(t){return c(m(t,this.m_digitWidth),this)},createElementFromBytes:function(t){var e=p(t);if(r.compareDigits(e,this.m_modulus)>=0)throw new Error("The number provided is not an element of this group");return y(e,this.m_digitWidth,!0),c(e,this)},createElementFromDigits:function(t){return r.normalizeDigitArray(t,this.m_digitWidth,!0),c(t,this)},equals:function(t){return 0===v(this.m_modulus,t.m_modulus)},add:function(e,i,o){var s,a=this.m_digitWidth,u=o.m_digits;r.add(e.m_digits,i.m_digits,u);var h=(v(u,this.m_modulus)>>>31)-1&n,c=0;for(s=0;s<a;s+=1)c=u[s]-(this.m_modulus[s]&h)+c,u[s]=c&n,c>>=t;u.length=a},subtract:function(e,i,o){var s,a=this.m_digitWidth,u=o.m_digits,h=r.subtract(e.m_digits,i.m_digits,o.m_digits);if(-1===h)for(h=0,s=0;s<a;s+=1)h+=u[s]+this.m_modulus[s],u[s]=h&n,h>>=t},multiply:function(t,e,n){return r.modMul(t.m_digits,e.m_digits,this.m_modulus,n.m_digits,u,h)},inverse:function(t,e){r.modInv(t.m_digits,this.m_modulus,e.m_digits)},modexp:function(t,e,r){if(r=r||c([],this),0===v(e,s))r.m_digits=m(1,this.m_digitWidth);else if(0===v(e,a)){for(var n=0;n<t.m_digits.length;n++)r.m_digits[n]=t.m_digits[n];r.m_digits.length=t.m_digits.length}else this.montmul.modExp(t.m_digits,e,r.m_digits),r.m_digits.length=this.montmul.s;return r}}},add:q,subtract:w,multiply:G,divRem:I,reduce:function(t,e,r,n,i){return I(t,e,[],r,n,i),r},modInv:function(t,e,r,n){var i=new Array(e.length),o=new Array(e.length),s=new Array(e.length),a=M(t,e,o,i,s);return r=r||[],0!==v(s,c)?(r[0]=NaN,r.length=1):(1==(1&a)?w(e,i,r):(f(i,0,r,0,i.length),r.length=i.length),n?y(r,e.length,!0):y(r)),r},modInvCT:function(t,e,r,n){var i=[];return r=r||[],w(e,[2],i),b(t,i,e,r),y(r),r},modExp:b,modMul:function(t,e,r,n,i,o){var s=[];return G(t,e,s),I(s,r,s,n,i,o),n},MontgomeryMultiplier:x,gcd:function(t,e,r){var n=t,i=e;return v(t,e)>0&&(n=e,i=t),M(n,i,void 0,void 0,r),y(r)},createArray:l,sequenceEqual:function(t,e){for(var r=t.length===e.length,n=0;n<Math.min(t.length,e.length);n+=1)t[n]!==e[n]&&(r=!1);return r},swapEndianness:function(t){return t.reverse()},computeBitArray:function(t){for(var e=l(8*t.length),r=0,n=t.length-1;n>=0;){for(var i=0;i<8;){var o=1<<i,s=(t[n]&o)===o?1:0,a=8*(t.length-n-1)+i;1===s&&(r=a+1),e[a]=s,i+=1}n--}return e.slice(0,r)}}}();t.exports=r}(a);var u=a.exports,h=r(u);!function(t,e){var r,o;n||(n=1,function(t,e){var r=function(){var t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",e=function(){try{return Object.defineProperty({},"oncomplete",{}),!0}catch(t){return!1}}();function r(e){for(e=e.replace(/-/g,"+").replace(/_/g,"/");e.length%4!=0;)e+="=";var r,n,i,o,s,a,u,h=[];for(e=e.replace(/[^A-Za-z0-9\+\/\=]/g,""),u=0;u<e.length;u+=4)r=t.indexOf(e.charAt(u))<<2|(o=t.indexOf(e.charAt(u+1)))>>4,n=(15&o)<<4|(s=t.indexOf(e.charAt(u+2)))>>2,i=(3&s)<<6|(a=t.indexOf(e.charAt(u+3))),h.push(r),64!==s&&h.push(n),64!==a&&h.push(i);return h}function n(t){return Object.prototype.toString.call(t).slice(8,-1)}function i(t){return[t>>>24&255,t>>>16&255,t>>>8&255,255&t]}function o(t){if(!t)return[];if(t.pop)return t;if("ArrayBuffer"===n(t)?t=new Uint8Array(t):t.BYTES_PER_ELEMENT>1&&(t=new Uint8Array(t.buffer)),1===t.length)return[t[0]];if(t.length<65536)return Array.apply(null,t);for(var e=new Array(t.length),r=0;r<t.length;r++)e[r]=t[r];return e}function s(t){return"number"==typeof t&&isFinite(t)&&Math.floor(t)===t}return{consoleLog:function(t){"console"in self&&"log"in console&&console.log(t)},toBase64:function(e,r){var i=n(e);if("Array"!==i&&"Uint8Array"!==i&&"ArrayBuffer"!==i)throw new Error("invalid input");var s,a,u,h,c,l,f,g,p="",m=o(e);for(r||(r=!1),g=0;g<m.length;g+=3)h=(s=m[g])>>2,c=(3&s)<<4|(a=m[g+1])>>4,l=(15&a)<<2|(u=m[g+2])>>6,f=63&u,isNaN(a)?l=f=64:isNaN(u)&&(f=64),p=p+t.charAt(h)+t.charAt(c)+t.charAt(l)+t.charAt(f);return r?p.replace(/\+/g,"-").replace(/\//g,"_").replace(/\=/g,""):p},fromBase64:r,checkParam:function(t,e,r){if(!t)throw new Error(r);if(e&&n(t)!==e)throw new Error(r);return!0},getObjectType:n,bytesToHexString:function(t,e){var r="";void 0===e&&(e=!1);for(var n=0;n<t.length;n++){e&&n%4==0&&0!==n&&(r+="-");var i=t[n].toString(16).toUpperCase();1===i.length&&(r+="0"),r+=i}return r},bytesToInt32:function(t,e){return t[e=e||0]<<24|t[e+1]<<16|t[e+2]<<8|t[e+3]},stringToBytes:function(t){for(var e=[],r=0,n=0;r<t.length;r++){var i=t.charCodeAt(r);i<128?e[n++]=i:i<2048?(e[n++]=i>>>6|192,e[n++]=63&i|128):i<55296||i>57343?(e[n++]=i>>>12|224,e[n++]=i>>>6&63|128,e[n++]=63&i|128):(i=1024*(i-55296)+(t.charCodeAt(++r)-56320)+65536,e[n++]=i>>>18|240,e[n++]=i>>>12&63|128,e[n++]=i>>>6&63|128,e[n++]=63&i|128)}return e},bytesToString:function(t){var e,r="";t=o(t);for(var n=0;n<t.length;){var i=t[n++];if((e=i<128?i:i<224?(i<<6)+t[n++]-12416:i<240?(i<<12)+(t[n++]<<6)+t[n++]-925824:(i<<18)+(t[n++]<<12)+(t[n++]<<6)+t[n++]-63447168)>65535){var s=Math.floor((e-65536)/1024)+55296,a=(e-65536)%1024+56320;r+=String.fromCharCode(s,a)}else r+=String.fromCharCode(e)}return r},unpackData:function(t,e,n){var i,o=r(t),s=[];if(isNaN(e))return o;for(i=0;i<o.length;i+=e)s.push(o.slice(i,i+e));if(n)for(i=0;i<s.length;i++)s[i]=(s[i][0]<<24)+(s[i][1]<<16)+(s[i][2]<<8)+s[i][3];return s},hexToBytesArray:function(t){t=t.replace(/\-/g,"");for(var e=[];t.length>=2;)e.push(parseInt(t.substring(0,2),16)),t=t.substring(2,t.length);return e},int32ToBytes:i,int32ArrayToBytes:function(t){for(var e=[],r=0;r<t.length;r++)e=e.concat(i(t[r]));return e},toArray:o,arraysEqual:function(t,e){var r=!0;t.length!==e.length&&(r=!1);for(var n=0;n<t.length;n++)t[n]!==e[n]&&(r=!1);return r},clone:function(t){var e={};for(var r in t)t.hasOwnProperty(r)&&(e[r]=t[r]);return e},xorVectors:function(t,e,r){for(var n=Math.min(t.length,e.length),i=(r=r||new Array(n),0);i<n;i+=1)r[i]=t[i]^e[i];return r},padEnd:function(t,e,r){for(;t.length<r;)t.push(e);return t},padFront:function(t,e,r){for(;t.length<r;)t.unshift(e);return t},getVector:function(t,e){isNaN(e)&&(e=0);for(var r=new Array(t),n=0;n<t;n+=1)r[n]=e;return r},error:function(t,e){var r=Error(e);throw r.name=t,r},isBytes:function(t){if(!(t instanceof Array))return!1;for(var e=0;e<t.length;e++){var r=t[e];if(!s(r)||r>255||r<0)return!1}return!0},isInteger:s,createProperty:function(t,r,n,i,o){if(e){var s={};i&&(s.get=i),o&&(s.set=o),Object.defineProperty(t,r,s)}else t[r]=n}}}();t.exports=r}(s)),o=s.exports,r=u;var a=a||function(){var t=r.bytesToDigits,e=o,n=e.setterSupport;function s(t){var e,r=null;if(arguments.length&&"number"!=typeof arguments[0]){if("object"==typeof arguments[0])for(r=[],e=0;e<t.length;e+=1)r[e]=t[e]}else for(r=[],e=0;e<t;e+=1)r[e]=0;return r}var a=function(t,e,n,i,o,s){var a=t.length;return{p:t,a:e,b:n,order:i,generator:u(this,!1,o,s,null,!1),allocatePointStorage:function(){return u(this,!1,r.intToDigits(0,a),r.intToDigits(0,a))},createPointAtInfinity:function(){return u(this,!0,r.intToDigits(0,a),r.intToDigits(0,a))}}},u=function(t,i,o,a,h,c){var l;void 0===h&&(h=null);var f=null===h;return void 0===c&&(c=!1),l={equals:function(t){return function(t){return!(!t||(!l.isInfinity||!t.isInfinity)&&(null===l.z&&null!==t.z||null!==l.z&&null===t.z||(null===l.z?0!==r.compareDigits(l.x,t.x)||0!==r.compareDigits(l.y,t.y)||l.isInMontgomeryForm!==t.isInMontgomeryForm:0!==r.compareDigits(l.x,t.x)||0!==r.compareDigits(l.y,t.y)||0!==r.compareDigits(l.z,t.z)||l.isInMontgomeryForm!==t.isInMontgomeryForm)))}(t)},copy:function(t){!function(t,e){if(e.curve=t.curve,e.x=t.x.slice(),e.y=t.y.slice(),null!==t.z?e.z=t.z.slice():e.z=null,n||(e.isAffine=t.isAffine),e.isInMontgomeryForm=t.isInMontgomeryForm,e.isInfinity=t.isInfinity,!e.equals(t))throw new Error("Instances should be equal.")}(this,t)},clone:function(){return t=u(l.curve,l.isInfinity,s(l.x),s(l.y),l.z?s(l.z):null,l.isInMontgomeryForm),l.ta&&(t.ta=s(l.ta)),l.tb&&(t.tb=s(l.tb)),t;var t}},e.createProperty(l,"curve",t,(function(){return t}),(function(e){t=e})),e.createProperty(l,"x",o,(function(){return o}),(function(t){o=t})),e.createProperty(l,"y",a,(function(){return a}),(function(t){a=t})),e.createProperty(l,"z",h,(function(){return h}),(function(t){h=t})),e.createProperty(l,"isInMontgomeryForm",c,(function(){return c}),(function(t){c=t})),e.createProperty(l,"isInfinity",i,(function(){return i}),(function(t){i=t})),e.createProperty(l,"isAffine",f,(function(){return null===h}),(function(t){f=t})),l},h=function(t){var e=1===t.type,o=t.p.length,a=r.MontgomeryMultiplier(t.p),u=t.a.slice();a.convertToMontgomeryForm(u);var h=r.isZero(t.a),c=r.One,l=s(o);l[0]=1,a.convertToMontgomeryForm(l);var f=r.IntegerGroup(r.digitsToBytes(a.m),!0),g=s(o),p=s(o),m=s(o),d=s(o),v=s(o),y=s(o),P=s(o),q=s(o),w=s(o),G=s(o),I=s(o),M=s(o);function b(t,e,r){var n=f.createElementFromInteger(0);n.m_digits=r,f.subtract(f.createElementFromDigits(t),f.createElementFromDigits(e),n)}function x(t,e,r){var n=f.createElementFromInteger(0);n.m_digits=r,f.add(f.createElementFromDigits(t),f.createElementFromDigits(e),n)}function A(e,n){var i=e.length,o=t.p;if(1==(1&e[0])){for(var s=0,a=0;a<i;a+=1)s+=e[a]+o[a],n[a]=s&r.DIGIT_MASK,s>>>=r.DIGIT_BITS;s<<=r.DIGIT_BITS-1,r.shiftRight(n,n),n[i-1]|=s}else r.shiftRight(e,n)}function E(t,e,r){a.montgomeryMultiply(t,e,r)}function T(t,e){a.montgomeryMultiply(t,t,e)}function F(t,e){var r=e.clone();if(z(r),!R(r))throw new Error("Invalid Parameter");var n=e.clone();C(n);var i,o=[e.clone()],s=n.clone(),a=n.clone();_(n,a),O(a);for(var u=1;u<Math.pow(2,t-2);u++)U(s,a,s),O(i=s.clone()),o[u]=i;return o}function _(t,e){if(void 0===t)throw new Error("point undefined");if(void 0===e)throw new Error("outputPoint undefined");if(t.isAffine)throw new Error("Given point was in Affine form. Use convertToJacobian() first.");if(!t.isInMontgomeryForm)throw new Error("Given point must be in Montgomery form. Use montgomeryize() first.");h?function(t,e){if(t.isInfinity)e.isInfinity=!0;else{T(t.y,d),T(t.x,v),x(v,v,g),x(g,v,v),E(t.x,d,y),T(d,g),A(v,p),T(p,d),E(t.y,t.z,w);for(var r=0;r<w.length;r+=1)e.z[r]=w[r];b(d,y,e.x),b(e.x,y,e.x),b(y,e.x,v),E(p,v,m),b(m,g,e.y),e.isInfinity=!1,e.isInMontgomeryForm=!0}}(t,e):function(t,e){t.isInfinity?e.isInfinity=!0:(T(t.z,p),E(t.z,t.y,v),x(t.x,p,m),b(t.x,p,p),e.z=v.slice(),E(p,m,d),A(d,m),x(d,m,p),T(t.y,m),T(p,v),E(t.x,m,d),b(v,d,v),b(v,d,e.x),b(d,e.x,v),T(m,d),E(p,v,m),b(m,d,e.y),e.isInfinity=!1,e.isInMontgomeryForm=!0)}(t,e)}function D(t,e,n){if(t.isInfinity)return e.copy(n),void this.convertToJacobianForm(n);if(e.isInfinity)t.copy(n);else{if(T(t.z,y),E(t.z,y,P),E(e.x,y,v),E(e.y,P,y),b(v,t.x,p),b(y,t.y,m),r.isZero(p))return r.isZero(m)?(_(t,n),void U(n,e,n)):(n.x=t.x.slice(0),n.y=t.y.slice(0),void(n.z=t.z.slice(0)));if(T(m,v),T(p,P),E(P,t.x,y),E(p,P,g),b(v,y,d),b(d,y,d),E(t.z,p,v),b(d,y,d),E(g,t.y,P),b(d,g,d),r.isZero(d)){for(i=0;i<n.x.length;i++)n.x[i]=0,n.y[i]=0,n.z[i]=0;n.y[0]=1}else x(P,P,p),E(v,d,n.z),E(m,d,v),T(d,g),x(p,v,p),E(g,y,v),T(p,q),E(g,d,y),b(q,v,n.x),b(n.x,v,n.x),b(n.x,y,n.x),b(n.x,v,d),E(y,P,g),E(p,d,v),b(v,g,n.y),n.isInfinity=!1,n.isInMontgomeryForm=!0}}function U(t,e,r){if(null===t)throw new Error("jacobianPoint");if(null===e)throw new Error("affinePoint");if(null===r)throw new Error("outputPoint");if(t.curve!==e.curve||t.curve!==r.curve)throw new Error("All points must be from the same curve object.");if(t.isAffine)throw new Error("Given jacobianPoint was in Affine form. Use ConvertToJacobian()\t                     before calling DoubleJacobianAddAffinePoints().");if(!e.isAffine)throw new Error("Given affinePoint was in Jacobian form. Use ConvertToAffine() before \t                     calling DoubleJacobianAddAffinePoints().");if(r.isAffine)throw new Error("Given jacobianPoint was in Jacobian form. Use ConvertToJacobian() before \t                     calling DoubleJacobianAddAffinePoints().");if(!t.isInMontgomeryForm)throw new Error("Jacobian point must be in Montgomery form");if(!e.isInMontgomeryForm)throw new Error("Affine point must be in Montgomery form");if(t.isInfinity)return e.copy(r),void this.convertToJacobianForm(r);if(e.isInfinity)t.copy(r);else{var n;for(T(t.z,p),E(p,t.z,m),E(p,e.x,d),E(m,e.y,v),b(d,t.x,p),b(v,t.y,m),n=0;n<p.length;n+=1)if(0!==p[n]){E(t.z,p,g);for(var i=0;i<o;i+=1)r.z[i]=g[i];return T(p,d),E(d,p,v),E(d,t.x,y),x(y,y,p),T(m,r.x),b(r.x,p,r.x),b(r.x,v,r.x),b(y,r.x,d),E(m,d,y),E(t.y,v,P),b(y,P,r.y),r.isInfinity=!1,void(r.isInMontgomeryForm=!0)}for(n=0;n<m.length;n+=1)if(0!==m[n])return r.isInfinity=!0,void(r.isInMontgomeryForm=!0);e.copy(r),this.convertToJacobianForm(r),this.double(r,r),r.isInMontgomeryForm=!0}}function B(e,n,i,s){if(n.isInfinity||r.isZero(e))i.isInfinity=!0;else{if(r.compareDigits(e,t.order)>=0)throw new Error("The scalar k must be in the range 1 <= k < order.");if(e=e.slice(),1===n.curve.type){var a=void 0!==n.ta;a||J(n),function(t,e,n,i){if(!k(e))throw new Error("Invalid Parameter");var s=e.curve.rbits;i=void 0===i||i;var a,u,h=o<=8?5:6,c=Math.floor((s+(h-2))/(h-1));t=t.slice();var l=e.clone();J(l),i&&(W(l,l),W(l,l));var f=N(1<<h-2,l),g=1&t[0],p=[];for(b(e.curve.order,t,p),a=0;a<t.length;a++)t[a]=g-1&(t[a]^p[a])^t[a];var m=r.fixedWindowRecode(t,h,c),d=Math.floor(Math.abs(m[c])-1)/2,v=f[d];for(l.x=v.x.slice(),l.y=v.y.slice(),l.z=v.z.slice(),a=c-1;a>=0;a--){for(u=0;u<h-1;u++)W(l,l);var y=j(f,d=Math.floor((Math.abs(m[a])-1)/2)),P=-(m[a]>>>31);b(e.curve.p,y.x,p);for(var q=0;q<y.x.length;q++)y.x[q]=y.x[q]&~P|p[q]&P;for(b(e.curve.p,y.td,p),q=0;q<y.td.length;q++)y.td[q]=y.td[q]&~P|p[q]&P;L(y,l,l)}for(b(e.curve.p,l.x,p),a=0;a<l.x.length;a++)l.x[a]=g-1&(l.x[a]^p[a])^l.x[a];H(l),n.x=l.x.slice(),n.y=l.y.slice()}(e,n,i,s),a||H(n)}else{var u=n.isInMontgomeryForm,h=i.isInMontgomeryForm,c=i.isAffine;u||S(n),h||S(i),function(t,e,n){var i=e.clone();if(z(i),!R(i))throw new Error("Invalid Parameters.");var s=1&t[0],a=[];for(b(e.curve.order,t,a),m=0;m<t.length;m++)t[m]=s-1&(t[m]^a[m])^t[m];var u=o<=8?5:6,h=e.curve.p.length*r.DIGIT_BITS,c=Math.ceil(h/(u-1)),l=r.fixedWindowRecode(t,u,c),f=F(u,e),g=Math.floor(Math.abs(l[c])-1)/2,p=f[g].clone();C(p);for(var m=c-1;m>=0;m--){for(var d=0;d<u-2;d++)_(p,p);var v=Z(f,g=Math.floor((Math.abs(l[m])-1)/2));b(v.curve.p,v.y,a);for(var y=-(l[m]>>>31),P=0;P<v.y.length;P++)v.y[P]=v.y[P]&~y|a[P]&y;D(p,v,p)}for(b(e.curve.p,p.y,a),m=0;m<p.y.length;m++)p.y[m]=s-1&(p.y[m]^a[m])^p.y[m];p.copy(n)}(e,n,i),c&&O(i),u||z(n),h||z(i)}}}function Z(t,e){for(var r,n,i=0;i<t.length;i++)r=+(i===e),n=[n,t[i].clone()][r];return n}function S(t){if(t.isInMontgomeryForm)throw new Error("The given point is already in Montgomery form.");t.isInfinity||(a.convertToMontgomeryForm(t.x),a.convertToMontgomeryForm(t.y),null!==t.z&&a.convertToMontgomeryForm(t.z),void 0!==t.ta&&(a.convertToMontgomeryForm(t.ta),a.convertToMontgomeryForm(t.tb))),t.isInMontgomeryForm=!0}function z(t){if(!t.isInMontgomeryForm)throw new Error("The given point is not in montgomery form.");t.isInfinity||(a.convertToStandardForm(t.x),a.convertToStandardForm(t.y),null!==t.z&&a.convertToStandardForm(t.z),void 0!==t.ta&&(a.convertToStandardForm(t.ta),a.convertToStandardForm(t.tb))),t.isInMontgomeryForm=!1}function O(e){if(e.isInfinity)return e.z=null,void(n||(e.isAffine=!0));if(r.modInv(e.z,t.p,M,!0),e.isInMontgomeryForm){E(M,a.rCubedModm,I);var i=M;M=I,I=i}T(M,G),E(e.x,G,I);for(var s=0;s<o;s+=1)e.x[s]=I[s];E(e.y,G,I),E(I,M,e.y),e.z=null,delete e.ta,delete e.tb,n||(e.isAffine=!0)}function C(t){if(!t.isAffine)throw new Error("The given point is not in Affine form.");n||(t.isAffine=!1);var e,r,i=t.isInMontgomeryForm?l:c;for(e=s(i.length),r=0;r<i.length;r+=1)e[r]=i[r];t.z=e}function R(t){return!t.isInfinity&&(r.modMul(t.y,t.y,t.curve.p,p),r.modMul(t.x,t.x,t.curve.p,m),r.modMul(t.x,m,t.curve.p,d),x(d,t.curve.b,m),r.modMul(t.x,t.curve.a,t.curve.p,d),x(m,d,m),b(p,m,p),!1!==r.isZero(p))}function k(t){return t.ta&&H(t=t.clone()),r.modMul(t.y,t.y,t.curve.p,d),r.modMul(t.x,t.x,t.curve.p,m),r.add(m,d,p),r.reduce(v,t.curve.p,v),r.modMul(m,d,t.curve.p,v),r.modMul(t.curve.d,v,t.curve.p,d),r.add(d,[1],m),r.reduce(m,t.curve.p,m),r.subtract(p,m,p),!1!==r.isZero(p)||(r.reduce(p,t.curve.p,p),!1!==r.isZero(p))}function N(t,e){var r=e.clone(),n=r.clone(),i=[];i[0]=K(e),W(r,r),n=K(r),r=e.clone();for(var o=1;o<t;o++)L(n,r,r),i[o]=K(r);return i}function J(t){t.ta=t.x.slice(),t.tb=t.y.slice(),t.z=[1]}function j(t,e){for(var r=(e+1)%t.length,n=0;n<t.length;n++){var i={x:t[r].x.slice(),y:t[r].y.slice(),z:t[r].z.slice(),td:t[r].td.slice()};r=(r+1)%t.length}return i}function H(e){r.modInv(e.z,t.p,M,!0),r.modMul(e.x,M,t.p,e.x),r.modMul(e.y,M,t.p,e.y),delete e.ta,delete e.tb,e.z=null}function W(t,e){if(void 0===t.ta)throw new Error("Point should be in Extended Projective form.");r.modMul(t.x,t.x,t.curve.p,g),r.modMul(t.y,t.y,t.curve.p,p),r.modMul(t.z,t.z,t.curve.p,t.ta),b(p,g,e.tb),x(g,p,g),x(t.ta,t.ta,t.ta),x(t.y,t.y,t.y),b(t.ta,g,p),r.modMul(t.x,t.y,t.curve.p,e.ta),r.modMul(g,e.tb,t.curve.p,e.y),r.modMul(p,e.ta,t.curve.p,e.x),r.modMul(g,p,t.curve.p,e.z)}function K(t){var e=t.curve,n=e.p,i={x:t.x.slice(),y:t.y.slice(),z:t.z.slice(),td:[],curve:t.curve};return r.modMul(t.ta,t.tb,n,G),r.modMul(G,e.d,n,i.td),i}function L(t,e,n){var i=r,o=e.curve.p;p=[],m=[],d=[],i.modMul(e.z,t.z,o,d),i.modMul(e.ta,e.tb,o,p),x(e.x,e.y,e.ta),i.modMul(p,t.td,o,m),x(t.x,t.y,e.tb),b(d,m,p),x(d,m,d),i.modMul(e.ta,e.tb,o,m),i.modMul(e.x,t.x,o,e.z),i.modMul(e.y,t.y,o,e.x),b(m,e.z,m),b(e.x,e.z,n.ta),b(m,e.x,n.tb),i.modMul(n.ta,d,o,n.y),i.modMul(n.tb,p,o,n.x),i.modMul(d,p,o,n.z)}var $={convertToMontgomeryForm:S,convertToStandardForm:z,convertToAffineForm:O,convertToJacobianForm:C,generatePrecomputationTable:function(t,e){return F(t,e)}};return e?($.double=W,$.add=function(t,e,r){if(void 0===t.ta)throw new Error("Point1 should be in Extended Projective form.");if(void 0===e.ta)throw new Error("Point2 should be in Extended Projective form.");L(K(t),e,r)},$.scalarMultiply=B,$.normalize=H,$.convertToExtendedProjective=J,$.convertTedToWeierstrass=function(t,e){var n=t.curve.a.slice(),i=t.curve.d.slice(),o=t.curve.p,s=r.modMul,a=r.modInv;s(n,p=[5],o,m),b(m,i,m),s(i,p,o,d),b(n,d,p),s(t.y,p,o,d),x(d,m,m),b(p=[1],t.y,d),s(p=[12],d,o,v),a(v,o,v,!0),s(t.x,d,o,p),x(p,p,d),x(d,d,d),a(d,o,d,!0),s(v,m,o,e.x),p=[1],x(t.y,p,p),b(n,i,m),s(p,m,o,v),s(v,d,o,e.y)},$.convertWeierstrassToTed=function(t,e){var n=e.curve.a.slice(),i=e.curve.d.slice(),o=e.curve.p,s=r.modMul,a=r.modInv;x(t.x,t.x,p),x(t.x,p,p),x(p,p,p),b(p,n,m),b(m,i,m),x(t.y,t.y,d),x(t.y,d,d),x(d,d,d),a(d,o,d,!0),s(m,d,o,e.x),x(p,p,p),x(p,i,m),x(p,n,p),x(n,n,d),b(m,d,m),b(m,d,m),b(m,n,m),x(i,i,d),b(p,d,p),b(p,d,p),b(p,i,p),a(p,o,p,!0),s(p,m,o,e.y)},$.validatePoint=k,$.generatePrecomputationTable=function(t,e){return N(t,e)}):($.double=_,$.mixedDoubleAdd=D,$.mixedAdd=U,$.scalarMultiply=B,$.negate=function(t,e){t!==e&&t.copy(e),b(t.curve.p,t.y,e.y)},$.validatePoint=R),$},c={},l=function(e){var r=c[e.toUpperCase()];if(!r)throw new Error(e+" Unsupported curve.");if(0===r.type)return function(e){var r=new a(t(e.p),t(e.a),t(e.b),t(e.order),t(e.gx),t(e.gy));return r.type=e.type,r.name=e.name,r.generator.curve=r,r}(r);if(1===r.type)return function(e){var r=new a(t(e.p),t(e.a),t(e.d),t(e.order),t(e.gx),t(e.gy));return r.type=e.type,1===r.type&&(r.d=r.b.slice(),delete r.b),r.rbits=e.info[2],r.name=e.name,r.generator.curve=r,r}(r);throw new Error(e+" Unsupported curve type.")};return{createCurve:l,curves:c,sec1EncodingFp:function(){return{encodePoint:function(t){if(!t)throw new Error("point");if(!t.isAffine)throw new Error("Point must be in affine form.");if(t.isInMontgomeryForm)throw new Error("Point must not be in Montgomery form.");if(t.isInfinity)return s(1);var e=r.digitsToBytes(t.x),n=r.digitsToBytes(t.y),i=r.digitsToBytes(t.curve.p).length;if(i<e.length||i<n.length)throw new Error("Point coordinate(s) are bigger than the field order.");var o=s(2*i+1);o[0]=4;for(var a=i-e.length,u=0;u<e.length;u++)o[u+1+a]=e[u];for(a=i-n.length,u=0;u<n.length;u++)o[i+u+1+a]=n[u];return o},decodePoint:function(t,e){if(t.length<1)throw new Error("Byte array must have non-zero length");var n=r.digitsToBytes(e.p).length;if(0===t[0]&&1===t.length)return e.createPointAtInfinity();if(4===t[0]&&t.length===1+2*n){for(var i=s(n),o=s(n),a=0;a<n;a++)i[a]=t[a+1],o[a]=t[n+a+1];var h=r.bytesToDigits(i),c=r.bytesToDigits(o);return u(e,!1,h,c)}throw new Error("Unsupported encoding format")}}},validatePoint:function(e,r,n,i){var o=l(e),s=new u(o,!1,t(r),t(n),i&&t(i),!1);return new h(o).validatePoint(s)},EllipticCurvePointFp:u,EllipticCurveOperatorFp:h,ModularSquareRootSolver:function(t){var e=t,n=[];if(void 0===t)throw new Error("modulus");if(r.isEven(t))throw new Error("Only odd moduli are supported");var i=r.MontgomeryMultiplier(e);e[0]%4==3?(r.add(e,r.One,n),r.shiftRight(n,n,2)):n=null;var o=new Array(e.length),s=new Array(e.length);return{squareRoot:function(t){if(null!==n)return function(t){var e=r.intToDigits(0,16);i.modExp(t,n,e);var o=[0];return r.modMul(e,e,i.m,o),0!==r.compareDigits(t,o)?null:e}(t);throw new Error("GeneralCase not supported.")},jacobiSymbol:function(t){var n,i;n=t.slice(),i=e.slice(),r.reduce(n,i,n,o,s);for(var a=1;!r.isZero(n);){for(;r.isEven(n);){r.shiftRight(n,n);var u=7&i[0];3!==u&&5!==u||(a=-a)}var h=n;n=i,i=h;var c=3&n[0],l=3&i[0];3===c&&3===l&&(a=-a),r.reduce(n,i,n,o,s)}return 0===r.compareDigits(i,r.One)?a:0}}}}}();t.exports=a}(o);var c=o.exports,l=r(c),f=c;void 0!==f&&(f.curves["P-256"]={name:"P-256",type:0,p:[255,255,255,255,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,255,255,255,255,255,255,255,255,255,255,255,255],a:[255,255,255,255,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,255,255,255,255,255,255,255,255,255,255,255,252],b:[90,198,53,216,170,58,147,231,179,235,189,85,118,152,134,188,101,29,6,176,204,83,176,246,59,206,60,62,39,210,96,75],order:[255,255,255,255,0,0,0,0,255,255,255,255,255,255,255,255,188,230,250,173,167,23,158,132,243,185,202,194,252,99,37,81],gx:[107,23,209,242,225,44,66,71,248,188,230,229,99,164,64,242,119,3,125,129,45,235,51,160,244,161,57,69,216,152,194,150],gy:[79,227,66,226,254,26,127,155,142,231,235,74,124,15,158,22,43,206,51,87,107,49,94,206,203,182,64,104,55,191,81,245],cf:1},f.curves["P-384"]={name:"P-384",type:0,p:[255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,254,255,255,255,255,0,0,0,0,0,0,0,0,255,255,255,255],a:[255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,254,255,255,255,255,0,0,0,0,0,0,0,0,255,255,255,252],b:[179,49,47,167,226,62,231,228,152,142,5,107,227,248,45,25,24,29,156,110,254,129,65,18,3,20,8,143,80,19,135,90,198,86,57,141,138,46,209,157,42,133,200,237,211,236,42,239],order:[255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,199,99,77,129,244,55,45,223,88,26,13,178,72,176,167,122,236,236,25,106,204,197,41,115],gx:[170,135,202,34,190,139,5,55,142,177,199,30,243,32,173,116,110,29,59,98,139,167,155,152,89,247,65,224,130,84,42,56,85,2,242,93,191,85,41,108,58,84,94,56,114,118,10,183],gy:[54,23,222,74,150,38,44,111,93,158,152,191,146,146,220,41,248,244,29,189,40,154,20,124,233,218,49,19,181,240,184,192,10,96,177,206,29,126,129,157,122,67,29,124,144,234,14,95],cf:1},f.curves["P-521"]={name:"P-521",type:0,p:[1,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255],a:[1,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,252],b:[0,81,149,62,185,97,142,28,154,31,146,154,33,160,182,133,64,238,162,218,114,91,153,179,21,243,184,180,137,145,142,241,9,225,86,25,57,81,236,126,147,123,22,82,192,189,59,177,191,7,53,115,223,136,61,44,52,241,239,69,31,212,107,80,63,0],order:[1,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,250,81,134,135,131,191,47,150,107,127,204,1,72,247,9,165,208,59,181,201,184,137,156,71,174,187,111,183,30,145,56,100,9],gx:[0,198,133,142,6,183,4,4,233,205,158,62,203,102,35,149,180,66,156,100,129,57,5,63,181,33,248,40,175,96,107,77,61,186,161,75,94,119,239,231,89,40,254,29,193,39,162,255,168,222,51,72,179,193,133,106,66,155,249,126,126,49,194,229,189,102],gy:[1,24,57,41,106,120,154,59,192,4,92,138,95,180,44,125,27,217,152,245,68,73,87,155,68,104,23,175,189,23,39,62,102,44,151,238,114,153,94,244,38,64,197,80,185,1,63,173,7,97,53,60,112,134,162,114,194,64,136,190,148,118,159,209,102,80],cf:1});const g=t=>{switch(t){case B.P256:return"sha256";case B.P384:return"sha384";case B.P521:return"sha512";default:throw"invalid group"}};class p{constructor(t){if(0<t&&t>255)throw"invalid byte value"+t;this.b=new Uint8Array([t])}}class m{constructor(t){this.hash=new Uint8Array(0),this.descGq=t}getIntArray(t){return new Uint8Array([t>>24,t>>16,t>>8,t])}updateInternal(t){const e=new Uint8Array(this.hash.length+t.length);e.set(this.hash),e.set(t,this.hash.length),this.hash=e}update(t){if(Array.isArray(t))this.update(t.length),t.forEach((t=>this.update(t)));else if(t instanceof p)this.updateInternal(t.b);else if(null===t)this.updateInternal(this.getIntArray(0));else if("number"==typeof t)this.updateInternal(this.getIntArray(t));else if(t instanceof Uint8Array)this.updateInternal(this.getIntArray(t.length)),this.updateInternal(t);else if(t instanceof y)this.update(t.getBytes());else{if(!(t instanceof d))throw"invalid input";this.update(t.getBytes())}}async digest(t=void 0){return(t||null===t)&&this.update(t),e.webcrypto.subtle.digest({name:g(this.descGq).replace("sha","sha-")},this.hash).then((t=>new Uint8Array(t)))}}class d{constructor(t){this.scalar=t}getBytes(){const t=h.digitsToBytes(this.scalar.m_digits);return new Uint8Array(t)}equals(t){return this.scalar.equals(t.scalar)}}class v{constructor(t){this.q=t;const e=h.digitsToBytes(t);this.elementLength=e.length,this.Zq=new h.IntegerGroup(e),this.ZERO=new d(this.Zq.createElementFromInteger(0)),this.ONE=new d(this.Zq.createElementFromInteger(1))}getElement(t){let e=h.bytesToDigits(Array.from(t));const r=h.intToDigits(0);for(;h.compareDigits(e,this.q)>=0;)h.subtract(e,this.q,r),e=r;return new d(this.Zq.createElementFromDigits(e))}getRandomElement(t=!1){let r=!1,n=h.Zero;for(;!r;){const i=e.webcrypto.getRandomValues(new Uint8Array(this.elementLength));n=h.bytesToDigits(Array.from(i)),h.compareDigits(n,this.q)<0&&(r=!0),t&&h.isZero(n)&&(r=!1)}return new d(this.Zq.createElementFromDigits(n))}getRandomElements(t,e=!1){const r=[];for(let n=0;n<t;n++)r.push(this.getRandomElement(e));return r}add(t,e){const r=this.Zq.createElementFromInteger(0);return this.Zq.add(t.scalar,e.scalar,r),new d(r)}mul(t,e){const r=this.Zq.createElementFromInteger(0);return this.Zq.multiply(t.scalar,e.scalar,r),new d(r)}negate(t){const e=this.Zq.createElementFromInteger(0);return this.Zq.subtract(this.Zq.createElementFromInteger(0),t.scalar,e),new d(e)}invert(t){const e=this.Zq.createElementFromInteger(0);return this.Zq.inverse(t.scalar,e),new d(e)}}class y{constructor(t){this.point=t}getBytes(){const t=l.sec1EncodingFp().encodePoint(this.point);return new Uint8Array(t)}equals(t){return this.point.equals(t.point)}}var P;!function(t){t.P256="P-256",t.P384="P-384",t.P521="P-521"}(P||(P={}));const q=l.createCurve(P.P256),w=l.createCurve(P.P384),G=l.createCurve(P.P521);class I{constructor(t){if(t==B.P256)this.curve=q;else if(t==B.P384)this.curve=w;else{if(t!=B.P521)throw"invalid group description";this.curve=G}this.ecOperator=l.EllipticCurveOperatorFp(this.curve),this.Zq=new v(this.curve.order),this.g=new y(this.curve.generator),this.descGq=t}getHash(){return new m(this.descGq)}updateHash(t){t.update(new Uint8Array(h.digitsToBytes(this.curve.p))),t.update(new Uint8Array(h.digitsToBytes(this.curve.a))),t.update(new Uint8Array(h.digitsToBytes(this.curve.b))),t.update(this.g),t.update(new Uint8Array(h.digitsToBytes(this.curve.order))),t.update(new Uint8Array([1]))}parsePoint(t,e){const r=new l.EllipticCurvePointFp(this.curve,!1,h.bytesToDigits(t),h.bytesToDigits(e));return new y(r)}getElement(t){return new y(l.sec1EncodingFp().decodePoint(Array.from(t),this.curve))}getIdentity(){return new y(this.curve.createPointAtInfinity())}mul(t,e){void 0!==t&&void 0!==e&&void 0!==(null==t?void 0:t.point)&&void 0!==(null==e?void 0:e.point)||console.log("undefined point in mul");const r=t.point,n=r===e.point?e.point.clone():e.point,i=this.curve.allocatePointStorage();return this.ecOperator.convertToMontgomeryForm(i),this.ecOperator.convertToJacobianForm(i),r.isInMontgomeryForm||this.ecOperator.convertToMontgomeryForm(r),r.isAffine&&this.ecOperator.convertToJacobianForm(r),n.isAffine||this.ecOperator.convertToAffineForm(n),n.isInMontgomeryForm||this.ecOperator.convertToMontgomeryForm(n),this.ecOperator.mixedAdd(r,n,i),this.ecOperator.convertToAffineForm(r),this.ecOperator.convertToStandardForm(r),this.ecOperator.convertToStandardForm(n),this.ecOperator.convertToAffineForm(i),this.ecOperator.convertToStandardForm(i),new y(i)}modExp(t,e){const r=this.curve.allocatePointStorage();return t.point.isAffine||this.ecOperator.convertToAffineForm(t.point),t.point.isInMontgomeryForm||this.ecOperator.convertToMontgomeryForm(t.point),this.ecOperator.scalarMultiply(e.scalar.m_digits,t.point,r),t.point.isAffine||this.ecOperator.convertToAffineForm(t.point),t.point.isInMontgomeryForm&&this.ecOperator.convertToStandardForm(t.point),r.isAffine||this.ecOperator.convertToAffineForm(r),r.isInMontgomeryForm&&this.ecOperator.convertToStandardForm(r),new y(r)}multiModExp(t,e){if(t.length!==e.length)throw"g and e length mismatch";let r=this.getIdentity();for(let n=0;n<t.length;n++){const i=this.modExp(t[n],e[n]);r=this.mul(r,i)}return r}isValid(t){return this.ecOperator.validatePoint(t.point)}}class M{constructor(){this.descGq=B.P256,this.Gq=new I(this.descGq),this.oid="1.3.6.1.4.1.311.75.1.2.2",this.g=[this.Gq.parsePoint([241,185,134,213,209,31,67,72,58,231,54,232,134,175,117,14,135,13,127,12,35,18,170,216,219,92,138,62,52,245,57,30],[100,52,123,127,73,49,135,165,59,55,8,148,184,248,227,143,210,44,185,147,2,57,61,121,220,226,37,145,142,186,97,238]),this.Gq.parsePoint([21,84,207,152,62,11,6,12,120,112,94,215,209,74,73,65,176,46,96,140,219,120,246,167,90,82,52,89,120,20,31,211],[98,84,14,105,12,143,169,254,16,126,33,65,223,198,144,127,116,245,254,235,223,91,18,215,21,59,70,53,162,223,106,118]),this.Gq.parsePoint([50,121,26,119,158,154,164,117,186,38,102,160,228,122,146,139,33,171,25,5,250,175,72,187,128,98,186,233,0,158,178,125],[24,116,186,134,234,25,79,177,77,204,233,250,34,54,111,71,53,202,234,33,25,190,182,63,43,174,193,154,158,147,165,69]),this.Gq.parsePoint([192,239,173,181,195,1,94,66,193,215,26,195,144,196,210,42,111,93,85,47,99,187,204,89,25,10,234,106,238,22,53,74],[83,240,19,62,164,77,162,12,80,154,78,91,233,176,39,219,225,62,58,96,67,157,190,114,8,75,12,117,160,73,114,63]),this.Gq.parsePoint([189,95,41,223,102,64,73,63,249,108,108,188,73,203,142,95,97,70,39,146,219,117,242,14,244,155,248,110,38,13,201,85],[32,76,68,14,248,198,235,43,236,12,52,58,206,156,109,100,225,136,200,180,240,97,61,100,132,106,219,220,61,143,223,173]),this.Gq.parsePoint([217,26,189,162,110,197,195,0,28,241,202,44,9,173,136,102,37,88,66,109,195,180,209,181,1,231,171,194,219,8,12,220],[84,235,177,127,237,133,90,54,193,247,74,184,37,98,8,232,99,7,169,242,183,86,215,200,75,79,185,72,94,15,245,245]),this.Gq.parsePoint([134,235,44,148,226,182,214,32,163,145,180,8,13,254,43,55,124,194,13,152,27,91,192,204,169,78,134,86,151,149,158,190],[38,172,21,137,197,40,128,195,184,248,29,43,243,41,118,99,96,25,241,109,142,250,31,77,32,149,11,153,8,206,183,225]),this.Gq.parsePoint([85,83,20,142,68,37,38,146,217,231,234,156,24,148,105,221,44,14,139,212,73,64,91,111,59,31,39,146,69,179,127,13],[121,12,164,206,144,224,72,167,66,91,102,42,99,22,18,208,34,79,32,142,75,230,233,7,195,231,217,96,122,153,127,109]),this.Gq.parsePoint([119,102,141,151,191,247,213,218,105,93,109,114,228,248,64,32,93,226,137,206,143,241,233,149,36,53,176,180,221,78,34,46],[20,118,6,11,51,254,99,107,185,183,95,16,120,93,75,67,25,5,205,0,111,131,43,247,49,3,185,248,128,55,133,86]),this.Gq.parsePoint([114,154,114,190,131,117,136,143,103,223,150,210,165,46,27,56,74,241,198,143,248,183,60,173,246,41,108,114,194,193,250,178],[1,49,32,230,148,45,7,64,162,95,139,135,30,31,47,233,168,96,73,119,209,218,161,138,240,228,254,213,112,198,234,46]),this.Gq.parsePoint([207,186,1,78,242,115,75,176,213,24,99,161,230,174,142,180,174,24,159,140,25,67,42,244,109,159,22,253,212,63,188,24],[18,86,199,132,248,39,195,26,210,61,141,35,54,120,206,46,235,206,52,70,41,231,165,247,166,217,74,220,15,244,122,126]),this.Gq.parsePoint([108,20,7,196,154,81,246,118,37,235,139,41,149,172,17,148,66,136,153,91,58,129,120,154,94,179,230,191,79,45,237,120],[22,216,114,73,79,193,141,119,64,79,144,110,88,144,33,80,225,252,221,160,207,33,21,22,246,241,148,21,232,137,47,38]),this.Gq.parsePoint([217,35,28,49,91,175,114,36,105,247,79,186,85,186,102,23,119,233,28,166,50,10,136,37,189,161,203,240,234,32,96,146],[54,228,205,18,136,8,141,236,238,168,231,182,210,44,253,151,185,159,135,250,204,149,241,137,31,198,162,139,216,30,95,80]),this.Gq.parsePoint([53,53,135,17,56,65,6,184,98,162,207,11,64,62,128,85,146,12,117,152,191,180,153,135,168,156,53,105,229,160,91,97],[24,237,250,29,252,101,58,5,116,202,136,253,170,236,223,233,235,117,48,154,172,190,146,108,33,16,233,38,120,200,78,61]),this.Gq.parsePoint([37,208,92,38,23,114,22,108,8,72,61,0,0,63,68,53,32,233,19,36,203,233,24,252,52,0,138,147,39,22,215,235],[102,138,19,197,209,99,246,100,107,242,232,244,45,31,72,231,154,158,173,2,9,34,179,131,0,107,103,109,41,211,90,66]),this.Gq.parsePoint([252,3,92,133,170,14,156,82,126,167,220,162,106,45,183,77,194,80,232,165,171,232,83,187,222,209,89,89,215,35,15,67],[101,240,82,163,130,178,199,140,170,159,207,201,82,9,111,76,204,71,114,84,110,87,152,100,145,35,254,249,78,201,90,204]),this.Gq.parsePoint([133,179,135,63,217,17,191,6,169,120,250,64,226,97,225,200,86,246,56,202,158,200,203,232,130,106,96,130,200,69,45,15],[60,240,13,105,88,111,86,190,216,73,213,233,226,130,90,0,60,229,98,170,181,248,27,215,24,164,233,65,152,158,17,1]),this.Gq.parsePoint([69,73,248,198,33,234,186,87,237,35,54,213,25,32,246,252,77,195,78,4,125,177,52,198,25,128,228,227,88,197,227,36],[57,232,190,35,240,64,51,160,248,188,67,213,161,27,30,121,141,37,181,199,93,116,14,253,48,153,133,237,197,222,219,152]),this.Gq.parsePoint([184,173,56,107,84,249,118,110,92,177,162,240,80,203,202,42,34,97,155,160,8,253,249,73,109,243,138,108,234,120,78,178],[91,51,58,12,222,157,220,141,101,113,177,202,196,86,164,113,68,201,193,110,206,134,106,83,132,148,234,15,234,238,240,172]),this.Gq.parsePoint([86,98,140,125,99,102,225,196,169,54,30,95,126,73,65,92,128,253,161,76,4,241,6,240,99,142,200,207,89,170,4,133],[116,253,194,96,128,43,109,245,90,100,2,51,136,149,53,205,4,224,223,132,182,109,157,164,100,93,163,17,147,153,80,70]),this.Gq.parsePoint([143,31,90,14,52,46,101,87,185,85,53,84,56,96,141,176,158,77,35,126,199,35,14,44,131,107,213,243,233,28,108,18],[44,26,33,2,166,158,247,74,0,99,83,194,210,209,221,157,189,250,176,7,253,8,231,200,142,184,105,160,166,105,177]),this.Gq.parsePoint([190,175,119,87,163,206,67,220,141,74,7,50,225,227,24,244,151,85,230,30,95,87,168,91,236,207,33,183,220,200,24,226],[64,210,108,42,220,63,65,208,145,86,2,90,157,195,79,211,202,107,150,128,157,61,124,245,242,141,0,161,237,189,105,149]),this.Gq.parsePoint([229,19,195,229,14,250,68,54,25,156,90,81,253,105,30,164,220,171,188,32,42,128,41,186,61,240,51,111,18,216,38,99],[117,244,47,88,72,13,44,173,86,155,15,19,203,243,118,195,145,50,113,217,247,132,66,66,184,112,81,157,43,232,57,142]),this.Gq.parsePoint([180,43,59,5,188,175,187,114,128,14,226,66,171,76,183,171,215,127,31,206,172,124,225,211,39,238,194,91,61,230,196,61],[114,95,91,61,12,221,27,134,189,122,139,214,53,193,172,237,186,201,29,108,53,22,62,174,102,129,7,81,244,212,98,136]),this.Gq.parsePoint([200,164,167,223,107,239,108,97,239,80,191,253,156,250,126,253,226,37,48,240,178,208,55,30,129,155,128,232,133,213,146,221],[25,110,126,10,129,208,59,56,168,249,145,4,129,47,100,120,75,98,212,25,145,245,102,222,39,132,123,107,185,186,162,81]),this.Gq.parsePoint([162,42,244,94,90,122,154,159,148,145,14,140,219,94,100,158,131,195,143,193,54,159,28,169,250,29,81,136,124,56,221,241],[117,155,211,140,110,9,254,44,215,91,79,53,95,68,32,226,231,178,223,217,247,20,122,160,61,83,115,179,97,43,131,137]),this.Gq.parsePoint([34,244,122,106,174,193,66,53,148,129,238,164,144,152,136,43,62,202,196,98,91,29,37,98,176,39,24,72,118,44,93,222],[62,11,126,12,81,160,99,48,53,128,202,37,227,38,174,126,97,8,110,166,228,196,149,210,81,98,134,112,57,217,254,76]),this.Gq.parsePoint([234,226,78,156,191,74,142,185,44,28,200,13,117,220,244,76,57,223,228,237,207,19,195,229,228,183,186,8,195,41,55,141],[47,127,255,250,67,162,208,38,140,37,228,240,134,99,254,242,108,87,150,47,213,246,35,41,47,6,30,161,156,87,16,161]),this.Gq.parsePoint([173,146,176,152,82,138,226,8,87,36,116,227,202,43,31,111,190,19,60,180,250,181,238,186,14,70,16,12,104,77,91,188],[71,151,134,133,250,143,65,202,82,70,189,99,71,186,101,246,112,236,101,161,54,22,108,117,231,147,99,70,225,106,215,144]),this.Gq.parsePoint([220,90,188,157,158,42,4,167,186,56,52,110,130,113,25,245,15,163,17,184,203,75,18,207,83,96,47,52,130,166,9,192],[233,79,115,213,217,100,25,66,24,143,208,255,100,167,117,16,33,250,246,204,156,77,42,160,49,142,148,240,89,120,190]),this.Gq.parsePoint([93,0,139,155,222,187,56,36,147,91,220,104,167,172,66,108,85,64,88,169,220,78,216,190,162,234,116,169,45,244,127,195],[24,5,213,248,240,151,234,139,59,134,8,220,95,1,111,217,9,120,27,117,144,13,83,206,139,101,132,101,24,202,11,218]),this.Gq.parsePoint([75,255,22,6,126,55,121,143,243,227,36,43,17,190,57,248,61,215,69,30,190,17,1,234,196,136,122,111,147,213,2,6],[6,94,94,49,225,80,19,96,54,225,146,37,73,185,253,154,133,89,151,18,159,69,102,211,245,172,248,161,228,208,172,131]),this.Gq.parsePoint([174,203,167,240,116,81,35,217,198,166,14,155,212,97,168,99,97,49,176,149,245,150,23,132,157,51,93,42,125,139,24,123],[95,98,213,234,244,169,168,146,72,140,13,233,93,141,133,237,169,3,91,101,151,234,38,116,215,167,238,125,74,83,94,189]),this.Gq.parsePoint([167,78,203,128,115,36,150,232,246,206,114,244,85,105,55,194,55,225,158,250,199,86,124,21,31,56,107,101,6,86,162,38],[4,246,97,65,83,19,40,77,144,68,133,230,246,219,143,233,71,130,178,186,36,192,203,166,202,119,85,126,252,216,240,94]),this.Gq.parsePoint([237,14,150,86,105,1,122,167,31,52,46,200,160,153,187,240,26,11,158,171,148,246,38,35,236,249,107,204,14,20,228,171],[36,75,241,37,82,62,242,151,141,176,96,6,205,167,207,62,77,88,57,119,17,217,40,151,96,61,186,226,155,130,134,75]),this.Gq.parsePoint([6,155,132,59,219,240,23,212,22,167,103,209,52,225,194,212,151,250,210,205,170,227,107,39,83,112,255,81,42,52,191,167],[61,59,227,210,232,110,176,122,135,132,155,46,241,110,227,3,16,184,110,99,179,71,129,99,253,6,182,89,43,189,229,69]),this.Gq.parsePoint([89,45,72,21,138,99,88,162,144,13,69,61,121,232,141,107,194,11,127,168,203,43,252,252,223,208,130,150,5,37,173,131],[114,49,195,209,248,111,204,27,108,158,140,22,174,69,169,53,8,201,196,158,138,116,94,100,176,118,54,252,107,3,16,63]),this.Gq.parsePoint([24,255,172,117,7,184,240,34,235,169,114,42,234,147,198,202,116,112,130,90,120,124,31,152,43,8,61,218,4,144,237,50],[48,75,131,96,74,148,255,138,39,135,176,71,232,35,229,10,100,237,202,11,29,204,185,56,17,150,89,122,28,99,179,98]),this.Gq.parsePoint([221,229,223,194,134,122,97,186,46,4,109,213,37,118,211,211,58,36,23,62,50,215,22,202,240,214,188,75,209,25,67,116],[121,182,227,11,24,34,214,30,173,229,155,10,179,237,190,143,66,145,200,224,129,221,206,222,255,0,188,50,235,252,26,147]),this.Gq.parsePoint([224,247,42,140,113,57,94,25,6,59,14,9,249,71,248,108,6,244,179,0,200,29,59,187,196,141,203,33,154,185,96,170],[111,35,30,10,83,140,143,84,192,102,201,62,26,248,87,188,59,28,65,136,2,39,76,189,245,227,135,216,135,54,245,118]),this.Gq.parsePoint([56,83,136,7,142,162,180,121,45,172,143,190,11,71,72,185,152,0,202,8,102,98,250,142,171,214,37,150,221,126,92,83],[77,33,18,17,29,91,244,123,174,209,196,162,104,140,250,97,110,123,187,100,212,18,241,107,55,18,136,191,233,87,234,97]),this.Gq.parsePoint([177,8,170,62,139,241,247,7,246,186,149,86,170,15,24,113,81,151,52,166,152,32,63,117,50,146,84,67,178,2,12,189],[90,117,250,231,173,11,226,53,32,115,71,121,239,17,243,37,221,231,166,237,198,51,54,239,159,181,134,97,252,204,70,165]),this.Gq.parsePoint([6,5,179,80,95,119,231,75,34,234,126,103,195,51,63,243,183,183,113,115,131,137,211,5,170,89,77,143,85,2,55,219],[116,135,173,178,224,124,58,185,46,19,134,84,103,144,160,17,73,126,185,251,152,70,113,107,4,121,61,206,164,48,199,171]),this.Gq.parsePoint([216,24,131,169,207,29,195,4,60,68,249,240,249,255,80,44,208,69,228,41,76,55,90,48,168,166,90,188,13,210,130,100],[29,117,201,158,180,78,45,139,67,165,63,105,182,136,31,150,146,148,53,226,179,133,10,55,1,174,208,38,232,10,50,145]),this.Gq.parsePoint([147,236,144,135,156,210,216,106,34,118,244,75,66,223,115,98,131,210,151,71,7,89,222,10,242,198,201,47,22,132,130,175],[31,69,244,128,160,236,118,7,81,102,121,194,187,159,103,122,137,212,80,236,70,154,201,48,161,13,33,60,30,178,169,207]),this.Gq.parsePoint([78,158,158,184,226,103,192,214,23,96,236,171,201,172,25,221,172,93,185,92,40,51,78,201,157,73,215,77,64,182,109,175],[93,215,28,146,211,17,236,21,213,226,230,211,184,213,19,54,65,90,96,142,20,4,140,134,206,236,118,78,109,230,223,73]),this.Gq.parsePoint([206,180,202,152,246,32,25,89,107,155,198,35,78,165,194,2,153,144,240,141,6,143,39,238,244,250,125,152,151,191,175,98],[65,96,251,221,175,41,134,243,161,30,41,181,137,185,217,29,139,21,197,248,187,240,47,127,23,95,110,248,231,194,177,164]),this.Gq.parsePoint([128,232,112,103,9,189,37,168,73,55,65,126,45,106,109,175,168,61,55,56,223,180,47,142,239,160,251,82,71,214,153,133],[106,143,46,166,178,48,30,58,239,189,130,70,246,235,151,234,12,225,21,92,224,183,44,71,29,1,176,208,184,141,162,202]),this.Gq.parsePoint([19,189,38,6,6,103,248,235,126,86,231,130,133,74,243,179,224,16,207,24,37,166,132,188,114,178,135,234,123,44,35,76],[24,113,193,90,166,248,204,58,218,45,75,246,187,43,198,41,108,166,88,124,18,45,243,180,122,159,170,48,37,134,58,140]),this.Gq.parsePoint([125,94,105,186,206,146,14,142,210,208,180,58,209,72,73,215,30,38,114,156,179,127,0,154,225,78,109,138,6,94,144,121],[19,214,200,214,174,2,115,161,137,1,41,119,159,206,52,240,202,246,243,83,191,222,158,227,55,39,134,120,201,182,231,88])],this.gt=this.Gq.parsePoint([226,171,129,222,245,147,233,153,201,117,168,164,134,104,185,160,126,85,148,207,214,143,172,41,241,122,129,28,178,107,62,16],[117,99,17,248,150,197,3,236,219,47,96,138,28,203,250,55,138,149,235,69,120,230,95,25,15,26,139,84,77,32,176,130])}}class b{constructor(){this.descGq=B.P384,this.Gq=new I(this.descGq),this.oid="1.3.6.1.4.1.311.75.1.2.2",this.g=[this.Gq.parsePoint([74,174,87,157,213,109,120,9,11,153,33,243,27,247,41,240,116,18,26,58,223,250,45,49,208,18,21,190,238,29,196,223,157,244,99,253,94,43,143,108,107,10,66,22,37,138,200,68],[60,59,138,35,197,214,106,162,240,150,69,33,25,10,146,129,69,30,154,227,172,228,183,55,110,2,215,179,148,158,34,116,232,68,140,173,239,126,81,153,23,32,180,154,69,176,88,5]),this.Gq.parsePoint([3,47,8,110,172,123,235,85,160,201,94,90,217,150,227,157,222,116,179,182,109,251,194,184,241,37,41,217,223,74,44,184,74,165,76,230,154,177,251,34,205,127,215,153,103,210,97,194],[22,187,240,120,101,78,57,22,128,189,181,116,149,1,140,200,254,5,19,10,191,218,168,74,180,175,144,208,210,214,192,31,253,168,188,150,207,203,0,22,243,219,19,216,10,232,162,208]),this.Gq.parsePoint([214,88,58,254,72,49,27,236,92,144,22,104,37,49,201,53,207,63,169,142,51,213,3,53,72,32,201,159,178,233,2,234,205,180,25,68,18,3,226,135,176,211,58,219,190,145,46,51],[127,158,53,192,192,218,242,230,142,209,53,235,192,121,113,213,142,14,106,200,218,105,245,79,12,9,62,36,221,63,98,117,30,129,107,111,110,31,203,102,34,108,79,11,53,249,172,220]),this.Gq.parsePoint([62,248,81,182,224,168,78,36,252,153,155,5,60,246,172,243,42,220,148,23,132,174,240,222,20,130,62,247,171,190,126,126,73,231,216,12,211,82,149,234,223,51,34,101,212,218,22,95],[24,40,153,211,70,82,98,108,116,116,152,147,102,177,241,122,212,217,200,18,134,58,103,188,223,125,133,192,237,89,203,115,32,102,62,187,143,255,61,95,86,50,224,167,94,0,153,102]),this.Gq.parsePoint([11,131,68,3,26,149,138,55,77,232,238,7,17,193,85,84,64,75,254,220,168,14,72,137,146,43,219,12,235,173,58,48,201,34,245,73,45,44,228,136,75,161,199,123,87,47,160,189],[13,125,112,124,236,46,203,206,215,111,50,212,60,231,181,92,189,83,39,63,85,96,91,123,155,172,139,63,82,27,177,83,150,134,150,123,225,139,90,164,26,113,101,247,38,171,93,187]),this.Gq.parsePoint([216,101,25,130,241,207,171,38,114,112,33,154,238,37,7,54,213,53,194,137,163,140,136,93,242,142,235,246,15,118,58,18,161,102,32,172,197,149,105,115,8,238,209,219,5,172,212,240],[47,196,58,17,184,40,200,84,106,184,193,198,174,180,26,104,87,196,129,89,4,23,182,89,172,139,211,238,83,199,15,211,247,170,19,240,101,112,22,136,35,175,252,232,74,94,134,29]),this.Gq.parsePoint([228,43,193,118,225,59,222,207,43,49,96,24,162,44,249,81,2,183,26,31,168,172,28,254,20,238,197,76,173,37,106,154,185,180,167,168,239,60,253,227,56,79,228,161,188,17,194,244],[78,38,0,39,53,201,38,151,135,112,87,37,96,56,231,147,76,29,66,129,38,244,30,119,27,25,8,64,219,172,15,89,189,94,7,2,37,34,182,56,162,147,62,20,99,57,220,198]),this.Gq.parsePoint([215,20,16,179,227,162,34,170,251,127,83,237,76,216,41,158,68,39,49,32,59,236,246,67,239,129,218,55,29,129,66,25,28,242,90,39,1,149,135,41,77,35,135,12,120,252,160,73],[93,201,128,10,208,237,160,51,171,225,52,221,216,148,242,150,181,174,189,68,88,238,66,84,206,112,248,77,251,13,225,143,202,153,191,121,92,167,226,8,24,46,246,196,109,123,212,148]),this.Gq.parsePoint([104,135,43,22,74,110,155,143,153,102,139,91,253,74,192,119,13,234,100,227,119,50,163,132,188,57,195,36,132,184,96,145,205,71,221,234,229,38,177,128,101,232,102,62,30,203,139,128],[102,96,138,167,207,10,181,60,55,80,52,221,227,151,54,220,129,214,131,27,198,238,120,199,20,224,16,175,165,200,84,37,167,237,40,239,111,70,42,235,77,121,82,234,244,136,208,193]),this.Gq.parsePoint([160,77,236,199,233,240,207,136,147,10,178,108,150,214,149,35,118,180,195,163,219,117,37,110,253,212,102,245,31,124,1,132,26,95,78,106,159,17,135,127,242,134,203,199,67,6,187,241],[24,200,9,40,172,32,130,192,79,48,13,49,178,230,208,14,230,135,114,94,184,111,13,199,199,168,251,149,153,60,234,202,138,252,228,128,237,199,39,132,46,254,209,72,136,45,186,166]),this.Gq.parsePoint([233,128,44,229,54,29,215,158,177,79,0,77,30,42,125,171,76,165,88,98,185,55,89,60,134,3,95,206,13,58,73,193,161,52,126,157,137,233,52,139,248,70,15,230,70,104,170,231],[41,153,41,0,129,27,18,196,46,253,225,35,207,101,184,11,178,73,228,142,63,83,228,71,117,203,27,54,83,110,40,107,35,224,141,76,89,245,13,221,137,185,219,78,1,42,79,20]),this.Gq.parsePoint([133,55,178,154,139,96,198,115,148,211,3,120,219,89,15,199,4,255,54,58,108,121,1,238,41,187,139,24,63,220,139,10,234,213,244,56,228,67,132,212,30,213,242,107,230,164,199,231],[117,195,190,41,94,56,129,59,39,34,188,252,186,212,145,198,43,216,26,20,56,134,77,143,84,164,138,67,138,106,85,108,92,198,189,149,73,194,92,231,227,157,152,97,163,11,110,8]),this.Gq.parsePoint([228,107,232,255,177,166,18,119,87,75,77,78,117,32,187,40,223,26,169,43,117,57,11,246,170,129,152,132,164,125,182,126,10,90,63,117,76,239,109,197,125,7,37,199,150,128,109,133],[30,12,251,197,9,37,130,247,2,0,47,172,133,221,47,50,239,86,142,0,152,1,195,215,150,17,170,58,160,238,191,45,85,145,1,20,69,18,251,44,26,89,127,63,11,5,245,67]),this.Gq.parsePoint([246,214,223,60,134,123,136,106,75,211,119,86,5,110,114,0,157,46,38,76,178,93,221,89,192,184,61,77,14,64,20,79,100,159,67,87,212,22,161,119,47,122,30,78,43,221,171,21],[6,217,181,14,132,130,70,243,16,185,47,1,131,93,83,219,238,142,39,248,131,170,109,37,73,229,39,254,120,8,169,203,97,146,49,117,168,238,205,51,40,87,74,62,215,187,89,186]),this.Gq.parsePoint([56,138,108,181,92,93,8,188,234,216,33,28,253,32,227,44,120,235,111,6,215,146,16,26,0,192,215,87,72,0,70,249,196,170,93,248,130,23,107,188,141,131,31,114,129,74,121,12],[66,123,137,133,24,47,144,54,1,157,40,50,86,25,185,202,148,66,117,8,43,210,253,25,133,0,193,124,155,184,174,125,89,30,253,100,225,128,112,196,207,49,100,224,146,109,253,205]),this.Gq.parsePoint([243,15,190,236,145,41,113,219,170,213,237,99,59,91,42,55,106,230,14,39,134,175,22,150,149,175,0,246,218,155,188,253,154,67,86,64,151,201,2,37,197,78,42,99,185,192,0,79],[49,254,181,144,60,181,103,159,233,104,111,23,48,62,139,207,131,53,250,7,246,253,224,107,112,98,226,211,55,247,44,122,161,173,238,95,191,92,179,116,40,68,240,126,2,253,71,109]),this.Gq.parsePoint([188,86,24,126,98,179,163,194,70,223,1,216,248,133,195,77,84,255,129,66,74,189,29,34,123,3,63,6,236,206,198,39,141,192,117,154,22,217,15,12,197,22,22,197,14,154,136,69],[58,83,44,215,77,31,115,220,2,190,253,139,0,45,179,98,235,19,59,61,156,206,197,69,41,241,93,115,2,218,29,139,76,123,54,101,78,79,141,42,62,77,165,235,155,41,167,226]),this.Gq.parsePoint([137,151,114,18,111,152,56,236,23,137,97,80,124,174,216,37,139,111,16,47,90,119,8,186,191,128,221,29,204,220,112,2,30,79,65,194,247,67,139,235,103,201,162,169,180,213,127,132],[113,185,166,253,185,30,189,10,41,43,219,113,131,119,48,142,222,218,6,61,7,203,3,78,27,200,110,162,246,95,162,15,9,53,198,200,195,120,202,238,254,100,221,187,58,220,121,237]),this.Gq.parsePoint([203,46,191,128,127,30,111,228,17,223,104,152,205,246,82,203,185,189,223,57,71,53,80,17,66,157,17,27,178,97,141,196,109,239,202,70,154,9,193,151,72,207,29,9,170,130,25,190],[80,35,138,139,39,7,205,184,140,56,29,87,54,155,77,120,56,215,137,88,118,249,163,216,10,149,86,165,199,151,164,208,219,131,153,252,214,87,173,209,147,139,101,199,175,173,138,114]),this.Gq.parsePoint([149,250,121,90,164,244,192,218,72,100,32,250,148,27,37,215,247,12,128,115,183,139,205,136,32,216,20,102,137,216,30,29,194,164,9,142,134,175,194,123,73,200,106,239,237,27,13,97],[98,61,55,193,61,203,110,169,87,51,114,136,138,240,139,234,207,148,200,223,252,44,182,21,3,10,230,18,176,207,20,120,117,29,195,181,106,102,165,29,180,185,142,38,78,176,22,221]),this.Gq.parsePoint([34,244,51,2,13,193,41,199,190,116,85,142,249,194,145,243,147,142,120,23,180,125,75,65,165,146,33,216,91,16,255,209,184,21,145,159,179,113,126,62,126,21,233,63,185,127,111,124],[20,69,76,174,14,236,203,204,142,82,21,85,253,46,200,34,194,144,196,100,103,30,167,170,153,213,88,144,159,220,204,246,142,77,112,149,196,100,122,22,228,127,22,192,182,136,81,193]),this.Gq.parsePoint([69,105,130,178,53,217,208,19,201,155,100,9,77,65,41,99,31,177,198,33,6,40,80,92,116,65,51,230,250,23,93,20,31,180,192,1,5,248,16,40,76,104,128,180,106,68,6,223],[82,184,73,130,86,81,106,79,239,222,19,181,167,187,215,45,63,25,170,0,179,98,109,236,221,156,209,255,125,23,92,247,68,226,36,22,243,81,246,46,93,1,190,101,28,168,39,71]),this.Gq.parsePoint([69,31,119,203,207,34,190,230,164,7,40,126,249,163,111,41,63,168,34,243,149,246,76,46,220,203,154,181,248,238,63,222,134,239,221,207,51,2,232,233,41,55,50,160,88,51,40,22],[119,52,1,161,15,229,6,157,188,198,135,12,235,139,21,209,203,53,34,123,216,175,125,112,182,61,54,233,86,19,222,186,45,96,3,131,80,39,73,60,4,99,14,219,39,0,185,101]),this.Gq.parsePoint([164,173,80,183,219,207,205,196,39,231,47,133,10,27,176,64,40,28,95,153,185,20,21,28,71,172,72,249,251,123,133,160,88,88,243,3,88,140,87,210,255,102,181,134,113,69,251,219],[10,86,67,54,181,227,122,172,57,186,160,135,140,108,80,211,211,111,84,9,241,2,249,184,104,115,40,9,69,98,202,98,136,178,182,159,238,67,137,26,213,97,211,46,212,187,32,248]),this.Gq.parsePoint([241,180,241,50,179,194,154,158,52,103,160,34,8,23,242,88,120,67,231,117,67,232,18,236,82,77,125,65,60,108,32,192,62,195,155,85,131,98,32,113,125,221,154,244,42,255,230,103],[52,71,161,52,45,64,168,192,148,6,3,69,16,46,100,177,179,135,27,128,239,40,211,39,112,248,73,181,126,118,150,17,143,89,107,139,17,155,171,221,45,124,207,39,181,90,205,23]),this.Gq.parsePoint([9,112,39,156,88,20,125,212,13,42,175,235,206,62,11,193,62,228,221,187,116,105,9,204,226,132,155,237,152,216,183,179,110,217,113,161,122,142,117,205,181,243,235,220,62,113,180,123],[44,193,122,205,160,150,181,99,147,222,99,198,107,35,66,160,62,46,80,79,18,57,128,1,184,217,15,225,88,29,38,150,191,134,67,70,88,84,224,217,173,233,238,33,69,243,192,47]),this.Gq.parsePoint([43,94,23,194,25,228,234,149,175,57,178,74,32,220,77,80,134,112,126,216,6,107,210,152,227,4,125,100,89,130,63,241,2,239,97,125,70,112,213,158,14,251,150,94,23,155,1,166],[36,32,35,86,124,103,11,207,33,201,194,239,105,187,139,135,215,168,220,208,52,182,102,6,144,8,18,57,62,233,152,155,195,126,37,171,103,42,62,164,239,59,2,143,131,73,86,35]),this.Gq.parsePoint([129,254,102,220,142,124,88,62,209,82,68,181,215,236,134,151,37,188,53,52,111,243,6,62,106,34,72,62,146,214,112,139,89,143,65,228,38,29,76,82,200,31,215,3,133,60,11,93],[35,247,90,148,229,248,100,133,6,151,97,156,171,184,179,78,255,86,159,41,216,130,117,183,167,174,29,119,128,158,58,90,66,92,130,181,189,184,215,170,117,249,92,83,163,124,249,96]),this.Gq.parsePoint([70,228,212,188,98,129,212,148,62,11,92,234,216,110,184,245,130,27,255,212,40,136,181,121,219,113,113,200,36,22,188,248,99,24,125,134,129,85,180,160,174,31,62,68,207,113,7,175],[20,100,36,108,84,202,58,139,112,218,61,169,63,253,136,102,51,110,122,186,218,80,157,57,39,109,8,90,156,157,213,92,4,255,222,240,197,236,6,152,58,171,14,99,252,17,134,253]),this.Gq.parsePoint([227,211,39,55,113,68,164,6,255,45,34,251,38,202,99,77,106,138,14,228,187,57,170,208,179,94,102,54,172,204,202,242,10,202,120,252,26,2,204,96,72,5,51,48,52,7,142,248],[71,236,152,211,24,248,113,203,111,228,145,191,218,242,97,216,98,172,146,234,93,38,155,148,24,117,230,54,220,92,226,204,116,102,144,138,96,175,71,154,162,199,15,148,186,10,211,3]),this.Gq.parsePoint([189,66,84,151,33,158,43,202,59,71,98,155,25,247,157,77,203,39,98,132,180,92,63,90,201,180,123,118,185,14,206,146,53,101,92,249,87,247,122,218,144,45,209,117,228,148,218,145],[41,128,224,200,212,74,50,52,82,17,85,75,241,183,172,30,222,240,197,204,26,96,212,42,212,225,158,155,154,170,228,207,31,188,169,235,1,225,50,223,102,248,152,87,185,48,48,8]),this.Gq.parsePoint([42,108,87,109,242,175,123,20,5,218,173,233,251,36,187,254,179,250,156,85,134,3,96,136,224,125,157,189,49,85,233,169,105,34,174,225,133,247,49,87,156,125,140,209,167,163,68,228],[68,145,111,229,218,7,229,173,254,241,131,125,93,63,194,174,221,213,176,91,156,217,212,7,21,254,164,66,17,72,109,130,206,149,162,114,150,181,171,58,144,31,99,213,1,242,177,247]),this.Gq.parsePoint([231,229,180,44,114,47,180,123,217,44,165,129,192,90,160,15,28,24,192,255,101,73,57,241,156,204,182,237,60,77,249,247,176,160,59,180,149,196,76,187,188,233,63,72,149,136,38,55],[48,146,227,42,243,156,64,194,75,90,17,16,11,232,16,50,159,5,1,111,121,47,175,80,135,111,119,244,245,97,241,135,102,176,29,164,79,178,229,78,132,148,111,42,60,150,112,176]),this.Gq.parsePoint([166,149,154,104,166,218,122,70,141,14,239,130,116,146,211,136,138,242,129,29,6,39,193,138,169,9,221,10,228,176,32,209,51,228,139,145,27,55,126,5,204,183,127,238,234,50,102,115],[112,237,235,70,124,24,209,89,71,72,36,223,190,89,66,155,79,173,201,124,254,63,132,152,99,7,180,186,80,250,242,196,182,13,115,242,179,149,181,149,187,110,205,217,106,79,227,233]),this.Gq.parsePoint([153,56,18,124,88,239,158,254,105,204,67,173,117,139,58,242,59,255,222,132,247,24,47,9,0,149,225,24,131,75,103,8,126,231,6,180,100,64,50,56,137,37,58,34,62,207,200,101],[55,241,201,66,79,8,96,227,236,226,248,16,120,0,246,216,108,144,154,159,68,103,156,53,87,236,235,75,88,20,180,179,150,188,142,154,154,120,187,234,183,193,49,63,10,75,227,24]),this.Gq.parsePoint([96,234,225,105,225,56,223,73,121,222,213,9,186,206,237,3,230,52,73,16,211,97,53,234,102,83,239,245,92,7,108,251,84,193,238,155,192,181,232,18,156,146,159,218,100,62,130,217],[101,33,2,18,202,133,33,160,249,2,32,99,195,216,22,52,161,180,100,155,2,101,25,135,252,226,168,94,63,174,166,3,91,191,162,94,77,228,118,149,215,239,11,231,198,85,41,244]),this.Gq.parsePoint([171,9,176,72,91,215,234,226,75,248,42,202,244,140,179,132,138,132,31,227,130,108,162,191,217,29,42,254,223,190,239,7,169,29,29,53,183,196,34,68,83,21,215,70,102,162,220,91],[107,233,16,41,254,217,1,50,152,46,52,245,129,184,92,186,141,105,144,98,183,101,120,128,134,147,241,52,242,3,250,134,106,31,178,250,252,135,119,41,43,181,198,44,19,10,148,16]),this.Gq.parsePoint([235,202,154,2,72,45,116,85,208,230,175,73,46,97,30,252,144,140,31,184,81,181,143,51,27,42,176,135,162,217,182,72,243,15,63,101,83,63,76,85,9,117,190,185,22,139,8,73],[104,93,247,178,194,117,122,91,91,169,61,145,40,99,136,246,87,184,155,209,46,54,200,222,156,149,129,138,164,253,53,123,76,20,223,114,162,188,65,54,253,148,118,22,10,175,101,28]),this.Gq.parsePoint([218,183,159,234,53,162,136,58,67,192,40,82,210,141,200,183,160,45,95,51,28,241,165,185,97,170,43,57,160,54,117,107,252,128,245,31,148,87,20,32,155,11,232,129,187,130,193,182],[76,45,6,61,64,91,69,105,170,109,201,41,38,227,251,54,59,63,236,118,45,12,111,13,178,103,7,60,254,63,120,186,162,184,203,93,112,0,188,143,219,40,31,241,72,230,38,118]),this.Gq.parsePoint([46,165,146,94,237,224,105,110,5,181,117,209,202,68,102,177,167,68,144,252,145,210,18,97,37,126,6,198,197,216,217,88,220,27,52,163,194,209,70,7,237,188,21,25,158,227,110,115],[118,141,185,174,141,230,169,213,27,115,37,241,116,113,237,100,34,184,151,127,189,254,254,253,235,13,94,178,135,156,245,185,157,231,160,107,238,243,93,77,75,71,30,61,174,150,174,148]),this.Gq.parsePoint([95,194,113,19,225,14,180,21,17,136,6,134,148,144,86,158,154,66,212,227,206,178,39,216,147,109,206,162,124,173,177,106,134,254,108,17,110,96,117,26,252,83,84,242,159,152,36,221],[28,126,137,14,167,110,202,254,40,182,84,90,32,5,181,223,95,194,57,24,170,109,76,129,249,104,16,143,245,101,251,238,1,136,45,238,68,178,63,180,36,39,216,148,95,73,246,244]),this.Gq.parsePoint([25,247,54,145,80,20,193,33,97,47,240,251,170,68,121,237,186,48,132,7,54,208,15,24,217,192,140,254,23,112,174,233,18,181,22,248,42,113,241,118,37,188,16,213,110,167,85,134],[26,90,49,24,148,233,13,1,159,161,84,198,137,7,6,141,26,41,7,227,63,214,131,97,79,160,44,233,226,45,76,244,15,156,183,15,250,116,56,131,65,233,6,53,162,226,96,244]),this.Gq.parsePoint([41,118,55,53,199,245,107,246,189,122,27,106,31,47,135,188,124,212,133,146,39,10,244,101,151,5,49,214,217,250,154,41,156,64,115,194,239,94,211,249,96,92,125,212,51,178,8,188],[116,132,255,101,50,199,251,41,78,212,119,74,98,154,162,235,175,208,43,145,110,205,145,132,193,52,199,57,205,42,89,42,64,152,76,210,26,97,200,128,6,126,239,44,150,11,35,162]),this.Gq.parsePoint([130,222,208,57,87,127,78,29,179,135,34,32,10,220,157,238,228,119,200,146,148,132,50,234,3,130,243,211,20,220,203,184,148,71,24,251,191,146,195,26,137,168,193,13,170,119,138,176],[37,129,2,128,252,242,128,159,184,228,110,165,247,95,156,140,212,174,62,86,10,175,181,160,254,139,206,125,138,194,129,30,113,63,223,202,124,40,20,132,30,100,173,195,43,251,102,45]),this.Gq.parsePoint([27,65,80,46,205,32,129,125,60,133,231,0,78,102,150,56,199,37,209,21,138,168,3,209,5,171,191,133,149,81,133,89,139,211,22,251,188,30,157,164,176,171,70,126,52,23,45,65],[14,55,8,247,33,220,105,249,42,248,17,119,111,177,226,72,2,81,178,4,245,177,205,244,173,170,237,102,176,105,139,217,250,102,98,60,91,240,86,190,227,79,140,186,38,148,74,124]),this.Gq.parsePoint([74,229,118,164,22,65,172,156,238,104,215,97,104,202,45,211,165,168,161,194,209,176,56,45,248,196,191,119,0,139,227,178,45,22,191,169,218,74,90,28,210,119,163,19,105,173,4,254],[83,200,206,122,66,210,184,213,185,64,149,147,26,0,91,211,32,89,57,85,230,65,185,212,17,2,248,31,52,70,94,217,103,214,153,146,183,129,14,11,83,104,225,31,169,191,75,194]),this.Gq.parsePoint([226,171,135,83,177,30,195,82,251,220,49,129,154,241,147,124,29,114,45,16,11,109,138,10,157,254,175,91,254,38,31,120,128,26,11,128,162,2,140,118,126,87,144,206,169,78,202,29],[4,215,199,16,8,165,13,139,95,22,157,35,213,130,22,36,246,135,157,61,105,36,33,138,148,187,248,214,151,37,119,7,115,170,135,238,76,239,1,206,110,41,67,82,73,17,127,111]),this.Gq.parsePoint([55,88,139,74,202,15,197,171,245,41,4,96,114,226,51,247,124,75,99,217,125,42,51,128,12,16,98,193,25,108,83,9,142,17,246,67,206,193,197,74,186,166,169,178,125,29,235,123],[12,25,206,203,6,162,220,125,10,231,108,226,196,80,24,5,37,227,221,2,183,109,128,151,237,68,11,200,217,65,5,230,182,174,87,204,243,60,144,42,64,196,95,188,255,214,6,159]),this.Gq.parsePoint([255,237,178,165,115,92,110,171,77,58,38,171,63,113,106,211,101,47,31,167,4,234,76,95,6,78,9,223,89,224,100,254,154,171,137,182,17,208,82,68,36,178,236,77,53,65,53,103],[138,249,19,188,230,14,132,234,129,195,215,170,99,125,64,119,233,165,204,79,166,168,1,218,217,222,166,154,86,202,206,111,163,139,137,30,61,250,7,242,198,191,164,92,72,15,66]),this.Gq.parsePoint([229,26,148,241,187,5,96,82,244,104,226,242,27,188,90,210,246,114,237,63,131,125,224,137,189,89,169,199,90,123,251,151,251,135,16,63,255,65,95,177,148,238,139,87,242,220,219,37],[27,95,119,14,188,159,103,65,249,125,78,130,123,253,106,204,89,42,206,8,16,125,178,111,62,180,40,238,24,205,25,126,114,185,73,230,23,37,69,223,222,224,70,69,87,26,61,199])],this.gt=this.Gq.parsePoint([174,20,30,145,87,138,38,103,247,183,144,97,224,160,245,185,228,89,222,48,56,198,151,117,61,47,126,225,192,138,102,35,22,218,13,4,197,210,17,92,252,190,208,3,229,27,142,56],[77,77,96,247,102,81,131,72,60,139,251,70,108,54,191,30,20,131,122,119,83,160,221,29,204,3,109,145,175,83,193,12,254,118,90,198,25,8,71,210,246,104,59,120,225,224,159,12])}}class x{constructor(){this.descGq=B.P521,this.Gq=new I(this.descGq),this.oid="1.3.6.1.4.1.311.75.1.2.3",this.g=[this.Gq.parsePoint([1,103,91,118,228,242,28,239,177,31,254,129,243,19,124,25,230,153,146,209,68,3,63,35,243,147,13,29,91,1,60,168,22,152,161,85,242,41,133,0,202,238,227,107,19,206,245,44,161,196,33,40,106,229,159,104,104,76,133,120,98,139,161,39,59,101],[198,49,230,10,188,189,151,1,54,32,30,90,142,67,89,248,205,49,105,204,57,100,86,185,161,45,4,49,123,59,238,154,162,122,200,253,132,230,122,97,147,76,99,209,217,92,211,248,144,3,253,181,123,252,187,113,248,17,254,181,150,218,237,126,58]),this.Gq.parsePoint([1,229,101,238,40,1,243,216,34,102,71,119,176,139,67,242,229,11,96,170,102,158,175,152,112,179,127,232,247,55,115,184,249,46,190,12,5,25,244,148,191,147,141,85,7,45,190,165,147,149,3,110,92,11,166,139,136,90,210,171,180,124,100,2,180,99],[114,51,219,247,70,221,44,43,246,42,134,15,54,69,12,175,41,93,136,211,149,82,29,115,86,201,96,246,85,120,252,200,44,41,214,192,102,242,196,160,245,72,248,108,193,188,126,161,46,167,211,76,226,65,209,152,249,84,217,140,79,102,120,120,189]),this.Gq.parsePoint([1,99,228,31,130,185,215,86,199,116,170,132,162,8,158,125,171,104,166,68,84,145,45,144,227,207,55,249,98,63,189,124,116,2,65,127,102,174,23,81,157,180,198,198,152,189,133,61,191,234,47,211,236,120,239,232,135,209,189,136,124,221,187,160,187,6],[176,129,27,216,42,202,69,159,150,156,181,228,100,46,91,103,181,45,252,150,116,226,186,61,36,236,232,98,254,121,172,81,62,246,94,140,157,63,115,187,40,200,79,32,214,180,87,193,148,20,54,224,242,128,188,215,97,35,247,57,122,243,160,251,140]),this.Gq.parsePoint([27,198,142,12,204,211,226,240,98,117,137,16,98,70,49,127,183,51,70,254,185,22,226,202,97,60,56,130,84,221,111,15,98,26,154,95,86,202,194,92,53,52,144,244,50,233,220,167,110,245,162,255,177,133,29,248,146,8,44,109,88,63,78,170,49],[66,90,188,33,219,101,140,183,211,50,93,116,144,213,55,37,88,247,98,0,19,105,37,11,128,134,228,212,151,7,6,235,75,81,191,118,198,67,170,87,191,163,206,95,107,120,49,232,193,103,255,41,226,198,149,139,82,134,189,228,245,243,32,235,235]),this.Gq.parsePoint([101,17,11,128,178,243,186,25,171,127,90,111,191,245,99,59,182,179,20,133,99,189,26,41,172,27,185,215,72,128,13,79,40,240,77,238,16,232,143,134,175,190,171,126,16,252,207,246,153,3,211,63,124,190,246,253,223,101,21,150,120,44,215,108,87],[239,169,187,4,193,218,83,197,217,167,233,162,109,51,182,65,97,60,211,116,40,71,95,220,248,33,148,140,69,114,219,68,79,153,127,144,118,129,240,196,102,45,139,8,181,45,4,161,9,33,84,54,176,163,228,143,0,150,59,153,196,144,232,250,57]),this.Gq.parsePoint([1,249,255,117,254,76,163,242,182,95,102,133,162,63,98,1,237,70,14,89,213,23,41,4,5,175,199,247,151,175,39,42,6,244,80,151,23,209,137,0,92,233,59,227,50,19,33,132,237,79,246,103,151,102,230,23,38,126,157,119,1,116,233,57,139,2],[232,126,188,83,89,81,186,24,185,222,255,216,8,233,123,51,124,196,236,11,41,68,174,170,236,211,73,52,81,15,238,150,6,236,111,242,139,76,73,204,11,182,232,197,12,42,189,201,82,174,149,246,132,2,123,21,161,13,100,231,108,198,20,245,229]),this.Gq.parsePoint([202,1,47,154,82,166,142,121,173,46,142,35,130,137,181,47,125,181,195,123,126,80,241,255,0,210,228,18,47,228,185,41,214,23,90,149,215,242,76,158,34,6,157,73,235,157,226,161,27,211,131,47,217,212,109,160,237,208,219,160,136,111,179,48,165],[37,90,210,207,20,64,227,18,16,243,143,167,15,252,220,246,50,229,63,184,7,47,176,234,94,241,27,108,89,14,10,168,22,22,59,162,136,20,134,84,191,181,75,113,164,227,135,211,198,62,142,76,18,245,71,157,69,41,249,252,11,44,147,89,246]),this.Gq.parsePoint([31,250,67,143,240,72,186,83,156,235,55,226,51,78,202,4,200,42,247,233,190,33,12,229,21,114,219,83,203,65,233,179,38,185,164,20,138,36,153,30,102,8,253,117,59,47,52,173,254,19,171,135,230,45,200,240,119,229,186,239,67,127,88,246,13],[159,112,255,35,164,102,24,163,75,160,0,231,144,84,75,161,190,187,24,249,249,151,79,126,30,8,68,165,91,154,39,1,131,161,182,187,144,91,168,118,129,249,170,99,203,57,181,127,170,201,187,147,62,149,38,184,145,178,16,153,145,194,89,251,194]),this.Gq.parsePoint([48,28,182,7,93,5,107,198,94,106,227,1,192,118,117,46,7,239,45,33,241,130,206,222,66,171,111,86,240,137,219,93,80,102,15,145,26,127,133,121,115,55,161,169,80,86,212,97,59,167,92,125,105,165,188,186,236,35,98,233,76,101,150,69,101],[45,238,45,205,2,174,94,61,80,52,11,56,134,219,37,192,83,110,173,235,40,125,34,171,133,36,253,243,45,64,210,1,154,146,2,249,218,143,160,121,39,82,218,250,35,160,66,192,132,244,208,140,224,121,47,70,0,59,244,119,240,168,108,172,133]),this.Gq.parsePoint([64,127,200,233,132,200,70,1,243,228,25,82,254,193,97,66,48,23,224,115,211,55,131,255,5,165,14,10,17,185,76,78,190,208,200,215,103,30,81,128,249,147,177,233,209,227,87,210,145,119,39,30,178,158,251,150,205,239,78,223,157,140,107,116,64],[67,29,246,155,2,32,4,202,244,199,30,206,81,105,50,2,181,16,244,2,7,228,133,110,148,9,130,21,192,31,85,193,154,7,40,199,72,28,223,194,75,47,128,209,210,41,236,218,193,244,216,62,140,70,108,211,88,111,78,13,19,255,37,233,136]),this.Gq.parsePoint([1,219,172,107,224,134,7,135,222,240,63,252,84,114,220,35,250,6,177,90,240,28,191,139,238,143,90,14,113,174,40,181,236,172,150,253,168,46,133,116,116,28,33,159,166,45,49,175,214,88,187,149,120,213,155,39,157,240,148,144,99,18,38,101,207,179],[54,218,26,31,191,166,92,78,233,29,131,108,47,66,74,178,132,92,214,235,121,98,80,6,101,247,69,199,168,60,77,169,158,7,207,47,87,217,158,87,105,191,167,11,219,222,132,237,229,98,80,75,142,132,178,193,225,89,240,219,185,235,88,84,155]),this.Gq.parsePoint([237,166,37,222,5,131,64,33,58,133,157,249,116,129,192,98,35,51,122,180,46,69,89,155,181,67,25,96,211,185,196,51,216,126,109,240,27,220,137,90,60,16,12,245,189,53,126,66,212,205,187,158,235,71,225,146,152,2,194,14,252,101,233,224,68],[201,10,14,250,22,192,187,105,142,43,103,181,189,73,138,2,216,105,92,115,242,98,106,150,221,133,55,29,200,210,54,175,111,35,66,147,208,150,34,170,16,88,133,155,54,150,31,213,159,94,40,203,72,12,32,38,36,190,244,49,134,252,205,57,110]),this.Gq.parsePoint([5,248,164,153,185,60,16,196,158,30,41,172,123,164,38,113,251,70,174,141,3,32,186,203,95,1,143,69,10,88,119,192,198,54,86,238,211,200,4,59,254,18,201,52,106,106,225,248,29,219,144,249,106,15,174,249,222,243,169,134,190,204,168,86,253],[99,73,93,94,202,33,242,112,227,213,153,254,243,73,34,48,236,166,76,113,43,179,16,11,20,244,174,43,98,24,171,104,53,85,120,202,115,162,106,244,200,2,2,31,58,41,156,132,211,67,170,239,35,124,26,210,5,3,83,42,70,141,190,249,165]),this.Gq.parsePoint([170,134,252,209,28,180,229,21,96,33,245,17,194,20,93,241,152,216,252,7,228,55,247,73,86,4,239,211,135,16,13,106,195,56,147,78,67,7,55,111,235,27,156,210,49,247,231,78,31,247,104,22,81,137,68,45,106,133,24,88,219,68,195,148,47],[70,227,69,144,108,31,169,97,167,12,236,103,31,233,132,173,98,146,110,38,175,14,73,219,175,120,8,27,212,200,10,241,66,108,179,151,233,212,20,183,194,232,48,5,190,74,177,87,31,40,67,172,212,131,77,22,11,56,244,112,76,28,45,26,55]),this.Gq.parsePoint([96,186,149,56,125,82,214,244,34,95,244,194,64,196,235,6,29,109,166,1,148,103,244,168,69,132,250,232,230,133,234,236,7,143,0,100,198,252,11,91,94,71,155,218,139,25,80,143,100,170,111,107,211,33,186,59,181,89,155,31,218,11,207,15,66],[208,250,217,32,30,99,75,65,240,185,252,117,151,183,123,47,228,135,225,43,131,54,159,231,255,11,101,171,221,172,146,160,45,235,26,197,76,141,110,15,94,85,37,132,48,255,97,143,209,203,240,57,73,10,3,226,110,97,16,77,128,157,228,30,69]),this.Gq.parsePoint([1,236,174,136,39,167,176,148,125,170,24,94,146,144,14,92,94,242,93,236,31,8,33,184,166,151,75,218,129,146,192,123,58,60,103,105,173,253,184,87,199,60,150,116,234,210,106,59,87,165,111,166,193,90,71,50,196,189,99,6,30,28,184,215,46,162],[117,208,31,93,59,56,138,22,84,107,200,62,250,127,151,67,47,208,7,30,199,229,146,147,35,43,233,198,170,72,209,174,95,167,75,160,221,139,153,235,132,9,181,77,109,129,29,22,74,244,48,133,239,134,10,58,39,119,124,3,54,36,168,246,105]),this.Gq.parsePoint([180,26,128,208,205,174,29,134,191,3,33,169,173,230,191,60,193,214,11,188,50,168,205,138,210,50,200,34,142,156,21,231,92,195,114,214,202,110,90,231,13,229,254,82,2,136,57,56,180,45,242,35,102,67,86,156,14,230,167,62,9,100,84,140,29],[68,187,78,160,101,154,39,230,18,172,0,136,121,73,64,15,184,244,28,158,181,218,255,137,181,238,76,233,121,250,29,115,181,234,218,31,96,55,200,224,22,228,76,28,138,79,157,194,175,72,124,217,42,25,244,80,189,113,187,77,114,62,157,4,169]),this.Gq.parsePoint([215,234,126,128,69,41,243,160,136,159,236,166,50,204,105,7,162,67,137,188,11,161,238,15,100,141,82,224,192,217,23,68,53,156,169,69,224,41,66,4,169,216,169,5,108,252,22,160,19,132,244,60,123,15,226,7,243,122,129,173,21,132,85,131,27],[133,250,102,238,222,109,69,45,76,128,251,146,67,187,188,213,80,13,124,55,168,122,198,135,164,156,160,32,187,240,0,21,172,213,212,39,178,226,14,115,58,5,132,156,193,61,44,32,69,197,51,61,126,193,12,200,242,166,63,99,254,120,28,189,66]),this.Gq.parsePoint([108,232,127,159,91,91,111,160,251,197,28,46,58,32,17,83,11,242,22,204,3,205,234,12,53,39,51,160,218,182,239,167,255,119,239,178,22,152,214,162,163,6,151,227,91,18,140,110,226,160,46,188,148,107,125,1,214,174,249,196,56,28,18,146,95],[214,3,16,22,96,50,80,19,94,25,246,187,128,134,183,81,157,34,59,8,62,184,51,244,238,219,1,140,90,130,108,226,9,41,37,182,143,139,60,130,87,104,181,135,231,64,12,87,190,44,189,90,242,218,77,154,219,253,174,9,100,31,62,182,194]),this.Gq.parsePoint([1,7,79,23,22,202,29,240,15,73,73,12,133,249,196,190,35,138,227,82,158,198,178,196,155,173,207,112,47,144,180,188,207,145,81,70,251,207,160,124,242,4,152,103,126,130,244,117,114,190,217,226,187,88,84,104,169,100,125,241,170,101,177,11,75,238],[227,115,93,136,26,71,19,152,200,85,78,207,125,37,245,200,113,144,198,222,26,4,181,193,62,209,104,226,55,134,145,38,111,185,143,91,213,243,54,12,182,105,205,154,77,179,47,66,246,2,81,90,116,45,254,199,173,168,66,213,149,218,108,110,61]),this.Gq.parsePoint([78,10,163,185,194,231,20,115,134,250,123,237,84,62,189,212,21,232,195,50,19,193,94,40,170,138,0,62,93,179,120,232,12,177,218,238,96,2,165,20,166,115,156,143,97,141,113,16,77,188,201,209,108,113,145,238,101,201,103,204,48,104,231,31,36],[8,67,126,147,191,134,219,208,234,186,56,62,243,7,221,185,141,39,174,99,231,144,51,142,133,178,120,22,128,171,11,191,225,113,36,120,86,142,18,172,237,185,118,168,243,138,37,92,135,10,197,249,127,69,20,28,9,119,70,55,112,71,146,113,101]),this.Gq.parsePoint([1,38,177,230,5,227,186,228,86,201,134,173,219,110,186,15,117,2,41,179,249,113,35,94,168,39,162,225,111,69,243,169,56,118,90,240,160,129,47,162,175,1,153,226,225,128,22,121,228,58,30,249,66,23,50,89,93,186,126,113,217,246,214,140,48,207],[251,134,64,228,154,95,160,156,79,205,242,195,118,17,252,57,127,95,123,89,145,112,156,198,120,59,146,136,94,233,121,132,116,68,81,181,51,213,113,12,139,128,29,94,41,206,46,55,63,195,37,243,41,167,80,45,80,63,66,62,178,163,169,212,40]),this.Gq.parsePoint([128,148,233,78,25,131,167,97,26,12,214,36,217,76,250,27,60,30,24,235,210,118,127,79,65,70,197,115,223,54,130,129,105,61,223,165,38,33,122,13,147,93,34,86,165,38,200,15,229,65,128,214,59,68,197,163,196,74,82,139,178,17,208,212,11],[44,87,238,255,197,18,216,48,239,249,15,138,164,31,134,113,87,146,106,229,55,39,179,101,29,41,106,103,3,135,143,150,115,143,179,8,248,92,177,83,11,57,237,36,204,182,14,170,239,128,170,34,241,202,94,154,199,148,17,10,198,205,4,141,169]),this.Gq.parsePoint([1,221,201,169,145,246,24,10,190,250,174,147,81,237,206,82,77,184,176,215,228,39,195,235,165,136,23,165,8,57,111,45,191,110,26,117,67,98,126,5,195,187,230,93,254,64,208,179,49,137,64,30,241,154,177,177,111,243,59,188,68,58,95,229,71,249],[250,5,204,190,33,224,187,161,136,129,220,102,42,178,159,61,156,150,17,11,42,182,15,165,80,50,33,55,122,207,176,72,81,71,154,150,18,218,185,148,218,86,114,87,29,197,196,57,63,117,178,200,74,171,63,166,160,196,73,127,14,85,177,44,178]),this.Gq.parsePoint([1,235,144,53,132,6,48,172,111,208,163,1,115,169,71,147,247,232,31,52,69,94,46,26,96,15,222,192,155,182,99,97,99,198,196,178,65,117,181,96,83,230,124,62,55,77,53,115,155,227,24,25,205,231,190,252,66,235,195,174,160,171,221,3,239,199],[218,85,101,180,246,22,220,225,139,233,101,127,56,111,12,39,146,252,240,246,2,198,172,248,79,203,201,118,187,39,109,109,132,151,120,117,220,18,248,135,101,74,199,194,135,60,58,239,241,192,212,92,221,206,76,214,51,40,89,138,103,176,178,34,191]),this.Gq.parsePoint([1,42,140,105,92,132,150,20,233,166,161,212,179,152,139,106,86,187,206,183,128,209,205,43,43,227,55,177,114,10,39,147,111,176,94,207,162,26,172,158,153,183,3,27,218,148,33,181,179,185,85,91,170,218,201,107,171,206,138,126,228,225,226,101,117,39],[12,44,40,118,63,209,227,146,208,122,226,237,150,153,18,219,108,120,184,187,250,33,110,86,82,198,251,71,115,30,196,85,147,141,162,92,23,251,88,46,165,2,40,16,48,132,151,38,244,120,202,209,168,181,107,233,33,169,11,83,97,11,98,160,156]),this.Gq.parsePoint([1,48,178,116,101,173,105,198,115,44,218,17,128,80,205,221,162,136,26,8,112,241,238,156,235,216,26,86,86,117,92,182,176,128,164,40,147,139,174,209,247,214,119,42,143,85,146,52,251,162,15,211,0,249,29,136,207,249,155,121,79,31,173,100,121,212],[140,101,115,168,157,155,72,217,238,132,116,215,71,82,107,205,116,178,13,84,92,66,171,117,80,214,244,144,97,252,203,9,87,156,57,230,112,188,4,190,8,32,189,47,195,154,84,17,72,96,65,186,148,228,180,5,106,25,107,7,106,34,43,224,27]),this.Gq.parsePoint([1,44,174,174,98,244,45,19,20,31,194,139,245,35,47,149,219,233,220,215,33,178,89,144,65,80,125,163,165,193,70,122,25,250,70,155,160,145,64,16,102,34,230,119,113,243,50,225,155,60,23,58,253,30,35,216,69,219,150,0,190,7,85,248,94,246],[236,47,145,149,210,191,15,116,159,26,115,220,19,183,97,137,36,179,211,121,219,33,41,19,113,136,185,232,229,83,53,192,150,214,58,39,245,187,2,245,180,245,172,215,197,196,186,154,123,251,248,190,175,28,55,71,217,74,178,252,95,19,16,254,216]),this.Gq.parsePoint([194,24,43,166,232,32,232,173,137,172,143,98,85,33,96,171,202,189,209,71,230,63,118,154,220,105,166,35,235,236,137,16,42,168,61,250,45,109,106,246,38,59,73,122,113,80,97,14,186,106,217,130,151,162,120,235,129,214,98,194,222,243,141,224,64],[154,231,224,103,21,114,97,155,115,11,51,171,220,140,154,70,8,214,65,225,99,69,99,16,190,148,207,85,174,76,146,92,111,230,58,8,31,177,65,155,102,195,168,252,25,158,126,203,17,74,155,222,177,62,231,172,243,172,126,221,67,247,34,53,24]),this.Gq.parsePoint([81,124,49,38,85,99,93,65,223,94,254,143,138,243,6,119,224,227,207,90,221,72,170,177,87,244,93,255,98,21,205,207,95,92,26,212,220,52,116,188,221,64,27,250,139,119,16,59,32,201,194,137,37,161,142,191,234,205,141,43,10,29,82,212,141],[93,104,48,211,60,126,223,85,77,159,20,201,230,238,80,41,102,248,51,161,197,239,80,107,110,244,75,145,113,102,78,153,229,204,28,139,9,215,4,255,158,114,208,198,14,31,124,230,230,248,152,154,136,160,59,28,48,7,52,240,148,194,197,98,76]),this.Gq.parsePoint([111,32,23,218,29,92,136,39,69,132,117,44,138,184,199,239,138,231,246,169,236,235,58,139,59,154,241,107,94,3,71,176,31,166,98,176,219,39,251,171,117,116,154,230,131,87,19,95,61,210,84,77,46,26,125,149,148,191,215,215,221,249,214,156,37],[214,33,149,225,78,107,41,101,65,71,219,25,208,44,215,51,129,2,13,122,85,89,136,14,62,47,65,52,62,243,155,210,155,97,61,139,85,174,51,213,89,223,54,161,125,31,164,218,224,181,163,82,244,89,22,143,148,208,165,180,86,20,112,39,44]),this.Gq.parsePoint([1,246,102,66,95,168,189,233,139,255,19,129,97,121,108,18,224,225,228,133,234,218,205,14,213,173,171,23,186,146,179,162,147,40,254,5,113,150,214,122,3,108,146,47,8,116,54,233,129,135,164,37,185,34,106,231,90,10,145,184,72,173,166,122,155,224],[183,141,129,82,186,174,31,226,144,24,53,100,236,12,222,221,239,98,73,34,11,152,109,248,187,243,203,154,4,127,6,98,121,211,205,7,59,93,143,24,80,138,23,247,175,204,244,7,88,50,79,226,81,197,78,43,191,221,43,225,109,220,211,90,204]),this.Gq.parsePoint([28,120,170,84,118,246,204,155,109,34,195,162,88,190,188,29,242,206,46,57,29,199,117,184,20,206,206,148,246,79,237,41,192,201,164,10,231,183,143,33,129,175,22,61,236,131,24,103,132,147,209,185,133,38,6,229,143,150,55,84,101,33,65,205,27],[62,76,70,129,66,204,27,111,182,65,23,198,105,127,41,195,54,253,178,114,164,131,100,35,57,216,56,34,6,3,225,29,76,109,200,11,123,30,93,19,33,171,17,160,45,125,129,162,90,20,238,213,128,140,122,9,84,129,199,185,33,109,7,101,128]),this.Gq.parsePoint([1,75,227,6,194,163,12,11,144,167,65,163,125,227,130,181,101,160,120,116,113,219,211,114,111,58,222,222,122,177,253,174,129,190,89,90,217,94,102,215,226,220,245,56,117,24,186,221,227,18,142,24,243,43,193,152,203,112,15,163,184,176,252,243,135,155],[200,103,193,33,203,179,66,83,198,212,237,101,199,11,226,45,22,23,182,144,12,171,206,233,40,231,107,147,189,22,186,19,212,147,209,199,30,98,112,148,221,20,214,161,178,203,174,166,69,5,204,85,36,156,151,134,151,23,3,80,39,35,219,235,35]),this.Gq.parsePoint([1,249,115,37,196,85,221,59,4,213,138,121,199,109,128,228,25,214,231,88,39,132,122,75,81,72,204,50,124,52,13,230,103,10,239,229,153,136,193,182,20,154,211,157,89,73,138,254,67,79,172,40,111,81,150,125,233,225,38,229,162,58,49,6,28,130],[26,164,34,172,82,245,8,67,147,244,100,7,104,237,240,194,133,143,121,8,111,146,76,227,193,128,183,241,29,145,200,212,35,95,159,116,87,89,62,200,33,221,160,106,16,121,43,214,158,195,65,186,132,177,38,8,52,44,199,21,209,205,52,47,252]),this.Gq.parsePoint([175,75,14,66,116,0,168,100,175,137,154,42,86,207,101,14,244,212,168,102,88,134,2,123,188,206,124,16,4,221,114,94,180,187,98,209,183,60,94,40,92,242,174,211,205,73,12,6,255,42,22,19,235,102,31,140,10,134,115,140,174,162,245,212,217],[52,148,170,110,2,232,20,58,133,122,252,154,108,121,232,108,49,187,93,231,160,27,252,202,74,87,87,47,239,55,58,52,54,227,34,153,68,204,161,94,82,101,40,162,43,15,177,163,81,86,149,168,228,223,20,24,143,129,197,85,231,128,122,63,120]),this.Gq.parsePoint([53,147,152,73,23,130,77,245,201,71,2,207,215,176,91,62,177,171,247,60,186,182,42,67,223,150,113,223,97,38,161,101,162,114,125,39,153,122,43,145,29,193,82,143,228,34,99,71,124,226,232,238,139,241,236,34,201,50,69,154,218,163,117,142,13],[62,0,9,85,213,104,179,53,255,4,199,240,17,248,176,174,174,46,189,6,111,133,189,230,136,130,251,132,13,5,178,145,201,79,38,110,130,102,79,35,155,150,138,203,34,4,17,181,70,212,108,182,206,114,217,140,215,166,222,197,78,36,105,182,50]),this.Gq.parsePoint([1,147,32,201,147,157,242,71,17,249,132,79,3,18,170,184,14,68,118,153,228,208,114,162,217,232,10,41,218,254,134,202,240,88,250,179,168,168,212,151,85,21,134,76,43,147,28,127,125,179,178,95,47,95,158,95,139,83,21,166,129,179,147,176,138,127],[171,73,5,14,164,153,37,252,28,184,106,206,223,66,25,101,155,36,144,233,27,9,244,37,191,240,81,96,10,158,49,70,78,46,169,105,116,84,91,124,116,88,56,167,90,73,200,139,202,205,131,122,200,149,127,193,79,113,29,234,147,7,15,61,153]),this.Gq.parsePoint([1,43,165,181,50,172,181,206,238,156,145,163,37,105,87,134,191,126,24,66,184,49,248,218,48,211,96,212,40,174,83,62,242,209,7,30,129,49,247,167,167,41,188,46,209,154,224,193,41,184,171,3,119,251,85,224,25,230,73,50,235,40,248,11,147,52],[128,60,142,190,170,73,61,111,203,53,111,178,86,43,121,211,163,118,181,188,191,155,34,187,238,117,97,16,117,247,183,171,22,102,106,189,151,190,91,126,203,51,136,65,254,119,236,225,53,244,226,228,184,58,202,253,113,231,4,82,122,132,120,148,104]),this.Gq.parsePoint([160,146,238,222,209,133,250,118,130,239,126,75,42,25,138,78,160,67,165,235,166,43,68,121,168,101,125,102,217,218,183,197,222,101,228,118,66,220,198,46,42,86,30,180,148,241,226,116,140,220,121,47,1,20,199,127,82,183,215,197,245,196,176,88,131],[215,74,89,74,102,29,64,234,98,151,2,221,18,71,128,143,178,136,221,80,64,229,65,13,125,107,4,89,30,57,105,107,242,153,149,163,82,57,40,65,61,116,106,207,44,219,85,196,10,160,132,203,101,162,137,189,252,133,1,253,204,180,2,9,249]),this.Gq.parsePoint([239,69,30,17,13,175,157,94,57,26,83,89,147,74,159,105,105,81,127,67,140,123,234,24,61,94,150,41,13,220,225,32,135,62,69,72,109,12,65,200,135,196,131,180,102,29,251,72,216,215,44,15,184,158,135,227,156,138,55,22,233,205,199,109,221],[239,165,198,141,20,222,14,255,29,114,144,5,226,110,116,244,159,139,192,131,18,74,67,42,225,141,213,19,28,4,119,111,89,163,249,50,116,197,23,127,60,145,162,1,96,101,122,17,79,91,192,219,204,92,128,105,152,78,52,19,32,65,42,223,26]),this.Gq.parsePoint([1,24,113,63,161,26,83,162,75,51,249,225,86,206,207,139,65,88,116,121,69,8,254,84,56,248,196,218,225,56,102,106,91,136,142,142,153,67,141,171,193,85,86,70,87,71,17,106,196,114,173,149,210,146,15,233,179,111,48,190,9,99,215,224,219,18],[149,75,234,95,97,228,169,216,208,147,209,185,214,171,82,178,250,200,183,134,85,128,32,16,207,94,217,116,89,134,66,113,239,76,52,216,4,76,38,199,118,61,227,40,229,9,239,10,104,193,23,49,48,173,99,1,178,12,59,200,248,242,106,210,150]),this.Gq.parsePoint([1,33,11,142,253,144,243,185,236,13,143,63,130,246,135,138,191,84,168,143,240,104,114,6,78,183,244,233,3,181,48,148,92,90,127,11,227,179,13,0,72,1,112,10,227,221,37,50,127,75,194,134,8,190,81,47,128,10,132,84,223,141,21,6,154,24],[142,110,252,18,170,213,71,179,224,141,57,247,167,158,155,3,70,22,240,152,23,95,113,101,97,183,146,122,177,21,165,75,228,253,236,211,132,95,127,83,88,130,143,23,91,131,237,37,239,36,146,200,114,150,214,216,158,203,152,129,16,75,233,190,125]),this.Gq.parsePoint([1,251,215,140,148,236,82,229,215,105,57,44,240,132,197,230,41,178,156,246,227,187,167,243,205,12,97,44,47,97,12,227,136,187,114,169,199,212,221,195,245,97,32,134,203,66,191,52,15,30,74,199,50,76,115,89,239,51,81,9,92,176,10,122,48,78],[153,221,131,209,180,192,178,113,245,28,72,81,178,54,255,123,126,134,98,102,128,104,71,150,25,55,239,32,174,204,152,129,34,192,118,3,38,116,190,81,58,160,57,70,22,52,119,221,210,5,148,91,57,23,209,163,252,204,162,186,157,66,5,175,247]),this.Gq.parsePoint([236,234,218,227,96,126,166,170,43,101,79,246,127,12,21,105,172,195,35,186,62,109,204,90,248,236,234,48,187,164,53,190,26,98,154,116,217,226,55,54,251,147,243,190,175,207,237,45,54,213,158,35,49,123,208,253,31,149,155,212,88,110,121,248,158],[249,115,86,40,163,130,226,173,132,253,27,173,235,207,108,158,229,227,151,137,57,29,230,191,180,9,176,173,172,193,115,16,80,84,17,139,68,60,180,237,162,50,66,143,68,19,24,58,86,72,109,7,59,132,165,109,137,203,114,30,201,133,235,199,81]),this.Gq.parsePoint([210,37,243,157,16,96,12,199,97,193,127,225,90,206,139,186,220,119,106,186,40,188,186,228,130,209,95,121,254,56,221,11,194,201,189,225,45,110,226,80,72,157,14,122,35,72,135,17,133,127,185,19,222,116,68,22,118,253,60,152,218,78,143,216,246],[151,179,244,53,192,4,22,165,149,134,231,89,49,40,193,43,115,71,35,170,136,127,152,160,180,130,209,141,56,112,123,185,51,228,180,188,204,220,113,7,95,81,116,232,242,19,59,116,181,68,178,154,121,107,79,216,183,131,102,74,241,211,101,158,153]),this.Gq.parsePoint([219,204,139,184,140,0,197,49,137,11,204,34,162,242,33,184,202,145,107,156,50,76,8,28,113,35,229,202,102,6,158,11,202,201,30,9,191,149,250,231,209,95,138,172,170,23,38,215,10,192,48,87,247,216,111,14,39,55,108,204,31,205,123,140,126],[45,64,1,97,93,98,93,81,38,58,111,123,242,99,192,226,28,101,104,100,189,155,57,92,23,52,54,108,227,117,81,140,5,138,52,231,72,17,193,76,160,114,39,186,160,189,11,89,201,83,86,244,127,68,243,144,198,164,209,108,74,110,12,111,236]),this.Gq.parsePoint([1,4,92,173,83,93,146,54,213,70,208,161,56,90,62,164,30,101,134,238,10,118,198,255,91,129,204,136,124,181,142,162,89,229,82,20,200,40,145,96,220,25,33,196,18,228,21,139,224,203,84,184,6,65,203,101,124,135,58,92,168,78,240,229,188,90],[86,236,159,0,165,189,57,167,133,120,54,35,90,131,242,75,33,255,137,184,84,132,200,167,149,254,62,59,174,237,133,50,238,43,148,25,140,152,130,3,92,119,177,231,80,133,197,203,147,109,243,6,62,113,115,89,46,39,73,9,154,98,36,125,109]),this.Gq.parsePoint([139,122,247,55,140,234,232,93,85,11,218,82,236,103,68,19,59,192,237,89,61,97,42,71,24,164,59,15,133,176,87,247,159,67,70,41,177,112,210,3,165,122,196,192,6,220,76,135,181,201,47,167,212,175,55,213,227,101,26,20,21,49,252,21,26],[9,68,12,98,22,180,97,7,178,83,196,11,215,15,197,252,150,254,155,136,108,243,41,64,149,138,128,36,192,133,149,249,10,109,120,63,64,164,139,30,169,187,200,224,173,187,142,77,135,48,10,202,127,113,42,128,32,176,196,61,59,31,215,148,177]),this.Gq.parsePoint([99,16,90,31,240,68,157,77,93,120,131,149,238,113,65,253,92,68,253,2,39,179,189,195,43,158,157,38,190,92,123,121,69,250,248,171,36,126,237,110,80,203,130,74,190,127,92,75,126,217,237,114,88,146,210,119,173,164,98,187,78,114,221,94,109],[203,2,128,229,233,41,61,45,176,141,37,202,173,30,123,73,170,82,252,133,79,164,148,2,224,94,75,111,188,240,239,193,118,72,52,193,196,202,19,163,108,162,14,139,143,87,189,119,172,168,245,43,224,107,217,166,146,159,147,202,23,45,61,134,208]),this.Gq.parsePoint([208,191,198,157,149,127,47,195,142,81,112,172,58,174,129,17,13,204,122,7,124,0,148,221,210,159,241,32,87,252,175,86,232,208,20,208,22,153,142,68,113,13,179,253,247,45,166,94,49,205,102,90,188,179,83,8,166,176,172,95,24,179,255,182,247],[191,171,161,183,234,84,85,43,147,140,232,157,9,7,121,127,95,85,221,8,28,163,251,92,240,31,38,6,212,100,227,110,58,55,224,80,207,160,251,156,238,224,53,54,112,124,109,17,118,101,179,177,232,52,77,102,147,155,41,121,32,4,71,80,83])],this.gt=this.Gq.parsePoint([208,191,198,157,149,127,47,195,142,81,112,172,58,174,129,17,13,204,122,7,124,0,148,221,210,159,241,32,87,252,175,86,232,208,20,208,22,153,142,68,113,13,179,253,247,45,166,94,49,205,102,90,188,179,83,8,166,176,172,95,24,179,255,182,247],[191,171,161,183,234,84,85,43,147,140,232,157,9,7,121,127,95,85,221,8,28,163,251,92,240,31,38,6,212,100,227,110,58,55,224,80,207,160,251,156,238,224,53,54,112,124,109,17,118,101,179,177,232,52,77,102,147,155,41,121,32,4,71,80,83])}}function A(t){if(t==B.P256)return new M;if(t==B.P384)return new b;if(t==B.P521)return new x;throw"invalid group:"+t}function E(t){Array.isArray(t)||(t=[t]),t.forEach((t=>{if(!Number.isInteger(t)||t<0)throw`invalid integer ${t}`}))}function T(t,e){if(t===e)return!0;if(null==t||null==e)return!1;if(t.length!==e.length)return!1;for(let r=0;r<t.length;++r)if(t[r]!==e[r])return!1;return!0}function F(t){return Uint8Array.from(atob(t.replace(/-/g,"+").replace(/_/g,"/")),(t=>t.charCodeAt(0)))}function _(t){return btoa(String.fromCharCode(...t)).replace(/\+/g,"-").replace(/\//g,"_").replace(/=/g,"")}function D(t){return(new TextEncoder).encode(t)}function U(t){return(new TextDecoder).decode(t)}var B,Z=Object.freeze({__proto__:null,arrayEqual:T,base64urlToBytes:F,bytesToBase64url:_,bytesToHex:function(t){let e="";for(let r=0;r<t.length;r++)e+=t[r].toString(16).padStart(2,"0");return e},bytesToString:U,checkUnsignedInt:E,hexToBytes:function(t){t.startsWith("0x")&&(t=t.substring(2,t.length)),t.length%2==1&&(t="0"+t);const e=new Uint8Array(t.length/2);for(let r=0;r<t.length;r+=2)e[r/2]=parseInt(t.substring(r,r+2),16);return e},stringToBytes:D});!function(t){t.P256="P-256",t.P384="P-384",t.P521="P-521"}(B||(B={}));class S{constructor(t,e,r,n,i,o,s,a){this.UIDP=t,this.descGq=e,this.UIDH=r,this.g=n,this.e=i,this.S=o,this.Gq=s,this.P=a}static async create(t,e,r,n,i,o){const s=new I(e),a=s.getHash();a.update(t),s.updateHash(a),a.update(n),a.update(i),a.update(o);const u=await a.digest();return new S(t,e,r,n,i,o,s,u)}verify(){if(this.g[0].equals(this.Gq.getIdentity())||!this.Gq.isValid(this.g[0]))throw"invalid g0"}}async function z(t,e,r=void 0,n=new Uint8Array,i,o){if(e<0||e>50)throw"n must be between 0 and 50";if(r||(r=new Array(e).fill(new p(1))),r.length!=e)throw"wrong length for e: "+r.length;const s=A(t),a=s.Gq,u=a.Zq;let h,c;null==i?(h=u.getRandomElement(!0),c=s.Gq.modExp(a.g,h)):(h=u.getElement(i.y0),c=a.getElement(i.g0));const l=s.g.slice(0,e);if(l.unshift(c),l.push(s.gt),!o){const e=new m(t);e.update(l),e.update(r),e.update(n),o=await e.digest()}return{ip:await S.create(o,t,g(t),l,r,n),y0:h}}async function O(t,e){const r=t.Gq.getHash();return r.update(new p(1)),r.update(t.P),r.update(e),t.Gq.Zq.getElement(await r.digest())}async function C(t,e,r){const n=e.e[t-1].b[0];if(1===n){const t=e.Gq.getHash();return e.Gq.Zq.getElement(await t.digest(r))}if(0===n){return e.Gq.Zq.getElement(r)}throw`invalid e[i] index: ${t}`}async function R(t,e){const r=t.Gq,n=r.Zq;if(e.h.equals(r.getIdentity()))throw"invalid token";const i=r.getHash();i.update(e.h),i.update(e.PI),i.update(e.sZp);const o=[e.sRp,n.negate(e.sCp)];i.update(r.multiModExp([r.g,t.g[0]],o)),i.update(r.multiModExp([e.h,e.sZp],o));const s=n.getElement(await i.digest());if(!e.sCp.equals(s))throw"invalid token"}async function k(t,e,r,n,i,o,s){const a=await async function(t,e){const r=t.getHash();return r.update(e.h),r.update(e.sZp),r.update(e.sCp),r.update(e.sRp),await r.digest()}(t,e);let u=t.getHash();u.update(a),u.update(r),u.update(n),u.update(i),u.update([]),u.update([]),u.update([]),u.update(0),u.update(null),u.update(null),u.update(o);const h=await u.digest();return u=t.getHash(),u.update([h,s]),{UIDT:a,c:t.Zq.getElement(await u.digest())}}class N{constructor(t){E(t),this.n=t}async computeGamma(t,e,r){const n=e.Gq,i=await Promise.all(t.map((async(t,r,n)=>C(r+1,e,t))));i.unshift(n.Zq.ONE);const o=await O(e,r);i.push(o);return n.multiModExp(e.g,i)}}class J extends N{constructor(t,e,r,n){super(n),this.h=[],this.t1=[],this.t2=[],this.sigmaZPrime=[],this.sigmaAPrime=[],this.sigmaBPrime=[],this.sigmaCPrime=[],this.ip=t;const i=t.Gq.Zq;this.TI=e,this.PI=r,this.alpha=i.getRandomElements(n,!0),this.beta1=i.getRandomElements(n),this.beta2=i.getRandomElements(n)}static async create(t,e,r,n,i){const o=new J(t,r,n,i),s=await o.computeGamma(e,t,r),a=o.ip.Gq,u=[t.g[0],a.g];for(let t=0;t<i;t++)o.h.push(a.modExp(s,o.alpha[t])),o.t1.push(a.multiModExp(u,[o.beta1[t],o.beta2[t]])),o.t2.push(a.modExp(o.h[t],o.beta2[t]));return o}async createSecondMessage(t){if(this.n!=t.sA.length||this.n!=t.sB.length)throw"invalid first message";const e=[],r=this.ip.Gq,n=r.Zq;for(let i=0;i<this.n;i++){this.sigmaZPrime.push(r.modExp(t.sZ,this.alpha[i])),this.sigmaAPrime.push(r.mul(this.t1[i],t.sA[i])),this.sigmaBPrime.push(r.multiModExp([this.sigmaZPrime[i],this.t2[i],t.sB[i]],[this.beta1[i],n.ONE,this.alpha[i]]));const o=r.getHash();o.update(this.h[i]),o.update(this.PI),o.update(this.sigmaZPrime[i]),o.update(this.sigmaAPrime[i]),o.update(this.sigmaBPrime[i]),this.sigmaCPrime.push(n.getElement(await o.digest())),e.push(n.add(this.sigmaCPrime[i],this.beta1[i]))}return{sC:e}}createTokens(t,e=!1){if(this.n!=t.sR.length)throw"invalid third message";const r=this.ip.Gq,n=r.Zq,i=[];for(let o=0;o<this.n;o++){const s=n.add(t.sR[o],this.beta2[o]);if(!e){const t=r.mul(this.sigmaAPrime[o],this.sigmaBPrime[o]),e=r.multiModExp([r.mul(r.g,this.h[o]),r.mul(this.ip.g[0],this.sigmaZPrime[o])],[s,n.negate(this.sigmaCPrime[o])]);if(!t.equals(e))throw`invalid token ${o}`}i.push({upt:{UIDP:this.ip.UIDP,h:this.h[o],TI:this.TI,PI:this.PI,sZp:this.sigmaZPrime[o],sCp:this.sigmaCPrime[o],sRp:s},alphaInverse:n.invert(this.alpha[o])})}return i}}class j extends N{constructor(t,e){super(e),this.ikp=t,this.w=[],this.gamma={},this.sigmaZ={},this.sigmaA=[],this.sigmaB=[],this.Gq=t.ip.Gq,this.y0=t.y0}static async create(t,e,r,n){const i=new j(t,n),o=i.Gq,s=o.Zq;return i.gamma=await i.computeGamma(e,t.ip,r),i.sigmaZ=o.modExp(i.gamma,i.y0),i.w=s.getRandomElements(n),i.sigmaA=i.w.map((t=>o.modExp(o.g,t))),i.sigmaB=i.w.map((t=>o.modExp(i.gamma,t))),i}createFirstMessage(){return{sZ:this.sigmaZ,sA:this.sigmaA,sB:this.sigmaB}}createThirdMessage(t){if(this.n!=t.sC.length)throw"invalid second message";const e=this.Gq.Zq;return{sR:this.w.map(((r,n,i)=>e.add(e.mul(t.sC[n],this.y0),r)))}}}var H=Object.freeze({__proto__:null,get ECGroup(){return B},IssuanceParticipant:N,Issuer:j,IssuerParams:S,Prover:J,computeXi:C,computeXt:O,createIssuerKeyAndParams:z,generatePresentationProof:async function(t,e,r,n,i,o=new Uint8Array){const s=i.length;e=function(t){E(t);const e=new Set(t);return Array.from(e).sort(((t,e)=>t-e))}(e);const a=new Set(Array.from({length:s},((t,e)=>e+1)));e.forEach((t=>a.delete(t)));const u=Array.from(a).sort(((t,e)=>t-e)),h=t.Gq,c=h.Zq,l=await Promise.all(i.map(((e,r,n)=>C(r+1,t,e)))),f=c.getRandomElement(),g=c.getRandomElements(s-e.length),p=h.getHash(),m=await p.digest(h.multiModExp([r.upt.h,...t.g.slice(1,s+1).filter(((t,e,r)=>u.includes(e+1)))],[f,...g])),d=await k(h,r.upt,m,e,l.filter(((t,r,n)=>e.includes(r+1))),n,o),v=c.negate(d.c),y=[c.add(c.mul(d.c,r.alphaInverse),f)];for(let t=0;t<u.length;t++)y.push(c.add(c.mul(v,l[u[t]-1]),g[t]));const P={};for(const t of e)P[t]=i[t-1];return{UIDT:d.UIDT,pp:{A:P,a:m,r:y}}},verifyPresentationProof:async function(t,e,r,n,i=new Uint8Array){const o=t.Gq,s=o.Zq;R(t,e);const a=await O(t,e.TI);let u=[],h=[];const c=[];n.A&&(Object.entries(n.A).forEach((([e,r])=>{const n=Number(e);u.push(n),c.push(C(n,t,r))})),h=await Promise.all(c),u=u.sort(((t,e)=>t-e)),h=u.map((t=>h[u.indexOf(t)])));const l=await k(o,e,n.a,u,h,r,i),f=t.g.length-1,g=o.multiModExp([t.g[0],...t.g.filter(((t,e,r)=>u.includes(e))),t.g[f]],[s.ONE,...h,a]),p=o.multiModExp([g,e.h,...t.g.slice(1,f).filter(((t,e,r)=>!u.includes(e+1)))],[s.negate(l.c),n.r[0],...n.r.slice(1)]);if(!T(n.a,await o.getHash().digest(p)))throw"invalid presentation proof";return{UIDT:l.UIDT}},verifyTokenSignature:R});var W,K=Object.freeze({__proto__:null,decodeFirstIssuanceMessage:function(t,e){const r=t.Gq;return{sZ:r.getElement(F(e.sZ)),sA:e.sA.map((t=>r.getElement(F(t)))),sB:e.sB.map((t=>r.getElement(F(t))))}},decodeIssuerParams:async function(t){const e=t.e.length;let r=B.P256;switch(t.dGq){case B.P256:r=B.P256;break;case B.P384:r=B.P384;break;case B.P521:r=B.P521}const n=A(r),i=n.Gq,o=n.g.slice(0,e);return o.unshift(i.getElement(F(t.g0))),o.push(n.gt),await S.create(F(t.UIDP),r,t.UIDH,o,t.e.map((t=>new p(t))),F(t.S))},decodePresentationProof:function(t,e){const r=t.Gq.Zq,n={a:F(e.a),r:e.r.map((t=>r.getElement(F(t))))};return e.A&&(n.A=Object.entries(e.A).reduce(((t,[e,r])=>(t[Number(e)]=F(r),t)),{})),n},decodeSecondIssuanceMessage:function(t,e){const r=t.Gq.Zq;return{sC:e.sC.map((t=>r.getElement(F(t))))}},decodeThirdIssuanceMessage:function(t,e){const r=t.Gq.Zq;return{sR:e.sR.map((t=>r.getElement(F(t))))}},decodeUIDT:function(t){return F(t)},decodeUProveToken:function(t,e){const r=t.Gq,n=r.Zq;return{UIDP:F(e.UIDP),h:r.getElement(F(e.h)),TI:F(e.TI),PI:F(e.PI),sZp:r.getElement(F(e.sZp)),sCp:n.getElement(F(e.sCp)),sRp:n.getElement(F(e.sRp))}},encodeFirstIssuanceMessage:function(t){return{sZ:_(t.sZ.getBytes()),sA:t.sA.map((t=>_(t.getBytes()))),sB:t.sB.map((t=>_(t.getBytes())))}},encodeIssuerParams:function(t){return{UIDP:_(t.UIDP),dGq:t.descGq,UIDH:t.UIDH,g0:_(t.g[0].getBytes()),e:t.e.map((t=>t.b[0])),S:_(t.S)}},encodePresentationProof:function(t){const e={a:_(t.a),r:t.r.map((t=>_(t.getBytes())))};return t.A&&Object.keys(t.A).length>0&&(e.A=Object.entries(t.A).reduce(((t,[e,r])=>(t[Number(e)]=_(r),t)),{})),e},encodeSecondIssuanceMessage:function(t){return{sC:t.sC.map((t=>_(t.getBytes())))}},encodeThirdIssuanceMessage:function(t){return{sR:t.sR.map((t=>_(t.getBytes())))}},encodeUIDT:function(t){return _(t)},encodeUProveToken:function(t){return{UIDP:_(t.UIDP),h:_(t.h.getBytes()),TI:_(t.TI),PI:_(t.PI),sZp:_(t.sZp.getBytes()),sCp:_(t.sCp.getBytes()),sRp:_(t.sRp.getBytes())}},fromBase64Url:F,toBase64Url:_});!function(t){t.sec="sec",t.hour="hour",t.day="day",t.week="week",t.year="year"}(W||(W={}));const L=1e3,$=60*L*60,V=24*$,X=7*V,Y=52*X;function Q(t,e){let r;switch(t){case W.sec:r=e/L;break;case W.hour:r=e/$;break;case W.day:r=e/V;break;case W.week:r=e/X;break;case W.year:r=e/Y}return r}var tt;function et(t){switch(t){case B.P256:return tt.UP256;case B.P384:return tt.UP384;case B.P521:return tt.UP521}}!function(t){t.UP256="UP256",t.UP384="UP384",t.UP521="UP521"}(tt||(tt={}));var rt=Object.freeze({__proto__:null,get ExpirationType(){return W},get UPAlg(){return tt},createIssuerKeyAndParamsUPJF:async function(t,e,r){const n=e.n;if(E(n),n<0||n>50)throw`${n} is not a valid value for n, must between 0 and 50 inclusively`;return await z(t,n,void 0,D(JSON.stringify(e)),r,void 0)},createJWS:function(t,e,r){return _(D(JSON.stringify({alg:t})))+"."+_(e)+"."+_(D(JSON.stringify(r)))},decodeBase64UrlAsPrivateKey:function(t,e){return t.Gq.Zq.getElement(F(e))},decodeJWKAsIP:async function(t){if("UP"!==t.kty)throw`${t.kty} is not a valid key type, "UP" expected`;let e;switch(t.alg){case tt.UP256:e=B.P256;break;case tt.UP384:e=B.P384;break;case tt.UP521:e=B.P521;break;default:throw`${t.alg} is not a valid algorithm`}const r=F(t.spec),n=JSON.parse(U(r)).n,i=A(e),o=i.Gq,s=i.g.slice(0,n);s.unshift(o.getElement(F(t.g0))),s.push(i.gt);const a=t.e?t.e:new Array(n).fill(1);return await S.create(F(t.kid),e,g(e),s,a.map((t=>new p(t))),r)},descGqToUPAlg:et,encodeIPAsJWK:function(t){return{kty:"UP",alg:et(t.descGq),kid:_(t.UIDP),g0:_(t.g[0].getBytes()),spec:_(t.S)}},encodePrivateKeyAsBase64Url:function(t){return _(t.getBytes())},encodeTokenInformation:function(t){return D(JSON.stringify(t))},getExp:function(t,e,r=void 0){return E(e),r?E(r):r=Math.ceil(Q(t,Date.now())),r+e},isExpired:function(t,e,r=void 0){return r||(r=Q(t,Date.now())),r>e},msToTypedTime:Q,parseJWS:function(t){const e=t.split(".");if(!e||3!=e.length)throw"can't parse jws into 3 parts";try{return{header:JSON.parse(U(F(e[0]))),payload:F(e[1]),sig:JSON.parse(U(F(e[2])))}}catch(t){throw"can't parse jws"+t}},parseSpecification:function(t){return JSON.parse(U(t))},parseTokenInformation:function(t){return JSON.parse(U(t))}});t.serialization=K,t.upjf=rt,t.uprove=H,t.utils=Z}));
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('crypto')) :
+	typeof define === 'function' && define.amd ? define(['exports', 'crypto'], factory) :
+	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.uproveNodeReference = {}, global.crypto));
+})(this, (function (exports, crypto) { 'use strict';
+
+	function getDefaultExportFromCjs (x) {
+		return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+	}
+
+	function commonjsRequire(path) {
+		throw new Error('Could not dynamically require "' + path + '". Please configure the dynamicRequireTargets or/and ignoreDynamicRequires option of @rollup/plugin-commonjs appropriately for this require call to work.');
+	}
+
+	var cryptoECC$2 = {exports: {}};
+
+	var utilities = {exports: {}};
+
+	var hasRequiredUtilities;
+
+	function requireUtilities () {
+		if (hasRequiredUtilities) return utilities.exports;
+		hasRequiredUtilities = 1;
+		(function (module, exports) {
+			//*******************************************************************************
+			//
+			//    Copyright 2020 Microsoft
+			//
+			//    Licensed under the Apache License, Version 2.0 (the "License");
+			//    you may not use this file except in compliance with the License.
+			//    You may obtain a copy of the License at
+			//
+			//        http://www.apache.org/licenses/LICENSE-2.0
+			//
+			//    Unless required by applicable law or agreed to in writing, software
+			//    distributed under the License is distributed on an "AS IS" BASIS,
+			//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+			//    See the License for the specific language governing permissions and
+			//    limitations under the License.
+			//
+			//*******************************************************************************
+
+			// tslint:disable: no-bitwise
+
+			var msrcryptoUtilities = (function() {
+
+			    var encodingChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
+			    var setterSupport = (function() {
+			        try {
+			            Object.defineProperty({}, "oncomplete", {});
+			            return true;
+			        } catch (ex) {
+			            return false;
+			        }
+			    }());
+
+			    function consoleLog(text) {
+			        /// <signature>
+			        ///     <summary>Logs a message to the debug console if the console is available.</summary>
+			        ///     <param name="text" type="String">console message</param>
+			        /// </signature>
+			        // tslint:disable-next-line: no-console
+			        if ("console" in self && "log" in console) { console.log(text); }
+			    }
+
+			    function toBase64(data, base64Url) {
+			        /// <signature>
+			        ///     <summary>Convert Array of bytes to a Base64 string.</summary>
+			        ///     <param name="data" type="Array">Byte values (numbers 0-255)</param>
+			        ///     <param name="base64Url" type="Boolean" optional="true">Return Base64Url encoding (this is different
+			        ///       from Base64 encoding.)</param >
+			        ///     <returns type="String" />
+			        /// </signature>
+			        /// <signature>
+			        ///     <summary>Convert Array of bytes to a Base64 string.</summary>
+			        ///     <param name="data" type="Uint8Array">Byte values (numbers 0-255)</param>
+			        ///     <param name="base64Url" type="Boolean" optional="true">Return Base64Url encoding (this is different
+			        ///       from Base64 encoding.)</param >
+			        ///     <returns type="String" />
+			        /// </signature>
+			        /// <signature>
+			        ///     <summary>Convert Array of bytes to a Base64 string.</summary>
+			        ///     <param name="data" type="ArrayBuffer">Byte values (numbers 0-255)</param>
+			        ///     <param name="base64Url" type="Boolean" optional="true">Return Base64Url encoding
+			        ///       (this is different from Base64 encoding.)</param >
+			        ///     <returns type="String" />
+			        /// </signature>
+
+			        var dataType = getObjectType(data);
+
+			        if (dataType !== "Array" && dataType !== "Uint8Array" && dataType !== "ArrayBuffer") {
+			            throw new Error("invalid input");
+			        }
+
+			        var output = "";
+			        var input = toArray(data);
+
+			        if (!base64Url) {
+			            base64Url = false;
+			        }
+
+			        var char1, char2, char3, enc1, enc2, enc3, enc4;
+			        var i;
+
+			        for (i = 0; i < input.length; i += 3) {
+
+			            // Get the next three chars.
+			            char1 = input[i];
+			            char2 = input[i + 1];
+			            char3 = input[i + 2];
+
+			            // Encode three bytes over four 6-bit values.
+			            // [A7,A6,A5,A4,A3,A2,A1,A0][B7,B6,B5,B4,B3,B2,B1,B0][C7,C6,C5,C4,C3,C2,C1,C0].
+			            // [A7,A6,A5,A4,A3,A2][A1,A0,B7,B6,B5,B4][B3,B2,B1,B0,C7,C6][C5,C4,C3,C2,C1,C0].
+
+			            // 'enc1' = high 6-bits from char1
+			            enc1 = char1 >> 2;
+			            // 'enc2' = 2 low-bits of char1 + 4 high-bits of char2
+			            enc2 = ((char1 & 0x3) << 4) | (char2 >> 4);
+			            // 'enc3' = 4 low-bits of char2 + 2 high-bits of char3
+			            enc3 = ((char2 & 0xF) << 2) | (char3 >> 6);
+			            // 'enc4' = 6 low-bits of char3
+			            enc4 = char3 & 0x3F;
+
+			            // 'char2' could be 'nothing' if there is only one char left to encode
+			            //   if so, set enc3 & enc4 to 64 as padding.
+			            if (isNaN(char2)) {
+			                enc3 = enc4 = 64;
+
+			                // If there was only two chars to encode char3 will be 'nothing'
+			                //   set enc4 to 64 as padding.
+			            } else if (isNaN(char3)) {
+			                enc4 = 64;
+			            }
+
+			            // Lookup the base-64 value for each encoding.
+			            output = output +
+			                encodingChars.charAt(enc1) +
+			                encodingChars.charAt(enc2) +
+			                encodingChars.charAt(enc3) +
+			                encodingChars.charAt(enc4);
+
+			        }
+
+			        if (base64Url) {
+			            return output.replace(/\+/g, "-").replace(/\//g, "_").replace(/\=/g, "");
+			        }
+
+			        return output;
+			    }
+
+			    function base64ToBytes(encodedString) {
+			        /// <signature>
+			        ///     <summary>Converts a Base64/Base64Url string to an Array</summary>
+			        ///     <param name="encodedString" type="String">A Base64/Base64Url encoded string</param>
+			        ///     <returns type="Array" />
+			        /// </signature>
+
+			        // This could be encoded as base64url (different from base64)
+			        encodedString = encodedString.replace(/-/g, "+").replace(/_/g, "/");
+
+			        // In case the padding is missing, add some.
+			        while (encodedString.length % 4 !== 0) {
+			            encodedString += "=";
+			        }
+
+			        var output = [];
+			        var char1, char2, char3;
+			        var enc1, enc2, enc3, enc4;
+			        var i;
+
+			        // Remove any chars not in the base-64 space.
+			        encodedString = encodedString.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+			        for (i = 0; i < encodedString.length; i += 4) {
+
+			            // Get 4 characters from the encoded string.
+			            enc1 = encodingChars.indexOf(encodedString.charAt(i));
+			            enc2 = encodingChars.indexOf(encodedString.charAt(i + 1));
+			            enc3 = encodingChars.indexOf(encodedString.charAt(i + 2));
+			            enc4 = encodingChars.indexOf(encodedString.charAt(i + 3));
+
+			            // Convert four 6-bit values to three 8-bit characters.
+			            // [A7,A6,A5,A4,A3,A2][A1,A0, B7,B6,B5,B4][B3,B2,B1,B0, C7,C6][C5,C4,C3,C2,C1,C0].
+			            // [A7,A6,A5,A4,A3,A2, A1,A0][B7,B6,B5,B4, B3,B2,B1,B0][C7,C6, C5,C4,C3,C2,C1,C0].
+
+			            // 'char1' = all 6 bits of enc1 + 2 high-bits of enc2.
+			            char1 = (enc1 << 2) | (enc2 >> 4);
+			            // 'char2' = 4 low-bits of enc2 + 4 high-bits of enc3.
+			            char2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+			            // 'char3' = 2 low-bits of enc3 + all 6 bits of enc4.
+			            char3 = ((enc3 & 3) << 6) | enc4;
+
+			            // Convert char1 to string character and append to output
+			            output.push(char1);
+
+			            // 'enc3' could be padding
+			            //   if so, 'char2' is ignored.
+			            if (enc3 !== 64) {
+			                output.push(char2);
+			            }
+
+			            // 'enc4' could be padding
+			            //   if so, 'char3' is ignored.
+			            if (enc4 !== 64) {
+			                output.push(char3);
+			            }
+
+			        }
+
+			        return output;
+
+			    }
+
+			    function getObjectType(object) {
+			        /// <signature>
+			        ///     <summary>Returns the name of an object type</summary>
+			        ///     <param name="object" type="Object"></param>
+			        ///     <returns type="String" />
+			        /// </signature>
+
+			        return Object.prototype.toString.call(object).slice(8, -1);
+			    }
+
+			    function bytesToHexString(bytes, separate) {
+			        /// <signature>
+			        ///     <summary>Converts an Array of bytes values (0-255) to a Hex string</summary>
+			        ///     <param name="bytes" type="Array"/>
+			        ///     <param name="separate" type="Boolean" optional="true">Inserts a separator for display purposes
+			        ///       (default = false)</param >
+			        ///     <returns type="String" />
+			        /// </signature>
+
+			        var result = "";
+			        if (typeof separate === "undefined") {
+			            separate = false;
+			        }
+
+			        for (var i = 0; i < bytes.length; i++) {
+
+			            if (separate && (i % 4 === 0) && i !== 0) {
+			                result += "-";
+			            }
+
+			            var hexval = bytes[i].toString(16).toUpperCase();
+			            // Add a leading zero if needed.
+			            if (hexval.length === 1) {
+			                result += "0";
+			            }
+
+			            result += hexval;
+			        }
+
+			        return result;
+			    }
+
+			    function bytesToInt32(bytes, index) {
+			        /// <summary>
+			        /// Converts four bytes to a 32-bit int
+			        /// </summary>
+			        /// <param name="bytes">The bytes to convert</param>
+			        /// <param name="index" optional="true">Optional starting point</param>
+			        /// <returns type="Number">32-bit number</returns>
+			        index = (index || 0);
+
+			        return (bytes[index] << 24) |
+			            (bytes[index + 1] << 16) |
+			            (bytes[index + 2] << 8) |
+			            bytes[index + 3];
+			    }
+
+			    function hexToBytesArray(hexString) {
+			        /// <signature>
+			        ///     <summary>Converts a Hex-String to an Array of byte values (0-255)</summary>
+			        ///     <param name="hexString" type="String"/>
+			        ///     <returns type="Array" />
+			        /// </signature>
+
+			        hexString = hexString.replace(/\-/g, "");
+
+			        var result = [];
+			        while (hexString.length >= 2) {
+			            result.push(parseInt(hexString.substring(0, 2), 16));
+			            hexString = hexString.substring(2, hexString.length);
+			        }
+
+			        return result;
+			    }
+
+			    function clone(object) {
+			        /// <signature>
+			        ///     <summary>Creates a shallow clone of an Object</summary>
+			        ///     <param name="object" type="Object"/>
+			        ///     <returns type="Object" />
+			        /// </signature>
+
+			        var newObject = {};
+			        for (var propertyName in object) {
+			            if (object.hasOwnProperty(propertyName)) {
+			                newObject[propertyName] = object[propertyName];
+			            }
+			        }
+			        return newObject;
+			    }
+
+			    function unpackData(base64String, arraySize, toUint32s) {
+			        /// <signature>
+			        ///     <summary>Unpacks Base64 encoded data into arrays of data.</summary>
+			        ///     <param name="base64String" type="String">Base64 encoded data</param>
+			        ///     <param name="arraySize" type="Number" optional="true">Break data into sub-arrays of a given
+			        ///       length</param >
+			        ///     <param name="toUint32s" type="Boolean" optional="true">Treat data as 32-bit data instead of byte
+			        ///       data</param >
+			        ///     <returns type="Array" />
+			        /// </signature>
+
+			        var bytes = base64ToBytes(base64String),
+			            data = [],
+			            i;
+
+			        if (isNaN(arraySize)) {
+			            return bytes;
+			        } else {
+			            for (i = 0; i < bytes.length; i += arraySize) {
+			                data.push(bytes.slice(i, i + arraySize));
+			            }
+			        }
+
+			        if (toUint32s) {
+			            for (i = 0; i < data.length; i++) {
+			                data[i] = (data[i][0] << 24) + (data[i][1] << 16) + (data[i][2] << 8) + data[i][3];
+			            }
+			        }
+
+			        return data;
+			    }
+
+			    function int32ToBytes(int32) {
+			        /// <signature>
+			        ///     <summary>Converts a 32-bit number to an Array of 4 bytes</summary>
+			        ///     <param name="int32" type="Number">32-bit number</param>
+			        ///     <returns type="Array" />
+			        /// </signature>
+			        return [(int32 >>> 24) & 255, (int32 >>> 16) & 255, (int32 >>> 8) & 255, int32 & 255];
+			    }
+
+			    function int32ArrayToBytes(int32Array) {
+			        /// <signature>
+			        ///     <summary>Converts an Array 32-bit numbers to an Array bytes</summary>
+			        ///     <param name="int32Array" type="Array">Array of 32-bit numbers</param>
+			        ///     <returns type="Array" />
+			        /// </signature>
+
+			        var result = [];
+			        for (var i = 0; i < int32Array.length; i++) {
+			            result = result.concat(int32ToBytes(int32Array[i]));
+			        }
+			        return result;
+			    }
+
+			    function xorVectors(a, b, res) {
+			        /// <signature>
+			        ///     <summary>Exclusive OR (XOR) two arrays.</summary>
+			        ///     <param name="a" type="Array">Input array.</param>
+			        ///     <param name="b" type="Array">Input array.</param>
+			        ///     <param name="c" type="Array" optional="true">Optional result array.</param>
+			        ///     <returns type="Array">XOR of the two arrays. The length is minimum of the two input array lengths.
+			        ///     </returns>
+			        /// </signature>
+
+			        var length = Math.min(a.length, b.length),
+			            res = res || new Array(length);
+			        for (var i = 0; i < length; i += 1) {
+			            res[i] = a[i] ^ b[i];
+			        }
+			        return res;
+			    }
+
+			    function getVector(length, fillValue) {
+			        /// <signature>
+			        ///     <summary>Get an array filled with zeros (or optional fillValue.)</summary>
+			        ///     <param name="length" type="Number">Requested array length.</param>
+			        ///     <param name="fillValue" type="Number" optional="true"></param>
+			        ///     <returns type="Array"></returns>
+			        /// </signature>
+
+			        // Use a default value of zero
+			        if (isNaN(fillValue)) { fillValue = 0; }
+
+			        var res = new Array(length);
+			        for (var i = 0; i < length; i += 1) {
+			            res[i] = fillValue;
+			        }
+			        return res;
+			    }
+
+			    function toArray(typedArray) {
+			        /// <signature>
+			        ///     <summary>Converts a UInt8Array to a regular JavaScript Array</summary>
+			        ///     <param name="typedArray" type="UInt8Array"></param>
+			        ///     <returns type="Array"></returns>
+			        /// </signature>
+
+			        // If undefined or null return an empty array
+			        if (!typedArray) {
+			            return [];
+			        }
+
+			        // If already an Array return it
+			        if (typedArray.pop) {
+			            return typedArray;
+			        }
+
+			        // If it's an ArrayBuffer, convert it to a Uint8Array first
+			        if (getObjectType(typedArray) === "ArrayBuffer") {
+			            typedArray = new Uint8Array(typedArray);
+			        } else if (typedArray.BYTES_PER_ELEMENT > 1) {
+			            typedArray = new Uint8Array(typedArray.buffer);
+			        }
+
+			        // A single element array will cause a new Array to be created with the length
+			        // equal to the value of the single element. Not what we want.
+			        // We'll return a new single element array with the single value.
+			        if (typedArray.length === 1) { return [typedArray[0]]; }
+
+			        if (typedArray.length < 65536) { return Array.apply(null, typedArray); }
+
+			        // Apply() can only accept an array up to 65536, so we have to loop if bigger.
+			        var returnArray = new Array(typedArray.length);
+			        for (var i = 0; i < typedArray.length; i++) {
+			            returnArray[i] = typedArray[i];
+			        }
+
+			        return returnArray;
+
+			    }
+
+			    function padEnd(array, value, finalLength) {
+			        /// <signature>
+			        ///     <summary>Pads the end of an array with a specified value</summary>
+			        ///     <param name="array" type="Array"></param>
+			        ///     <param name="value" type="Number">The value to pad to the array</param>
+			        ///     <param name="finalLength" type="Number">The final resulting length with padding</param>
+			        ///     <returns type="Array"></returns>
+			        /// </signature>
+
+			        while (array.length < finalLength) {
+			            array.push(value);
+			        }
+
+			        return array;
+			    }
+
+			    function padFront(array, value, finalLength) {
+			        /// <signature>
+			        ///     <summary>Pads the front of an array with a specified value</summary>
+			        ///     <param name="array" type="Array"></param>
+			        ///     <param name="value" type="Number">The value to pad to the array</param>
+			        ///     <param name="finalLength" type="Number">The final resulting length with padding</param>
+			        ///     <returns type="Array"></returns>
+			        /// </signature>
+
+			        while (array.length < finalLength) {
+			            array.unshift(value);
+			        }
+
+			        return array;
+			    }
+
+			    function arraysEqual(array1, array2) {
+			        /// <signature>
+			        ///     <summary>Checks if two Arrays are equal by comparing their values.</summary>
+			        ///     <param name="array1" type="Array"></param>
+			        ///     <param name="array2" type="Array"></param>
+			        ///     <returns type="Array"></returns>
+			        /// </signature>
+
+			        var result = true;
+
+			        if (array1.length !== array2.length) {
+			            result = false;
+			        }
+
+			        for (var i = 0; i < array1.length; i++) {
+			            if (array1[i] !== array2[i]) {
+			                result = false;
+			            }
+			        }
+
+			        return result;
+			    }
+
+			    function checkParam(param, type, errorMessage) {
+
+			        if (!param) {
+			            throw new Error(errorMessage);
+			        }
+
+			        if (type && (getObjectType(param) !== type)) {
+			            throw new Error(errorMessage);
+			        }
+
+			        return true;
+			    }
+
+			    function stringToBytes(text) {
+			        /// <signature>
+			        ///     <summary>Converts a String to an Array of byte values (0-255).
+			        ///              Supports UTF-8 encoding.
+			        ///     </summary>
+			        ///     <param name="text" type="String"/>
+			        ///     <returns type="Array" />
+			        /// </signature>
+
+			        var encodedBytes = [];
+
+			        for (var i = 0, j = 0; i < text.length; i++) {
+
+			            var charCode = text.charCodeAt(i);
+
+			            if (charCode < 128) {
+			                encodedBytes[j++] = charCode;
+
+			            } else if (charCode < 2048) {
+			                encodedBytes[j++] = (charCode >>> 6) | 192;
+			                encodedBytes[j++] = (charCode & 63) | 128;
+
+			            } else if (charCode < 0xD800 || charCode > 0xDFFF) {
+			                encodedBytes[j++] = (charCode >>> 12) | 224;
+			                encodedBytes[j++] = ((charCode >>> 6) & 63) | 128;
+			                encodedBytes[j++] = (charCode & 63) | 128;
+
+			            } else {// surrogate pair (charCode >= 0xD800 && charCode <= 0xDFFF)
+			                charCode = ((charCode - 0xD800) * 0x400) + (text.charCodeAt(++i) - 0xDC00) + 0x10000;
+			                encodedBytes[j++] = (charCode >>> 18) | 240;
+			                encodedBytes[j++] = ((charCode >>> 12) & 63) | 128;
+			                encodedBytes[j++] = (charCode >>> 6) & 63 | 128;
+			                encodedBytes[j++] = (charCode & 63) | 128;
+			            }
+			        }
+
+			        return encodedBytes;
+			    }
+
+			    function bytesToString(textBytes) {
+			        /// <signature>
+			        ///     <summary>Converts an Array of byte values (0-255) to a String (Supports UTF-8 encoding)</summary>
+			        ///     <param name="textBytes" type="Array"/>
+			        ///     <returns type="String" />
+			        /// </signature>
+
+			        var result = "",
+			            charCode;
+
+			        // Convert from ArrayBuffer or Uint array if needed
+			        textBytes = toArray(textBytes);
+
+			        for (var i = 0; i < textBytes.length;) {
+
+			            var encodedChar = textBytes[i++];
+
+			            if (encodedChar < 128) {
+			                charCode = encodedChar;
+
+			            } else if (encodedChar < 224) {
+			                charCode = (encodedChar << 6) + textBytes[i++] - 0x3080;
+
+			            } else if (encodedChar < 240) {
+			                charCode =
+			                    (encodedChar << 12) + (textBytes[i++] << 6) + textBytes[i++] - 0xE2080;
+
+			            } else {
+			                charCode =
+			                    (encodedChar << 18) + (textBytes[i++] << 12) + (textBytes[i++] << 6) + textBytes[i++] - 0x3C82080;
+			            }
+
+			            // Four byte UTF-8; Convert to UTF-16 surrogate pair
+			            if (charCode > 0xFFFF) {
+			                var surrogateHigh = Math.floor((charCode - 0x10000) / 0x400) + 0xD800;
+			                var surrogateLow = ((charCode - 0x10000) % 0x400) + 0xDC00;
+			                result += String.fromCharCode(surrogateHigh, surrogateLow);
+			                continue;
+			            }
+
+			            result += String.fromCharCode(charCode);
+			        }
+
+			        return result;
+			    }
+
+			    function error(name, message) {
+			        var err = Error(message);
+			        err.name = name;
+			        throw err;
+			    }
+
+			    function isBytes(array) {
+			        if(!(array instanceof Array)) return false;
+			        for (var i = 0; i < array.length; i++) {
+			            var d = array[i];
+			            if (!isInteger(d) || d > 255 || d < 0) return false;
+			        }
+			        return true;
+			    }
+
+			    function isInteger(value) {
+			        return typeof value === "number" && isFinite(value) && Math.floor(value) === value;
+			    }		    
+			    function createProperty (parentObject, propertyName, initialValue, getterFunction, setterFunction) {
+			        /// <param name="parentObject" type="Object"/>
+			        /// <param name="propertyName" type="String"/>
+			        /// <param name="initialValue" type="Object"/>
+			        /// <param name="getterFunction" type="Function"/>
+			        /// <param name="setterFunction" type="Function" optional="true"/>
+			    
+			        if (!setterSupport) {
+			            parentObject[propertyName] = initialValue;
+			            return;
+			        }
+			    
+			        var setGet = {};
+			    
+			        // tslint:disable-next-line: no-unused-expression
+			        getterFunction && (setGet.get = getterFunction);
+			        // tslint:disable-next-line: no-unused-expression
+			        setterFunction && (setGet.set = setterFunction);
+			    
+			        Object.defineProperty(
+			            parentObject,
+			            propertyName, setGet);
+			    }
+			    return {
+			        consoleLog: consoleLog,
+			        toBase64: toBase64,
+			        fromBase64: base64ToBytes,
+			        checkParam: checkParam,
+			        getObjectType: getObjectType,
+			        bytesToHexString: bytesToHexString,
+			        bytesToInt32: bytesToInt32,
+			        stringToBytes: stringToBytes,
+			        bytesToString: bytesToString,
+			        unpackData: unpackData,
+			        hexToBytesArray: hexToBytesArray,
+			        int32ToBytes: int32ToBytes,
+			        int32ArrayToBytes: int32ArrayToBytes,
+			        toArray: toArray,
+			        arraysEqual: arraysEqual,
+			        clone: clone,
+			        xorVectors: xorVectors,
+			        padEnd: padEnd,
+			        padFront: padFront,
+			        getVector: getVector,
+			        error: error,
+			        isBytes: isBytes,
+			        isInteger: isInteger,
+			        createProperty: createProperty
+			    };
+
+			})();
+
+			/* commonjs-block */
+			{
+			    module.exports = msrcryptoUtilities;
+			}
+			/* end-commonjs-block */ 
+		} (utilities));
+		return utilities.exports;
+	}
+
+	var cryptoMath$1 = {exports: {}};
+
+	(function (module, exports) {
+		//*******************************************************************************
+		//
+		//    Copyright 2020 Microsoft
+		//
+		//    Licensed under the Apache License, Version 2.0 (the "License");
+		//    you may not use this file except in compliance with the License.
+		//    You may obtain a copy of the License at
+		//
+		//        http://www.apache.org/licenses/LICENSE-2.0
+		//
+		//    Unless required by applicable law or agreed to in writing, software
+		//    distributed under the License is distributed on an "AS IS" BASIS,
+		//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+		//    See the License for the specific language governing permissions and
+		//    limitations under the License.
+		//
+		//*******************************************************************************
+
+		// tslint:disable: no-bitwise
+		// tslint:disable: no-shadowed-variable
+
+		function msrcryptoMath() {
+		    // 'number' of bits per digit. Must be even.
+		    var DIGIT_BITS = 24;
+		    // 'number' of bytes per digit.
+		    var DIGIT_NUM_BYTES = Math.floor(DIGIT_BITS / 8);
+		    // digit mask.
+		    var DIGIT_MASK = (1 << DIGIT_BITS) - 1;
+		    // digit base.
+		    var DIGIT_BASE = (1 << DIGIT_BITS);
+		    // max digit value, unsigned
+		    var DIGIT_MAX = DIGIT_MASK;
+		    // inverse of digit base to reduce digits with multiply
+		    var DIG_INV = 1 / DIGIT_BASE;
+
+		    // Construct scaler for DIGIT_NUM_BYTES, so I don't have to multiply in the loop
+		    var DIGIT_SCALER = [1, 256];
+		    for (var ds = 2; ds <= DIGIT_NUM_BYTES; ds++) {
+		        DIGIT_SCALER[ds] = DIGIT_SCALER[ds - 1] * 256;
+		    }
+
+		    // Number of trailing zero bits in numbers 0..15 (4 bits). [0] is for 0, [15] is for 15.
+		    var Zero = [0];
+		    var One = [1];
+
+		    // Create an array, mimics the constructors for typed arrays.
+		    function createArray( /*@dynamic*/ parameter) {
+		        var i, array = null;
+		        if (!arguments.length || typeof arguments[0] === "number") {
+		            // A number.
+		            array = new Array(parameter);
+		            for (i = 0; i < parameter; i += 1) {
+		                array[i] = 0;
+		            }
+		        } else if (typeof arguments[0] === "object") {
+		            // An array or other index-able object
+		            array = new Array(parameter.length);
+		            for (i = 0; i < parameter.length; i += 1) {
+		                array[i] = parameter[i];
+		            }
+		        }
+		        return array;
+		    }
+
+		    function stringToDigits(numberStr, radix) {
+		        /// <summary>Parse a String in a given base into a little endian digit array.</summary>
+		        /// <param name="number" type="String">Input unsigned integer in a string.</param>
+		        /// <param name="radix" optional="true" integer="true">
+		        /// <![CDATA[ Radix of the input. Must be >=2 and <=36. Default = 10. ]]>
+		        /// </param>
+		        /// <returns type="Array">Array of digits in little endian; [0] is LSW.</returns>
+
+		        // skip leading and trailing whitespace.
+		        numberStr = numberStr.replace(/^\s+|\s+$/g, "");
+		        var num = [0];
+		        var buffer = [0];
+		        radix = radix || 10; // default radix is 10
+		        for (var i = 0; i < numberStr.length; i += 1) {
+		            // Extract character
+		            var char = parseInt(numberStr[i], radix);
+		            if (isNaN(char)) {
+		                throw new Error("Failed to convert string to integer in radix " + radix.toString());
+		            }
+
+		            // 'buffer' = 'num' * 'radix'
+		            multiply(num, radix, buffer);
+
+		            // 'num' = 'buffer' + 'char'
+		            add(buffer, [ /*@static_cast(Number)*/ char], num);
+		            normalizeDigitArray(num);
+		        }
+
+		        return num;
+		    }
+
+		    function digitsToString(digits, radix) {
+		        /// <summary>Convert a big-endian byte array to a number in string in radix.</summary>
+		        /// <param name="digits" type="Digits">A big integer as a little-endian digit array.</param>
+		        /// <param name="radix" optional="true" integer="true">Radix from 2 to 26. Default = 10.</param>
+		        /// <returns type="String">The number in base radix as a string.</returns>
+
+		        radix = radix || 10;
+		        if (DIGIT_BASE <= radix) {
+		            throw new Error("DIGIT_BASE is smaller than RADIX; cannot convert.");
+		        }
+
+		        var wordLength = digits.length;
+		        var quotient = [];
+		        var remainder = [];
+		        var temp1 = [];
+		        var temp2 = [];
+		        var divisor = [];
+		        var a = [];
+		        var i;
+
+		        // Find the largest divisor that fits in a digit in radix
+		        //divisor[0] = 10000; // Largest power of ten fitting in a digit
+		        var sb = "";
+		        var pad = "0";
+		        divisor[0] = radix;
+		        while (Math.floor(DIGIT_BASE / divisor[0]) >= radix) {
+		            divisor[0] = divisor[0] * radix;
+		            pad = pad.concat("0");
+		        }
+
+		        for (i = 0; i < wordLength; i += 1) {
+		            a[i] = digits[i];
+		        }
+
+		        do {
+		            var allZeros = true;
+		            for (i = 0; i < a.length; i += 1) {
+		                if (a[i] !== 0) {
+		                    allZeros = false;
+		                    break;
+		                }
+		            }
+
+		            if (allZeros) {
+		                break;
+		            }
+
+		            divRem(a, divisor, quotient, remainder, temp1, temp2);
+		            normalizeDigitArray(quotient, a.length, true);
+
+		            var newDigits = remainder[0].toString(radix);
+		            sb = pad.substring(0, pad.length - newDigits.length) + newDigits + sb;
+
+		            var swap = a;
+		            a = quotient;
+		            quotient = swap;
+		        } while (true);
+
+		        // Trim leading zeros
+		        while (sb.length !== 0 && sb[0] === "0") {
+		            sb = sb.substring(1, sb.length);
+		        }
+
+		        if (sb.length === 0) {
+		            sb = "0";
+		        }
+
+		        return sb;
+		    }
+
+		    function computeBitArray(bytes) {
+		        /// <summary>Given an array of bytes in big-endian format, compute UInt8Array with
+		        /// one element for each bit (0 or 1), in little-endian order.</summary>
+		        /// <param name="bytes" type="Digits">An array of bytes in big-endian format.</param>
+		        /// <returns type="Digits">An array of 0's and 1's representing the bits in little-endian.</returns>
+
+		        var out = createArray(bytes.length * 8);
+		        var bitLength = 0;
+		        var i = bytes.length - 1;
+		        while (i >= 0) {
+		            var j = 0;
+		            while (j < 8) {
+		                var mask = (1 << j);
+		                var bit = ((bytes[i] & mask) === mask) ? 1 : 0;
+		                var thisBitIndex = (8 * ((bytes.length - i) - 1)) + j;
+
+		                if (bit === 1) {
+		                    bitLength = thisBitIndex + 1;
+		                }
+
+		                out[thisBitIndex] = bit;
+		                j += 1;
+		            }
+
+		            i--;
+		        }
+
+		        return out.slice(0, bitLength);
+		    }
+
+		    function bitScanForward(digit) {// CT
+		        /// <summary>Return the 0-based index of the first non-zero bit starting at the most significant
+		        ///          bit position.</summary >
+		        /// <param name="digit" type="Number" integer="true">Value to scan.</param>
+		        /// <returns>Zero-based index of the first non-zero bit.</returns>
+		        var index = 0;
+
+		        for (var i = 0; i < DIGIT_BITS; i++) {
+		            index = Math.max(index, -(digit >>> i & 1) & i);
+		        }
+
+		        return index;
+		    }
+
+		    function highestSetBit(bytes) {
+		        /// <summary>Returns the (1 indexed) index of the highest set bit.</summary>
+		        /// <param name="bytes" type="Array">A big-endian big integer byte array.</param>
+		        /// <returns type="Number">The index of the highest bit.</returns>
+
+		        var i = 0;
+		        var bitLength = 0;
+
+		        while (i < bytes.length) {
+		            if (bitLength === 0) {
+		                // Look for highest set bit in this byte
+		                var j = 7;
+		                while (j >= 0 && bitLength === 0) {
+		                    var mask = (1 << j);
+		                    if ((bytes[i] & mask) === mask) {
+		                        bitLength = j + 1;
+		                    }
+
+		                    j--;
+		                }
+		            } else {
+		                bitLength += 8;
+		            }
+
+		            i += 1;
+		        }
+
+		        return bitLength;
+		    }
+
+		    function fixedWindowRecode(digits, windowSize, t) {
+		        /// <summary></summary>
+		        /// <param name="digits" type="Array">Digits to recode</param>
+		        /// <param name="windowSize" type="Number">Window size</param>
+		        /// <returns type="Array">Recoded digits</returns>}
+
+		        // Make a copy of digits because we are going to modify it with shifts below.
+		        digits = digits.slice();
+
+		        var recodedDigits = [],
+		            windowSizeBits = Math.pow(2, windowSize),
+		            windowSizeMinus1Bits = Math.pow(2, windowSize - 1);
+
+		        for (var i = 0; i < t; i++) {
+
+		            // k_digits[i] := (Z!k mod 2^w) - 2^(w-1);
+		            recodedDigits[i] = (digits[0] % windowSizeBits) - windowSizeMinus1Bits;
+
+		            // k := (k - k_digits[i])/2^(w-1);
+		            digits[0] = digits[0] - recodedDigits[i];
+
+		            // PERF : can probably do this faster
+		            cryptoMath.shiftRight(digits, digits, windowSize - 1);
+		        }
+
+		        recodedDigits[i] = digits[0];
+
+		        return recodedDigits;
+		    }
+
+		    function fixedWindowRecode2(digits, windowSize) {
+
+		        // convert to array of individual bits
+		        var digLen = digits.length;
+		            new Array(digLen * DIGIT_BITS);
+		            var i = 0,
+		            j = 0,
+		            k = 0,
+		            r = 0,
+		            dig,
+		            result = new Array(Math.ceil(digLen * DIGIT_BITS / windowSize));
+
+		        for (k = 0, result[0] = 0; i < digLen; i++) {
+		            for (j = 0, dig = digits[i]; j < DIGIT_BITS; j++ , dig >>>= 1) {
+		                if (k === windowSize) {
+		                    result[++r] = 0;
+		                    k = 0;
+		                }
+		                result[r] += (dig & 1) << k++;
+		            }
+		        }
+
+		        return result;
+		    }
+
+		    function copyArray( /*@Array*/ source, sourceIndex, /*@Array*/ destination, destIndex, length) { //CT
+		        /// <summary>Copies a range of elements from one array to another array.</summary>
+		        /// <param name="source" type="Array">Source array to copy from.</param>
+		        /// <param name="sourceIndex" type="Number">The index in the source array at which copying begins.</param>
+		        /// <param name="destination" type="Array">The array that receives the data.</param>
+		        /// <param name="destIndex" type="Number">The index in the destination array at which storing begins.</param>
+		        /// <param name="length" type="Number">The number of elements to copy.</param>
+		        while (length-- > 0) {
+		            destination[destIndex + length] = source[sourceIndex + length];
+		        }
+		    }
+
+		    function isZero(array) { //CT
+		        /// <summary>Check if an array is zero. All elements are zero.</summary>
+		        /// <param name="array" type="Digits">UInt16Array - An array to be checked.</param>
+		        /// <returns type="Boolean"/>
+		        var i,
+		            result = 0;
+
+		        for (i = 0; i < array.length; i += 1) {
+		            result = result | array[i];
+		        }
+		        return !result;
+		    }
+
+		    function isEven(array) { //CT
+		        /// <summary>Returns true if this number is even.</summary>
+		        /// <param name="array" type="Digits"/>
+		        /// <returns type="Boolean"/>
+		        return (array[0] & 0x1) === 0x0;
+		    }
+
+		    function sequenceEqual(left, right) { //CT
+		        /// <summary>Compare two indexable collections for sequence equality.</summary>
+		        /// <param name="left" type="Digits">The left array.</param>
+		        /// <param name="right" type="Digits">The right array.</param>
+		        /// <returns type="Boolean">True if both arrays are the same.</returns>
+		        var equal = left.length === right.length;
+
+		        for (var i = 0; i < Math.min(left.length, right.length); i += 1) {
+		            if (left[i] !== right[i]) {
+		                equal = false;
+		            }
+		        }
+
+		        return equal;
+		    }
+
+		    function bytesToDigits(bytes) {
+		        /// <summary>Convert an unsigned number from big-endian bytes to little endian digits.</summary>
+		        /// <param name="bytes" type="Bytes">The number in unsigned big-endian byte format.</param>
+		        /// <returns type="Array">The digits in little-endian.</returns>
+
+		        // Construct scaler for DIGIT_NUM_BYTES, so I don't have to multiply in the loop
+		        var arrayLength = Math.floor((bytes.length + DIGIT_NUM_BYTES - 1) / DIGIT_NUM_BYTES);
+		        var array = new Array(arrayLength);
+		        array[0] = 0;
+		        var digit = 0,
+		            index = 0,
+		            scIndex = 0;
+		        for (var i = bytes.length - 1; i >= 0; i--) {
+		            digit = digit + (DIGIT_SCALER[scIndex++] * (bytes[i] & 0x0ff));
+		            if (DIGIT_SCALER[scIndex] === DIGIT_BASE) {
+		                scIndex = 0;
+		                array[index++] = digit;
+		                digit = 0;
+		            }
+		        }
+
+		        // Last digit (MSW), if there is a need
+		        if (digit !== 0) {
+		            array[index] = digit;
+		        }
+
+		        // Replace potential undefined elements with zeros
+		        while (array[--arrayLength] == null) {
+		            array[arrayLength] = 0;
+		        }
+
+		        return array;
+		    }
+
+		    function digitsToBytes(digits, trim, minTrimLength) {
+		        /// <summary>Construct a big endian array of bytes from a little-endian array of digits.
+		        /// Always returns at least one byte and trims leading zeros.</summary>
+		        /// <param name="digits" type="Array">The digits in little-endian.</param>
+		        /// <param name="trim" type="Boolean" optional="true">Remove the leading zeros from the result
+		        ///     (default true)</param >
+		        /// <param name="minTrimLength" type="Number" optional="true">Minimum length to trim down to.
+		        ///     Valid only if trim is true.Default = 1.</param >
+		        /// <returns type="Array">Encoded bytes in big-endian format.</returns>
+
+		        var i, j, byte1;
+		        var bytes = [0];
+
+		        if (typeof trim === "undefined") {
+		            trim = true;
+		        }
+
+		        for (i = 0; i < digits.length; i += 1) {
+		            byte1 = digits[i];
+		            for (j = 0; j < DIGIT_NUM_BYTES; j += 1) {
+		                bytes[i * DIGIT_NUM_BYTES + j] = byte1 & 0x0FF;
+		                byte1 = Math.floor(byte1 / 256);
+		            }
+		        }
+
+		        //bytes = swapEndianness(bytes);
+		        bytes.reverse();
+
+		        if (minTrimLength === undefined) {
+		            minTrimLength = 1;
+		        }
+		        if (trim) {
+		            while (bytes.length > minTrimLength && bytes[0] === 0) {
+		                bytes.shift();
+		            }
+		        }
+
+		        return bytes;
+		    }
+
+		    function intToDigits(value, numDigits) {
+		        /// <summary>Construct an array of digits from a positive integer.</summary>
+		        /// <param name="value" type="Number" integer="true">A positive integer to be converted to digit form.</param>
+		        /// <param name="numDigits" type="Number" optional="true" integer="true">The number of digits to use
+		        ///     for the digit form.</param >
+		        /// <returns type="Array">The given integer in digit form.</returns>
+
+		        if (typeof numDigits === "undefined") {
+		            if (value <= 1) {
+		                numDigits = 1; // Special case <= 1
+		            } else {
+		                var numBits = Math.log(value) / Math.LN2;
+		                numDigits = Math.ceil(numBits / DIGIT_BITS);
+		            }
+		        }
+
+		        var digitRepresentation = [];
+		        while (value > 0) {
+		            digitRepresentation.push(value % DIGIT_BASE);
+		            value = Math.floor(value / DIGIT_BASE);
+		        }
+
+		        while (digitRepresentation.length < numDigits) {
+		            digitRepresentation.push(0);
+		        }
+
+		        return digitRepresentation;
+		    }
+
+		    function mswIndex(digits) {
+		        /// <summary>Return the index of the most significant word of x, 0-indexed.
+		        /// If x is zero (no significant index), then -1 is returned.</summary>
+		        /// <param name="digits" type="Array">Digit array.</param>
+		        /// <returns type="Number">Index of the most significant word, or -1 if digits is zero.</returns>
+		        for (var i = digits.length - 1; i >= 0; i--) {
+		            if (digits[i] !== undefined && digits[i] !== 0) {
+		                return i;
+		            }
+		        }
+
+		        return (digits[0] === 0) ? -1 : 0;
+		    }
+
+		    function compareDigits(left, right) {
+
+		        // Constant-time compare digits
+		        // The time will be different for different lengths of input, but will be constant for a given length.
+		        // We expect any secret data passing through to be of some standard non-varying length.
+		        // result will equal the difference of the highest order digit where left !== right
+		        var result = 0,
+		            val, i;
+
+		        for (i = 0; i < Math.max(left.length, right.length); i++) {
+		            val = ~~left[i] - ~~right[i];
+		            // result = val === 0 ?  result : val;
+		            result = val + (result & -!val);
+		        }
+
+		        return result;
+		    }
+
+		    function normalizeDigitArray(digits, length, pad) {
+		        /// <summary>Normalize a digit array by truncating any leading zeros and adjusting its length.
+		        /// Set the length if given, and pad it with zeros to that length of padding is requested.</summary>
+		        /// <remarks>Normalization results with a zero-indexed length of the array such that the MSW is not zero.
+		        /// If the final array length is zero and no non-zero digits are found, assign digits[0]=0 and set length to 1.
+		        /// Optionally, pad with zeros to the given length, and set the array length.</remarks>
+		        /// <param name="digits" type="Array">Digit array.</param>
+		        /// <param name="length" type="Number" integer="true" optional="true">Output length to pad with zeros.</param>
+		        /// <param name="pad" type="Boolean" optional="true">Pad with zeros to length if true [false].</param>
+		        /// <returns type="Array">Resized digits array; same input object.</returns>
+
+		        // Trim. Find the trimmed length and the position to start padding from (if padding is requested).
+		        var i = mswIndex(digits);
+
+		        // set the length to the given length (if given) or the trimmed length
+		        digits.length = length || i + 1;
+
+		        // Pad to the length
+		        if (pad) {
+		            while (++i < digits.length) {
+		                digits[i] = 0;
+		            }
+		        }
+
+		        if (digits.length <= 0) {
+		            // no non-zero digits found.
+		            digits[0] = 0;
+		            digits.length = 1;
+		        }
+
+		        return digits;
+		    }
+
+		    function shiftRight(source, destination, bits, length) {
+		        /// <summary>Shift a big integer to the right by the given number of bits or 1 if bits is not specified,
+		        /// effectively dividing by two (or 2^bits) and ignoring the remainder.</summary>
+		        /// <param name="source" type="Array">Source digit array.</param>
+		        /// <param name="destination" type="Array">Destination digit array. May be the same as source.</param>
+		        /// <param name="bits" integer="true" optional="true">Number of bits to shift, must be less than DIGIT_BITS
+		        ///     and greater or equal to zero.Default is 1.</param >
+		        /// <param name="length" optional="true" integer="true">Number of items to shift from he source array.
+		        ///     Default is source.length.</param >
+		        /// <remarks>This is a numerical shift. Integers are stored in arrays in little-endian format.
+		        /// Thus, this function shifts an array from higher order indices into lower indices. [0] is LSW.
+		        /// </remarks>
+
+		        if (bits === undefined) {
+		            bits = 1;
+		        } else if (bits >= DIGIT_BITS || bits < 0) {
+		            throw new Error("Invalid bit count for shiftRight");
+		        }
+		        if (length === undefined) {
+		            length = source.length;
+		        }
+
+		        var n = length - 1;
+		        var leftShiftBitCount = DIGIT_BITS - bits;
+		        for (var i = 0; i < n; i++) {
+		            destination[i] = ((source[i + 1] << leftShiftBitCount) | (source[i] >>> bits)) & DIGIT_MASK;
+		            //a[i] = high|low = low bits of a[i+1] | high bits of a[i]
+		        }
+
+		        destination[n] = source[n] >>> bits;
+		    }
+
+		    function shiftLeft(source, destination, bits, length) {
+		        /// <summary>Shift a number array to the left by given bits, i.e., multiply by 2^bits.</summary>
+		        /// <param name="source" type="Array">Source digit array.</param>
+		        /// <param name="destination" type="Array">Destination digit array. May be the same as source.</param>
+		        /// <param name="bits" integer="true" optional="true">Number of bits to shift, must be less than DIGIT_BITS
+		        ///     and greater or equal to zero.Default is 1.</param >
+		        /// <param name="length" optional="true" integer="true">Number of items to shift from he source array.
+		        ///     Default is source.length.</param >
+		        /// <remarks>An additional MSW digit may be added if the leftshift out from the current MSW produces a
+		        ///     non - zero result. [0] is LSW.</remarks >
+
+		        if (bits === undefined) {
+		            bits = 1;
+		        } else if (bits >= DIGIT_BITS || bits < 0) {
+		            throw new Error("bit count must be smaller than DIGIT_BITS and positive in shiftLeft");
+		        }
+		        if (length === undefined) {
+		            length = source.length;
+		        }
+
+		        var rightShiftBitCount = DIGIT_BITS - bits;
+		        // The following line is correct. destination should remain undefined if there are no bits going into it.
+		        destination[length] = (source[length - 1] >>> (DIGIT_BITS - bits)) || destination[length];
+		        for (var i = length - 1; i > 0; i--) {
+		            destination[i] = ((source[i] << bits) | ((source[i - 1] >>> rightShiftBitCount))) & DIGIT_MASK;
+		            // a[i] = high|low = low bits of a[i] | high bits of a[i-1]
+		        }
+
+		        destination[0] = (source[0] << bits) & DIGIT_MASK;
+		    }
+
+		    //// //// //// //// //// //// //// //// //// //// //// //// //// /
+		    // Low level math routines
+		    //// //// //// //// //// //// //// //// //// //// //// //// //// /
+
+		    function add(addend1, addend2, sum) {
+		        /// <summary>Add two arrays of digits into a third array: sum = addend1 + addend2. Carry is recorded
+		        ///     in the output if there is one.</summary >
+		        /// <param name="addend1" type="Array">The first addend.</param>
+		        /// <param name="addend2" type="Array">The second added.</param>
+		        /// <param name="sum" type="Array">The output sum buffer addend1 + addend2.</param>
+		        /// <returns type="Number" integer="true">If carry out then 1, otherwise 0.</returns>
+
+		        // Determine which is shorter
+		        var shortArray = addend1;
+		        var longArray = addend2;
+		        if (addend2.length < addend1.length) {
+		            shortArray = addend2;
+		            longArray = addend1;
+		        }
+
+		        // Perform the addition
+		        var s = shortArray.length;
+		        var carry = 0;
+		        var i;
+
+		        for (i = 0; i < s; i += 1) {
+		            carry += shortArray[i] + longArray[i];
+		            sum[i] = carry & DIGIT_MASK;
+		            carry = (carry >> DIGIT_BITS);
+		        }
+
+		        for (i = s; i < longArray.length; i += 1) {
+		            carry += longArray[i];
+		            sum[i] = carry & DIGIT_MASK;
+		            carry = (carry >> DIGIT_BITS);
+		        }
+
+		        // Set output length
+		        sum.length = longArray.length;
+
+		        // Is there a carry into the next digit?
+		        if (carry !== 0) {
+		            sum[i] = carry & DIGIT_MASK;
+		        }
+
+		        return carry;
+		    }
+
+		    function subtract(minuend, subtrahend, difference) {
+		        /// <summary>Subtraction: difference = minuend - subtrahend. Condition: minuend.length &lt;=
+		        ///     subtrahend.length.</summary >
+		        /// <param name="minuend" type="Array">Minuend.</param>
+		        /// <param name="subtrahend" type="Array">Subtrahend.</param>
+		        /// <param name="difference" type="Array">The difference.</param>
+		        /// <returns type="Number" integer="true">Returns -1 if there is a borrow (minuend &lt; subtrahend),
+		        ///     or 0 if there isn't (minuend &gt;= subtrahend).</returns>
+
+		        var s = subtrahend.length;
+		        if (minuend.length < subtrahend.length) {
+		            s = mswIndex(subtrahend) + 1;
+		            if (minuend.length < s) {
+		                throw new Error("Subtrahend is longer than minuend, not supported.");
+		            }
+		        }
+		        var i, carry = 0;
+		        for (i = 0; i < s; i += 1) {
+		            carry += minuend[i] - subtrahend[i];
+		            difference[i] = carry & DIGIT_MASK;
+		            carry = carry >> DIGIT_BITS;
+		        }
+
+		        // Propagate the carry by subtracting from minuend into difference
+		        while (i < minuend.length) {
+		            carry += minuend[i];
+		            difference[i++] = carry & DIGIT_MASK;
+		            carry = carry >> DIGIT_BITS;
+		        }
+
+		        return carry;
+		    }
+
+		    function multiply(a, b, p) {
+
+		        b = (typeof b === "number") ? [b] : b;
+
+		        var i, j, k, l, c, t1, t2, alen = a.length,
+		            blen = b.length,
+		            bi;
+
+		        for (i = 0; i < alen + blen; i += 1) {
+		            p[i] = 0;
+		        }
+
+		        i = 0;
+		        l = 0;
+
+		        var maxRounds = 31;
+		        var ks = 0;
+
+		        while (i < blen) {
+
+		            l = Math.min(l + maxRounds, blen);
+
+		            // For i from 0 by 1 to s - 1 do
+		            for (; i < l; i++) {
+		                bi = b[i];
+		                for (j = 0; j < alen; j++) {
+		                    p[i + j] += a[j] * bi;
+		                }
+		            }
+
+		            c = 0;
+		            // Reduce the answer to 24-bit digits
+		            for (k = ks; k < i + alen; k++) {
+		                t1 = p[k] + c;
+		                t2 = t1 & DIGIT_MASK;
+		                p[k] = t2;
+		                c = (t1 - t2) * DIG_INV;
+		            }
+		            p[k] = c;
+
+		            ks += maxRounds;
+		        }
+
+		        p.length = alen + blen;
+
+		        return p;
+		    }
+
+		    function divRem(dividend, divisor, quotient, remainder, temp1, temp2) {
+		        /// <summary>Computes the quotient q and remainder r when dividend is divided by
+		        ///   divisor.</summary>
+		        /// <param name="dividend" type="Array">The dividend.</param>
+		        /// <param name="divisor" type="Array">The divisor.</param>
+		        /// <param name="quotient" type="Array">Receives the quotient (n digits).</param>
+		        /// <param name="remainder" type="Array">Receives the remainder (n digits).</param>
+		        /// <param name="temp1" type="Array" optional="true">Temporary storage (n digits).</param>
+		        /// <param name="temp2" type="Array" optional="true">Temporary storage (n digits).</param>
+		        /// <remarks>This is an implementation of Figure 9-1 is Knuth's Algorithm D [Knu2 sec. 4.3.1].
+		        /// Throws error on division by zero.
+		        /// </remarks>
+		        var m = mswIndex(dividend) + 1; // zero-based length
+		        var n = mswIndex(divisor) + 1; // zero-based length
+		        var qhat, rhat, carry, p, t, i, j;
+
+		        // Check for quick results and clear out conditionals
+		        if (m < n) {
+		            // dividend < divisor. q=0, remainder=dividend
+		            copyArray(dividend, 0, remainder, 0, dividend.length);
+		            remainder.length = dividend.length;
+		            normalizeDigitArray(remainder);
+		            quotient[0] = 0;
+		            quotient.length = 1;
+		            return;
+		        } else if (n === 0 || (n === 1 && divisor[n - 1] === 0)) { // self-explanatory
+		            throw new Error("Division by zero.");
+		        } else if (n === 1) {
+		            // divisor is single digit; do a simpler division
+		            t = divisor[0];
+		            rhat = 0;
+		            for (j = m - 1; j >= 0; j--) {
+		                p = (rhat * DIGIT_BASE) + dividend[j];
+		                quotient[j] = (p / t) & DIGIT_MASK;
+		                rhat = (p - quotient[j] * t) & DIGIT_MASK;
+		            }
+		            quotient.length = m;
+		            normalizeDigitArray(quotient);
+		            remainder[0] = rhat;
+		            remainder.length = 1;
+		            return;
+		        }
+
+		        // Normalization step. Align dividend and divisor so that their
+		        // most significant digits are at the same index.
+		        // Shift divisor by so many bits (0..DIGIT_BITS-1) to make MSB non-zero.
+		        var s = DIGIT_BITS - 1 - bitScanForward(divisor[n - 1]);
+		        var vn = temp1 || [];
+		        vn.length = n;
+		        shiftLeft(divisor, vn, s, n);
+
+		        var un = temp2 || [];
+		        un.length = m;
+		        shiftLeft(dividend, un, s, m);
+		        un[m] = un[m] || 0; // must not be undefined
+
+		        // Main division loop with quotient estimate qhat
+		        quotient.length = m - n + 1;
+		        remainder.length = n;
+		        for (j = m - n; j >= 0; j--) {
+		            // Estimate quotient qhat using two-digit by one-digit division
+		            // because 3-digit by 2-digit division is more complex. Then, correct qhat after this.
+		            qhat = Math.floor((un[j + n] * DIGIT_BASE + un[j + n - 1]) / vn[n - 1]);
+		            rhat = (un[j + n] * DIGIT_BASE + un[j + n - 1]) - qhat * vn[n - 1];
+
+		            // If the quotient estimate is large, reduce the quotient estimate till the following is satisfied:
+		            //      qhat = {un[j+n, j+n-1, j+n-2]} div {uv[n-1,n-2]}
+		            while (true) {
+		                if (qhat >= DIGIT_BASE || (qhat * vn[n - 2]) > ((rhat * DIGIT_BASE) + un[j + n - 2])) {
+		                    qhat = qhat - 1;
+		                    rhat = rhat + vn[n - 1];
+		                    if (rhat < DIGIT_BASE) {
+		                        continue;
+		                    }
+		                }
+
+		                break;
+		            }
+
+		            // Multiply the [shifted] divisor by the quotient estimate and subtract the product from the dividend
+		            // un = un - qhat*vn
+		            carry = 0;
+		            for (i = 0; i < n; i++) {
+		                p = qhat * vn[i];
+		                t = un[i + j] - carry - (p & DIGIT_MASK);
+		                un[i + j] = t & DIGIT_MASK;
+		                //carry = (p >>> DIGIT_BITS) - (t >> DIGIT_BITS);
+		                // Don't shift: integer shifts are defined over 32-bit numbers in JS.
+		                carry = Math.floor(p / DIGIT_BASE) - Math.floor(t / DIGIT_BASE);
+		            }
+
+		            t = un[j + n] - carry;
+		            un[j + n] = t & DIGIT_MASK;
+
+		            // Store the estimated quotient digit (may need correction)
+		            quotient[j] = qhat & DIGIT_MASK;
+
+		            // Correction needed?
+		            if (t < 0) {
+		                // quotient too big (at most by 1 divisor)
+		                // decrement the quotient, and add [shifted] divisor back to the running dividend (remainder)
+		                quotient[j] = quotient[j] - 1;
+
+		                // un = un + vn
+		                carry = 0;
+		                for (i = 0; i < n; i++) {
+		                    t = un[i + j] + vn[i] + carry;
+		                    un[i + j] = t & DIGIT_MASK;
+		                    carry = t >> DIGIT_BITS;
+		                }
+		                un[j + n] = (un[j + n] + carry) & DIGIT_MASK;
+		            }
+		        }
+
+		        // De-normalize the remainder (shift right by s bits).
+		        for (i = 0; i < n; i++) {
+		            remainder[i] = ((un[i] >>> s) | (un[i + 1] << (DIGIT_BITS - s))) & DIGIT_MASK;
+		        }
+
+		        // Compute correct lengths for the quotient and remainder
+		        normalizeDigitArray(quotient);
+		        normalizeDigitArray(remainder);
+		    }
+
+		    // tslint:disable-next-line: variable-name
+		    function reduce(number, modulus, remainder, temp1, temp2) {
+		        /// <summary>Integer reduction by a modulus to compute number mod modulus. This function uses division,
+		        /// and should not be used for repetitive operations.</summary>
+		        /// <param name="number" type="Array">Input number to reduce.</param>
+		        /// <param name="modulus" type="Array">Modulus to reduce the input by.</param>
+		        /// <param name="remainder" type="Array">Output remainder = number mod modulus.</param>
+		        /// <param name="temp1" type="Array" optional="true">Temporary space, optional.</param>
+		        /// <param name="temp2" type="Array" optional="true">Temporary space, optional.</param>
+		        /// <returns type="Array">The resulting remainder is in 0..modulus-1; same as "remainder".</returns>
+
+		        // TODO: More efficient reduction implementation
+		        var quotient = [];
+		        divRem(number, modulus, quotient, remainder, temp1, temp2);
+
+		        return remainder;
+		    }
+
+		    function modMul(multiplicand, /*@dynamic*/ multiplier, modulus, product, temp1, temp2) {
+		        /// <summary>Modular multiplication of two numbers for a modulus. This function uses multiply and divide method,
+		        /// and should not be used for repetitive operations.
+		        /// product can be same as multiplicand and multiplier.</summary>
+		        /// <param name="multiplicand" type="Array">Multiplicand.</param>
+		        /// <param name="multiplier">Multiplier.</param>
+		        /// <param name="modulus" type="Array">Modulus to reduce the product.</param>
+		        /// <param name="product" type="Array">Output product = multiplicand * multiplier mod modulus.</param>
+		        /// <param name="temp1" type="Array" optional="true">Scratch space (optional).</param>
+		        /// <param name="temp2" type="Array" optional="true">Scratch space (optional).</param>
+		        /// <returns type="Array">The resulting product in in 0..modulus-1; same as product.</returns>
+
+		        var quotient = [];
+		        multiply(multiplicand, multiplier, quotient);
+		        divRem(quotient, modulus, quotient, product, temp1, temp2);
+
+		        return product;
+		    }
+
+		    function eea(a, b, upp, vpp, rpp) {
+		        /// <summary>Extended Euclidean Algorithm, Berlekamp's version. On return
+		        /// b*upp - a*vpp = (-1)(k-1)*rpp.</summary>
+		        /// <param name="a" type="Array">The first number a.</param>
+		        /// <param name="b" type="Array">The second number b.</param>
+		        /// <param name="upp" type="Array">a^-1 mod b if gcd=1. Optional.</param>
+		        /// <param name="vpp" type="Array">b^-1 mod a if gcd=1. Optional./</param>
+		        /// <param name="rpp" type="Array">gcd(a,b).</param>
+		        /// <returns type="Number">k value.</returns>
+		        /// <remarks>, Pages 24-30.<code>
+		        ///     if k is odd
+		        ///         a*a^-1 = 1 mod b    ---> a^-1 = b - vpp
+		        ///         b*b^-1 = 1 mod a    ---> b^-1 = vpp
+		        ///     if k is even
+		        ///         a*a^-1 = 1 mod b    ---> a^-1 = upp
+		        ///         b*b^-1 = 1 mod a    ---> b^-1 = a - upp
+		        /// </code></remarks>
+		        // Initialize rpp and rp from two inputs a and b s.t. rpp >= rp
+		        var rp; // initialized from a or b
+		        if (isZero(a)) { // gcd = (0,b) = b
+		            copyArray(b, 0, rpp, 0, b.length);
+		            rpp.length = b.length;
+		            return 0;
+		        } else if (isZero(b)) { // gcd = (a,0) = a
+		            copyArray(a, 0, rpp, 0, a.length);
+		            rpp.length = a.length;
+		            return 0;
+		        } else if (compareDigits(a, b) < 0) {
+		            rp = a.slice(0);
+		            copyArray(b, 0, rpp, 0, b.length);
+		            rpp.length = b.length;
+		        } else {
+		            rp = b.slice(0);
+		            copyArray(a, 0, rpp, 0, a.length);
+		            rpp.length = a.length;
+		        }
+
+		        normalizeDigitArray(rpp);
+		        normalizeDigitArray(rp);
+		        var q = new Array(rpp.length);
+		        var r = new Array(rpp.length);
+
+		        var v = new Array(rpp.length);
+		        var vppPresent = vpp !== undefined;
+		        var vp;
+		        if (vppPresent) {
+		            vp = new Array(rpp.length);
+		            vp[0] = 1;
+		            vp.length = 1;
+		            vpp[0] = 0;
+		            vpp.length = 1;
+		        }
+
+		        var up;
+		        var u = new Array(rpp.length);
+		        var uppPresent = upp !== undefined;
+		        if (uppPresent) {
+		            up = new Array(rpp.length);
+		            up[0] = 0;
+		            up.length = 1;
+		            upp[0] = 1;
+		            upp.length = 1;
+		        }
+
+		        // k starts at -1 so that on return, it is >=0.
+		        // In the following discussion, assume a<b and this is computing a^-1 mod b where (a,b)=1, a<b.
+		        // Initialize rp=a, rpp=b.
+		        // The integer k keeps track of the sign of a^-1 (0 = positive) in b = q*a + r with 0 = q*a + r mod b
+		        // such that for q=a^-1 and r=1 (which is gcd=1 for inverse to exist), we have q*a = (-1)^k mod b.
+		        // Thus, for odd k, q*a = -1 mod b, and a^-1 = b-q as in the description.
+		        var k = -1;
+
+		        // At the end, gcd = rp = (a,b)
+		        // tslint:disable-next-line: variable-name
+		        var upp_out = upp;
+		        // tslint:disable-next-line: variable-name
+		        var vpp_out = vpp;
+		        // tslint:disable-next-line: variable-name
+		        var rpp_out = rpp;
+		        var save;
+
+		        // Recycle u and v as temp variables in division (divRem).
+		        while (!isZero(rp)) {
+		            // rpp = q*rp + r: compute q, r
+		            divRem(rpp, rp, q, r, u, v);
+
+		            if (uppPresent) {
+		                // u = q*up + upp
+		                // upp=up, up=u, u=upp
+		                multiply(q, up, u);
+		                add(u, upp, u);
+		                normalizeDigitArray(u);
+		                save = upp;
+		                upp = up;
+		                up = u;
+		                u = save;
+		            }
+
+		            if (vppPresent) {
+		                // v = q*vp + vpp
+		                // vpp=vp, vp=v, v=vpp
+		                multiply(q, vp, v);
+		                add(v, vpp, v);
+		                normalizeDigitArray(v);
+		                save = vpp;
+		                vpp = vp;
+		                vp = v;
+		                v = save;
+		            }
+
+		            // rpp=rp, rp=r, r=rpp
+		            save = rpp;
+		            rpp = rp;
+		            rp = r;
+		            r = save;
+
+		            k++;
+		        }
+
+		        // copy to output upp, vpp, rpp
+		        if (uppPresent) {
+		            copyArray(upp, 0, upp_out, 0, upp.length);
+		            upp_out.length = upp.length;
+		        }
+		        if (vppPresent) {
+		            copyArray(vpp, 0, vpp_out, 0, vpp.length);
+		            vpp_out.length = vpp.length;
+		        }
+		        copyArray(rpp, 0, rpp_out, 0, rpp.length);
+		        rpp_out.length = rpp.length;
+
+		        return k;
+		    }
+
+		    function gcd(a, b, output) {
+		        /// <summary>Compute greatest common divisor or a and b.</summary>
+		        /// <param name="a" type="Array">First integer input.</param>
+		        /// <param name="b" type="Array">Second integer input.</param>
+		        /// <param name="output" type="Array" optional="true">GCD output (optional).</param>
+		        /// <returns type="Array">GCD(a,b), the same object as the output parameter if given or a new
+		        ///     object otherwise.</returns >
+		        var aa = a;
+		        var bb = b;
+		        if (compareDigits(a, b) > 0) {
+		            aa = b;
+		            bb = a;
+		        }
+
+		        eea(aa, bb, undefined, undefined, output);
+		        return normalizeDigitArray(output);
+		    }
+
+		    function modInv(a, n, aInv, pad) {
+		        //
+		        // Not constant time
+		        // Use this when n is not prime
+		        //
+		        /// <summary>Modular multiplicative inverse a^-1 mod n.</summary>
+		        /// <param name="a" type="Array">The number to invert. Condition: a &lt; n, or the result would be
+		        ///     n ^ -1 mod a.</param >
+		        /// <param name="n" type="Array">The modulus.</param>
+		        /// <param name="aInv" type="Array" optional="true">a^-1 mod n (optional).</param>
+		        /// <param name="pad" type="Boolean" optional="true">True to pad the returned value to the length of the
+		        ///     modulus(optional).</param >
+		        /// <returns type="Array">a^-1 mod n. Same as the aInv parameter if the parameter is specified.</returns>
+		        //var gcd = eea(a, n, inv);
+		        var upp = new Array(n.length);
+		        var vpp = new Array(n.length);
+		        var rpp = new Array(n.length);
+		        var k = eea(a, n, vpp, upp, rpp);
+
+		        aInv = aInv || [];
+		        if (compareDigits(rpp, One) !== 0) {
+		            aInv[0] = NaN;
+		            aInv.length = 1;
+		        } else {
+		            // gcd = 1, there is an inverse.
+		            // Compute inverse from Berlekamp's EEA outputs.
+		            if ((k & 1) === 1) {
+		                subtract(n, upp, aInv);
+		            } else {
+		                copyArray(upp, 0, aInv, 0, upp.length);
+		                aInv.length = upp.length;
+		            }
+		            if (pad) {
+		                normalizeDigitArray(aInv, n.length, true);
+		            } else {
+		                normalizeDigitArray(aInv);
+		            }
+		        }
+
+		        return aInv;
+		    }
+
+		    function modInvCT(a, n, aInv, pad) {
+		        /// <summary>Modular multiplicative inverse a^-1 mod n.</summary>
+		        /// <param name="a" type="Array">The number to invert. Condition: a &lt; n, or the result would be
+		        ///     n ^ -1 mod a.</param >
+		        /// <param name="n" type="Array">The modulus.</param>
+		        /// <param name="aInv" type="Array" optional="true">a^-1 mod n (optional).</param>
+		        /// <param name="pad" type="Boolean" optional="true">True to pad the returned value to the length of the
+		        ///     modulus(optional).</param >
+		        /// <returns type="Array">a^-1 mod n. Same as the aInv parameter if the parameter is specified.</returns>
+
+		        // Constant time but slower modInv
+		        var nMinus2 = [];
+		        aInv = aInv || [];
+		        subtract(n, [2], nMinus2);
+		        modExp(a, nMinus2, n, aInv);
+		        normalizeDigitArray(aInv);
+		        return aInv;
+		    }
+
+		    function modExp(base, exponent, modulus, result) {
+		        /// <summary>Modular exponentiation in an integer group.</summary>
+		        /// <param name="base" type="Array">The base of the exponentiation.</param>
+		        /// <param name="exponent" type="Array">The exponent.</param>
+		        /// <param name="modulus" type="Array">Modulus to reduce the result.</param>
+		        /// <param name="result" type="Array" optional="true">Output element that takes the modular exponentiation
+		        ///     result(optional).</param >
+		        /// <returns type="Array">Modular exponentiation result, same as <param name="result"/> if not null,
+		        ///     or a new object.</returns >
+
+		        result = result || [];
+
+		        // If exponent is 0 return 1
+		        if (compareDigits(exponent, Zero) === 0) {
+		            result[0] = 1;
+		        } else if (compareDigits(exponent, One) === 0) {
+		            // If exponent is 1 return valueElement
+		            copyArray(base, 0, result, 0, base.length);
+		            result.length = base.length;
+		        } else {
+		            var montmul = new MontgomeryMultiplier(modulus);
+		            normalizeDigitArray(base, montmul.s, true);
+		            montmul.modExp(
+		                base,
+		                exponent,
+		                result);
+		            result.length = modulus.length;
+		        }
+
+		        return result;
+		    }
+
+		    function MontgomeryMultiplier(modulus, context) {
+		        /// <summary>Construct a new montgomeryMultiplier object with the given modulus.</summary>
+		        /// <param name="modulus" type="Array">A prime modulus in little-endian digit form</param>
+		        /// <remarks>Montgomery Multiplier class
+		        /// This class implements high performance montgomery multiplication using
+		        /// CIOS, as well as modular exponentiation.</remarks>
+
+		        function computeM0Prime(m0) {
+		            /// <summary>Compute m' = -(m^-1) mod b, 24 bit digits. Based on Tolga Acar's code.</summary>
+		            /// <param name="m0" type="Number" integer="true">Digit m.</param>
+		            /// <returns type="Number">Digit m'.</returns>
+		            var m0Pr = 1;
+		            var a = 2;
+		            var b = 3;
+		            var c = b & m0;
+
+		            for (var i = 2; i <= DIGIT_BITS; i += 1) {
+		                if (a < c) {
+		                    m0Pr += a;
+		                }
+
+		                a = a << 1;
+		                b = (b << 1) | 1;
+		                c = m0 * m0Pr & b;
+		            }
+
+		            var result = (~m0Pr & DIGIT_MASK) + 1;
+		            return result;
+		        }
+
+		        function montgomeryMultiply(multiplicand, multiplier, result, ctx) {
+		            /// <summary>Montgomery multiplication with the CIOS method.</summary>
+		            /// <param name="multiplicand" type="Array">Multiplicand.</param>
+		            /// <param name="multiplier" type="Array">Multiplier.</param>
+		            /// <param name="result" type="Array">Computed result multiplicand * multiplier * r^-1 mod n.</param>
+		            /// <param name="ctx" type="MontgomeryMultiplier" optional="true">Context (optional = this).</param>
+
+		            // uses new temp for results so we can mult result
+
+		            ctx = ctx || this;
+
+		            var m = ctx.m,
+		                s = m.length,
+		                mPrime = ctx.mPrime,
+		                m0 = ctx.m0,
+		                rightI, r0, q, i = 0,
+		                j, jm1, t1, t2, carry, rounds = 0;
+
+		            // create the temp array
+		            var temp = createArray(s + 2); //zeros.slice(0, s + 1);
+
+		            while (i < s) {
+
+		                rounds = Math.min(s, rounds + 16);
+
+		                for (; i < rounds;) {
+
+		                    rightI = ~~multiplier[i];
+
+		                    r0 = temp[0] + multiplicand[0] * rightI;
+
+		                    q = ((r0 & DIGIT_MASK) * mPrime) & DIGIT_MASK;
+
+		                    temp[1] += ((m0 * q + r0) * DIG_INV) | 0;
+
+		                    for (j = 1, jm1 = 0; j < s; jm1 = j, j += 1) {
+		                        temp[jm1] = temp[j] + m[j] * q + multiplicand[j] * rightI;
+		                    }
+		                    temp[jm1] = temp[j];
+		                    temp[j] = 0;
+
+		                    i++;
+		                }
+
+		                carry = 0;
+		                for (j = 0; j < s; j++) {
+		                    t1 = temp[j] + carry;
+		                    t2 = t1 & DIGIT_MASK;
+		                    temp[j] = t2;
+		                    carry = (t1 - t2) * DIG_INV;
+		                }
+		                temp[j] = carry;
+		            }
+
+		            for (i = 0; i < s; i += 1) {
+		                result[i] = temp[i];
+		            }
+		            result.length = s;
+
+		            // Subtract modulus
+		            var needSubtract = +(cryptoMath.compareDigits(temp, m) > 0);
+		            cryptoMath.subtract(result, m, ctx.temp2);
+
+		            ctSetArray(needSubtract, result, ctx.temp2);
+
+		            return;
+		        }
+
+		        function convertToMontgomeryForm( /*@type(Digits)*/ digits) {
+		            /// <summary>Convert the digits in standard form to Montgomery residue representation.</summary>
+		            /// <param name="digits" type="Array">Input digits to convert, and also the output converted digits.</param>
+
+		            // Pad missing digits with zeros
+		            if (digits.length < this.s) {
+		                digits.length = this.s;
+		                for (var i = 0; i < this.s; i++) {
+		                    digits[i] = isNaN(digits[i]) ? 0 : digits[i];
+		                }
+		            }
+
+		            var result = createArray(digits.length);
+
+		            this.montgomeryMultiply(digits, this.rSquaredModm, result);
+		            for (i = 0; i < this.s; i += 1) {
+		                digits[i] = result[i];
+		            }
+		        }
+
+		        function convertToStandardForm(digits) {
+		            /// <summary>Convert from Montgomery residue representation to the standard form.</summary>
+		            /// <param name="digits" type="Array">Input digits to convert, and also the output converted digits.</param>
+		            this.montgomeryMultiply(digits, this.one, this.temp1);
+		            for (var i = 0; i < this.s; i += 1) {
+		                digits[i] = this.temp1[i];
+		            }
+		        }
+
+		        function optimalWindowSize(length) {
+
+		            var i = 2,
+		                t1, t0, bits = length * DIGIT_BITS;
+
+		            t0 = 4 + Math.ceil(bits / 2) * 3 + 1;
+		            do {
+		                i++;
+		                t1 = t0;
+		                t0 = Math.pow(2, i) + Math.ceil(bits / i) * (i + 1) + 1;
+		            } while (t0 < t1);
+
+		            return i - 1;
+		        }
+
+		        function modExp(base, exponent, result, skipSideChannel) {
+		            /// <summary>Compute base to exponent mod m into result.</summary>
+		            /// <param name="base" type="Array">Base of length s in the context.</param>
+		            /// <param name="exponent" type="Array">Exponent.</param>
+		            /// <param name="result" type="Array">Output as base raised to exponent, and reduced to the modulus
+		            ///     in the context.</param >
+		            /// <returns type="Array">result base^exponent mod m; the same result object.</returns>
+
+		            skipSideChannel = !!skipSideChannel;
+
+		            var windowBits = optimalWindowSize(exponent.length);
+
+		            var i, j,
+		                expBits = fixedWindowRecode2(exponent, windowBits).reverse(),
+		                partialResult = this.rModM.slice(0),
+		                baseTableLen = Math.pow(2, windowBits),
+		                bt = baseTable;
+
+		            // Prepare the precomputation table of base for k bits
+		            // base[0..n] = [r, r*base, r*base^2, r*base^3, ...] mod m
+		            bt.length = baseTableLen;
+		            bt[0] = this.rModM;
+		            for (i = 1; i < baseTableLen; i++) {
+		                bt[i] = [];
+		                multiply(bt[i - 1], base, bt[i]);
+		                this.reduce(bt[i]);
+		                //normalizeDigitArray(bt[i], this.m.length);
+		            }
+
+		            var tableVal = [];
+		            var exp;
+
+		            for (i = 0; i < expBits.length; i++) {
+		                for (j = 0; j < windowBits; j++) {
+		                    this.montgomeryMultiply(partialResult, partialResult, partialResult);
+		                }
+
+		                // windowed exponent bits
+		                exp = expBits[i];
+
+		                skipSideChannel ?  // allow faster lookup if explicitly requested.
+		                    (tableVal = bt[exp]) :
+		                    getTableEntry(bt, exp, tableVal);
+
+		                this.montgomeryMultiply(partialResult, tableVal, partialResult);
+		            }
+
+		            this.montgomeryMultiply(partialResult, this.one, result);
+
+		            return result;
+		        }
+
+		        function getTableEntry(bt, exp, tableVal) {
+
+		            var z, t, mask, tableEntry, k;
+		            // Constant-time/mem-access of pre-computation table
+		            // Runs through each table entry value. Use mask to copy the desired value to tableVal
+		            for (z = 0; z < bt[0].length; z++) { tableVal[z] = 0; } // zero-out the result
+		            for (t = 0; t < bt.length; t++) {
+		                tableEntry = bt[t];
+		                mask = -(exp === t);
+		                for (k = 0; k < tableEntry.length; k++) {
+		                    tableVal[k] = tableVal[k] | (tableEntry[k] & mask);
+		                }
+		            }
+		        }
+
+		        function ctSetArray(condition, a, b) {
+		            // condition: 1 = b->a
+		            //            0 = a->a
+		            var bMask = -condition; // condition = 1? bCond = -1 : bCond = -0
+		            var aMask = ~bMask;     // condition = 1? aCond = 0  : aCond = -1
+
+		            for (var i = 0; i < a.length; i++) {
+		                a[i] = (a[i] & aMask) | (b[i] & bMask);
+		            }
+		        }
+
+		        function reduce(x, result) {
+		            // Barrett Reduction
+
+		            // Requires mu = b^2k/m. mu is precomputed when MontgomeryMultiplier is initialized.
+		            // Therefore this will only reduce by the modulus used for initialization.
+
+		            var k = this.m.length,
+		                q1, q2, q3,
+		                r1, r2,
+		                i,
+		                needSubtract,
+		                temp = [];
+
+		            // overwrite input if output not supplied
+		            result = result || x;
+
+		            // 1. q1←[x/b^k−1], q2←q1 · mu, q3←bq2/bk+1c.
+		            q1 = x.slice(k - 1);
+		            q2 = []; multiply(q1, this.mu, q2);
+		            q3 = q2.slice(k + 1);
+
+		            // 2. r1←x mod bk + 1, r2←q3 · m mod bk + 1, r←r1 − r2.
+		            r1 = x.slice(0, k + 1);
+		            r2 = []; multiply(q3, m, r2); r2 = r2.slice(0, k + 1);
+
+		            //3. If r < 0 then r←r + bk+1.
+		            r1[k + 1] = compareDigits(r1, r2) >>> 31;
+
+		            for (i = 0; i < result.length; i++) { result[i] = 0; }
+		            subtract(r1, r2, result);
+
+		            //4. If r ≥ m do: r←r − m.
+		            needSubtract = +(compareDigits(result, m) > 0);
+		            cryptoMath.subtract(result, m, temp);
+		            ctSetArray(needSubtract, result, temp);
+
+		            normalizeDigitArray(result);
+
+		            return;
+		        }
+
+		        // precompute values we'll use later
+		        function computeContext(modulus) {
+
+		            // Operand size (number of digits)
+		            var s = modulus.length;
+
+		            // First digit of modulus
+		            var m0 = modulus[0];
+
+		            var ctx = {
+		                m: modulus,
+		                mPrime: computeM0Prime(m0),
+		                m0: m0,
+		                temp1: createArray(2 * s + 1),
+		                temp2: createArray(2 * s + 1)
+		            };
+
+		            // Barrett pre-computation
+		            var R = createArray(modulus.length * 2); R[R.length] = 1;
+		            ctx.mu = []; divRem(R, modulus, ctx.mu, []);
+
+		            // Create r and compute r mod m
+		            // Since we are base b integers of length s, we want
+		            // 'r = b^n = b^s'.
+		            var quotient = createArray(2 * s + 1);
+		            var rRemainder = createArray(s + 1); // becomes rModM
+		            var temp1 = createArray(2 * s + 1);
+		            var temp2 = createArray(2 * s + 1);
+		            var rDigits = rRemainder;
+		            rDigits[s] = 1;
+		            divRem(rDigits, modulus, quotient, rRemainder, temp1, temp2);
+		            ctx.rModM = normalizeDigitArray(rRemainder, s, true);
+
+		            // Compute R^2 mod m
+		            var rSquaredModm = createArray(2 * s + 1);
+		            var rSquaredDigits = rSquaredModm;
+		            rSquaredDigits[s * 2] = 1;
+		            divRem(rSquaredDigits, modulus, quotient, rSquaredModm, temp1, temp2);
+		            ctx.rSquaredModm = normalizeDigitArray(rSquaredModm, s, true);
+
+		            // Ready to do MontMul now - compute R^3
+		            ctx.rCubedModm = createArray(s);
+		            montgomeryMultiply(rSquaredModm, rSquaredModm, ctx.rCubedModm, ctx);
+
+		            return ctx;
+		        }
+
+		        // if a context is supplied, use it's values - if not, generate a new context
+		        context = context || computeContext(modulus);
+
+		        // set the member values from the context
+
+		        // Modulus
+		        var m = context.m;
+
+		        // Barrett pre-computation of this modulus
+		        var mu = context.mu;
+
+		        // First digit of modulus
+		        var m0 = context.m0;
+
+		        // Operand size (number of digits)
+		        var s = m.length;
+
+		        // we'll use slice on this when we need a fresh array of zeros
+		        var zeros = createArray(s + 1);
+
+		        // The number one - used by modpow
+		        var one = zeros.slice(0, s);
+		        one[0] = 1;
+
+		        // Compute m' = -(m^-1) mod b used by CIOS
+		        var mPrime = context.mPrime;
+
+		        // Create r and compute r mod m
+		        // Since we are base b integers of length s, we want
+		        // 'r = b^n = b^s'.
+		        var rModM = context.rModM;
+
+		        // Compute R^2 mod m
+		        var rSquaredModm = context.rSquaredModm;
+
+		        // Ready to do MontMul now - compute R^3
+		        var rCubedModm = context.rCubedModm;
+
+		        var temp1 = createArray(2 * s + 1);
+		        var temp2 = createArray(2 * s + 1);
+
+		        // Allocate space for multi-bit modular exponentiation
+		        var baseTable = new Array(4);
+		        baseTable[0] = rModM;
+		        baseTable[1] = new Array(s);
+		        baseTable[2] = new Array(s);
+		        baseTable[3] = new Array(s);
+
+		        // Return a per-instance context for Montgomery multiplier.
+		        // There is no need to use the "new" keyword when using this function.
+		        return {
+		            // Modulus
+		            m: m,
+
+		            // First digit of modulus
+		            m0: m0,
+
+		            // Compute m' = -(m^-1) mod b used by CIOS
+		            mPrime: mPrime,
+		            mu: mu,
+
+		            rSquaredModm: rSquaredModm,
+		            s: s,
+		            rModM: rModM,
+		            rCubedModm: rCubedModm,
+		            one: one,
+		            temp1: temp1,
+		            temp2: temp2,
+
+		            // Functions
+		            convertToMontgomeryForm: convertToMontgomeryForm,
+		            convertToStandardForm: convertToStandardForm,
+		            montgomeryMultiply: montgomeryMultiply,
+		            modExp: modExp,
+		            reduce: reduce,
+
+		            ctx: context
+		        };
+		    }
+
+		    function IntegerGroup(modulusBytes) {
+		        /// <summary>Construct a new IntegerGroup object with the given modulus.</summary>
+		        /// <param name="modulusBytes" type="Array">A big-endian number to represent the modulus in a
+		        ///     byte array.</param >
+		        /// <remarks>This class represents the set of integers mod n. It is meant to be used in
+		        /// a variety of situations, for example to perform operations in the additive
+		        /// or multiplicative groups mod n. The modulus can be an arbitrary integer and
+		        /// in the case that it is a prime p then the integer group is the field Fp. The
+		        /// user should be aware of what type of object the given modulus produces, and
+		        /// thus which operations are valid.</remarks>
+
+		        // Modulus
+		        // tslint:disable-next-line: variable-name
+		        var m_modulus = bytesToDigits(modulusBytes);
+
+		        // Length of an element in digits
+		        // tslint:disable-next-line: variable-name
+		        var m_digitWidth = m_modulus.length;
+
+		        // Setup numeric constants
+		        // tslint:disable-next-line: variable-name
+		        var m_zero = intToDigits(0, m_digitWidth);
+		        // tslint:disable-next-line: variable-name
+		        var m_one = intToDigits(1, m_digitWidth);
+
+		        // Temp storage.
+		        // Allocation in js is very slow, we use these temp arrays to avoid it.
+		        var temp0 = createArray(m_digitWidth);
+		        var temp1 = createArray(m_digitWidth);
+
+		        // Create Montgomery multiplier object
+		        var montmul = new MontgomeryMultiplier(m_modulus);
+
+		        function createElementFromBytes(bytes) {
+		            /// <summary>Create a new element object from a byte value.</summary>
+		            /// <param name="bytes" type="Array">Desired element in big-endian format in an array of bytes.</param>
+		            /// <returns type="integerGroupElement">An element object representing the given element.</returns>
+		            var digits = bytesToDigits(bytes);
+
+		            // Check size of the new element
+		            if (cryptoMath.compareDigits(digits, this.m_modulus) >= 0) {
+		                // Too many digits
+		                throw new Error("The number provided is not an element of this group");
+		            }
+
+		            // expand to the group modulus length
+		            normalizeDigitArray(digits, this.m_digitWidth, true);
+		            return integerGroupElement(digits, this);
+		        }
+
+		        function createElementFromInteger(integer) {
+		            /// <summary>Create a new element object from an integer value.</summary>
+		            /// <param name="integer" type="Number" integer="true">Desired element as an integer.</param>
+		            /// <returns type="integerGroupElement">An element object representing the given element.</returns>
+		            var digits = intToDigits(integer, this.m_digitWidth);
+		            return integerGroupElement(digits, this);
+		        }
+
+		        function createElementFromDigits(digits) {
+		            /// <summary>Create a new element object from a digit array.</summary>
+		            /// <param name="digits" type="Array">Desired element as a digit array.</param>
+		            /// <returns type="integerGroupElement">Object initialized with the given value.</returns>
+		            cryptoMath.normalizeDigitArray(digits, this.m_digitWidth, true);
+		            return integerGroupElement(digits, this);
+		        }
+
+		        function equals(otherGroup) {
+		            /// <summary>Return true if the given object is equivalent to this one.</summary>
+		            /// <param name="otherGroup" type="IntegerGroup"/>)
+		            /// <returns type="Boolean">True if the given objects are equivalent.</returns>
+
+		            return compareDigits(this.m_modulus, otherGroup.m_modulus) === 0;
+		        }
+
+		        function add(addend1, addend2, sum) {
+		            /// <summary>Add this element to another element.</summary>
+		            /// <param name="addend1" type="integerGroupElement"/>
+		            /// <param name="addend2" type="integerGroupElement"/>
+		            /// <param name="sum" type="integerGroupElement"/>
+
+		            var i;
+		            var s = this.m_digitWidth;
+		            var result = sum.m_digits;
+		            cryptoMath.add(addend1.m_digits, addend2.m_digits, result);
+		            var mask = (compareDigits(result, this.m_modulus) >>> 31) - 1 & DIGIT_MASK;
+
+		            // Conditional reduction by the modulus (one subtraction, only) only if the sum>modulus in almost
+		            //     constant time.
+		            // The result is unmodified if the computed sum < modulus already.
+		            var carry = 0;
+		            for (i = 0; i < s; i += 1) {
+		                carry = result[i] - (this.m_modulus[i] & mask) + carry;
+		                result[i] = carry & DIGIT_MASK;
+		                carry = (carry >> DIGIT_BITS);
+		            }
+
+		            result.length = s;
+		        }
+
+		        function subtract(leftElement, rightElement, outputElement) {
+		            /// <summary>Subtract an element from another element.</summary>
+		            /// <param name="leftElement" type="integerGroupElement"/>
+		            /// <param name="rightElement" type="integerGroupElement"/>
+		            /// <param name="outputElement" type="integerGroupElement"/>
+
+		            var i, s = this.m_digitWidth;
+		            var result = outputElement.m_digits;
+		            var carry = cryptoMath.subtract(leftElement.m_digits, rightElement.m_digits, outputElement.m_digits);
+
+		            // Final borrow?
+		            if (carry === -1) {
+		                carry = 0;
+		                for (i = 0; i < s; i += 1) {
+		                    carry += result[i] + this.m_modulus[i];
+		                    result[i] = carry & DIGIT_MASK;
+		                    carry = carry >> DIGIT_BITS;
+		                }
+		            }
+		        }
+
+		        function inverse(element, outputElement) {
+		            /// <summary>Compute the modular inverse of the given element.</summary>
+		            /// <param name="element" type="integerGroupElement">The element to be inverted.</param>
+		            /// <param name="outputElement" type="integerGroupElement">Receives the inverse element.</param>
+		            cryptoMath.modInv(element.m_digits, this.m_modulus, outputElement.m_digits);
+		        }
+
+		        function multiply(multiplicand, multiplier, product) {
+		            /// <summary>Multiply an element by another element in the integer group.</summary>
+		            /// <param name="multiplicand" type="integerGroupElement">Multiplicand.</param>
+		            /// <param name="multiplier" type="integerGroupElement">Multiplier.</param>
+		            /// <param name="product" type="integerGroupElement">Product reduced by the group modulus.</param>
+		            /// <returns type="Array">Same as <param name="product"/>.</returns>
+
+		            return cryptoMath.modMul(multiplicand.m_digits, multiplier.m_digits, this.m_modulus,
+		                product.m_digits, temp0, temp1);
+		        }
+
+		        function modexp(valueElement, exponent, outputElement) {
+		            /// <summary>Modular exponentiation in an integer group.</summary>
+		            /// <param name="valueElement" type="integerGroupElement">The base input to the exponentiation.</param>
+		            /// <param name="exponent" type="Array">The exponent is an unsigned integer.</param>
+		            /// <param name="outputElement" type="integerGroupElement" optional="true">Output element that takes
+		            //      the modular exponentiation result.</param >
+		            /// <returns type="integerGroupElement">Computed result. Same as <param name="outputElement"/>
+		            ///     if not null, a new object otherwise.</returns >
+
+		            outputElement = outputElement || integerGroupElement([], this);
+
+		            // If exponent is 0 return 1
+		            if (compareDigits(exponent, m_zero) === 0) {
+		                outputElement.m_digits = intToDigits(1, this.m_digitWidth);
+		            } else if (compareDigits(exponent, m_one) === 0) {
+		                // If exponent is 1 return valueElement
+		                for (var i = 0; i < valueElement.m_digits.length; i++) {
+		                    outputElement.m_digits[i] = valueElement.m_digits[i];
+		                }
+		                outputElement.m_digits.length = valueElement.m_digits.length;
+		            } else {
+		                this.montmul.modExp(
+		                    valueElement.m_digits,
+		                    exponent,
+		                    outputElement.m_digits);
+		                outputElement.m_digits.length = this.montmul.s;
+		            }
+
+		            return outputElement;
+		        }
+
+		        function integerGroupElement(digits, group) {
+		            /// <summary>integerGroupElement inner class.
+		            /// Create a new integer element mod n.
+		            /// </summary>
+		            /// <param name="digits" type="Array">
+		            /// An array of digits representing the element.
+		            /// </param>
+		            /// <param name="group" type="IntegerGroup">
+		            /// The parent group to which this element belongs.
+		            /// </param>
+
+		            // The value given in digits
+		            // must be &gt;= 0 and &;lt; modulus. Note that the constructor should not be
+		            // visible to the user, user should use group.createElementFromDigits(). This way we
+		            // can use any digit size and endian-ness we wish internally, operating in
+		            // our chosen representation until such time as the user wishes to produce
+		            // a byte array as output, which will be done by calling
+		            // toByteArrayUnsigned(). Note that other properties and methods are meant
+		            // to be "public" of course and thus callable by the user.
+
+		            return {
+		                // Variables
+		                m_digits: digits,
+		                m_group: group,
+
+		                // Functions
+		                equals: function(element) {
+		                    /// <summary>Compare an elements to this for equality.</summary>
+		                    /// <param name="element" type="integerGroupElement">Element to compare.</param>
+		                    /// <returns>True if elements are equal, false otherwise.</returns>
+		                    return (compareDigits(this.m_digits, element.m_digits) === 0) &&
+		                        this.m_group.equals(this.m_group, element.m_group);
+		                }
+		            };
+		        }
+
+		        return {
+		            // Variables
+		            m_modulus: m_modulus,
+		            m_digitWidth: m_digitWidth,
+		            montmul: montmul,
+
+		            // Functions
+		            createElementFromInteger: createElementFromInteger,
+		            createElementFromBytes: createElementFromBytes,
+		            createElementFromDigits: createElementFromDigits,
+		            equals: equals,
+		            add: add,
+		            subtract: subtract,
+		            multiply: multiply,
+		            inverse: inverse,
+		            modexp: modexp
+		        };
+		    }
+
+		    return {
+		        DIGIT_BITS: DIGIT_BITS,
+		        DIGIT_NUM_BYTES: DIGIT_NUM_BYTES,
+		        DIGIT_MASK: DIGIT_MASK,
+		        DIGIT_BASE: DIGIT_BASE,
+		        DIGIT_MAX: DIGIT_MAX,
+		        Zero: Zero,
+		        One: One,
+
+		        normalizeDigitArray: normalizeDigitArray,
+		        bytesToDigits: bytesToDigits,
+		        stringToDigits: stringToDigits,
+		        digitsToString: digitsToString,
+		        intToDigits: intToDigits,
+		        digitsToBytes: digitsToBytes,
+		        isZero: isZero,
+		        isEven: isEven,
+
+		        shiftRight: shiftRight,
+		        shiftLeft: shiftLeft,
+		        compareDigits: compareDigits,
+		        bitLength: highestSetBit,
+
+		        fixedWindowRecode: fixedWindowRecode,
+		        IntegerGroup: IntegerGroup,
+
+		        add: add,
+		        subtract: subtract,
+		        multiply: multiply,
+		        divRem: divRem,
+		        reduce: reduce,
+		        modInv: modInv,
+		        modInvCT: modInvCT,
+		        modExp: modExp,
+		        modMul: modMul,
+		        MontgomeryMultiplier: MontgomeryMultiplier,
+		        gcd: gcd,
+
+		        createArray: createArray,
+		        //fetchBits: fetchBits
+
+		        // Used by tests only
+		        sequenceEqual: sequenceEqual,
+		        swapEndianness: function(bytes) { return bytes.reverse(); },
+		        computeBitArray: computeBitArray
+		    };
+		}
+
+		var cryptoMath = cryptoMath || msrcryptoMath();
+
+		/* commonjs-block */
+		{
+		    module.exports = cryptoMath;
+		}
+		/* end-commonjs-block */ 
+	} (cryptoMath$1));
+
+	var cryptoMathExports = cryptoMath$1.exports;
+	var cryptoMath = /*@__PURE__*/getDefaultExportFromCjs(cryptoMathExports);
+
+	(function (module, exports) {
+		//*******************************************************************************
+		//
+		//    Copyright 2020 Microsoft
+		//
+		//    Licensed under the Apache License, Version 2.0 (the "License");
+		//    you may not use this file except in compliance with the License.
+		//    You may obtain a copy of the License at
+		//
+		//        http://www.apache.org/licenses/LICENSE-2.0
+		//
+		//    Unless required by applicable law or agreed to in writing, software
+		//    distributed under the License is distributed on an "AS IS" BASIS,
+		//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+		//    See the License for the specific language governing permissions and
+		//    limitations under the License.
+		//
+		//*******************************************************************************
+
+		/* commonjs-block */
+		var cryptoMath;
+		var msrcryptoUtilities;
+		if(typeof commonjsRequire === "function" ) {
+		    msrcryptoUtilities = requireUtilities();
+		    cryptoMath = cryptoMathExports;
+		} 
+		/* end-commonjs-block */
+
+		// tslint:disable: no-bitwise
+
+		/// cryptoECC.js ==================================================================================
+		/// Implementation of Elliptic Curve math routines for cryptographic applications.
+
+		function MsrcryptoECC() {
+		    /// <summary>Elliptic Curve Cryptography (ECC) functions.</summary>
+
+		    var btd = cryptoMath.bytesToDigits;
+
+		    var utils = msrcryptoUtilities;
+
+		    var setterSupport = utils.setterSupport;
+
+		    // Create an array, mimics the constructors for typed arrays.
+		    function createArray(/*@dynamic*/parameter) {
+		        var i, array = null;
+		        if (!arguments.length || typeof arguments[0] === "number") {
+		            // A number.
+		            array = [];
+		            for (i = 0; i < parameter; i += 1) {
+		                array[i] = 0;
+		            }
+		        } else if (typeof arguments[0] === "object") {
+		            // An array or other index-able object
+		            array = [];
+		            for (i = 0; i < parameter.length; i += 1) {
+		                array[i] = parameter[i];
+		            }
+		        }
+		        return array;
+		    }
+
+		    var EllipticCurveFp = function(p1, a1, b1, order, gx, gy) {
+		        /// <param name="p1" type="Digits"/>
+		        /// <param name="a1" type="Digits"/>
+		        /// <param name="b1" type="Digits"/>
+		        /// <param name="order" type="Digits"/>
+		        /// <param name="gx" type="Digits"/>
+		        /// <param name="gy" type="Digits"/>
+		        /// <returns type="EllipticCurveFp"/>
+
+		        var fieldStorageBitLength = p1.length;
+
+		        var generator = EllipticCurvePointFp(this, false, gx, gy, null, false);
+
+		        return {
+		            p: p1,                  // field prime
+		            a: a1,                  // Weierstrass coefficient a
+		            b: b1,                  // Weierstrass coefficient b
+		            order: order,           // EC group order
+		            generator: generator,   // EC group generator
+		            allocatePointStorage: function() {
+		                return EllipticCurvePointFp(
+		                    this,
+		                    false,
+		                    cryptoMath.intToDigits(0, fieldStorageBitLength),
+		                    cryptoMath.intToDigits(0, fieldStorageBitLength)
+		                );
+		            },
+		            createPointAtInfinity: function() {
+		                return EllipticCurvePointFp(
+		                    this,
+		                    true,
+		                    cryptoMath.intToDigits(0, fieldStorageBitLength),
+		                    cryptoMath.intToDigits(0, fieldStorageBitLength)
+		                );
+		            }
+		        };
+		    };
+
+		    var createWeierstrassCurve = function(curveData) {
+
+		        var newCurve = new EllipticCurveFp(
+		            btd(curveData.p), // P
+		            btd(curveData.a), // A
+		            btd(curveData.b), // B
+		            btd(curveData.order), // Order
+		            btd(curveData.gx), // gX
+		            btd(curveData.gy)  // gy
+		        );
+
+		        newCurve.type = curveData.type;
+		        newCurve.name = curveData.name;
+		        newCurve.generator.curve = newCurve;
+
+		        return newCurve;
+		    };
+
+		    var createTedCurve = function(curveData) {
+
+		        //var btd = cryptoMath.bytesToDigits;
+
+		        var newCurve = new EllipticCurveFp(
+		            btd(curveData.p), // P
+		            btd(curveData.a), // A
+		            btd(curveData.d), // D
+		            btd(curveData.order), // Order
+		            btd(curveData.gx), // gX
+		            btd(curveData.gy)  // gy
+		        );
+
+		        newCurve.type = curveData.type;
+
+		        if (newCurve.type === 1) {
+		            newCurve.d = newCurve.b.slice();
+		            delete newCurve.b;
+		        }
+
+		        newCurve.rbits = curveData.info[2];
+		        newCurve.name = curveData.name;
+		        newCurve.generator.curve = newCurve;
+
+		        return newCurve;
+		    };
+
+		    var EllipticCurvePointFp = function(curve, isInfinity, x, y, z, isInMontgomeryForm) {
+		        /// <param name="curve" type="EllipticCurveFp"/>
+		        /// <param name="isInfinity" type="Boolean"/>
+		        /// <param name="x" type="Digits"/>
+		        /// <param name="y" type="Digits"/>
+		        /// <param name="z" type="Digits" optional="true"/>
+		        /// <param name="isInMontgomeryForm" type="Boolean" optional="true"/>
+		        /// <returns type="EllipticCurvePointFp"/>
+
+		        var returnObj;
+
+		        // 'optional' parameters
+		        if (typeof z === "undefined") {
+		            z = null;
+		        }
+
+		        var isAffine = z === null;
+
+		        if (typeof isInMontgomeryForm === "undefined") {
+		            isInMontgomeryForm = false;
+		        }
+
+		        function equals(/*@type(EllipticCurvePointFp)*/ellipticCurvePointFp) {
+		            /// <param name="ellipticCurvePointFp" type="EllipticCurvePointFp"/>
+
+		            // If null
+		            if (!ellipticCurvePointFp) {
+		                return false;
+		            }
+
+		            // Infinity == infinity
+		            if (returnObj.isInfinity && ellipticCurvePointFp.isInfinity) {
+		                return true;
+		            }
+
+		            // Otherwise its member-wise comparison
+
+		            if (returnObj.z === null && ellipticCurvePointFp.z !== null) {
+		                return false;
+		            }
+
+		            if (returnObj.z !== null && ellipticCurvePointFp.z === null) {
+		                return false;
+		            }
+
+		            if (returnObj.z === null) {
+		                return cryptoMath.compareDigits(returnObj.x, ellipticCurvePointFp.x) === 0 &&
+		                    cryptoMath.compareDigits(returnObj.y, ellipticCurvePointFp.y) === 0 &&
+		                    returnObj.isInMontgomeryForm === ellipticCurvePointFp.isInMontgomeryForm;
+		            }
+
+		            return cryptoMath.compareDigits(returnObj.x, ellipticCurvePointFp.x) === 0 &&
+		                cryptoMath.compareDigits(returnObj.y, ellipticCurvePointFp.y) === 0 &&
+		                cryptoMath.compareDigits(returnObj.z, ellipticCurvePointFp.z) === 0 &&
+		                returnObj.isInMontgomeryForm === ellipticCurvePointFp.isInMontgomeryForm;
+		        }
+
+		        function copyTo(/*@type(EllipticCurvePointFp)*/ source, /*@type(EllipticCurvePointFp)*/ destination) {
+		            /// <param name="source" type="EllipticCurvePointFp"/>
+		            /// <param name="destination" type="EllipticCurvePointFp"/>
+
+		            destination.curve = source.curve;
+		            destination.x = source.x.slice();
+		            destination.y = source.y.slice();
+
+		            if (source.z !== null) {
+		                destination.z = source.z.slice();
+		            } else {
+		                destination.z = null;
+		            }
+
+		            // tslint:disable-next-line: no-unused-expression
+		            setterSupport || (destination.isAffine = source.isAffine);
+		            destination.isInMontgomeryForm = source.isInMontgomeryForm;
+		            destination.isInfinity = source.isInfinity;
+
+		            if (!destination.equals(source)) {
+		                throw new Error("Instances should be equal.");
+		            }
+
+		        }
+
+		        function clone() {
+
+		            var clonePoint = EllipticCurvePointFp(
+		                returnObj.curve,
+		                returnObj.isInfinity,
+		                createArray(returnObj.x),
+		                createArray(returnObj.y),
+		                returnObj.z ? createArray(returnObj.z) : null,
+		                returnObj.isInMontgomeryForm);
+
+		            // tslint:disable-next-line: no-unused-expression
+		            returnObj.ta && (clonePoint.ta = createArray(returnObj.ta));
+		            // tslint:disable-next-line: no-unused-expression
+		            returnObj.tb && (clonePoint.tb = createArray(returnObj.tb));
+
+		            return clonePoint;
+		        }
+
+		        returnObj = /*@static_cast(EllipticCurvePointFp)*/ {
+		            equals: function (ellipticCurvePointFp) {
+		                return equals(ellipticCurvePointFp);
+		            },
+		            copy: function (destination) {
+		                copyTo(this, destination);
+		                return;
+		            },
+		            clone: function () {
+		                return clone();
+		            }
+		        };
+
+		        utils.createProperty(returnObj, "curve", curve, function () { return curve; }, function (val) { curve = val; });
+
+		        utils.createProperty(returnObj, "x", x, function () { return x; }, function (val) { x = val; });
+		        utils.createProperty(returnObj, "y", y, function () { return y; }, function (val) { y = val; });
+		        utils.createProperty(returnObj, "z", z, function () { return z; }, function (val) { z = val; });
+
+		        utils.createProperty(returnObj, "isInMontgomeryForm", isInMontgomeryForm,
+		            function () { return isInMontgomeryForm; }, function (val) { isInMontgomeryForm = val; });
+		        utils.createProperty(returnObj, "isInfinity", isInfinity,
+		            function () { return isInfinity; }, function (val) { isInfinity = val; });
+				utils.createProperty(returnObj, "isAffine", isAffine, 
+		            function () { return z === null; }, function (val) { isAffine = val; });
+
+		        return returnObj;
+		    };
+
+		    var EllipticCurveOperatorFp = function(curve) {
+
+		        var tedCurve = curve.type === 1;
+
+		        var fieldElementWidth = curve.p.length;
+
+		        var montgomeryMultiplier = cryptoMath.MontgomeryMultiplier(curve.p);
+
+		        // Pre-compute and store the montgomeryized form of A, and set our
+		        // zero flag to determine whether or not we should use implementations
+		        // optimized for A = 0.
+		        var montgomerizedA = curve.a.slice();
+		        montgomeryMultiplier.convertToMontgomeryForm(montgomerizedA);
+
+		        var aequalsZero = cryptoMath.isZero(curve.a);
+
+		        var one = cryptoMath.One;
+
+		        var onemontgomery = createArray(fieldElementWidth);
+		        onemontgomery[0] = 1;
+		        montgomeryMultiplier.convertToMontgomeryForm(onemontgomery);
+
+		        var group = cryptoMath.IntegerGroup(cryptoMath.digitsToBytes(montgomeryMultiplier.m), true);
+
+		        // Setup temp storage.
+		        var temp0 = createArray(fieldElementWidth);
+		        var temp1 = createArray(fieldElementWidth);
+		        var temp2 = createArray(fieldElementWidth);
+		        var temp3 = createArray(fieldElementWidth);
+		        var temp4 = createArray(fieldElementWidth);
+		        var temp5 = createArray(fieldElementWidth);
+		        var temp6 = createArray(fieldElementWidth);
+		        var temp7 = createArray(fieldElementWidth);
+		        var swap0 = createArray(fieldElementWidth);
+
+		        // Some additional temp storage used in point conversion routines.
+		        var conversionTemp0 = createArray(fieldElementWidth);
+		        var conversionTemp1 = createArray(fieldElementWidth);
+		        var conversionTemp2 = createArray(fieldElementWidth);
+
+		        function modSub(left, right, result) {
+		            var resultElement = group.createElementFromInteger(0);
+		            resultElement.m_digits = result;
+		            group.subtract(
+		                group.createElementFromDigits(left),
+		                group.createElementFromDigits(right),
+		                resultElement);
+		        }
+
+		        function modAdd(left, right, result) {
+		            var resultElement = group.createElementFromInteger(0);
+		            resultElement.m_digits = result;
+		            group.add(
+		                group.createElementFromDigits(left),
+		                group.createElementFromDigits(right),
+		                resultElement);
+		        }
+
+		        function modDivByTwo( /*@type(Digits)*/ dividend,  /*@type(Digits)*/ result) {
+
+		            var s = dividend.length;
+
+		            var modulus = curve.p;
+
+		            // If dividend is odd, add modulus
+		            if ((dividend[0] & 0x1) === 0x1) {
+		                var carry = 0;
+
+		                for (var i = 0; i < s; i += 1) {
+		                    carry += dividend[i] + modulus[i];
+		                    result[i] = carry & cryptoMath.DIGIT_MASK;
+		                    carry = carry >>> cryptoMath.DIGIT_BITS;
+		                }
+
+		                // Put carry bit into position for masking in
+		                carry = carry << cryptoMath.DIGIT_BITS - 1;
+
+		                // Bit shift
+		                cryptoMath.shiftRight(result, result);
+
+		                // Mask in the carry bit
+		                result[s - 1] |= carry;
+		            } else {
+		                // Shift directly into result
+		                cryptoMath.shiftRight(dividend, result);
+		            }
+
+		        }
+
+		        function montgomeryMultiply(left, right, result) {
+		            montgomeryMultiplier.montgomeryMultiply(
+		                left,
+		                right,
+		                result);
+		        }
+
+		        function montgomerySquare(left, result) {
+		            montgomeryMultiplier.montgomeryMultiply(
+		                left,
+		                left,
+		                result);
+		        }
+
+		        function doubleAequalsNeg3(point, outputPoint) {
+		            /// <param name="point" type="EllipticCurvePointFp"/>
+		            /// <param name="outputPoint" type="EllipticCurvePointFp"/>
+
+		            // If point = infinity then outputPoint := infinity.
+		            if (point.isInfinity) {
+		                outputPoint.isInfinity = true;
+		                return;
+		            }
+
+		            // t1 = z^2
+		            montgomerySquare(point.z, temp1);
+
+		            // t4 = zy
+		            montgomeryMultiply(point.z, point.y, temp4);
+
+		            // t2 = x + z^2
+		            // t2 = x + t1
+		            modAdd(point.x, temp1, temp2);
+
+		            // t1 = x - z^2
+		            // t1 = x - t1
+		            modSub(point.x, temp1, temp1);
+
+		            // Zfinal = zy
+		            outputPoint.z = temp4.slice();
+
+		            // t3 = (x + z^2)(x - z^2)
+		            montgomeryMultiply(temp1, temp2, temp3);
+
+		            // t2 = (x + z^2)(x - z^2)/2
+		            modDivByTwo(temp3, temp2);
+
+		            // t1 = alpha = 3(x + z^2)(x - z^2)/2
+		            modAdd(temp3, temp2, temp1);
+
+		            // t2 = y^2
+		            montgomerySquare(point.y, temp2);
+
+		            // t4 = alpha^2
+		            montgomerySquare(temp1, temp4);
+
+		            // t3 = beta = xy^2
+		            montgomeryMultiply(point.x, temp2, temp3);
+
+		            // t4 = alpha^2-beta
+		            modSub(temp4, temp3, temp4);
+
+		            // Xfinal = alpha^2-2beta
+		            modSub(temp4, temp3, outputPoint.x);
+
+		            // t4 = beta-Xfinal
+		            modSub(temp3, outputPoint.x, temp4);
+
+		            // t3 = y^4
+		            montgomerySquare(temp2, temp3);
+
+		            // t3 = y^4
+		            montgomeryMultiply(temp1, temp4, temp2);
+
+		            // Yfinal = alpha.(beta-Xfinal)-y^4
+		            modSub(temp2, temp3, outputPoint.y);
+
+		            // Finalize the flags on the output point.
+		            outputPoint.isInfinity = false;
+		            outputPoint.isInMontgomeryForm = true;
+		        }
+
+		        function doubleAequals0(point, outputPoint) {
+		            /// <param name="point" type="EllipticCurvePointFp"/>
+		            /// <param name="outputPoint" type="EllipticCurvePointFp"/>
+
+		            // If point = infinity then outputPoint := infinity.
+		            if (point.isInfinity) {
+		                outputPoint.isInfinity = true;
+		                return;
+		            }
+
+		            // 't3:=Y1^2;'
+		            montgomerySquare(point.y, temp3);
+
+		            // 't4:=X1^2;'
+		            montgomerySquare(point.x, temp4);
+
+		            // 't4:=3*t4;'
+		            modAdd(temp4, temp4, temp0);
+		            modAdd(temp0, temp4, temp4);
+
+		            // 't5:=X1*t3;'
+		            montgomeryMultiply(point.x, temp3, temp5);
+
+		            // 't0:=t3^2;'
+		            montgomerySquare(temp3, temp0);
+
+		            // 't1:=t4/2;'
+		            modDivByTwo(temp4, temp1);
+
+		            // 't3:=t1^2;'
+		            montgomerySquare(temp1, temp3);
+
+		            // 'Z_out:=Y1*Z1;'
+		            montgomeryMultiply(point.y, point.z, swap0);
+		            for (var i = 0; i < swap0.length; i += 1) {
+		                outputPoint.z[i] = swap0[i];
+		            }
+
+		            // 'X_out:=t3-2*t5;'
+		            modSub(temp3, temp5, outputPoint.x);
+		            modSub(outputPoint.x, temp5, outputPoint.x);
+
+		            // 't4:=t5-X_out;'
+		            modSub(temp5, outputPoint.x, temp4);
+
+		            // 't2:=t1*t4;'
+		            montgomeryMultiply(temp1, temp4, temp2);
+
+		            // 'Y_out:=t2-t0;'
+		            modSub(temp2, temp0, outputPoint.y);
+
+		            // Finalize the flags on the output point.
+		            outputPoint.isInfinity = false;
+		            outputPoint.isInMontgomeryForm = true;
+		        }
+
+		        // Given a povar P on an elliptic curve, return a table of
+		        // size 2^(w-2) filled with pre-computed values for
+		        // P, 3P, 5P, ... Etc.
+		        function generatePrecomputationTable(w, generatorPoint) {
+		            /// <summary>Given a point P on an elliptic curve, return a table of
+		            /// size 2^(w-2) filled with pre-computed values for
+		            /// P, 3P, 5P, ... Etc.</summary>
+		            /// <param name="w" type="Array">Window size</param>
+		            /// <param name="generatorPoint" type="EllipticCurvePointFp"></param>
+		            /// <returns type="Array">Precomputation table</returns>
+
+		            var validationPoint = generatorPoint.clone();
+		            convertToStandardForm(validationPoint);
+		            if (!validatePoint(validationPoint)) {
+		                throw new Error("Invalid Parameter");
+		            }
+
+		            // Create a Jacobian clone
+		            var pointJac = generatorPoint.clone();
+		            convertToJacobianForm(pointJac);
+
+		            var tablePos = [generatorPoint.clone()];
+
+		            // Q := P;
+		            var qJac = pointJac.clone();
+
+		            // Px2 = 2 * P
+		            var px2 = pointJac.clone();
+		            double(pointJac, px2);
+		            convertToAffineForm(px2);
+
+		            var qAff;
+
+		            for (var i = 1; i < Math.pow(2, w - 2); i++) {
+
+		                //Q := Q+P2;
+		                mixedAdd(qJac, px2, qJac);
+
+		                qAff = qJac.clone();
+		                convertToAffineForm(qAff);
+
+		                tablePos[i] = qAff;
+		            }
+
+		            return tablePos;
+		        }
+
+		        function double(point, outputPoint) {
+		            /// <param name="point" type="EllipticCurvePointFp"/>
+		            /// <param name="outputPoint" type="EllipticCurvePointFp"/>
+
+		            if (typeof point === "undefined") {
+		                throw new Error("point undefined");
+		            }
+		            if (typeof outputPoint === "undefined") {
+		                throw new Error("outputPoint undefined");
+		            }
+
+		            //// if (!point.curve.equals(outputPoint.curve)) {
+		            ////    throw new Error("point and outputPoint must be from the same curve object.");
+		            //// }
+
+		            if (point.isAffine) {
+		                throw new Error("Given point was in Affine form. Use convertToJacobian() first.");
+		            }
+
+		            if (!point.isInMontgomeryForm) {
+		                throw new Error("Given point must be in Montgomery form. Use montgomeryize() first.");
+		            }
+		            // Currently we support only two curve types, those with A=-3, and
+		            // those with A=0. In the future we will implement general support.
+		            // For now we switch here, assuming that the curve was validated in
+		            // the constructor.
+		            if (aequalsZero) {
+		                doubleAequals0(point, outputPoint);
+		            } else {
+		                doubleAequalsNeg3(point, outputPoint);
+		            }
+
+		        }
+
+		        function mixedDoubleAdd(jacobianPoint, affinePoint, outputPoint) {
+		            /// <param name="jacobianPoint" type="EllipticCurvePointFp"/>
+		            /// <param name="affinePoint" type="EllipticCurvePointFp"/>
+		            /// <param name="outputPoint" type="EllipticCurvePointFp"/>
+
+		            if (jacobianPoint.isInfinity) {
+		                affinePoint.copy(outputPoint);
+		                this.convertToJacobianForm(outputPoint);
+		                return;
+		            }
+
+		            if (affinePoint.isInfinity) {
+		                jacobianPoint.copy(outputPoint);
+		                return;
+		            }
+
+		            // Ok then we do the full double and add.
+
+		            // Note: in pseudo-code the uppercase X,Y,Z is Jacobian point, lower
+		            // case x, y, z is Affine point.
+
+		            // 't5:=Z1^ 2;'
+		            montgomerySquare(jacobianPoint.z, temp5);
+
+		            // 't6:=Z1*t5;'
+		            montgomeryMultiply(jacobianPoint.z, temp5, temp6);
+
+		            // 't4:=x2*t5;'
+		            montgomeryMultiply(affinePoint.x, temp5, temp4);
+
+		            // 't5:=y2*t6;'
+		            montgomeryMultiply(affinePoint.y, temp6, temp5);
+
+		            // 't1:=t4-X1;'
+		            modSub(temp4, jacobianPoint.x, temp1);
+
+		            // 't2:=t5-Y1;'
+		            modSub(temp5, jacobianPoint.y, temp2);
+
+		            //if t1 eq 0 then
+		            if (cryptoMath.isZero(temp1)) {
+		                // if t2 eq 0 then
+		                if (cryptoMath.isZero(temp2)) {
+		                    //  X2,Y2,Z2 := DBL(X1,Y1,Z1,prime,rr,m,RR);
+		                    // return mADD(X2,Y2,Z2,x2,y2,prime,rr,m,RR);
+		                    double(jacobianPoint, outputPoint);
+		                    mixedAdd(outputPoint, affinePoint, outputPoint);
+		                    return;
+		                } else {
+		                    // return X1,Y1,Z1;Z
+		                    outputPoint.x = jacobianPoint.x.slice(0);
+		                    outputPoint.y = jacobianPoint.y.slice(0);
+		                    outputPoint.z = jacobianPoint.z.slice(0);
+		                    return;
+		                }
+		            }
+
+		            // 't4:=t2^2;'
+		            montgomerySquare(temp2, temp4);
+
+		            // 't6:=t1^2;'
+		            montgomerySquare(temp1, temp6);
+
+		            // 't5:=t6*X1;'
+		            montgomeryMultiply(temp6, jacobianPoint.x, temp5);
+
+		            // 't0:=t1*t6;'
+		            montgomeryMultiply(temp1, temp6, temp0);
+
+		            // 't3:=t4-2*t5;'
+		            modSub(temp4, temp5, temp3);
+		            modSub(temp3, temp5, temp3);
+
+		            // 't4:=Z1*t1;'
+		            montgomeryMultiply(jacobianPoint.z, temp1, temp4);
+
+		            // 't3:=t3-t5;'
+		            modSub(temp3, temp5, temp3);
+
+		            // 't6:=t0*Y1;'
+		            montgomeryMultiply(temp0, jacobianPoint.y, temp6);
+
+		            // 't3:=t3-t0;'
+		            modSub(temp3, temp0, temp3);
+
+		            //if t3 eq 0 then
+		            //    return 0,1,0;
+		            //end if;
+		            //var temp3isZero = cryptoMath.isZero(temp3);
+
+		            // for (var i = 0; i < temp3.length; i++) {
+		            //     if (temp3[i] !== 0) {
+		            //         temp3isZero = false;
+		            //         break;
+		            //     }
+		            // }
+
+		            if (cryptoMath.isZero(temp3)) {
+		                for (i = 0; i < outputPoint.x.length; i++) {
+		                    outputPoint.x[i] = 0;
+		                    outputPoint.y[i] = 0;
+		                    outputPoint.z[i] = 0;
+		                }
+		                outputPoint.y[0] = 1;
+		                return;
+		            }
+
+		            // 't1:=2*t6;'
+		            modAdd(temp6, temp6, temp1);
+
+		            // 'Zout:=t4*t3;'
+		            montgomeryMultiply(temp4, temp3, outputPoint.z);
+
+		            // 't4:=t2*t3;'
+		            montgomeryMultiply(temp2, temp3, temp4);
+
+		            // 't0:=t3^2;'
+		            montgomerySquare(temp3, temp0);
+
+		            // 't1:=t1+t4;'
+		            modAdd(temp1, temp4, temp1);
+
+		            // 't4:=t0*t5;'
+		            montgomeryMultiply(temp0, temp5, temp4);
+
+		            // 't7:=t1^2;'
+		            montgomerySquare(temp1, temp7);
+
+		            // 't4:=t0*t5;'
+		            montgomeryMultiply(temp0, temp3, temp5);
+
+		            // 'Xout:=t7-2*t4;'
+		            modSub(temp7, temp4, outputPoint.x);
+		            modSub(outputPoint.x, temp4, outputPoint.x);
+
+		            // 'Xout:=Xout-t5;'
+		            modSub(outputPoint.x, temp5, outputPoint.x);
+
+		            // 't3:=Xout-t4;'
+		            modSub(outputPoint.x, temp4, temp3);
+
+		            // 't0:=t5*t6;'
+		            montgomeryMultiply(temp5, temp6, temp0);
+
+		            // 't4:=t1*t3;'
+		            montgomeryMultiply(temp1, temp3, temp4);
+
+		            // 'Yout:=t4-t0;'
+		            modSub(temp4, temp0, outputPoint.y);
+
+		            outputPoint.isInfinity = false;
+		            outputPoint.isInMontgomeryForm = true;
+
+		        }
+
+		        function mixedAdd(jacobianPoint, affinePoint, outputPoint) {
+		            /// <param name="jacobianPoint" type="EllipticCurvePointFp"/>
+		            /// <param name="affinePoint" type="EllipticCurvePointFp"/>
+		            /// <param name="outputPoint" type="EllipticCurvePointFp"/>
+
+		            if (jacobianPoint === null) {
+		                throw new Error("jacobianPoint");
+		            }
+
+		            if (affinePoint === null) {
+		                throw new Error("affinePoint");
+		            }
+
+		            if (outputPoint === null) {
+		                throw new Error("outputPoint");
+		            }
+
+		            if (jacobianPoint.curve !== affinePoint.curve ||
+		                jacobianPoint.curve !== outputPoint.curve) {
+		                throw new Error("All points must be from the same curve object.");
+		            }
+
+		            if (jacobianPoint.isAffine) {
+		                throw new Error(
+		                    "Given jacobianPoint was in Affine form. Use ConvertToJacobian()\
+	                     before calling DoubleJacobianAddAffinePoints().");
+		            }
+
+		            if (!affinePoint.isAffine) {
+		                throw new Error(
+		                    "Given affinePoint was in Jacobian form. Use ConvertToAffine() before \
+	                     calling DoubleJacobianAddAffinePoints().");
+		            }
+
+		            if (outputPoint.isAffine) {
+		                throw new Error(
+		                    "Given jacobianPoint was in Jacobian form. Use ConvertToJacobian() before \
+	                     calling DoubleJacobianAddAffinePoints().");
+		            }
+
+		            if (!jacobianPoint.isInMontgomeryForm) {
+		                throw new Error("Jacobian point must be in Montgomery form");
+		            }
+
+		            if (!affinePoint.isInMontgomeryForm) {
+		                throw new Error("Affine point must be in Montgomery form");
+		            }
+
+		            if (jacobianPoint.isInfinity) {
+		                affinePoint.copy(outputPoint);
+		                this.convertToJacobianForm(outputPoint);
+		                return;
+		            }
+
+		            if (affinePoint.isInfinity) {
+		                jacobianPoint.copy(outputPoint);
+		                return;
+		            }
+
+		            // Ok then we do the full double and add.
+
+		            // Note: in pseudo-code the uppercase X1,Y1,Z1 is Jacobian point,
+		            // lower case x2, y2, z2 is Affine point.
+
+		            //if (X1 eq 0) and (Y1 eq 1) and (Z1 eq 0) then
+		            //    z2 := ToMontgomery(1,prime,rr,m,RR);
+		            //    return x2,y2;
+		            //end if;
+		            //if (x2 eq 0) and (y2 eq 1) then
+		            //    return X1,Y1,Z1;
+		            //end if;
+
+		            // 't1 := Z1^2;'.
+		            montgomerySquare(jacobianPoint.z, temp1);
+
+		            // 't2 := t1 * Z1;'
+		            montgomeryMultiply(temp1, jacobianPoint.z, temp2);
+
+		            // 't3 := t1 * x2;'
+		            montgomeryMultiply(temp1, affinePoint.x, temp3);
+
+		            // 't4 := t2 * y2;'
+		            montgomeryMultiply(temp2, affinePoint.y, temp4);
+
+		            // 't1 := t3 - X1;'
+		            modSub(temp3, jacobianPoint.x, temp1);
+
+		            // 't2 := t4 - Y1;'
+		            modSub(temp4, jacobianPoint.y, temp2);
+
+		            // If t1 != 0 then
+		            var i;
+		            for (i = 0; i < temp1.length; i += 1) {
+		                if (temp1[i] !== 0) {
+
+		                    // 'Zout := Z1 * t1;'
+		                    montgomeryMultiply(jacobianPoint.z, temp1, temp0);
+		                    for (var j = 0; j < fieldElementWidth; j += 1) {
+		                        outputPoint.z[j] = temp0[j];
+		                    }
+
+		                    // 't3 := t1^2;'
+		                    montgomerySquare(temp1, temp3);
+
+		                    // 't4 := t3 * t1;'
+		                    montgomeryMultiply(temp3, temp1, temp4);
+
+		                    // 't5 := t3 * X1;'
+		                    montgomeryMultiply(temp3, jacobianPoint.x, temp5);
+
+		                    // 't1 := 2 * t5;'
+		                    modAdd(temp5, temp5, temp1);
+
+		                    // 'Xout := t2^2;'
+		                    montgomerySquare(temp2, outputPoint.x);
+
+		                    // 'Xout := Xout - t1;'
+		                    modSub(outputPoint.x, temp1, outputPoint.x);
+
+		                    // 'Xout := Xout - t4;'
+		                    modSub(outputPoint.x, temp4, outputPoint.x);
+
+		                    // 't3 := t5 - Xout;'
+		                    modSub(temp5, outputPoint.x, temp3);
+
+		                    // 't5 := t3*t2;'
+		                    montgomeryMultiply(temp2, temp3, temp5);
+
+		                    // 't6 := t4*Y1;'
+		                    montgomeryMultiply(jacobianPoint.y, temp4, temp6);
+
+		                    // 'Yout := t5-t6;'
+		                    modSub(temp5, temp6, outputPoint.y);
+
+		                    outputPoint.isInfinity = false;
+		                    outputPoint.isInMontgomeryForm = true;
+
+		                    return;
+		                }
+		            }
+
+		            // Else if T2 != 0 then
+		            for (i = 0; i < temp2.length; i += 1) {
+		                if (temp2[i] !== 0) {
+		                    //         Return infinity
+		                    outputPoint.isInfinity = true;
+		                    outputPoint.isInMontgomeryForm = true;
+		                    return;
+		                }
+		            }
+		            // Else use DBL routine to return 2(x2, y2, 1)
+		            affinePoint.copy(outputPoint);
+		            this.convertToJacobianForm(outputPoint);
+		            this.double(outputPoint, outputPoint);
+		            outputPoint.isInMontgomeryForm = true;
+
+		        }
+
+		        function scalarMultiply(k, point, outputPoint, multiplyBy4) {
+		            /// <param name="k" type="Digits"/>
+		            /// <param name="point" type="EllipticCurvePointFp"/>
+		            /// <param name="outputPoint" type="EllipticCurvePointFp"/>
+
+		            // Special case for the point at infinity or k == 0
+		            if (point.isInfinity || cryptoMath.isZero(k)) {
+		                outputPoint.isInfinity = true;
+		                return;
+		            }
+
+		            // Runtime check for 1 <= k < order to ensure we don't get hit by
+		            // subgroup attacks. Since k is a FixedWidth it is a positive integer
+		            // and we already checked for zero above. So it must be >= 1 already.
+		            if (cryptoMath.compareDigits(k, curve.order) >= 0) {
+		                throw new Error("The scalar k must be in the range 1 <= k < order.");
+		            }
+
+		            // copy k so we can modify it without modifying the passed in array.
+		            k = k.slice();
+
+		            if (point.curve.type === 1 /* TED */) {
+
+		                var pointIsEP = typeof point.ta !== "undefined";
+
+		                if (!pointIsEP) {
+		                    convertToExtendedProjective(point);
+		                }
+
+		                scalarMultiplyTed(k, point, outputPoint, multiplyBy4);
+
+		                // Convert the points back to standard if they arrived that way.
+		                if (!pointIsEP) {
+		                    normalizeTed(point);
+		                }
+
+		            } else {
+
+		                var pointIsMF = point.isInMontgomeryForm,
+		                    outputIsMF = outputPoint.isInMontgomeryForm,
+		                    outputIsAffine = outputPoint.isAffine;
+
+		                // Convert parameters to Montgomery form if not already.
+		                if (!pointIsMF) {
+		                    convertToMontgomeryForm(point);
+		                }
+
+		                if (!outputIsMF) {
+		                    convertToMontgomeryForm(outputPoint);
+		                }
+
+		                scalarMultiplyW(k, point, outputPoint);
+
+		                // outputPoint returns as Jacobian - convert back to original state.
+		                if (outputIsAffine) {
+		                    convertToAffineForm(outputPoint);
+		                }
+
+		                // Convert the points back to standard if they arrived that way.
+		                if (!pointIsMF) {
+		                    convertToStandardForm(point);
+		                }
+
+		                if (!outputIsMF) {
+		                    convertToStandardForm(outputPoint);
+		                }
+		            }
+
+		            return;
+
+		        }
+
+		        function scalarMultiplyW(k, point, outputPoint) {
+		            /// <param name="k" type="Digits"/>
+		            /// <param name="point" type="EllipticCurvePointFp"/>
+		            /// <param name="outputPoint" type="EllipticCurvePointFp"/>
+
+		            // The point should be in Montgomery form.
+		            var validationPoint = point.clone();
+		            convertToStandardForm(validationPoint);
+
+		            if (!validatePoint(validationPoint)) {
+		                throw new Error("Invalid Parameters.");
+		            }
+
+		            var odd = k[0] & 1,
+		                tempk = [];
+
+		            // If (odd) then k = temp else k = k
+		            modSub(point.curve.order, k, tempk);
+		            for (i = 0; i < k.length; i++) {
+		                k[i] = odd - 1 & (k[i] ^ tempk[i]) ^ k[i];
+		            }
+
+		            // Change w based on the size of the digits,
+		            // 5 is good for 256 bits, use 6 for bigger sizes.
+		            var w = fieldElementWidth <= 8 ? 5 : 6;
+		            var m = point.curve.p.length * cryptoMath.DIGIT_BITS;
+		            var t = Math.ceil(m / (w - 1));
+
+		            var kDigits = cryptoMath.fixedWindowRecode(k, w, t);
+
+		            var Tm = generatePrecomputationTable(w, point);
+
+		            var position =
+		                Math.floor(Math.abs(kDigits[t]) - 1) / 2;
+
+		            var Q = Tm[position].clone();
+		            convertToJacobianForm(Q);
+
+		            for (var i = t - 1; i >= 0; i--) {
+
+		                for (var j = 0; j < w - 2; j++) {
+		                    double(Q, Q);
+		                }
+
+		                position = Math.floor((Math.abs(kDigits[i]) - 1) / 2);
+
+		                var L = tableLookupW(Tm, position);
+
+		                // if (kDigits[i] < 0) negate(L) - constant-time
+		                //modSub(L.curve.p, L.y, [tempk, L.y][kDigits[i] >>> 31]);
+		                modSub(L.curve.p, L.y, tempk);
+		                var mask = -(kDigits[i] >>> 31);
+		                for (var n = 0; n < L.y.length; n++) {
+		                    L.y[n] = (L.y[n] & ~mask) | (tempk[n] & mask);
+		                }
+
+		                mixedDoubleAdd(Q, L, Q);
+
+		            }
+
+		            // if k is even, negate Q
+		            modSub(point.curve.p, Q.y, tempk);
+		            for (i = 0; i < Q.y.length; i++) {
+		                Q.y[i] = odd - 1 & (Q.y[i] ^ tempk[i]) ^ Q.y[i];
+		            }
+
+		            Q.copy(outputPoint);
+
+		            return;
+
+		        }
+
+		        function tableLookupW(table, index) {
+
+		            var mask,
+		                L;
+
+		            for (var i = 0; i < table.length; i++) {
+		                mask = +(i === index);
+		                L = [L, table[i].clone()][mask];
+		            }
+
+		            return L;
+		        }
+
+		        function negate(point, outputPoint) {
+		            /// <param name="point" type="EllipticCurvePointFp">Input point to negate.</param>
+		            /// <param name="outputPoint" type="EllipticCurvePointFp">(x, p - y).</param>
+
+		            if (point !== outputPoint) {
+		                point.copy(outputPoint);
+		            }
+		            modSub(point.curve.p, point.y, outputPoint.y);
+		        }
+
+		        function convertToMontgomeryForm(point) {
+		            /// <param name="point" type="EllipticCurvePointFp"/>
+
+		            if (point.isInMontgomeryForm) {
+		                throw new Error("The given point is already in Montgomery form.");
+		            }
+
+		            if (!point.isInfinity) {
+		                montgomeryMultiplier.convertToMontgomeryForm(point.x);
+		                montgomeryMultiplier.convertToMontgomeryForm(point.y);
+
+		                if (point.z !== null) {
+		                    montgomeryMultiplier.convertToMontgomeryForm(point.z);
+		                }
+
+		                if (typeof point.ta !== "undefined") {
+		                    montgomeryMultiplier.convertToMontgomeryForm(point.ta);
+		                    montgomeryMultiplier.convertToMontgomeryForm(point.tb);
+		                }
+		            }
+
+		            point.isInMontgomeryForm = true;
+		        }
+
+		        function convertToStandardForm(point) {
+		            /// <param name="point" type="EllipticCurvePointFp"/>
+
+		            if (!point.isInMontgomeryForm) {
+		                throw new Error("The given point is not in montgomery form.");
+		            }
+
+		            if (!point.isInfinity) {
+		                montgomeryMultiplier.convertToStandardForm(point.x);
+		                montgomeryMultiplier.convertToStandardForm(point.y);
+		                if (point.z !== null) {
+		                    montgomeryMultiplier.convertToStandardForm(point.z);
+		                }
+		                if (typeof point.ta !== "undefined") {
+		                    montgomeryMultiplier.convertToStandardForm(point.ta);
+		                    montgomeryMultiplier.convertToStandardForm(point.tb);
+		                }
+		            }
+
+		            point.isInMontgomeryForm = false;
+
+		        }
+
+		        function convertToAffineForm(point) {
+		            /// <param name="point" type="EllipticCurvePointFp"/>
+
+		            if (point.isInfinity) {
+		                point.z = null;
+		                // tslint:disable-next-line: no-unused-expression
+		                setterSupport || (point.isAffine = true);
+		                return;
+		            }
+
+		            // DETERMINE 1/Z IN MONTGOMERY FORM --------------------------------
+
+		            // Call out to the basic inversion function, not the one in this class.
+		            cryptoMath.modInv(point.z, curve.p, conversionTemp2, true);
+
+		            if (point.isInMontgomeryForm) {
+		                montgomeryMultiply(conversionTemp2, montgomeryMultiplier.rCubedModm, conversionTemp1);
+		                var swap = conversionTemp2;
+		                conversionTemp2 = conversionTemp1;
+		                conversionTemp1 = swap;
+		            }
+
+		            // CONVERT TO AFFINE COORDS ----------------------------------------
+
+		            // 'temp0 <- 1/z^2'
+		            montgomerySquare(conversionTemp2, conversionTemp0);
+
+		            // Compute point.x = x / z^2 mod p
+		            // NOTE: We cannot output directly to the X digit array since it is
+		            // used for input to the multiplication routine, so we output to temp1
+		            // and copy.
+		            montgomeryMultiply(point.x, conversionTemp0, conversionTemp1);
+		            for (var i = 0; i < fieldElementWidth; i += 1) {
+		                point.x[i] = conversionTemp1[i];
+		            }
+
+		            // Compute point.y = y / z^3 mod p
+		            // temp1 <- y * 1/z^2.
+		            montgomeryMultiply(point.y, conversionTemp0, conversionTemp1);
+		            // 'y <- temp1 * temp2 (which == 1/z)'
+		            montgomeryMultiply(conversionTemp1, conversionTemp2, point.y);
+
+		            // Finally, point.z = z / z mod p = 1
+		            // We use z = NULL for this case to make detecting Jacobian form
+		            // faster (otherwise we would have to scan the entire Z digit array).
+		            point.z = null;
+
+		            delete point.ta;
+		            delete point.tb;
+
+		            // tslint:disable-next-line: no-unused-expression
+		            setterSupport || (point.isAffine = true);
+		        }
+
+		        function convertToJacobianForm(point) {
+		            /// <param name="point" type="EllipticCurvePointFp"/>
+
+		            if (!point.isAffine) {
+		                throw new Error("The given point is not in Affine form.");
+		            }
+
+		            // tslint:disable-next-line: no-unused-expression
+		            setterSupport || (point.isAffine = false);
+
+		            var clonedDigits,
+		                i,
+		                zOne = point.isInMontgomeryForm ? onemontgomery : one;
+
+		            clonedDigits = createArray(zOne.length);
+		            for (i = 0; i < zOne.length; i += 1) {
+		                clonedDigits[i] = zOne[i];
+		            }
+
+		            point.z = clonedDigits;
+
+		            return;
+		        }
+
+		        function validatePoint(point) {
+		            /// <summary>
+		            /// Point validation
+		            //  Check if point P=(x,y) lies on the curve and if x,y are in [0, p-1]
+		            /// </summary>
+
+		            if (point.isInfinity) {
+		                return false;
+		            }
+
+		            // Does P lie on the curve?
+		            cryptoMath.modMul(point.y, point.y, point.curve.p, temp1);
+
+		            cryptoMath.modMul(point.x, point.x, point.curve.p, temp2);
+		            cryptoMath.modMul(point.x, temp2, point.curve.p, temp3);
+		            modAdd(temp3, point.curve.b, temp2);
+		            cryptoMath.modMul(point.x, point.curve.a, point.curve.p, temp3);
+		            modAdd(temp2, temp3, temp2);
+		            modSub(temp1, temp2, temp1);
+
+		            if (cryptoMath.isZero(temp1) === false) {
+		                return false;
+		            }
+
+		            return true;
+		        }
+
+		        /// Ted functions
+
+		        function validatePointTed(point) {
+
+		            if (point.ta) {
+		                point = point.clone();
+		                normalizeTed(point);
+		            }
+
+		            // Does P lie on the curve?
+		            cryptoMath.modMul(point.y, point.y, point.curve.p, temp3);
+		            cryptoMath.modMul(point.x, point.x, point.curve.p, temp2);
+
+		            cryptoMath.add(temp2, temp3, temp1);
+		            cryptoMath.reduce(temp4, point.curve.p, temp4);
+
+		            cryptoMath.modMul(temp2, temp3, point.curve.p, temp4);
+		            cryptoMath.modMul(point.curve.d, temp4, point.curve.p, temp3);
+
+		            cryptoMath.add(temp3, [1], temp2);
+		            cryptoMath.reduce(temp2, point.curve.p, temp2);
+
+		            cryptoMath.subtract(temp1, temp2, temp1);
+
+		            if (cryptoMath.isZero(temp1) === false) {
+		                cryptoMath.reduce(temp1, point.curve.p, temp1);
+		                if (cryptoMath.isZero(temp1) === false) {
+		                    return false;
+		                }
+		            }
+
+		            return true;
+		        }
+
+		        function generatePrecomputationTableTed(npoints, point) {
+
+		            // Precomputation function, points are stored using representation (X,Y,Z,dT)
+		            // Twisted Edwards a=1 curve
+
+		            var Q = point.clone(),
+		                P2 = Q.clone(),
+		                T = [];
+
+		            // Generating P2 = 2(X1,Y1,Z1,T1a,T1b) -> (XP2,YP2,ZP2,d*TP2) and T[0] = P = (X1,Y1,Z1,T1a,T1b)
+		            T[0] = convert_R1_to_R2(point);
+		            doubleTed(Q, Q);
+		            P2 = convert_R1_to_R2(Q);
+		            Q = point.clone();
+
+		            for (var i = 1; i < npoints; i++) {
+		                // T[i] = 2P+T[i-1] = (2*i+1)P = (XP2,Y2P,ZP2,d*TP2) + (X_(2*i-1), Y_(2*i-1), Z_(2*i-1), Ta_(2*i-1),
+		                // Tb_(2 * i - 1)) = (X_(2 * i + 1), Y_(2 * i + 1), Z_(2 * i + 1), d * T_(2 * i + 1))
+		                addTedExtended(P2, Q, Q);
+		                T[i] = convert_R1_to_R2(Q);
+		            }
+
+		            return T;
+		        }
+
+		        function convertToExtendedProjective(affinePoint) {
+		            affinePoint.ta = affinePoint.x.slice();
+		            affinePoint.tb = affinePoint.y.slice();
+		            affinePoint.z = [1];
+		        }
+
+		        function scalarMultiplyTed(k, point, outputPoint, multiplyBy4) {
+
+		            if (!validatePointTed(point)) {
+		                throw new Error("Invalid Parameter");
+		            }
+
+		            var rbits = point.curve.rbits;
+		            multiplyBy4 = typeof multiplyBy4 === "undefined" ? true : multiplyBy4;
+
+		            var w = fieldElementWidth <= 8 ? 5 : 6;
+
+		            var t = Math.floor((rbits + (w - 2)) / (w - 1));
+		            var i, j;
+
+		            // copy k so we can modify it without modifying the passed in array.
+		            k = k.slice();
+
+		            var T = point.clone();
+
+		            convertToExtendedProjective(T);
+
+		            if (multiplyBy4) {
+		                doubleTed(T, T);
+		                doubleTed(T, T);
+		            }
+
+		            var precomputationTable = generatePrecomputationTableTed(1 << w - 2, T);
+
+		            var odd = k[0] & 1,
+		                tempk = [];
+
+		            // If (odd) then k = temp else k = k
+		            modSub(point.curve.order, k, tempk);
+		            for (i = 0; i < k.length; i++) {
+		                k[i] = odd - 1 & (k[i] ^ tempk[i]) ^ k[i];
+		            }
+
+		            var kDigits = cryptoMath.fixedWindowRecode(k, w, t);
+
+		            var position =
+		                Math.floor(Math.abs(kDigits[t]) - 1) / 2;
+
+		            var R = precomputationTable[position];
+
+		            T.x = R.x.slice();
+		            T.y = R.y.slice();
+		            T.z = R.z.slice();
+
+		            for (i = t - 1; i >= 0; i--) {
+
+		                for (j = 0; j < w - 1; j++) {
+		                    doubleTed(T, T);
+		                }
+
+		                position = Math.floor((Math.abs(kDigits[i]) - 1) / 2);
+
+		                var L = tableLookupTed(precomputationTable, position);
+
+		                // subtract if k is negative - constant time
+		                // modSub(point.curve.p, L.x, [tempk, L.x][kisNeg]);
+		                // modSub(point.curve.p, L.td, [tempk, L.td][kisNeg]);
+
+		                var mask = -(kDigits[i] >>> 31);
+
+		                modSub(point.curve.p, L.x, tempk);
+		                for (var m = 0; m < L.x.length; m++) {
+		                    L.x[m] = (L.x[m] & ~mask) | (tempk[m] & mask);
+		                }
+
+		                modSub(point.curve.p, L.td, tempk);
+		                for (m = 0; m < L.td.length; m++) {
+		                    L.td[m] = (L.td[m] & ~mask) | (tempk[m] & mask);
+		                }
+
+		                addTedExtended(L, T, T);
+		            }
+
+		            // If (odd) then T.x = temp else T.x = T.x
+		            modSub(point.curve.p, T.x, tempk);
+		            for (i = 0; i < T.x.length; i++) {
+		                T.x[i] = odd - 1 & (T.x[i] ^ tempk[i]) ^ T.x[i];
+		            }
+
+		            normalizeTed(T);
+
+		            outputPoint.x = T.x.slice();
+		            outputPoint.y = T.y.slice();
+
+		            return;
+
+		        }
+
+		        function tableLookupTed(table, index) {
+
+		            var pos = (index + 1) % table.length;
+
+		            for (var i = 0; i < table.length; i++) {
+		                var L = {
+		                    x: table[pos].x.slice(),
+		                    y: table[pos].y.slice(),
+		                    z: table[pos].z.slice(),
+		                    td: table[pos].td.slice()
+		                };
+		                pos = (pos + 1) % table.length;
+		            }
+
+		            return L;
+		        }
+
+		        function normalizeTed(point) {
+
+		            cryptoMath.modInv(point.z, curve.p, conversionTemp2, true);
+
+		            cryptoMath.modMul(point.x, conversionTemp2, curve.p, point.x);
+
+		            cryptoMath.modMul(point.y, conversionTemp2, curve.p, point.y);
+
+		            delete point.ta;
+		            delete point.tb;
+
+		            point.z = null;
+
+		            return;
+		        }
+
+		        function doubleTed(point, outputPoint) {
+
+		            if (typeof point.ta === "undefined") {
+		                throw new Error("Point should be in Extended Projective form.");
+		            }
+
+		            // t0 = x1^2
+		            cryptoMath.modMul(point.x, point.x, point.curve.p, temp0);
+
+		            // t1 = y1^2
+		            cryptoMath.modMul(point.y, point.y, point.curve.p, temp1);
+
+		            // Ta = z1^2
+		            cryptoMath.modMul(point.z, point.z, point.curve.p, point.ta);
+		            // (new) Tbfinal = Y1^2-X1^2
+		            modSub(temp1, temp0, outputPoint.tb);
+		            //(new) t0 = X1^2+Y1^2
+		            modAdd(temp0, temp1, temp0);
+
+		            //(ok) Ta = 2z1^2
+		            modAdd(point.ta, point.ta, point.ta);
+
+		            // (ok) y = 2y1
+		            modAdd(point.y, point.y, point.y);
+
+		            // (new) t1 = 2z1^2-(X1^2+Y1^2)
+		            modSub(point.ta, temp0, temp1);
+
+		            // Tafinal = 2x1y1
+		            cryptoMath.modMul(point.x, point.y, point.curve.p, outputPoint.ta);
+
+		            // Yfinal = (x1^2+y1^2)(y1^2-x1^2)
+		            cryptoMath.modMul(temp0, outputPoint.tb, point.curve.p, outputPoint.y);
+
+		            // Xfinal = 2x1y1[2z1^2-(y1^2-x1^2)]
+		            cryptoMath.modMul(temp1, outputPoint.ta, point.curve.p, outputPoint.x);
+
+		            // Zfinal = (y1^2-x1^2)[2z1^2-(y1^2-x1^2)]
+		            cryptoMath.modMul(temp0, temp1, point.curve.p, outputPoint.z);
+
+		            return;
+		        }
+
+		        function addTed(point1 /*Q*/, point2 /*P*/, outputPoint) {
+
+		            // var modulus = point1.curve.p;
+		            // var temp1 = [];
+
+		            if (typeof point1.ta === "undefined") {
+		                throw new Error("Point1 should be in Extended Projective form.");
+		            }
+
+		            if (typeof point2.ta === "undefined") {
+		                throw new Error("Point2 should be in Extended Projective form.");
+		            }
+		            var qq = convert_R1_to_R2(point1);
+
+		            addTedExtended(qq, point2, outputPoint);
+
+		            return;
+		        }
+
+		        function convert_R1_to_R2(point) {
+
+		            // tslint:disable-next-line: no-shadowed-variable
+		            var curve = point.curve,
+		                modulus = curve.p,
+		                qq = {
+		                    x: point.x.slice(),
+		                    y: point.y.slice(),
+		                    z: point.z.slice(),
+		                    td: [],
+		                    curve: point.curve
+		                };
+
+		            cryptoMath.modMul(point.ta, point.tb, modulus, conversionTemp0);
+
+		            cryptoMath.modMul(conversionTemp0, curve.d, modulus, qq.td);
+
+		            return qq;
+		        }
+
+		        function addTedExtended(qq /*Q*/, point2 /*P*/, outputPoint) {
+
+		            // Complete point addition P = P+Q, including the cases P!=Q, P=Q, P=-Q, P=neutral and Q=neutral
+		            // Twisted Edwards a=1 curve
+		            // Inputs: P = (X1,Y1,Z1,Ta,Tb), where T1 = Ta*Tb, corresponding to extended twisted
+		            //             Edwards coordinates(X1: Y1: Z1: T1)
+		            //         Q = (X2,Y2,Z2,dT2), corresponding to extended twisted Edwards coordinates
+		            //             (X2: Y2: Z2: T2)
+		            // Output: P = (X1,Y1,Z1,Ta,Tb), where T1 = Ta*Tb, corresponding to extended twisted
+		            //             Edwards coordinates(X1: Y1: Z1: T1)
+
+		            var cm = cryptoMath;
+		            var modulus = point2.curve.p;
+
+		            temp1 = []; temp2 = []; temp3 = [];
+
+		            //FP_MUL(P->Z, Q->Z, t3);             // t3 = Z1*Z2
+		            cm.modMul(point2.z, qq.z, modulus, temp3);
+
+		            //FP_MUL(P->Ta, P->Tb, t1);           // t1 = T1
+		            cm.modMul(point2.ta, point2.tb, modulus, temp1);
+
+		            //FP_ADD(P->X, P->Y, P->Ta);          // Ta = (X1+Y1)
+		            modAdd(point2.x, point2.y, point2.ta);
+
+		            //FP_MUL(t1, Q->Td, t2);              // t2 = dT1*T2
+		            cm.modMul(temp1, qq.td, modulus, temp2);
+
+		            //FP_ADD(Q->X, Q->Y, P->Tb);          // Tb = (X2+Y2)
+		            modAdd(qq.x, qq.y, point2.tb);
+
+		            //FP_SUB(t3, t2, t1);                 // t1 = theta
+		            modSub(temp3, temp2, temp1);
+
+		            //FP_ADD(t3, t2, t3);                 // t3 = alpha
+		            modAdd(temp3, temp2, temp3);
+
+		            //FP_MUL(P->Ta, P->Tb, t2);           // t2 = (X1+Y1)(X2+Y2)
+		            cm.modMul(point2.ta, point2.tb, modulus, temp2);
+
+		            //FP_MUL(P->X, Q->X, P->Z);           // Z = X1*X2
+		            cm.modMul(point2.x, qq.x, modulus, point2.z);
+
+		            //FP_MUL(P->Y, Q->Y, P->X);           // X = Y1*Y2
+		            cm.modMul(point2.y, qq.y, modulus, point2.x);
+
+		            //FP_SUB(t2, P->Z, t2);
+		            modSub(temp2, point2.z, temp2);
+
+		            //FP_SUB(P->X, P->Z, P->Ta);          // Tafinal = omega = Y1*Y2-X1*X2
+		            modSub(point2.x, point2.z, outputPoint.ta);
+
+		            //FP_SUB(t2, P->X, P->Tb);            // Tbfinal = beta = (X1+Y1)(X2+Y2)-X1*X2-Y1*Y2
+		            modSub(temp2, point2.x, outputPoint.tb);
+
+		            //FP_MUL(P->Ta, t3, P->Y);            // Yfinal = alpha*omega
+		            cm.modMul(outputPoint.ta, temp3, modulus, outputPoint.y);
+
+		            //FP_MUL(P->Tb, t1, P->X);            // Xfinal = beta*theta
+		            cm.modMul(outputPoint.tb, temp1, modulus, outputPoint.x);
+
+		            //FP_MUL(t3, t1, P->Z);               // Zfinal = theta*alpha
+		            cm.modMul(temp3, temp1, modulus, outputPoint.z);
+
+		            return;
+		        }
+
+		        function convertTedToWeierstrass(tedPoint, wPoint) {
+		            /// <summary></summary>
+		            /// <param name="tedPoint" type=""></param>
+		            /// <param name="outputPoint" type=""></param>
+
+		            var a = tedPoint.curve.a.slice(),
+		                d = tedPoint.curve.d.slice(),
+		                p = tedPoint.curve.p,
+		                modMul = cryptoMath.modMul,
+		                // tslint:disable-next-line: no-shadowed-variable
+		                modInv = cryptoMath.modInv;
+
+		            // t1 = 5
+		            temp1 = [5];
+
+		            // t2 = 5a
+		            modMul(a, temp1, p, temp2);
+
+		            // t2 = 5a-d
+		            modSub(temp2, d, temp2);
+
+		            // t3 = 5d
+		            modMul(d, temp1, p, temp3);
+
+		            // t1 = a-5d
+		            modSub(a, temp3, temp1);
+
+		            // t3 = yTE*(a-5d)
+		            modMul(tedPoint.y, temp1, p, temp3);
+
+		            // t2 = (5a-d) + yTE*(a-5d)
+		            modAdd(temp3, temp2, temp2);
+
+		            // t1 = 1
+		            temp1 = [1];
+
+		            // t3 = 1-yTE
+		            modSub(temp1, tedPoint.y, temp3);
+
+		            // t1 = 12
+		            temp1 = [12];
+
+		            // t4 = 12(1-yTE)
+		            modMul(temp1, temp3, p, temp4);
+
+		            // t4 = 1/12(1-yTE)
+		            modInv(temp4, p, temp4, true);
+
+		            // t1 = xTE*(1-yTE)
+		            modMul(tedPoint.x, temp3, p, temp1);
+
+		            // t3 = 2xTE*(1-yTE)
+		            modAdd(temp1, temp1, temp3);
+
+		            // t3 = 4xTE*(1-yTE)
+		            modAdd(temp3, temp3, temp3);
+
+		            // t3 = 1/4xTE*(1-yTE)
+		            modInv(temp3, p, temp3, true);
+
+		            // Xfinal = ((5a-d) + yTE*(a-5d))/12(1-yTE)
+		            modMul(temp4, temp2, p, wPoint.x);
+
+		            // t1 = 1
+		            temp1 = [1];
+
+		            // t1 = yTE+1
+		            modAdd(tedPoint.y, temp1, temp1);
+
+		            // t2 = a-d
+		            modSub(a, d, temp2);
+
+		            // t4 = (a-d)*(yTE+1)
+		            modMul(temp1, temp2, p, temp4);
+
+		            // Yfinal = ((a-d)*(yTE+1))/4xTE*(1-yTE)
+		            modMul(temp4, temp3, p, wPoint.y);
+
+		            return;
+		        }
+
+		        function convertWeierstrassToTed(wPoint, tedPoint) {
+
+		            var a = tedPoint.curve.a.slice(),
+		                d = tedPoint.curve.d.slice(),
+		                p = tedPoint.curve.p,
+		                modMul = cryptoMath.modMul,
+		                // tslint:disable-next-line: no-shadowed-variable
+		                modInv = cryptoMath.modInv;
+
+		            modAdd(wPoint.x, wPoint.x, temp1);
+
+		            modAdd(wPoint.x, temp1, temp1);
+
+		            // t1 = 6xW
+		            modAdd(temp1, temp1, temp1);
+
+		            // t2 = 6xW - a
+		            modSub(temp1, a, temp2);
+
+		            // t2 = 6xW - a - d
+		            modSub(temp2, d, temp2);
+
+		            modAdd(wPoint.y, wPoint.y, temp3);
+
+		            modAdd(wPoint.y, temp3, temp3);
+
+		            // t3 = 6yW
+		            modAdd(temp3, temp3, temp3);
+
+		            // t3 = 1/6yW
+		            modInv(temp3, p, temp3, true);
+
+		            // Xfinal = (6xW - a - d)/6yW
+		            modMul(temp2, temp3, p, tedPoint.x);
+
+		            // t1 = 12xW
+		            modAdd(temp1, temp1, temp1);
+
+		            // t2 = 12xW + d
+		            modAdd(temp1, d, temp2);
+
+		            // t1 = 12xW + a
+		            modAdd(temp1, a, temp1);
+
+		            modAdd(a, a, temp3);
+
+		            // t2 = 12xW + d - 2a
+		            modSub(temp2, temp3, temp2);
+
+		            // t2 = 12xW + d - 4a
+		            modSub(temp2, temp3, temp2);
+
+		            // t2 = 12xW + d - 5a
+		            modSub(temp2, a, temp2);
+
+		            modAdd(d, d, temp3);
+
+		            // t1 = 12xW + a - 2d
+		            modSub(temp1, temp3, temp1);
+
+		            // t1 = 12xW + a - 4d
+		            modSub(temp1, temp3, temp1);
+
+		            // t1 = 12xW + a - 5d
+		            modSub(temp1, d, temp1);
+
+		            // t1 = 1/(12xW + a - 5d)
+		            modInv(temp1, p, temp1, true);
+
+		            // Yfinal = (12xW + d - 5a)/(12xW + a - 5d)
+		            modMul(temp1, temp2, p, tedPoint.y);
+
+		            return;
+		        }
+
+		        var methods = {
+
+		            convertToMontgomeryForm: convertToMontgomeryForm,
+
+		            convertToStandardForm: convertToStandardForm,
+
+		            convertToAffineForm: convertToAffineForm,
+
+		            convertToJacobianForm: convertToJacobianForm,
+
+		            // For tests
+		            generatePrecomputationTable: function(w, generatorPoint) {
+		                /// <param name="w" type="Number"/>
+		                /// <param name="generatorPoint" type="EllipticCurvePointFp"/>
+
+		                return generatePrecomputationTable(w, generatorPoint);
+		            }
+
+		        };
+
+		        if (tedCurve) {
+
+		            methods.double = doubleTed;
+		            methods.add = addTed;
+		            methods.scalarMultiply = scalarMultiply;
+		            methods.normalize = normalizeTed;
+		            methods.convertToExtendedProjective = convertToExtendedProjective;
+		            methods.convertTedToWeierstrass = convertTedToWeierstrass;
+		            methods.convertWeierstrassToTed = convertWeierstrassToTed;
+		            methods.validatePoint = validatePointTed;
+		            methods.generatePrecomputationTable = function(w, generatorPoint) {
+		                /// <param name="w" type="Number"/>
+		                /// <param name="generatorPoint" type="EllipticCurvePointFp"/>
+
+		                return generatePrecomputationTableTed(w, generatorPoint);
+		            };
+		        } else {
+
+		            methods.double = double;
+		            methods.mixedDoubleAdd = mixedDoubleAdd;
+		            methods.mixedAdd = mixedAdd;
+		            methods.scalarMultiply = scalarMultiply;
+		            methods.negate = negate;
+		            methods.validatePoint = validatePoint;
+		        }
+
+		        return methods;
+
+		    };
+
+		    var sec1EncodingFp = function() {
+		        return {
+		            encodePoint: function(/*@type(EllipticCurvePointFp)*/ point) {
+		                /// <summary>Encode an EC point without compression.
+		                /// This function encodes a given points into a bytes array containing 0x04 | X | Y, where
+		                ///      X and Y are big endian bytes of x and y coordinates.</summary >
+		                /// <param name="point" type="EllipticCurvePointFp">Input EC point to encode.</param>
+		                /// <returns type="Array">A bytes array containing 0x04 | X | Y, where X and Y are big endian
+		                ///     encoded x and y coordinates.</returns >
+
+		                if (!point) {
+		                    throw new Error("point");
+		                }
+
+		                if (!point.isAffine) {
+		                    throw new Error("Point must be in affine form.");
+		                }
+
+		                if (point.isInMontgomeryForm) {
+		                    throw new Error("Point must not be in Montgomery form.");
+		                }
+
+		                if (point.isInfinity) {
+		                    return createArray(1); /* [0] */
+		                } else {
+		                    var xOctetString = cryptoMath.digitsToBytes(point.x);
+		                    var yOctetString = cryptoMath.digitsToBytes(point.y);
+		                    var pOctetString = cryptoMath.digitsToBytes(point.curve.p);     // just to get byte length of p
+		                    var mlen = pOctetString.length;
+		                    if (mlen < xOctetString.length || mlen < yOctetString.length) {
+		                        throw new Error("Point coordinate(s) are bigger than the field order.");
+		                    }
+		                    var output = createArray(2 * mlen + 1);       // for encoded x and y
+
+		                    output[0] = 0x04;
+		                    var offset = mlen - xOctetString.length;
+		                    for (var i = 0; i < xOctetString.length; i++) {
+		                        output[i + 1 + offset] = xOctetString[i];
+		                    }
+		                    offset = mlen - yOctetString.length;
+		                    for (i = 0; i < yOctetString.length; i++) {
+		                        output[mlen + i + 1 + offset] = yOctetString[i];
+		                    }
+
+		                    return output;
+		                }
+
+		            },
+		            decodePoint: function(encoded, curve) {
+		                /// <param name="encoded" type="Digits"/>
+		                /// <param name="curve" type="EllipticCurveFp"/>
+
+		                if (encoded.length < 1) {
+		                    throw new Error("Byte array must have non-zero length");
+		                }
+
+		                var pOctetString = cryptoMath.digitsToBytes(curve.p);
+		                var mlen = pOctetString.length;
+
+		                if (encoded[0] === 0x0 && encoded.length === 1) {
+		                    return curve.createPointAtInfinity();
+		                } else if (encoded[0] === 0x04 && encoded.length === 1 + 2 * mlen) {
+		                    // Standard encoding.
+		                    // Each point is a big endian string of bytes of length.
+		                    //      'ceiling(log_2(Q)/8)'
+		                    // Zero-padded and representing the magnitude of the coordinate.
+		                    var xbytes = createArray(mlen);
+		                    var ybytes = createArray(mlen);
+
+		                    for (var i = 0; i < mlen; i++) {
+		                        xbytes[i] = encoded[i + 1];
+		                        ybytes[i] = encoded[mlen + i + 1];
+		                    }
+
+		                    var x = cryptoMath.bytesToDigits(xbytes);
+		                    var y = cryptoMath.bytesToDigits(ybytes);
+
+		                    return EllipticCurvePointFp(curve, false, x, y);
+		                } else {
+		                    // We don't support other encoding features such as compression
+		                    throw new Error("Unsupported encoding format");
+		                }
+		            }
+		        };
+		    };
+
+		    var ModularSquareRootSolver = function(modulus) {
+		        /// <param name="modulus" type="Digits"/>
+
+		        // The modulus we are going to use.
+		        var p = modulus;
+
+		        // Special-K not just for breakfast anymore! This is k = (p-3)/4 + 1
+		        // which is used for NIST curves (or any curve of with P= 3 mod 4).
+		        // This field is null if p is not of the special form, or k if it is.
+		        var specialK = [];
+
+		        if (typeof modulus === "undefined") {
+		            throw new Error("modulus");
+		        }
+
+		        // Support for odd moduli, only.
+		        if (cryptoMath.isEven(modulus)) {
+		            throw new Error("Only odd moduli are supported");
+		        }
+
+		        // A montgomery multiplier object for doing fast squaring.
+		        var mul = cryptoMath.MontgomeryMultiplier(p);
+
+		        // 'p === 3 mod 4' then we can use the special super fast version.
+		        // Otherwise we must use the slower general case algorithm.
+		        if (p[0] % 4 === 3) {
+		            // 'special k = (p + 1) / 4'
+		            cryptoMath.add(p, cryptoMath.One, specialK);
+		            cryptoMath.shiftRight(specialK, specialK, 2);
+		        } else {
+		            specialK = null;
+		        }
+
+		        // Temp storage
+		        var temp0 = new Array(p.length);
+		        var temp1 = new Array(p.length);
+
+		        function squareRootNistCurves(a) {
+		            /// <summary>Given a number a, returns a solution x to x^2 = a (mod p).</summary>
+		            /// <param name="a" type="Array">An integer a.</param>
+		            /// <returns type="Array">The square root of the number a modulo p, if it exists,
+		            /// otherwise null.</returns>
+
+		            // beta = a^k mod n where k=(n+1)/4 for n == 3 mod 4, thus a^(1/2) mod n
+		            var beta = cryptoMath.intToDigits(0, 16);
+		            mul.modExp(a, specialK, beta);
+
+		            // Okay now we gotta double check by squaring.
+		            var aPrime = [0];
+		            cryptoMath.modMul(beta, beta, mul.m, aPrime);
+
+		            // If a != x^2 then a has no square root
+		            if (cryptoMath.compareDigits(a, aPrime) !== 0) {
+		                return null;
+		            }
+
+		            return beta;
+		        }
+
+		        var publicMethods = {
+
+		            squareRoot: function(a) {
+		                if (specialK !== null) {
+		                    // Use the special case fast code
+		                    return squareRootNistCurves(a);
+		                } else {
+		                    // Use the general case code
+		                    throw new Error("GeneralCase not supported.");
+		                }
+		            },
+
+		            // Given an integer a, this routine returns the Jacobi symbol (a/p),
+		            // where p is the modulus given in the constructor, which for p an
+		            // odd prime is also the Legendre symbol. From "Prime Numbers, A
+		            // Computational Perspective" by Crandall and Pomerance, alg. 2.3.5.
+		            // The Legendre symbol is defined as:
+		            //   0   if a === 0 mod p.
+		            //   1   if a is a quadratic residue (mod p).
+		            //   -1  if a is a quadratic non-reside (mod p).
+		            jacobiSymbol: function(a) {
+		                /// <param name="a">An integer a.</param>
+
+		                var modEightMask = 0x7,
+		                    modFourMask = 0x3,
+		                    aPrime,
+		                    pPrime;
+
+		                // Clone our inputs, we are going to destroy them
+		                aPrime = a.slice();
+		                pPrime = p.slice();
+
+		                // 'a = a mod p'.
+		                cryptoMath.reduce(aPrime, pPrime, aPrime, temp0, temp1);
+
+		                // 't = 1'
+		                var t = 1;
+
+		                // While (a != 0)
+		                while (!cryptoMath.isZero(aPrime)) {
+		                    // While a is even
+		                    while (cryptoMath.isEven(aPrime)) {
+		                        // 'a <- a / 2'
+		                        cryptoMath.shiftRight(aPrime, aPrime);
+
+		                        // If (p mod 8 in {3,5}) t = -t;
+		                        var pMod8 = pPrime[0] & modEightMask;
+		                        if (pMod8 === 3 || pMod8 === 5) {
+		                            t = -t;
+		                        }
+		                    }
+
+		                    // Swap variables
+		                    // (a, p) = (p, a).
+		                    var tmp = aPrime;
+		                    aPrime = pPrime;
+		                    pPrime = tmp;
+
+		                    // If (a === p === 3 (mod 4)) t = -t;
+		                    var aMod4 = aPrime[0] & modFourMask;
+		                    var pMod4 = pPrime[0] & modFourMask;
+		                    if (aMod4 === 3 && pMod4 === 3) {
+		                        t = -t;
+		                    }
+
+		                    // 'a = a mod p'
+		                    cryptoMath.reduce(aPrime, pPrime, aPrime, temp0, temp1);
+		                }
+
+		                // If (p == 1) return t else return 0
+		                if (cryptoMath.compareDigits(pPrime, cryptoMath.One) === 0) {
+		                    return t;
+		                } else {
+		                    return 0;
+		                }
+		            }
+
+		        };
+
+		        return publicMethods;
+		    };
+
+		    var curvesInternal = {};
+
+		    var createCurve = function(curveName) {
+
+		        var curveData = curvesInternal[curveName.toUpperCase()];
+
+		        if (!curveData) {
+		            throw new Error(curveName + " Unsupported curve.");
+		        }
+
+		        if (curveData.type === 0) {
+		            return createWeierstrassCurve(curveData);
+		        }
+
+		        if (curveData.type === 1) {
+		            return createTedCurve(curveData);
+		        }
+
+		        throw new Error(curveName + " Unsupported curve type.");
+		    };
+
+		    var validateEccPoint = function(curveName, x, y, z) {
+		        var curve = createCurve(curveName);
+		        var point = new EllipticCurvePointFp(curve, false, btd(x), btd(y), z && btd(z), false);
+		        var opp = new EllipticCurveOperatorFp(curve);
+		        return opp.validatePoint(point);
+		    };
+
+		    return {
+		        createCurve: createCurve,
+		        curves: curvesInternal,
+		        sec1EncodingFp: sec1EncodingFp,
+		        validatePoint: validateEccPoint,
+		        EllipticCurvePointFp: EllipticCurvePointFp,
+		        EllipticCurveOperatorFp: EllipticCurveOperatorFp,
+		        ModularSquareRootSolver: ModularSquareRootSolver
+		    };
+		}
+
+		var cryptoECC = cryptoECC || MsrcryptoECC();
+
+		/* commonjs-block */
+		{
+		    module.exports = cryptoECC;
+		}
+		/* end-commonjs-block */ 
+	} (cryptoECC$2));
+
+	var cryptoECCExports = cryptoECC$2.exports;
+	var cryptoECC$1 = /*@__PURE__*/getDefaultExportFromCjs(cryptoECCExports);
+
+	//*******************************************************************************
+	//
+	//    Copyright 2020 Microsoft
+	//
+	//    Licensed under the Apache License, Version 2.0 (the "License");
+	//    you may not use this file except in compliance with the License.
+	//    You may obtain a copy of the License at
+	//
+	//        http://www.apache.org/licenses/LICENSE-2.0
+	//
+	//    Unless required by applicable law or agreed to in writing, software
+	//    distributed under the License is distributed on an "AS IS" BASIS,
+	//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	//    See the License for the specific language governing permissions and
+	//    limitations under the License.
+	//
+	//*******************************************************************************
+
+	// tslint:disable: max-line-length
+	// tslint:disable: variable-name
+
+	var curve_P256 = {
+	    name: "P-256",
+	    type: 0, // Curve Type 0 = Weierstrass, 1 Twisted Edwards
+	    p: [0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF],
+	    a: [0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFC],
+	    b: [0x5A, 0xC6, 0x35, 0xD8, 0xAA, 0x3A, 0x93, 0xE7, 0xB3, 0xEB, 0xBD, 0x55, 0x76, 0x98, 0x86, 0xBC, 0x65, 0x1D, 0x06, 0xB0, 0xCC, 0x53, 0xB0, 0xF6, 0x3B, 0xCE, 0x3C, 0x3E, 0x27, 0xD2, 0x60, 0x4B],
+	    order: [0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xBC, 0xE6, 0xFA, 0xAD, 0xA7, 0x17, 0x9E, 0x84, 0xF3, 0xB9, 0xCA, 0xC2, 0xFC, 0x63, 0x25, 0x51],
+	    gx: [0x6B, 0x17, 0xD1, 0xF2, 0xE1, 0x2C, 0x42, 0x47, 0xF8, 0xBC, 0xE6, 0xE5, 0x63, 0xA4, 0x40, 0xF2, 0x77, 0x03, 0x7D, 0x81, 0x2D, 0xEB, 0x33, 0xA0, 0xF4, 0xA1, 0x39, 0x45, 0xD8, 0x98, 0xC2, 0x96],
+	    gy: [0x4F, 0xE3, 0x42, 0xE2, 0xFE, 0x1A, 0x7F, 0x9B, 0x8E, 0xE7, 0xEB, 0x4A, 0x7C, 0x0F, 0x9E, 0x16, 0x2B, 0xCE, 0x33, 0x57, 0x6B, 0x31, 0x5E, 0xCE, 0xCB, 0xB6, 0x40, 0x68, 0x37, 0xBF, 0x51, 0xF5],
+	    cf: 1  // co-factor
+	};
+
+	var curve_P384 = {
+	    name: "P-384",
+	    type: 0, // Curve Type 0 = Weierstrass, 1 Twisted Edwards
+	    p: [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF],
+	    a: [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFC],
+	    b: [0xB3, 0x31, 0x2F, 0xA7, 0xE2, 0x3E, 0xE7, 0xE4, 0x98, 0x8E, 0x05, 0x6B, 0xE3, 0xF8, 0x2D, 0x19, 0x18, 0x1D, 0x9C, 0x6E, 0xFE, 0x81, 0x41, 0x12, 0x03, 0x14, 0x08, 0x8F, 0x50, 0x13, 0x87, 0x5A, 0xC6, 0x56, 0x39, 0x8D, 0x8A, 0x2E, 0xD1, 0x9D, 0x2A, 0x85, 0xC8, 0xED, 0xD3, 0xEC, 0x2A, 0xEF],
+	    order: [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xC7, 0x63, 0x4D, 0x81, 0xF4, 0x37, 0x2D, 0xDF, 0x58, 0x1A, 0x0D, 0xB2, 0x48, 0xB0, 0xA7, 0x7A, 0xEC, 0xEC, 0x19, 0x6A, 0xCC, 0xC5, 0x29, 0x73],
+	    gx: [0xAA, 0x87, 0xCA, 0x22, 0xBE, 0x8B, 0x05, 0x37, 0x8E, 0xB1, 0xC7, 0x1E, 0xF3, 0x20, 0xAD, 0x74, 0x6E, 0x1D, 0x3B, 0x62, 0x8B, 0xA7, 0x9B, 0x98, 0x59, 0xF7, 0x41, 0xE0, 0x82, 0x54, 0x2A, 0x38, 0x55, 0x02, 0xF2, 0x5D, 0xBF, 0x55, 0x29, 0x6C, 0x3A, 0x54, 0x5E, 0x38, 0x72, 0x76, 0x0A, 0xB7],
+	    gy: [0x36, 0x17, 0xDE, 0x4A, 0x96, 0x26, 0x2C, 0x6F, 0x5D, 0x9E, 0x98, 0xBF, 0x92, 0x92, 0xDC, 0x29, 0xF8, 0xF4, 0x1D, 0xBD, 0x28, 0x9A, 0x14, 0x7C, 0xE9, 0xDA, 0x31, 0x13, 0xB5, 0xF0, 0xB8, 0xC0, 0x0A, 0x60, 0xB1, 0xCE, 0x1D, 0x7E, 0x81, 0x9D, 0x7A, 0x43, 0x1D, 0x7C, 0x90, 0xEA, 0x0E, 0x5F],
+	    cf: 1  // co-factor
+	};
+
+	var curve_P521 = {
+	    name: "P-521",
+	    type: 0, // Curve Type 0 = Weierstrass, 1 Twisted Edwards
+	    p: [0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF],
+	    a: [0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFC],
+	    b: [0x00, 0x51, 0x95, 0x3E, 0xB9, 0x61, 0x8E, 0x1C, 0x9A, 0x1F, 0x92, 0x9A, 0x21, 0xA0, 0xB6, 0x85, 0x40, 0xEE, 0xA2, 0xDA, 0x72, 0x5B, 0x99, 0xB3, 0x15, 0xF3, 0xB8, 0xB4, 0x89, 0x91, 0x8E, 0xF1, 0x09, 0xE1, 0x56, 0x19, 0x39, 0x51, 0xEC, 0x7E, 0x93, 0x7B, 0x16, 0x52, 0xC0, 0xBD, 0x3B, 0xB1, 0xBF, 0x07, 0x35, 0x73, 0xDF, 0x88, 0x3D, 0x2C, 0x34, 0xF1, 0xEF, 0x45, 0x1F, 0xD4, 0x6B, 0x50, 0x3F, 0x00],
+	    order: [0x01, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFA, 0x51, 0x86, 0x87, 0x83, 0xBF, 0x2F, 0x96, 0x6B, 0x7F, 0xCC, 0x01, 0x48, 0xF7, 0x09, 0xA5, 0xD0, 0x3B, 0xB5, 0xC9, 0xB8, 0x89, 0x9C, 0x47, 0xAE, 0xBB, 0x6F, 0xB7, 0x1E, 0x91, 0x38, 0x64, 0x09],
+	    gx: [0x00, 0xC6, 0x85, 0x8E, 0x06, 0xB7, 0x04, 0x04, 0xE9, 0xCD, 0x9E, 0x3E, 0xCB, 0x66, 0x23, 0x95, 0xB4, 0x42, 0x9C, 0x64, 0x81, 0x39, 0x05, 0x3F, 0xB5, 0x21, 0xF8, 0x28, 0xAF, 0x60, 0x6B, 0x4D, 0x3D, 0xBA, 0xA1, 0x4B, 0x5E, 0x77, 0xEF, 0xE7, 0x59, 0x28, 0xFE, 0x1D, 0xC1, 0x27, 0xA2, 0xFF, 0xA8, 0xDE, 0x33, 0x48, 0xB3, 0xC1, 0x85, 0x6A, 0x42, 0x9B, 0xF9, 0x7E, 0x7E, 0x31, 0xC2, 0xE5, 0xBD, 0x66],
+	    gy: [0x01, 0x18, 0x39, 0x29, 0x6A, 0x78, 0x9A, 0x3B, 0xC0, 0x04, 0x5C, 0x8A, 0x5F, 0xB4, 0x2C, 0x7D, 0x1B, 0xD9, 0x98, 0xF5, 0x44, 0x49, 0x57, 0x9B, 0x44, 0x68, 0x17, 0xAF, 0xBD, 0x17, 0x27, 0x3E, 0x66, 0x2C, 0x97, 0xEE, 0x72, 0x99, 0x5E, 0xF4, 0x26, 0x40, 0xC5, 0x50, 0xB9, 0x01, 0x3F, 0xAD, 0x07, 0x61, 0x35, 0x3C, 0x70, 0x86, 0xA2, 0x72, 0xC2, 0x40, 0x88, 0xBE, 0x94, 0x76, 0x9F, 0xD1, 0x66, 0x50],
+	    cf: 1  // co-factor
+	};
+
+	/* commonjs-block */
+	var cryptoECC = typeof commonjsRequire === "function" ? cryptoECCExports : cryptoECC;
+	/* end-commonjs-block */
+
+	if (typeof cryptoECC !== "undefined") {
+	    // Add curves to ECC object
+	    cryptoECC.curves["P-256"] = curve_P256;
+	    cryptoECC.curves["P-384"] = curve_P384;
+	    cryptoECC.curves["P-521"] = curve_P521;
+	}
+
+	// Copyright (c) Microsoft Corporation.
+	// Licensed under the MIT license.
+	// implements the U-Prove hash formatting
+	const groupToHash = (g) => {
+	    switch (g) {
+	        case ECGroup.P256: return 'sha256';
+	        case ECGroup.P384: return 'sha384';
+	        case ECGroup.P521: return 'sha512';
+	        default: throw 'invalid group';
+	    }
+	};
+	class Byte {
+	    constructor(b) {
+	        if (0 < b && b > 255)
+	            throw 'invalid byte value' + b;
+	        this.b = new Uint8Array([b]);
+	    }
+	}
+	// c.f. spec section 2.2
+	class Hash {
+	    constructor(descGq) {
+	        this.hash = new Uint8Array(0);
+	        this.descGq = descGq;
+	    }
+	    getIntArray(n) {
+	        return new Uint8Array([
+	            (n >> 24),
+	            (n >> 16),
+	            (n >> 8),
+	            n
+	        ]);
+	    }
+	    updateInternal(data) {
+	        const temp = new Uint8Array(this.hash.length + data.length);
+	        temp.set(this.hash);
+	        temp.set(data, this.hash.length);
+	        this.hash = temp;
+	    }
+	    update(data) {
+	        if (Array.isArray(data)) {
+	            this.update(data.length);
+	            data.forEach(v => this.update(v));
+	        }
+	        else if (data instanceof Byte) {
+	            this.updateInternal(data.b);
+	        }
+	        else if (data === null) {
+	            this.updateInternal(this.getIntArray(0));
+	        }
+	        else if (typeof data === 'number') {
+	            this.updateInternal(this.getIntArray(data));
+	        }
+	        else if (data instanceof Uint8Array) {
+	            this.updateInternal(this.getIntArray(data.length));
+	            this.updateInternal(data);
+	        }
+	        else if (data instanceof GroupElement) {
+	            this.update(data.getBytes());
+	        }
+	        else if (data instanceof FieldZqElement) {
+	            this.update(data.getBytes());
+	        }
+	        else {
+	            throw "invalid input";
+	        }
+	    }
+	    async digest(data = undefined) {
+	        if (data || data === null) {
+	            this.update(data);
+	        }
+	        return crypto.subtle.digest({ name: groupToHash(this.descGq).replace('sha', 'sha-') }, this.hash)
+	            .then(arrayBuffer => {
+	            return new Uint8Array(arrayBuffer);
+	        });
+	    }
+	}
+
+	// Copyright (c) Microsoft Corporation.
+	// Licensed under the MIT license.
+	class FieldZqElement {
+	    constructor(scalar) {
+	        this.scalar = scalar;
+	    }
+	    getBytes() {
+	        const bytes = cryptoMath.digitsToBytes(this.scalar.m_digits);
+	        return new Uint8Array(bytes);
+	    }
+	    equals(e) {
+	        return this.scalar.equals(e.scalar);
+	    }
+	}
+	class FieldZq {
+	    constructor(q) {
+	        this.q = q;
+	        const qBytes = cryptoMath.digitsToBytes(q);
+	        this.elementLength = qBytes.length;
+	        this.Zq = new cryptoMath.IntegerGroup(qBytes);
+	        this.ZERO = new FieldZqElement(this.Zq.createElementFromInteger(0));
+	        this.ONE = new FieldZqElement(this.Zq.createElementFromInteger(1));
+	    }
+	    getElement(encoded) {
+	        let digits = cryptoMath.bytesToDigits(Array.from(encoded));
+	        // Check size of the new element
+	        const result = cryptoMath.intToDigits(0);
+	        while (cryptoMath.compareDigits(digits, this.q) >= 0) {
+	            // too big, reduce (will only call once)
+	            cryptoMath.subtract(digits, this.q, result); // could I replace result with digits? TODO
+	            digits = result;
+	        }
+	        return new FieldZqElement(this.Zq.createElementFromDigits(digits));
+	    }
+	    getRandomElement(nonZero = false) {
+	        let done = false;
+	        let randZq = cryptoMath.Zero;
+	        while (!done) {
+	            const ranBytes = crypto.getRandomValues(new Uint8Array(this.elementLength));
+	            randZq = cryptoMath.bytesToDigits(Array.from(ranBytes));
+	            if (cryptoMath.compareDigits(randZq, this.q) < 0) {
+	                done = true;
+	            }
+	            if (nonZero && cryptoMath.isZero(randZq)) {
+	                done = false;
+	            }
+	        }
+	        return new FieldZqElement(this.Zq.createElementFromDigits(randZq));
+	    }
+	    getRandomElements(n, nonZero = false) {
+	        const r = [];
+	        for (let i = 0; i < n; i++) {
+	            r.push(this.getRandomElement(nonZero));
+	        }
+	        return r;
+	    }
+	    add(a, b) {
+	        const sum = this.Zq.createElementFromInteger(0);
+	        this.Zq.add(a.scalar, b.scalar, sum);
+	        return new FieldZqElement(sum);
+	    }
+	    mul(a, b) {
+	        const product = this.Zq.createElementFromInteger(0);
+	        this.Zq.multiply(a.scalar, b.scalar, product);
+	        return new FieldZqElement(product);
+	    }
+	    negate(a) {
+	        const minusA = this.Zq.createElementFromInteger(0);
+	        this.Zq.subtract(this.Zq.createElementFromInteger(0), a.scalar, minusA);
+	        return new FieldZqElement(minusA);
+	    }
+	    invert(a) {
+	        const aInverse = this.Zq.createElementFromInteger(0);
+	        this.Zq.inverse(a.scalar, aInverse);
+	        return new FieldZqElement(aInverse);
+	    }
+	}
+	class GroupElement {
+	    constructor(point) {
+	        this.point = point;
+	    }
+	    getBytes() {
+	        const encoded = cryptoECC$1.sec1EncodingFp().encodePoint(this.point);
+	        return new Uint8Array(encoded);
+	    }
+	    equals(e) {
+	        return this.point.equals(e.point);
+	    }
+	}
+	// the underlying cryptoMath lib expects points to be on the same curve object (===)
+	// so we instantiate them once
+	var CurveNames;
+	(function (CurveNames) {
+	    CurveNames["P256"] = "P-256";
+	    CurveNames["P384"] = "P-384";
+	    CurveNames["P521"] = "P-521";
+	})(CurveNames || (CurveNames = {}));
+	const P256Curve = cryptoECC$1.createCurve(CurveNames.P256);
+	const P384Curve = cryptoECC$1.createCurve(CurveNames.P384);
+	const P521Curve = cryptoECC$1.createCurve(CurveNames.P521);
+	class Group {
+	    constructor(descGq) {
+	        if (descGq == ECGroup.P256) {
+	            this.curve = P256Curve;
+	        }
+	        else if (descGq == ECGroup.P384) {
+	            this.curve = P384Curve;
+	        }
+	        else if (descGq == ECGroup.P521) {
+	            this.curve = P521Curve;
+	        }
+	        else {
+	            throw 'invalid group description';
+	        }
+	        this.ecOperator = cryptoECC$1.EllipticCurveOperatorFp(this.curve);
+	        this.Zq = new FieldZq(this.curve.order);
+	        this.g = new GroupElement(this.curve.generator);
+	        this.descGq = descGq;
+	    }
+	    getHash() {
+	        return new Hash(this.descGq);
+	    }
+	    // update a hash with this group's description (see Section 2.1)
+	    updateHash(H) {
+	        // H(p,a,b,g,q,1)
+	        H.update(new Uint8Array(cryptoMath.digitsToBytes(this.curve.p)));
+	        H.update(new Uint8Array(cryptoMath.digitsToBytes(this.curve.a)));
+	        H.update(new Uint8Array(cryptoMath.digitsToBytes(this.curve.b)));
+	        H.update(this.g /*new GroupElement(this.curve.generator).getBytes()*/);
+	        H.update(new Uint8Array(cryptoMath.digitsToBytes(this.curve.order)));
+	        H.update(new Uint8Array([1]));
+	    }
+	    parsePoint(x, y) {
+	        const point = new cryptoECC$1.EllipticCurvePointFp(this.curve, false, cryptoMath.bytesToDigits(x), cryptoMath.bytesToDigits(y));
+	        return new GroupElement(point);
+	    }
+	    getElement(encoded) {
+	        return new GroupElement(cryptoECC$1.sec1EncodingFp().decodePoint(Array.from(encoded), this.curve));
+	    }
+	    getIdentity() {
+	        return new GroupElement(this.curve.createPointAtInfinity());
+	    }
+	    // return a.b = point + point
+	    mul(a, b) {
+	        if (a === undefined || b === undefined || (a === null || a === void 0 ? void 0 : a.point) === undefined || (b === null || b === void 0 ? void 0 : b.point) === undefined) {
+	            console.log('undefined point in mul');
+	        }
+	        const pointA = a.point;
+	        const pointB = (pointA === b.point) ? b.point.clone() : b.point; // a and b can't be the same
+	        // result must be in Jacobian, Montgomery form for the mixed add
+	        const temp = this.curve.allocatePointStorage();
+	        this.ecOperator.convertToMontgomeryForm(temp);
+	        this.ecOperator.convertToJacobianForm(temp);
+	        // "a" must be in Jacobian, Montgomery form 
+	        if (!pointA.isInMontgomeryForm)
+	            this.ecOperator.convertToMontgomeryForm(pointA);
+	        if (pointA.isAffine)
+	            this.ecOperator.convertToJacobianForm(pointA);
+	        // "b" must be in Affine, Montgomery form
+	        if (!pointB.isAffine)
+	            this.ecOperator.convertToAffineForm(pointB);
+	        if (!pointB.isInMontgomeryForm)
+	            this.ecOperator.convertToMontgomeryForm(pointB);
+	        // perform the mixed add
+	        this.ecOperator.mixedAdd(pointA, pointB, temp);
+	        // now convert everyone back to Affine, Standard form
+	        this.ecOperator.convertToAffineForm(pointA);
+	        this.ecOperator.convertToStandardForm(pointA);
+	        // b already in affine form
+	        this.ecOperator.convertToStandardForm(pointB);
+	        this.ecOperator.convertToAffineForm(temp);
+	        this.ecOperator.convertToStandardForm(temp);
+	        return new GroupElement(temp);
+	    }
+	    // return g^e = [scalar] point.
+	    modExp(g, e) {
+	        const result = this.curve.allocatePointStorage();
+	        // point must be in Affine, Montgomery form
+	        if (!g.point.isAffine)
+	            this.ecOperator.convertToAffineForm(g.point);
+	        if (!g.point.isInMontgomeryForm)
+	            this.ecOperator.convertToMontgomeryForm(g.point);
+	        // scalar multiplication
+	        this.ecOperator.scalarMultiply(e.scalar.m_digits, g.point, result);
+	        // convert everyone back to Affine, Standard form
+	        if (!g.point.isAffine)
+	            this.ecOperator.convertToAffineForm(g.point);
+	        if (g.point.isInMontgomeryForm)
+	            this.ecOperator.convertToStandardForm(g.point);
+	        if (!result.isAffine)
+	            this.ecOperator.convertToAffineForm(result);
+	        if (result.isInMontgomeryForm)
+	            this.ecOperator.convertToStandardForm(result);
+	        return new GroupElement(result);
+	    }
+	    // return g[0]^e[0] ... g[n]^e[n]
+	    multiModExp(g, e) {
+	        if (g.length !== e.length) {
+	            throw `g and e length mismatch`;
+	        }
+	        let result = this.getIdentity();
+	        for (let i = 0; i < g.length; i++) {
+	            const temp = this.modExp(g[i], e[i]);
+	            result = this.mul(result, temp);
+	        }
+	        return result;
+	    }
+	    isValid(g) {
+	        return this.ecOperator.validatePoint(g.point);
+	    }
+	}
+
+	// Copyright (c) Microsoft Corporation.
+	// Licensed under the MIT license.
+	// U-Prove Recommended Parameters Profile Lite (elliptic curve construction)
+	class P256ECGroupParams {
+	    constructor() {
+	        this.descGq = ECGroup.P256;
+	        this.Gq = new Group(this.descGq);
+	        this.oid = "1.3.6.1.4.1.311.75.1.2.2";
+	        this.g = [
+	            this.Gq.parsePoint([
+	                0xf1, 0xb9, 0x86, 0xd5, 0xd1, 0x1f, 0x43, 0x48,
+	                0x3a, 0xe7, 0x36, 0xe8, 0x86, 0xaf, 0x75, 0x0e,
+	                0x87, 0x0d, 0x7f, 0x0c, 0x23, 0x12, 0xaa, 0xd8,
+	                0xdb, 0x5c, 0x8a, 0x3e, 0x34, 0xf5, 0x39, 0x1e
+	            ], [
+	                0x64, 0x34, 0x7b, 0x7f, 0x49, 0x31, 0x87, 0xa5,
+	                0x3b, 0x37, 0x08, 0x94, 0xb8, 0xf8, 0xe3, 0x8f,
+	                0xd2, 0x2c, 0xb9, 0x93, 0x02, 0x39, 0x3d, 0x79,
+	                0xdc, 0xe2, 0x25, 0x91, 0x8e, 0xba, 0x61, 0xee
+	            ]),
+	            this.Gq.parsePoint([
+	                0x15, 0x54, 0xcf, 0x98, 0x3e, 0x0b, 0x06, 0x0c,
+	                0x78, 0x70, 0x5e, 0xd7, 0xd1, 0x4a, 0x49, 0x41,
+	                0xb0, 0x2e, 0x60, 0x8c, 0xdb, 0x78, 0xf6, 0xa7,
+	                0x5a, 0x52, 0x34, 0x59, 0x78, 0x14, 0x1f, 0xd3
+	            ], [
+	                0x62, 0x54, 0x0e, 0x69, 0x0c, 0x8f, 0xa9, 0xfe,
+	                0x10, 0x7e, 0x21, 0x41, 0xdf, 0xc6, 0x90, 0x7f,
+	                0x74, 0xf5, 0xfe, 0xeb, 0xdf, 0x5b, 0x12, 0xd7,
+	                0x15, 0x3b, 0x46, 0x35, 0xa2, 0xdf, 0x6a, 0x76
+	            ]),
+	            this.Gq.parsePoint([
+	                0x32, 0x79, 0x1a, 0x77, 0x9e, 0x9a, 0xa4, 0x75,
+	                0xba, 0x26, 0x66, 0xa0, 0xe4, 0x7a, 0x92, 0x8b,
+	                0x21, 0xab, 0x19, 0x05, 0xfa, 0xaf, 0x48, 0xbb,
+	                0x80, 0x62, 0xba, 0xe9, 0x00, 0x9e, 0xb2, 0x7d
+	            ], [
+	                0x18, 0x74, 0xba, 0x86, 0xea, 0x19, 0x4f, 0xb1,
+	                0x4d, 0xcc, 0xe9, 0xfa, 0x22, 0x36, 0x6f, 0x47,
+	                0x35, 0xca, 0xea, 0x21, 0x19, 0xbe, 0xb6, 0x3f,
+	                0x2b, 0xae, 0xc1, 0x9a, 0x9e, 0x93, 0xa5, 0x45
+	            ]),
+	            this.Gq.parsePoint([
+	                0xc0, 0xef, 0xad, 0xb5, 0xc3, 0x01, 0x5e, 0x42,
+	                0xc1, 0xd7, 0x1a, 0xc3, 0x90, 0xc4, 0xd2, 0x2a,
+	                0x6f, 0x5d, 0x55, 0x2f, 0x63, 0xbb, 0xcc, 0x59,
+	                0x19, 0x0a, 0xea, 0x6a, 0xee, 0x16, 0x35, 0x4a
+	            ], [
+	                0x53, 0xf0, 0x13, 0x3e, 0xa4, 0x4d, 0xa2, 0x0c,
+	                0x50, 0x9a, 0x4e, 0x5b, 0xe9, 0xb0, 0x27, 0xdb,
+	                0xe1, 0x3e, 0x3a, 0x60, 0x43, 0x9d, 0xbe, 0x72,
+	                0x08, 0x4b, 0x0c, 0x75, 0xa0, 0x49, 0x72, 0x3f
+	            ]),
+	            this.Gq.parsePoint([
+	                0xbd, 0x5f, 0x29, 0xdf, 0x66, 0x40, 0x49, 0x3f,
+	                0xf9, 0x6c, 0x6c, 0xbc, 0x49, 0xcb, 0x8e, 0x5f,
+	                0x61, 0x46, 0x27, 0x92, 0xdb, 0x75, 0xf2, 0x0e,
+	                0xf4, 0x9b, 0xf8, 0x6e, 0x26, 0x0d, 0xc9, 0x55
+	            ], [
+	                0x20, 0x4c, 0x44, 0x0e, 0xf8, 0xc6, 0xeb, 0x2b,
+	                0xec, 0x0c, 0x34, 0x3a, 0xce, 0x9c, 0x6d, 0x64,
+	                0xe1, 0x88, 0xc8, 0xb4, 0xf0, 0x61, 0x3d, 0x64,
+	                0x84, 0x6a, 0xdb, 0xdc, 0x3d, 0x8f, 0xdf, 0xad
+	            ]),
+	            this.Gq.parsePoint([
+	                0xd9, 0x1a, 0xbd, 0xa2, 0x6e, 0xc5, 0xc3, 0x00,
+	                0x1c, 0xf1, 0xca, 0x2c, 0x09, 0xad, 0x88, 0x66,
+	                0x25, 0x58, 0x42, 0x6d, 0xc3, 0xb4, 0xd1, 0xb5,
+	                0x01, 0xe7, 0xab, 0xc2, 0xdb, 0x08, 0x0c, 0xdc
+	            ], [
+	                0x54, 0xeb, 0xb1, 0x7f, 0xed, 0x85, 0x5a, 0x36,
+	                0xc1, 0xf7, 0x4a, 0xb8, 0x25, 0x62, 0x08, 0xe8,
+	                0x63, 0x07, 0xa9, 0xf2, 0xb7, 0x56, 0xd7, 0xc8,
+	                0x4b, 0x4f, 0xb9, 0x48, 0x5e, 0x0f, 0xf5, 0xf5
+	            ]),
+	            this.Gq.parsePoint([
+	                0x86, 0xeb, 0x2c, 0x94, 0xe2, 0xb6, 0xd6, 0x20,
+	                0xa3, 0x91, 0xb4, 0x08, 0x0d, 0xfe, 0x2b, 0x37,
+	                0x7c, 0xc2, 0x0d, 0x98, 0x1b, 0x5b, 0xc0, 0xcc,
+	                0xa9, 0x4e, 0x86, 0x56, 0x97, 0x95, 0x9e, 0xbe
+	            ], [
+	                0x26, 0xac, 0x15, 0x89, 0xc5, 0x28, 0x80, 0xc3,
+	                0xb8, 0xf8, 0x1d, 0x2b, 0xf3, 0x29, 0x76, 0x63,
+	                0x60, 0x19, 0xf1, 0x6d, 0x8e, 0xfa, 0x1f, 0x4d,
+	                0x20, 0x95, 0x0b, 0x99, 0x08, 0xce, 0xb7, 0xe1
+	            ]),
+	            this.Gq.parsePoint([
+	                0x55, 0x53, 0x14, 0x8e, 0x44, 0x25, 0x26, 0x92,
+	                0xd9, 0xe7, 0xea, 0x9c, 0x18, 0x94, 0x69, 0xdd,
+	                0x2c, 0x0e, 0x8b, 0xd4, 0x49, 0x40, 0x5b, 0x6f,
+	                0x3b, 0x1f, 0x27, 0x92, 0x45, 0xb3, 0x7f, 0x0d
+	            ], [
+	                0x79, 0x0c, 0xa4, 0xce, 0x90, 0xe0, 0x48, 0xa7,
+	                0x42, 0x5b, 0x66, 0x2a, 0x63, 0x16, 0x12, 0xd0,
+	                0x22, 0x4f, 0x20, 0x8e, 0x4b, 0xe6, 0xe9, 0x07,
+	                0xc3, 0xe7, 0xd9, 0x60, 0x7a, 0x99, 0x7f, 0x6d
+	            ]),
+	            this.Gq.parsePoint([
+	                0x77, 0x66, 0x8d, 0x97, 0xbf, 0xf7, 0xd5, 0xda,
+	                0x69, 0x5d, 0x6d, 0x72, 0xe4, 0xf8, 0x40, 0x20,
+	                0x5d, 0xe2, 0x89, 0xce, 0x8f, 0xf1, 0xe9, 0x95,
+	                0x24, 0x35, 0xb0, 0xb4, 0xdd, 0x4e, 0x22, 0x2e
+	            ], [
+	                0x14, 0x76, 0x06, 0x0b, 0x33, 0xfe, 0x63, 0x6b,
+	                0xb9, 0xb7, 0x5f, 0x10, 0x78, 0x5d, 0x4b, 0x43,
+	                0x19, 0x05, 0xcd, 0x00, 0x6f, 0x83, 0x2b, 0xf7,
+	                0x31, 0x03, 0xb9, 0xf8, 0x80, 0x37, 0x85, 0x56
+	            ]),
+	            this.Gq.parsePoint([
+	                0x72, 0x9a, 0x72, 0xbe, 0x83, 0x75, 0x88, 0x8f,
+	                0x67, 0xdf, 0x96, 0xd2, 0xa5, 0x2e, 0x1b, 0x38,
+	                0x4a, 0xf1, 0xc6, 0x8f, 0xf8, 0xb7, 0x3c, 0xad,
+	                0xf6, 0x29, 0x6c, 0x72, 0xc2, 0xc1, 0xfa, 0xb2
+	            ], [
+	                0x01, 0x31, 0x20, 0xe6, 0x94, 0x2d, 0x07, 0x40,
+	                0xa2, 0x5f, 0x8b, 0x87, 0x1e, 0x1f, 0x2f, 0xe9,
+	                0xa8, 0x60, 0x49, 0x77, 0xd1, 0xda, 0xa1, 0x8a,
+	                0xf0, 0xe4, 0xfe, 0xd5, 0x70, 0xc6, 0xea, 0x2e
+	            ]),
+	            this.Gq.parsePoint([
+	                0xcf, 0xba, 0x01, 0x4e, 0xf2, 0x73, 0x4b, 0xb0,
+	                0xd5, 0x18, 0x63, 0xa1, 0xe6, 0xae, 0x8e, 0xb4,
+	                0xae, 0x18, 0x9f, 0x8c, 0x19, 0x43, 0x2a, 0xf4,
+	                0x6d, 0x9f, 0x16, 0xfd, 0xd4, 0x3f, 0xbc, 0x18
+	            ], [
+	                0x12, 0x56, 0xc7, 0x84, 0xf8, 0x27, 0xc3, 0x1a,
+	                0xd2, 0x3d, 0x8d, 0x23, 0x36, 0x78, 0xce, 0x2e,
+	                0xeb, 0xce, 0x34, 0x46, 0x29, 0xe7, 0xa5, 0xf7,
+	                0xa6, 0xd9, 0x4a, 0xdc, 0x0f, 0xf4, 0x7a, 0x7e
+	            ]),
+	            this.Gq.parsePoint([
+	                0x6c, 0x14, 0x07, 0xc4, 0x9a, 0x51, 0xf6, 0x76,
+	                0x25, 0xeb, 0x8b, 0x29, 0x95, 0xac, 0x11, 0x94,
+	                0x42, 0x88, 0x99, 0x5b, 0x3a, 0x81, 0x78, 0x9a,
+	                0x5e, 0xb3, 0xe6, 0xbf, 0x4f, 0x2d, 0xed, 0x78
+	            ], [
+	                0x16, 0xd8, 0x72, 0x49, 0x4f, 0xc1, 0x8d, 0x77,
+	                0x40, 0x4f, 0x90, 0x6e, 0x58, 0x90, 0x21, 0x50,
+	                0xe1, 0xfc, 0xdd, 0xa0, 0xcf, 0x21, 0x15, 0x16,
+	                0xf6, 0xf1, 0x94, 0x15, 0xe8, 0x89, 0x2f, 0x26
+	            ]),
+	            this.Gq.parsePoint([
+	                0xd9, 0x23, 0x1c, 0x31, 0x5b, 0xaf, 0x72, 0x24,
+	                0x69, 0xf7, 0x4f, 0xba, 0x55, 0xba, 0x66, 0x17,
+	                0x77, 0xe9, 0x1c, 0xa6, 0x32, 0x0a, 0x88, 0x25,
+	                0xbd, 0xa1, 0xcb, 0xf0, 0xea, 0x20, 0x60, 0x92
+	            ], [
+	                0x36, 0xe4, 0xcd, 0x12, 0x88, 0x08, 0x8d, 0xec,
+	                0xee, 0xa8, 0xe7, 0xb6, 0xd2, 0x2c, 0xfd, 0x97,
+	                0xb9, 0x9f, 0x87, 0xfa, 0xcc, 0x95, 0xf1, 0x89,
+	                0x1f, 0xc6, 0xa2, 0x8b, 0xd8, 0x1e, 0x5f, 0x50
+	            ]),
+	            this.Gq.parsePoint([
+	                0x35, 0x35, 0x87, 0x11, 0x38, 0x41, 0x06, 0xb8,
+	                0x62, 0xa2, 0xcf, 0x0b, 0x40, 0x3e, 0x80, 0x55,
+	                0x92, 0x0c, 0x75, 0x98, 0xbf, 0xb4, 0x99, 0x87,
+	                0xa8, 0x9c, 0x35, 0x69, 0xe5, 0xa0, 0x5b, 0x61
+	            ], [
+	                0x18, 0xed, 0xfa, 0x1d, 0xfc, 0x65, 0x3a, 0x05,
+	                0x74, 0xca, 0x88, 0xfd, 0xaa, 0xec, 0xdf, 0xe9,
+	                0xeb, 0x75, 0x30, 0x9a, 0xac, 0xbe, 0x92, 0x6c,
+	                0x21, 0x10, 0xe9, 0x26, 0x78, 0xc8, 0x4e, 0x3d
+	            ]),
+	            this.Gq.parsePoint([
+	                0x25, 0xd0, 0x5c, 0x26, 0x17, 0x72, 0x16, 0x6c,
+	                0x08, 0x48, 0x3d, 0x00, 0x00, 0x3f, 0x44, 0x35,
+	                0x20, 0xe9, 0x13, 0x24, 0xcb, 0xe9, 0x18, 0xfc,
+	                0x34, 0x00, 0x8a, 0x93, 0x27, 0x16, 0xd7, 0xeb
+	            ], [
+	                0x66, 0x8a, 0x13, 0xc5, 0xd1, 0x63, 0xf6, 0x64,
+	                0x6b, 0xf2, 0xe8, 0xf4, 0x2d, 0x1f, 0x48, 0xe7,
+	                0x9a, 0x9e, 0xad, 0x02, 0x09, 0x22, 0xb3, 0x83,
+	                0x00, 0x6b, 0x67, 0x6d, 0x29, 0xd3, 0x5a, 0x42
+	            ]),
+	            this.Gq.parsePoint([
+	                0xfc, 0x03, 0x5c, 0x85, 0xaa, 0x0e, 0x9c, 0x52,
+	                0x7e, 0xa7, 0xdc, 0xa2, 0x6a, 0x2d, 0xb7, 0x4d,
+	                0xc2, 0x50, 0xe8, 0xa5, 0xab, 0xe8, 0x53, 0xbb,
+	                0xde, 0xd1, 0x59, 0x59, 0xd7, 0x23, 0x0f, 0x43
+	            ], [
+	                0x65, 0xf0, 0x52, 0xa3, 0x82, 0xb2, 0xc7, 0x8c,
+	                0xaa, 0x9f, 0xcf, 0xc9, 0x52, 0x09, 0x6f, 0x4c,
+	                0xcc, 0x47, 0x72, 0x54, 0x6e, 0x57, 0x98, 0x64,
+	                0x91, 0x23, 0xfe, 0xf9, 0x4e, 0xc9, 0x5a, 0xcc
+	            ]),
+	            this.Gq.parsePoint([
+	                0x85, 0xb3, 0x87, 0x3f, 0xd9, 0x11, 0xbf, 0x06,
+	                0xa9, 0x78, 0xfa, 0x40, 0xe2, 0x61, 0xe1, 0xc8,
+	                0x56, 0xf6, 0x38, 0xca, 0x9e, 0xc8, 0xcb, 0xe8,
+	                0x82, 0x6a, 0x60, 0x82, 0xc8, 0x45, 0x2d, 0x0f
+	            ], [
+	                0x3c, 0xf0, 0x0d, 0x69, 0x58, 0x6f, 0x56, 0xbe,
+	                0xd8, 0x49, 0xd5, 0xe9, 0xe2, 0x82, 0x5a, 0x00,
+	                0x3c, 0xe5, 0x62, 0xaa, 0xb5, 0xf8, 0x1b, 0xd7,
+	                0x18, 0xa4, 0xe9, 0x41, 0x98, 0x9e, 0x11, 0x01
+	            ]),
+	            this.Gq.parsePoint([
+	                0x45, 0x49, 0xf8, 0xc6, 0x21, 0xea, 0xba, 0x57,
+	                0xed, 0x23, 0x36, 0xd5, 0x19, 0x20, 0xf6, 0xfc,
+	                0x4d, 0xc3, 0x4e, 0x04, 0x7d, 0xb1, 0x34, 0xc6,
+	                0x19, 0x80, 0xe4, 0xe3, 0x58, 0xc5, 0xe3, 0x24
+	            ], [
+	                0x39, 0xe8, 0xbe, 0x23, 0xf0, 0x40, 0x33, 0xa0,
+	                0xf8, 0xbc, 0x43, 0xd5, 0xa1, 0x1b, 0x1e, 0x79,
+	                0x8d, 0x25, 0xb5, 0xc7, 0x5d, 0x74, 0x0e, 0xfd,
+	                0x30, 0x99, 0x85, 0xed, 0xc5, 0xde, 0xdb, 0x98
+	            ]),
+	            this.Gq.parsePoint([
+	                0xb8, 0xad, 0x38, 0x6b, 0x54, 0xf9, 0x76, 0x6e,
+	                0x5c, 0xb1, 0xa2, 0xf0, 0x50, 0xcb, 0xca, 0x2a,
+	                0x22, 0x61, 0x9b, 0xa0, 0x08, 0xfd, 0xf9, 0x49,
+	                0x6d, 0xf3, 0x8a, 0x6c, 0xea, 0x78, 0x4e, 0xb2
+	            ], [
+	                0x5b, 0x33, 0x3a, 0x0c, 0xde, 0x9d, 0xdc, 0x8d,
+	                0x65, 0x71, 0xb1, 0xca, 0xc4, 0x56, 0xa4, 0x71,
+	                0x44, 0xc9, 0xc1, 0x6e, 0xce, 0x86, 0x6a, 0x53,
+	                0x84, 0x94, 0xea, 0x0f, 0xea, 0xee, 0xf0, 0xac
+	            ]),
+	            this.Gq.parsePoint([
+	                0x56, 0x62, 0x8c, 0x7d, 0x63, 0x66, 0xe1, 0xc4,
+	                0xa9, 0x36, 0x1e, 0x5f, 0x7e, 0x49, 0x41, 0x5c,
+	                0x80, 0xfd, 0xa1, 0x4c, 0x04, 0xf1, 0x06, 0xf0,
+	                0x63, 0x8e, 0xc8, 0xcf, 0x59, 0xaa, 0x04, 0x85
+	            ], [
+	                0x74, 0xfd, 0xc2, 0x60, 0x80, 0x2b, 0x6d, 0xf5,
+	                0x5a, 0x64, 0x02, 0x33, 0x88, 0x95, 0x35, 0xcd,
+	                0x04, 0xe0, 0xdf, 0x84, 0xb6, 0x6d, 0x9d, 0xa4,
+	                0x64, 0x5d, 0xa3, 0x11, 0x93, 0x99, 0x50, 0x46
+	            ]),
+	            this.Gq.parsePoint([
+	                0x8f, 0x1f, 0x5a, 0x0e, 0x34, 0x2e, 0x65, 0x57,
+	                0xb9, 0x55, 0x35, 0x54, 0x38, 0x60, 0x8d, 0xb0,
+	                0x9e, 0x4d, 0x23, 0x7e, 0xc7, 0x23, 0x0e, 0x2c,
+	                0x83, 0x6b, 0xd5, 0xf3, 0xe9, 0x1c, 0x6c, 0x12
+	            ], [
+	                0x2c, 0x1a, 0x21, 0x02, 0xa6, 0x9e, 0xf7, 0x4a,
+	                0x00, 0x63, 0x53, 0xc2, 0xd2, 0xd1, 0xdd, 0x9d,
+	                0xbd, 0xfa, 0xb0, 0x07, 0xfd, 0x08, 0xe7, 0xc8,
+	                0x8e, 0xb8, 0x69, 0xa0, 0xa6, 0x69, 0xb1
+	            ]),
+	            this.Gq.parsePoint([
+	                0xbe, 0xaf, 0x77, 0x57, 0xa3, 0xce, 0x43, 0xdc,
+	                0x8d, 0x4a, 0x07, 0x32, 0xe1, 0xe3, 0x18, 0xf4,
+	                0x97, 0x55, 0xe6, 0x1e, 0x5f, 0x57, 0xa8, 0x5b,
+	                0xec, 0xcf, 0x21, 0xb7, 0xdc, 0xc8, 0x18, 0xe2
+	            ], [
+	                0x40, 0xd2, 0x6c, 0x2a, 0xdc, 0x3f, 0x41, 0xd0,
+	                0x91, 0x56, 0x02, 0x5a, 0x9d, 0xc3, 0x4f, 0xd3,
+	                0xca, 0x6b, 0x96, 0x80, 0x9d, 0x3d, 0x7c, 0xf5,
+	                0xf2, 0x8d, 0x00, 0xa1, 0xed, 0xbd, 0x69, 0x95
+	            ]),
+	            this.Gq.parsePoint([
+	                0xe5, 0x13, 0xc3, 0xe5, 0x0e, 0xfa, 0x44, 0x36,
+	                0x19, 0x9c, 0x5a, 0x51, 0xfd, 0x69, 0x1e, 0xa4,
+	                0xdc, 0xab, 0xbc, 0x20, 0x2a, 0x80, 0x29, 0xba,
+	                0x3d, 0xf0, 0x33, 0x6f, 0x12, 0xd8, 0x26, 0x63
+	            ], [
+	                0x75, 0xf4, 0x2f, 0x58, 0x48, 0x0d, 0x2c, 0xad,
+	                0x56, 0x9b, 0x0f, 0x13, 0xcb, 0xf3, 0x76, 0xc3,
+	                0x91, 0x32, 0x71, 0xd9, 0xf7, 0x84, 0x42, 0x42,
+	                0xb8, 0x70, 0x51, 0x9d, 0x2b, 0xe8, 0x39, 0x8e
+	            ]),
+	            this.Gq.parsePoint([
+	                0xb4, 0x2b, 0x3b, 0x05, 0xbc, 0xaf, 0xbb, 0x72,
+	                0x80, 0x0e, 0xe2, 0x42, 0xab, 0x4c, 0xb7, 0xab,
+	                0xd7, 0x7f, 0x1f, 0xce, 0xac, 0x7c, 0xe1, 0xd3,
+	                0x27, 0xee, 0xc2, 0x5b, 0x3d, 0xe6, 0xc4, 0x3d
+	            ], [
+	                0x72, 0x5f, 0x5b, 0x3d, 0x0c, 0xdd, 0x1b, 0x86,
+	                0xbd, 0x7a, 0x8b, 0xd6, 0x35, 0xc1, 0xac, 0xed,
+	                0xba, 0xc9, 0x1d, 0x6c, 0x35, 0x16, 0x3e, 0xae,
+	                0x66, 0x81, 0x07, 0x51, 0xf4, 0xd4, 0x62, 0x88
+	            ]),
+	            this.Gq.parsePoint([
+	                0xc8, 0xa4, 0xa7, 0xdf, 0x6b, 0xef, 0x6c, 0x61,
+	                0xef, 0x50, 0xbf, 0xfd, 0x9c, 0xfa, 0x7e, 0xfd,
+	                0xe2, 0x25, 0x30, 0xf0, 0xb2, 0xd0, 0x37, 0x1e,
+	                0x81, 0x9b, 0x80, 0xe8, 0x85, 0xd5, 0x92, 0xdd
+	            ], [
+	                0x19, 0x6e, 0x7e, 0x0a, 0x81, 0xd0, 0x3b, 0x38,
+	                0xa8, 0xf9, 0x91, 0x04, 0x81, 0x2f, 0x64, 0x78,
+	                0x4b, 0x62, 0xd4, 0x19, 0x91, 0xf5, 0x66, 0xde,
+	                0x27, 0x84, 0x7b, 0x6b, 0xb9, 0xba, 0xa2, 0x51
+	            ]),
+	            this.Gq.parsePoint([
+	                0xa2, 0x2a, 0xf4, 0x5e, 0x5a, 0x7a, 0x9a, 0x9f,
+	                0x94, 0x91, 0x0e, 0x8c, 0xdb, 0x5e, 0x64, 0x9e,
+	                0x83, 0xc3, 0x8f, 0xc1, 0x36, 0x9f, 0x1c, 0xa9,
+	                0xfa, 0x1d, 0x51, 0x88, 0x7c, 0x38, 0xdd, 0xf1
+	            ], [
+	                0x75, 0x9b, 0xd3, 0x8c, 0x6e, 0x09, 0xfe, 0x2c,
+	                0xd7, 0x5b, 0x4f, 0x35, 0x5f, 0x44, 0x20, 0xe2,
+	                0xe7, 0xb2, 0xdf, 0xd9, 0xf7, 0x14, 0x7a, 0xa0,
+	                0x3d, 0x53, 0x73, 0xb3, 0x61, 0x2b, 0x83, 0x89
+	            ]),
+	            this.Gq.parsePoint([
+	                0x22, 0xf4, 0x7a, 0x6a, 0xae, 0xc1, 0x42, 0x35,
+	                0x94, 0x81, 0xee, 0xa4, 0x90, 0x98, 0x88, 0x2b,
+	                0x3e, 0xca, 0xc4, 0x62, 0x5b, 0x1d, 0x25, 0x62,
+	                0xb0, 0x27, 0x18, 0x48, 0x76, 0x2c, 0x5d, 0xde
+	            ], [
+	                0x3e, 0x0b, 0x7e, 0x0c, 0x51, 0xa0, 0x63, 0x30,
+	                0x35, 0x80, 0xca, 0x25, 0xe3, 0x26, 0xae, 0x7e,
+	                0x61, 0x08, 0x6e, 0xa6, 0xe4, 0xc4, 0x95, 0xd2,
+	                0x51, 0x62, 0x86, 0x70, 0x39, 0xd9, 0xfe, 0x4c
+	            ]),
+	            this.Gq.parsePoint([
+	                0xea, 0xe2, 0x4e, 0x9c, 0xbf, 0x4a, 0x8e, 0xb9,
+	                0x2c, 0x1c, 0xc8, 0x0d, 0x75, 0xdc, 0xf4, 0x4c,
+	                0x39, 0xdf, 0xe4, 0xed, 0xcf, 0x13, 0xc3, 0xe5,
+	                0xe4, 0xb7, 0xba, 0x08, 0xc3, 0x29, 0x37, 0x8d
+	            ], [
+	                0x2f, 0x7f, 0xff, 0xfa, 0x43, 0xa2, 0xd0, 0x26,
+	                0x8c, 0x25, 0xe4, 0xf0, 0x86, 0x63, 0xfe, 0xf2,
+	                0x6c, 0x57, 0x96, 0x2f, 0xd5, 0xf6, 0x23, 0x29,
+	                0x2f, 0x06, 0x1e, 0xa1, 0x9c, 0x57, 0x10, 0xa1
+	            ]),
+	            this.Gq.parsePoint([
+	                0xad, 0x92, 0xb0, 0x98, 0x52, 0x8a, 0xe2, 0x08,
+	                0x57, 0x24, 0x74, 0xe3, 0xca, 0x2b, 0x1f, 0x6f,
+	                0xbe, 0x13, 0x3c, 0xb4, 0xfa, 0xb5, 0xee, 0xba,
+	                0x0e, 0x46, 0x10, 0x0c, 0x68, 0x4d, 0x5b, 0xbc
+	            ], [
+	                0x47, 0x97, 0x86, 0x85, 0xfa, 0x8f, 0x41, 0xca,
+	                0x52, 0x46, 0xbd, 0x63, 0x47, 0xba, 0x65, 0xf6,
+	                0x70, 0xec, 0x65, 0xa1, 0x36, 0x16, 0x6c, 0x75,
+	                0xe7, 0x93, 0x63, 0x46, 0xe1, 0x6a, 0xd7, 0x90
+	            ]),
+	            this.Gq.parsePoint([
+	                0xdc, 0x5a, 0xbc, 0x9d, 0x9e, 0x2a, 0x04, 0xa7,
+	                0xba, 0x38, 0x34, 0x6e, 0x82, 0x71, 0x19, 0xf5,
+	                0x0f, 0xa3, 0x11, 0xb8, 0xcb, 0x4b, 0x12, 0xcf,
+	                0x53, 0x60, 0x2f, 0x34, 0x82, 0xa6, 0x09, 0xc0
+	            ], [
+	                0xe9, 0x4f, 0x73, 0xd5, 0xd9, 0x64, 0x19, 0x42,
+	                0x18, 0x8f, 0xd0, 0xff, 0x64, 0xa7, 0x75, 0x10,
+	                0x21, 0xfa, 0xf6, 0xcc, 0x9c, 0x4d, 0x2a, 0xa0,
+	                0x31, 0x8e, 0x94, 0xf0, 0x59, 0x78, 0xbe
+	            ]),
+	            this.Gq.parsePoint([
+	                0x5d, 0x00, 0x8b, 0x9b, 0xde, 0xbb, 0x38, 0x24,
+	                0x93, 0x5b, 0xdc, 0x68, 0xa7, 0xac, 0x42, 0x6c,
+	                0x55, 0x40, 0x58, 0xa9, 0xdc, 0x4e, 0xd8, 0xbe,
+	                0xa2, 0xea, 0x74, 0xa9, 0x2d, 0xf4, 0x7f, 0xc3
+	            ], [
+	                0x18, 0x05, 0xd5, 0xf8, 0xf0, 0x97, 0xea, 0x8b,
+	                0x3b, 0x86, 0x08, 0xdc, 0x5f, 0x01, 0x6f, 0xd9,
+	                0x09, 0x78, 0x1b, 0x75, 0x90, 0x0d, 0x53, 0xce,
+	                0x8b, 0x65, 0x84, 0x65, 0x18, 0xca, 0x0b, 0xda
+	            ]),
+	            this.Gq.parsePoint([
+	                0x4b, 0xff, 0x16, 0x06, 0x7e, 0x37, 0x79, 0x8f,
+	                0xf3, 0xe3, 0x24, 0x2b, 0x11, 0xbe, 0x39, 0xf8,
+	                0x3d, 0xd7, 0x45, 0x1e, 0xbe, 0x11, 0x01, 0xea,
+	                0xc4, 0x88, 0x7a, 0x6f, 0x93, 0xd5, 0x02, 0x06
+	            ], [
+	                0x06, 0x5e, 0x5e, 0x31, 0xe1, 0x50, 0x13, 0x60,
+	                0x36, 0xe1, 0x92, 0x25, 0x49, 0xb9, 0xfd, 0x9a,
+	                0x85, 0x59, 0x97, 0x12, 0x9f, 0x45, 0x66, 0xd3,
+	                0xf5, 0xac, 0xf8, 0xa1, 0xe4, 0xd0, 0xac, 0x83
+	            ]),
+	            this.Gq.parsePoint([
+	                0xae, 0xcb, 0xa7, 0xf0, 0x74, 0x51, 0x23, 0xd9,
+	                0xc6, 0xa6, 0x0e, 0x9b, 0xd4, 0x61, 0xa8, 0x63,
+	                0x61, 0x31, 0xb0, 0x95, 0xf5, 0x96, 0x17, 0x84,
+	                0x9d, 0x33, 0x5d, 0x2a, 0x7d, 0x8b, 0x18, 0x7b
+	            ], [
+	                0x5f, 0x62, 0xd5, 0xea, 0xf4, 0xa9, 0xa8, 0x92,
+	                0x48, 0x8c, 0x0d, 0xe9, 0x5d, 0x8d, 0x85, 0xed,
+	                0xa9, 0x03, 0x5b, 0x65, 0x97, 0xea, 0x26, 0x74,
+	                0xd7, 0xa7, 0xee, 0x7d, 0x4a, 0x53, 0x5e, 0xbd
+	            ]),
+	            this.Gq.parsePoint([
+	                0xa7, 0x4e, 0xcb, 0x80, 0x73, 0x24, 0x96, 0xe8,
+	                0xf6, 0xce, 0x72, 0xf4, 0x55, 0x69, 0x37, 0xc2,
+	                0x37, 0xe1, 0x9e, 0xfa, 0xc7, 0x56, 0x7c, 0x15,
+	                0x1f, 0x38, 0x6b, 0x65, 0x06, 0x56, 0xa2, 0x26
+	            ], [
+	                0x04, 0xf6, 0x61, 0x41, 0x53, 0x13, 0x28, 0x4d,
+	                0x90, 0x44, 0x85, 0xe6, 0xf6, 0xdb, 0x8f, 0xe9,
+	                0x47, 0x82, 0xb2, 0xba, 0x24, 0xc0, 0xcb, 0xa6,
+	                0xca, 0x77, 0x55, 0x7e, 0xfc, 0xd8, 0xf0, 0x5e
+	            ]),
+	            this.Gq.parsePoint([
+	                0xed, 0x0e, 0x96, 0x56, 0x69, 0x01, 0x7a, 0xa7,
+	                0x1f, 0x34, 0x2e, 0xc8, 0xa0, 0x99, 0xbb, 0xf0,
+	                0x1a, 0x0b, 0x9e, 0xab, 0x94, 0xf6, 0x26, 0x23,
+	                0xec, 0xf9, 0x6b, 0xcc, 0x0e, 0x14, 0xe4, 0xab
+	            ], [
+	                0x24, 0x4b, 0xf1, 0x25, 0x52, 0x3e, 0xf2, 0x97,
+	                0x8d, 0xb0, 0x60, 0x06, 0xcd, 0xa7, 0xcf, 0x3e,
+	                0x4d, 0x58, 0x39, 0x77, 0x11, 0xd9, 0x28, 0x97,
+	                0x60, 0x3d, 0xba, 0xe2, 0x9b, 0x82, 0x86, 0x4b
+	            ]),
+	            this.Gq.parsePoint([
+	                0x06, 0x9b, 0x84, 0x3b, 0xdb, 0xf0, 0x17, 0xd4,
+	                0x16, 0xa7, 0x67, 0xd1, 0x34, 0xe1, 0xc2, 0xd4,
+	                0x97, 0xfa, 0xd2, 0xcd, 0xaa, 0xe3, 0x6b, 0x27,
+	                0x53, 0x70, 0xff, 0x51, 0x2a, 0x34, 0xbf, 0xa7
+	            ], [
+	                0x3d, 0x3b, 0xe3, 0xd2, 0xe8, 0x6e, 0xb0, 0x7a,
+	                0x87, 0x84, 0x9b, 0x2e, 0xf1, 0x6e, 0xe3, 0x03,
+	                0x10, 0xb8, 0x6e, 0x63, 0xb3, 0x47, 0x81, 0x63,
+	                0xfd, 0x06, 0xb6, 0x59, 0x2b, 0xbd, 0xe5, 0x45
+	            ]),
+	            this.Gq.parsePoint([
+	                0x59, 0x2d, 0x48, 0x15, 0x8a, 0x63, 0x58, 0xa2,
+	                0x90, 0x0d, 0x45, 0x3d, 0x79, 0xe8, 0x8d, 0x6b,
+	                0xc2, 0x0b, 0x7f, 0xa8, 0xcb, 0x2b, 0xfc, 0xfc,
+	                0xdf, 0xd0, 0x82, 0x96, 0x05, 0x25, 0xad, 0x83
+	            ], [
+	                0x72, 0x31, 0xc3, 0xd1, 0xf8, 0x6f, 0xcc, 0x1b,
+	                0x6c, 0x9e, 0x8c, 0x16, 0xae, 0x45, 0xa9, 0x35,
+	                0x08, 0xc9, 0xc4, 0x9e, 0x8a, 0x74, 0x5e, 0x64,
+	                0xb0, 0x76, 0x36, 0xfc, 0x6b, 0x03, 0x10, 0x3f
+	            ]),
+	            this.Gq.parsePoint([
+	                0x18, 0xff, 0xac, 0x75, 0x07, 0xb8, 0xf0, 0x22,
+	                0xeb, 0xa9, 0x72, 0x2a, 0xea, 0x93, 0xc6, 0xca,
+	                0x74, 0x70, 0x82, 0x5a, 0x78, 0x7c, 0x1f, 0x98,
+	                0x2b, 0x08, 0x3d, 0xda, 0x04, 0x90, 0xed, 0x32
+	            ], [
+	                0x30, 0x4b, 0x83, 0x60, 0x4a, 0x94, 0xff, 0x8a,
+	                0x27, 0x87, 0xb0, 0x47, 0xe8, 0x23, 0xe5, 0x0a,
+	                0x64, 0xed, 0xca, 0x0b, 0x1d, 0xcc, 0xb9, 0x38,
+	                0x11, 0x96, 0x59, 0x7a, 0x1c, 0x63, 0xb3, 0x62
+	            ]),
+	            this.Gq.parsePoint([
+	                0xdd, 0xe5, 0xdf, 0xc2, 0x86, 0x7a, 0x61, 0xba,
+	                0x2e, 0x04, 0x6d, 0xd5, 0x25, 0x76, 0xd3, 0xd3,
+	                0x3a, 0x24, 0x17, 0x3e, 0x32, 0xd7, 0x16, 0xca,
+	                0xf0, 0xd6, 0xbc, 0x4b, 0xd1, 0x19, 0x43, 0x74
+	            ], [
+	                0x79, 0xb6, 0xe3, 0x0b, 0x18, 0x22, 0xd6, 0x1e,
+	                0xad, 0xe5, 0x9b, 0x0a, 0xb3, 0xed, 0xbe, 0x8f,
+	                0x42, 0x91, 0xc8, 0xe0, 0x81, 0xdd, 0xce, 0xde,
+	                0xff, 0x00, 0xbc, 0x32, 0xeb, 0xfc, 0x1a, 0x93
+	            ]),
+	            this.Gq.parsePoint([
+	                0xe0, 0xf7, 0x2a, 0x8c, 0x71, 0x39, 0x5e, 0x19,
+	                0x06, 0x3b, 0x0e, 0x09, 0xf9, 0x47, 0xf8, 0x6c,
+	                0x06, 0xf4, 0xb3, 0x00, 0xc8, 0x1d, 0x3b, 0xbb,
+	                0xc4, 0x8d, 0xcb, 0x21, 0x9a, 0xb9, 0x60, 0xaa
+	            ], [
+	                0x6f, 0x23, 0x1e, 0x0a, 0x53, 0x8c, 0x8f, 0x54,
+	                0xc0, 0x66, 0xc9, 0x3e, 0x1a, 0xf8, 0x57, 0xbc,
+	                0x3b, 0x1c, 0x41, 0x88, 0x02, 0x27, 0x4c, 0xbd,
+	                0xf5, 0xe3, 0x87, 0xd8, 0x87, 0x36, 0xf5, 0x76
+	            ]),
+	            this.Gq.parsePoint([
+	                0x38, 0x53, 0x88, 0x07, 0x8e, 0xa2, 0xb4, 0x79,
+	                0x2d, 0xac, 0x8f, 0xbe, 0x0b, 0x47, 0x48, 0xb9,
+	                0x98, 0x00, 0xca, 0x08, 0x66, 0x62, 0xfa, 0x8e,
+	                0xab, 0xd6, 0x25, 0x96, 0xdd, 0x7e, 0x5c, 0x53
+	            ], [
+	                0x4d, 0x21, 0x12, 0x11, 0x1d, 0x5b, 0xf4, 0x7b,
+	                0xae, 0xd1, 0xc4, 0xa2, 0x68, 0x8c, 0xfa, 0x61,
+	                0x6e, 0x7b, 0xbb, 0x64, 0xd4, 0x12, 0xf1, 0x6b,
+	                0x37, 0x12, 0x88, 0xbf, 0xe9, 0x57, 0xea, 0x61
+	            ]),
+	            this.Gq.parsePoint([
+	                0xb1, 0x08, 0xaa, 0x3e, 0x8b, 0xf1, 0xf7, 0x07,
+	                0xf6, 0xba, 0x95, 0x56, 0xaa, 0x0f, 0x18, 0x71,
+	                0x51, 0x97, 0x34, 0xa6, 0x98, 0x20, 0x3f, 0x75,
+	                0x32, 0x92, 0x54, 0x43, 0xb2, 0x02, 0x0c, 0xbd
+	            ], [
+	                0x5a, 0x75, 0xfa, 0xe7, 0xad, 0x0b, 0xe2, 0x35,
+	                0x20, 0x73, 0x47, 0x79, 0xef, 0x11, 0xf3, 0x25,
+	                0xdd, 0xe7, 0xa6, 0xed, 0xc6, 0x33, 0x36, 0xef,
+	                0x9f, 0xb5, 0x86, 0x61, 0xfc, 0xcc, 0x46, 0xa5
+	            ]),
+	            this.Gq.parsePoint([
+	                0x06, 0x05, 0xb3, 0x50, 0x5f, 0x77, 0xe7, 0x4b,
+	                0x22, 0xea, 0x7e, 0x67, 0xc3, 0x33, 0x3f, 0xf3,
+	                0xb7, 0xb7, 0x71, 0x73, 0x83, 0x89, 0xd3, 0x05,
+	                0xaa, 0x59, 0x4d, 0x8f, 0x55, 0x02, 0x37, 0xdb
+	            ], [
+	                0x74, 0x87, 0xad, 0xb2, 0xe0, 0x7c, 0x3a, 0xb9,
+	                0x2e, 0x13, 0x86, 0x54, 0x67, 0x90, 0xa0, 0x11,
+	                0x49, 0x7e, 0xb9, 0xfb, 0x98, 0x46, 0x71, 0x6b,
+	                0x04, 0x79, 0x3d, 0xce, 0xa4, 0x30, 0xc7, 0xab
+	            ]),
+	            this.Gq.parsePoint([
+	                0xd8, 0x18, 0x83, 0xa9, 0xcf, 0x1d, 0xc3, 0x04,
+	                0x3c, 0x44, 0xf9, 0xf0, 0xf9, 0xff, 0x50, 0x2c,
+	                0xd0, 0x45, 0xe4, 0x29, 0x4c, 0x37, 0x5a, 0x30,
+	                0xa8, 0xa6, 0x5a, 0xbc, 0x0d, 0xd2, 0x82, 0x64
+	            ], [
+	                0x1d, 0x75, 0xc9, 0x9e, 0xb4, 0x4e, 0x2d, 0x8b,
+	                0x43, 0xa5, 0x3f, 0x69, 0xb6, 0x88, 0x1f, 0x96,
+	                0x92, 0x94, 0x35, 0xe2, 0xb3, 0x85, 0x0a, 0x37,
+	                0x01, 0xae, 0xd0, 0x26, 0xe8, 0x0a, 0x32, 0x91
+	            ]),
+	            this.Gq.parsePoint([
+	                0x93, 0xec, 0x90, 0x87, 0x9c, 0xd2, 0xd8, 0x6a,
+	                0x22, 0x76, 0xf4, 0x4b, 0x42, 0xdf, 0x73, 0x62,
+	                0x83, 0xd2, 0x97, 0x47, 0x07, 0x59, 0xde, 0x0a,
+	                0xf2, 0xc6, 0xc9, 0x2f, 0x16, 0x84, 0x82, 0xaf
+	            ], [
+	                0x1f, 0x45, 0xf4, 0x80, 0xa0, 0xec, 0x76, 0x07,
+	                0x51, 0x66, 0x79, 0xc2, 0xbb, 0x9f, 0x67, 0x7a,
+	                0x89, 0xd4, 0x50, 0xec, 0x46, 0x9a, 0xc9, 0x30,
+	                0xa1, 0x0d, 0x21, 0x3c, 0x1e, 0xb2, 0xa9, 0xcf
+	            ]),
+	            this.Gq.parsePoint([
+	                0x4e, 0x9e, 0x9e, 0xb8, 0xe2, 0x67, 0xc0, 0xd6,
+	                0x17, 0x60, 0xec, 0xab, 0xc9, 0xac, 0x19, 0xdd,
+	                0xac, 0x5d, 0xb9, 0x5c, 0x28, 0x33, 0x4e, 0xc9,
+	                0x9d, 0x49, 0xd7, 0x4d, 0x40, 0xb6, 0x6d, 0xaf
+	            ], [
+	                0x5d, 0xd7, 0x1c, 0x92, 0xd3, 0x11, 0xec, 0x15,
+	                0xd5, 0xe2, 0xe6, 0xd3, 0xb8, 0xd5, 0x13, 0x36,
+	                0x41, 0x5a, 0x60, 0x8e, 0x14, 0x04, 0x8c, 0x86,
+	                0xce, 0xec, 0x76, 0x4e, 0x6d, 0xe6, 0xdf, 0x49
+	            ]),
+	            this.Gq.parsePoint([
+	                0xce, 0xb4, 0xca, 0x98, 0xf6, 0x20, 0x19, 0x59,
+	                0x6b, 0x9b, 0xc6, 0x23, 0x4e, 0xa5, 0xc2, 0x02,
+	                0x99, 0x90, 0xf0, 0x8d, 0x06, 0x8f, 0x27, 0xee,
+	                0xf4, 0xfa, 0x7d, 0x98, 0x97, 0xbf, 0xaf, 0x62
+	            ], [
+	                0x41, 0x60, 0xfb, 0xdd, 0xaf, 0x29, 0x86, 0xf3,
+	                0xa1, 0x1e, 0x29, 0xb5, 0x89, 0xb9, 0xd9, 0x1d,
+	                0x8b, 0x15, 0xc5, 0xf8, 0xbb, 0xf0, 0x2f, 0x7f,
+	                0x17, 0x5f, 0x6e, 0xf8, 0xe7, 0xc2, 0xb1, 0xa4
+	            ]),
+	            this.Gq.parsePoint([
+	                0x80, 0xe8, 0x70, 0x67, 0x09, 0xbd, 0x25, 0xa8,
+	                0x49, 0x37, 0x41, 0x7e, 0x2d, 0x6a, 0x6d, 0xaf,
+	                0xa8, 0x3d, 0x37, 0x38, 0xdf, 0xb4, 0x2f, 0x8e,
+	                0xef, 0xa0, 0xfb, 0x52, 0x47, 0xd6, 0x99, 0x85
+	            ], [
+	                0x6a, 0x8f, 0x2e, 0xa6, 0xb2, 0x30, 0x1e, 0x3a,
+	                0xef, 0xbd, 0x82, 0x46, 0xf6, 0xeb, 0x97, 0xea,
+	                0x0c, 0xe1, 0x15, 0x5c, 0xe0, 0xb7, 0x2c, 0x47,
+	                0x1d, 0x01, 0xb0, 0xd0, 0xb8, 0x8d, 0xa2, 0xca
+	            ]),
+	            this.Gq.parsePoint([
+	                0x13, 0xbd, 0x26, 0x06, 0x06, 0x67, 0xf8, 0xeb,
+	                0x7e, 0x56, 0xe7, 0x82, 0x85, 0x4a, 0xf3, 0xb3,
+	                0xe0, 0x10, 0xcf, 0x18, 0x25, 0xa6, 0x84, 0xbc,
+	                0x72, 0xb2, 0x87, 0xea, 0x7b, 0x2c, 0x23, 0x4c
+	            ], [
+	                0x18, 0x71, 0xc1, 0x5a, 0xa6, 0xf8, 0xcc, 0x3a,
+	                0xda, 0x2d, 0x4b, 0xf6, 0xbb, 0x2b, 0xc6, 0x29,
+	                0x6c, 0xa6, 0x58, 0x7c, 0x12, 0x2d, 0xf3, 0xb4,
+	                0x7a, 0x9f, 0xaa, 0x30, 0x25, 0x86, 0x3a, 0x8c
+	            ]),
+	            this.Gq.parsePoint([
+	                0x7d, 0x5e, 0x69, 0xba, 0xce, 0x92, 0x0e, 0x8e,
+	                0xd2, 0xd0, 0xb4, 0x3a, 0xd1, 0x48, 0x49, 0xd7,
+	                0x1e, 0x26, 0x72, 0x9c, 0xb3, 0x7f, 0x00, 0x9a,
+	                0xe1, 0x4e, 0x6d, 0x8a, 0x06, 0x5e, 0x90, 0x79
+	            ], [
+	                0x13, 0xd6, 0xc8, 0xd6, 0xae, 0x02, 0x73, 0xa1,
+	                0x89, 0x01, 0x29, 0x77, 0x9f, 0xce, 0x34, 0xf0,
+	                0xca, 0xf6, 0xf3, 0x53, 0xbf, 0xde, 0x9e, 0xe3,
+	                0x37, 0x27, 0x86, 0x78, 0xc9, 0xb6, 0xe7, 0x58
+	            ])
+	        ];
+	        this.gt = this.Gq.parsePoint([
+	            0xe2, 0xab, 0x81, 0xde, 0xf5, 0x93, 0xe9, 0x99,
+	            0xc9, 0x75, 0xa8, 0xa4, 0x86, 0x68, 0xb9, 0xa0,
+	            0x7e, 0x55, 0x94, 0xcf, 0xd6, 0x8f, 0xac, 0x29,
+	            0xf1, 0x7a, 0x81, 0x1c, 0xb2, 0x6b, 0x3e, 0x10
+	        ], [
+	            0x75, 0x63, 0x11, 0xf8, 0x96, 0xc5, 0x03, 0xec,
+	            0xdb, 0x2f, 0x60, 0x8a, 0x1c, 0xcb, 0xfa, 0x37,
+	            0x8a, 0x95, 0xeb, 0x45, 0x78, 0xe6, 0x5f, 0x19,
+	            0x0f, 0x1a, 0x8b, 0x54, 0x4d, 0x20, 0xb0, 0x82
+	        ]);
+	    }
+	}
+	class P384ECGroupParams {
+	    constructor() {
+	        this.descGq = ECGroup.P384;
+	        this.Gq = new Group(this.descGq);
+	        this.oid = "1.3.6.1.4.1.311.75.1.2.2";
+	        this.g = [
+	            this.Gq.parsePoint([
+	                0x4a, 0xae, 0x57, 0x9d, 0xd5, 0x6d, 0x78, 0x09,
+	                0x0b, 0x99, 0x21, 0xf3, 0x1b, 0xf7, 0x29, 0xf0,
+	                0x74, 0x12, 0x1a, 0x3a, 0xdf, 0xfa, 0x2d, 0x31,
+	                0xd0, 0x12, 0x15, 0xbe, 0xee, 0x1d, 0xc4, 0xdf,
+	                0x9d, 0xf4, 0x63, 0xfd, 0x5e, 0x2b, 0x8f, 0x6c,
+	                0x6b, 0x0a, 0x42, 0x16, 0x25, 0x8a, 0xc8, 0x44
+	            ], [
+	                0x3c, 0x3b, 0x8a, 0x23, 0xc5, 0xd6, 0x6a, 0xa2,
+	                0xf0, 0x96, 0x45, 0x21, 0x19, 0x0a, 0x92, 0x81,
+	                0x45, 0x1e, 0x9a, 0xe3, 0xac, 0xe4, 0xb7, 0x37,
+	                0x6e, 0x02, 0xd7, 0xb3, 0x94, 0x9e, 0x22, 0x74,
+	                0xe8, 0x44, 0x8c, 0xad, 0xef, 0x7e, 0x51, 0x99,
+	                0x17, 0x20, 0xb4, 0x9a, 0x45, 0xb0, 0x58, 0x05
+	            ]),
+	            this.Gq.parsePoint([
+	                0x03, 0x2f, 0x08, 0x6e, 0xac, 0x7b, 0xeb, 0x55,
+	                0xa0, 0xc9, 0x5e, 0x5a, 0xd9, 0x96, 0xe3, 0x9d,
+	                0xde, 0x74, 0xb3, 0xb6, 0x6d, 0xfb, 0xc2, 0xb8,
+	                0xf1, 0x25, 0x29, 0xd9, 0xdf, 0x4a, 0x2c, 0xb8,
+	                0x4a, 0xa5, 0x4c, 0xe6, 0x9a, 0xb1, 0xfb, 0x22,
+	                0xcd, 0x7f, 0xd7, 0x99, 0x67, 0xd2, 0x61, 0xc2
+	            ], [
+	                0x16, 0xbb, 0xf0, 0x78, 0x65, 0x4e, 0x39, 0x16,
+	                0x80, 0xbd, 0xb5, 0x74, 0x95, 0x01, 0x8c, 0xc8,
+	                0xfe, 0x05, 0x13, 0x0a, 0xbf, 0xda, 0xa8, 0x4a,
+	                0xb4, 0xaf, 0x90, 0xd0, 0xd2, 0xd6, 0xc0, 0x1f,
+	                0xfd, 0xa8, 0xbc, 0x96, 0xcf, 0xcb, 0x00, 0x16,
+	                0xf3, 0xdb, 0x13, 0xd8, 0x0a, 0xe8, 0xa2, 0xd0
+	            ]),
+	            this.Gq.parsePoint([
+	                0xd6, 0x58, 0x3a, 0xfe, 0x48, 0x31, 0x1b, 0xec,
+	                0x5c, 0x90, 0x16, 0x68, 0x25, 0x31, 0xc9, 0x35,
+	                0xcf, 0x3f, 0xa9, 0x8e, 0x33, 0xd5, 0x03, 0x35,
+	                0x48, 0x20, 0xc9, 0x9f, 0xb2, 0xe9, 0x02, 0xea,
+	                0xcd, 0xb4, 0x19, 0x44, 0x12, 0x03, 0xe2, 0x87,
+	                0xb0, 0xd3, 0x3a, 0xdb, 0xbe, 0x91, 0x2e, 0x33
+	            ], [
+	                0x7f, 0x9e, 0x35, 0xc0, 0xc0, 0xda, 0xf2, 0xe6,
+	                0x8e, 0xd1, 0x35, 0xeb, 0xc0, 0x79, 0x71, 0xd5,
+	                0x8e, 0x0e, 0x6a, 0xc8, 0xda, 0x69, 0xf5, 0x4f,
+	                0x0c, 0x09, 0x3e, 0x24, 0xdd, 0x3f, 0x62, 0x75,
+	                0x1e, 0x81, 0x6b, 0x6f, 0x6e, 0x1f, 0xcb, 0x66,
+	                0x22, 0x6c, 0x4f, 0x0b, 0x35, 0xf9, 0xac, 0xdc
+	            ]),
+	            this.Gq.parsePoint([
+	                0x3e, 0xf8, 0x51, 0xb6, 0xe0, 0xa8, 0x4e, 0x24,
+	                0xfc, 0x99, 0x9b, 0x05, 0x3c, 0xf6, 0xac, 0xf3,
+	                0x2a, 0xdc, 0x94, 0x17, 0x84, 0xae, 0xf0, 0xde,
+	                0x14, 0x82, 0x3e, 0xf7, 0xab, 0xbe, 0x7e, 0x7e,
+	                0x49, 0xe7, 0xd8, 0x0c, 0xd3, 0x52, 0x95, 0xea,
+	                0xdf, 0x33, 0x22, 0x65, 0xd4, 0xda, 0x16, 0x5f
+	            ], [
+	                0x18, 0x28, 0x99, 0xd3, 0x46, 0x52, 0x62, 0x6c,
+	                0x74, 0x74, 0x98, 0x93, 0x66, 0xb1, 0xf1, 0x7a,
+	                0xd4, 0xd9, 0xc8, 0x12, 0x86, 0x3a, 0x67, 0xbc,
+	                0xdf, 0x7d, 0x85, 0xc0, 0xed, 0x59, 0xcb, 0x73,
+	                0x20, 0x66, 0x3e, 0xbb, 0x8f, 0xff, 0x3d, 0x5f,
+	                0x56, 0x32, 0xe0, 0xa7, 0x5e, 0x00, 0x99, 0x66
+	            ]),
+	            this.Gq.parsePoint([
+	                0x0b, 0x83, 0x44, 0x03, 0x1a, 0x95, 0x8a, 0x37,
+	                0x4d, 0xe8, 0xee, 0x07, 0x11, 0xc1, 0x55, 0x54,
+	                0x40, 0x4b, 0xfe, 0xdc, 0xa8, 0x0e, 0x48, 0x89,
+	                0x92, 0x2b, 0xdb, 0x0c, 0xeb, 0xad, 0x3a, 0x30,
+	                0xc9, 0x22, 0xf5, 0x49, 0x2d, 0x2c, 0xe4, 0x88,
+	                0x4b, 0xa1, 0xc7, 0x7b, 0x57, 0x2f, 0xa0, 0xbd
+	            ], [
+	                0x0d, 0x7d, 0x70, 0x7c, 0xec, 0x2e, 0xcb, 0xce,
+	                0xd7, 0x6f, 0x32, 0xd4, 0x3c, 0xe7, 0xb5, 0x5c,
+	                0xbd, 0x53, 0x27, 0x3f, 0x55, 0x60, 0x5b, 0x7b,
+	                0x9b, 0xac, 0x8b, 0x3f, 0x52, 0x1b, 0xb1, 0x53,
+	                0x96, 0x86, 0x96, 0x7b, 0xe1, 0x8b, 0x5a, 0xa4,
+	                0x1a, 0x71, 0x65, 0xf7, 0x26, 0xab, 0x5d, 0xbb
+	            ]),
+	            this.Gq.parsePoint([
+	                0xd8, 0x65, 0x19, 0x82, 0xf1, 0xcf, 0xab, 0x26,
+	                0x72, 0x70, 0x21, 0x9a, 0xee, 0x25, 0x07, 0x36,
+	                0xd5, 0x35, 0xc2, 0x89, 0xa3, 0x8c, 0x88, 0x5d,
+	                0xf2, 0x8e, 0xeb, 0xf6, 0x0f, 0x76, 0x3a, 0x12,
+	                0xa1, 0x66, 0x20, 0xac, 0xc5, 0x95, 0x69, 0x73,
+	                0x08, 0xee, 0xd1, 0xdb, 0x05, 0xac, 0xd4, 0xf0
+	            ], [
+	                0x2f, 0xc4, 0x3a, 0x11, 0xb8, 0x28, 0xc8, 0x54,
+	                0x6a, 0xb8, 0xc1, 0xc6, 0xae, 0xb4, 0x1a, 0x68,
+	                0x57, 0xc4, 0x81, 0x59, 0x04, 0x17, 0xb6, 0x59,
+	                0xac, 0x8b, 0xd3, 0xee, 0x53, 0xc7, 0x0f, 0xd3,
+	                0xf7, 0xaa, 0x13, 0xf0, 0x65, 0x70, 0x16, 0x88,
+	                0x23, 0xaf, 0xfc, 0xe8, 0x4a, 0x5e, 0x86, 0x1d
+	            ]),
+	            this.Gq.parsePoint([
+	                0xe4, 0x2b, 0xc1, 0x76, 0xe1, 0x3b, 0xde, 0xcf,
+	                0x2b, 0x31, 0x60, 0x18, 0xa2, 0x2c, 0xf9, 0x51,
+	                0x02, 0xb7, 0x1a, 0x1f, 0xa8, 0xac, 0x1c, 0xfe,
+	                0x14, 0xee, 0xc5, 0x4c, 0xad, 0x25, 0x6a, 0x9a,
+	                0xb9, 0xb4, 0xa7, 0xa8, 0xef, 0x3c, 0xfd, 0xe3,
+	                0x38, 0x4f, 0xe4, 0xa1, 0xbc, 0x11, 0xc2, 0xf4
+	            ], [
+	                0x4e, 0x26, 0x00, 0x27, 0x35, 0xc9, 0x26, 0x97,
+	                0x87, 0x70, 0x57, 0x25, 0x60, 0x38, 0xe7, 0x93,
+	                0x4c, 0x1d, 0x42, 0x81, 0x26, 0xf4, 0x1e, 0x77,
+	                0x1b, 0x19, 0x08, 0x40, 0xdb, 0xac, 0x0f, 0x59,
+	                0xbd, 0x5e, 0x07, 0x02, 0x25, 0x22, 0xb6, 0x38,
+	                0xa2, 0x93, 0x3e, 0x14, 0x63, 0x39, 0xdc, 0xc6
+	            ]),
+	            this.Gq.parsePoint([
+	                0xd7, 0x14, 0x10, 0xb3, 0xe3, 0xa2, 0x22, 0xaa,
+	                0xfb, 0x7f, 0x53, 0xed, 0x4c, 0xd8, 0x29, 0x9e,
+	                0x44, 0x27, 0x31, 0x20, 0x3b, 0xec, 0xf6, 0x43,
+	                0xef, 0x81, 0xda, 0x37, 0x1d, 0x81, 0x42, 0x19,
+	                0x1c, 0xf2, 0x5a, 0x27, 0x01, 0x95, 0x87, 0x29,
+	                0x4d, 0x23, 0x87, 0x0c, 0x78, 0xfc, 0xa0, 0x49
+	            ], [
+	                0x5d, 0xc9, 0x80, 0x0a, 0xd0, 0xed, 0xa0, 0x33,
+	                0xab, 0xe1, 0x34, 0xdd, 0xd8, 0x94, 0xf2, 0x96,
+	                0xb5, 0xae, 0xbd, 0x44, 0x58, 0xee, 0x42, 0x54,
+	                0xce, 0x70, 0xf8, 0x4d, 0xfb, 0x0d, 0xe1, 0x8f,
+	                0xca, 0x99, 0xbf, 0x79, 0x5c, 0xa7, 0xe2, 0x08,
+	                0x18, 0x2e, 0xf6, 0xc4, 0x6d, 0x7b, 0xd4, 0x94
+	            ]),
+	            this.Gq.parsePoint([
+	                0x68, 0x87, 0x2b, 0x16, 0x4a, 0x6e, 0x9b, 0x8f,
+	                0x99, 0x66, 0x8b, 0x5b, 0xfd, 0x4a, 0xc0, 0x77,
+	                0x0d, 0xea, 0x64, 0xe3, 0x77, 0x32, 0xa3, 0x84,
+	                0xbc, 0x39, 0xc3, 0x24, 0x84, 0xb8, 0x60, 0x91,
+	                0xcd, 0x47, 0xdd, 0xea, 0xe5, 0x26, 0xb1, 0x80,
+	                0x65, 0xe8, 0x66, 0x3e, 0x1e, 0xcb, 0x8b, 0x80
+	            ], [
+	                0x66, 0x60, 0x8a, 0xa7, 0xcf, 0x0a, 0xb5, 0x3c,
+	                0x37, 0x50, 0x34, 0xdd, 0xe3, 0x97, 0x36, 0xdc,
+	                0x81, 0xd6, 0x83, 0x1b, 0xc6, 0xee, 0x78, 0xc7,
+	                0x14, 0xe0, 0x10, 0xaf, 0xa5, 0xc8, 0x54, 0x25,
+	                0xa7, 0xed, 0x28, 0xef, 0x6f, 0x46, 0x2a, 0xeb,
+	                0x4d, 0x79, 0x52, 0xea, 0xf4, 0x88, 0xd0, 0xc1
+	            ]),
+	            this.Gq.parsePoint([
+	                0xa0, 0x4d, 0xec, 0xc7, 0xe9, 0xf0, 0xcf, 0x88,
+	                0x93, 0x0a, 0xb2, 0x6c, 0x96, 0xd6, 0x95, 0x23,
+	                0x76, 0xb4, 0xc3, 0xa3, 0xdb, 0x75, 0x25, 0x6e,
+	                0xfd, 0xd4, 0x66, 0xf5, 0x1f, 0x7c, 0x01, 0x84,
+	                0x1a, 0x5f, 0x4e, 0x6a, 0x9f, 0x11, 0x87, 0x7f,
+	                0xf2, 0x86, 0xcb, 0xc7, 0x43, 0x06, 0xbb, 0xf1
+	            ], [
+	                0x18, 0xc8, 0x09, 0x28, 0xac, 0x20, 0x82, 0xc0,
+	                0x4f, 0x30, 0x0d, 0x31, 0xb2, 0xe6, 0xd0, 0x0e,
+	                0xe6, 0x87, 0x72, 0x5e, 0xb8, 0x6f, 0x0d, 0xc7,
+	                0xc7, 0xa8, 0xfb, 0x95, 0x99, 0x3c, 0xea, 0xca,
+	                0x8a, 0xfc, 0xe4, 0x80, 0xed, 0xc7, 0x27, 0x84,
+	                0x2e, 0xfe, 0xd1, 0x48, 0x88, 0x2d, 0xba, 0xa6
+	            ]),
+	            this.Gq.parsePoint([
+	                0xe9, 0x80, 0x2c, 0xe5, 0x36, 0x1d, 0xd7, 0x9e,
+	                0xb1, 0x4f, 0x00, 0x4d, 0x1e, 0x2a, 0x7d, 0xab,
+	                0x4c, 0xa5, 0x58, 0x62, 0xb9, 0x37, 0x59, 0x3c,
+	                0x86, 0x03, 0x5f, 0xce, 0x0d, 0x3a, 0x49, 0xc1,
+	                0xa1, 0x34, 0x7e, 0x9d, 0x89, 0xe9, 0x34, 0x8b,
+	                0xf8, 0x46, 0x0f, 0xe6, 0x46, 0x68, 0xaa, 0xe7
+	            ], [
+	                0x29, 0x99, 0x29, 0x00, 0x81, 0x1b, 0x12, 0xc4,
+	                0x2e, 0xfd, 0xe1, 0x23, 0xcf, 0x65, 0xb8, 0x0b,
+	                0xb2, 0x49, 0xe4, 0x8e, 0x3f, 0x53, 0xe4, 0x47,
+	                0x75, 0xcb, 0x1b, 0x36, 0x53, 0x6e, 0x28, 0x6b,
+	                0x23, 0xe0, 0x8d, 0x4c, 0x59, 0xf5, 0x0d, 0xdd,
+	                0x89, 0xb9, 0xdb, 0x4e, 0x01, 0x2a, 0x4f, 0x14
+	            ]),
+	            this.Gq.parsePoint([
+	                0x85, 0x37, 0xb2, 0x9a, 0x8b, 0x60, 0xc6, 0x73,
+	                0x94, 0xd3, 0x03, 0x78, 0xdb, 0x59, 0x0f, 0xc7,
+	                0x04, 0xff, 0x36, 0x3a, 0x6c, 0x79, 0x01, 0xee,
+	                0x29, 0xbb, 0x8b, 0x18, 0x3f, 0xdc, 0x8b, 0x0a,
+	                0xea, 0xd5, 0xf4, 0x38, 0xe4, 0x43, 0x84, 0xd4,
+	                0x1e, 0xd5, 0xf2, 0x6b, 0xe6, 0xa4, 0xc7, 0xe7
+	            ], [
+	                0x75, 0xc3, 0xbe, 0x29, 0x5e, 0x38, 0x81, 0x3b,
+	                0x27, 0x22, 0xbc, 0xfc, 0xba, 0xd4, 0x91, 0xc6,
+	                0x2b, 0xd8, 0x1a, 0x14, 0x38, 0x86, 0x4d, 0x8f,
+	                0x54, 0xa4, 0x8a, 0x43, 0x8a, 0x6a, 0x55, 0x6c,
+	                0x5c, 0xc6, 0xbd, 0x95, 0x49, 0xc2, 0x5c, 0xe7,
+	                0xe3, 0x9d, 0x98, 0x61, 0xa3, 0x0b, 0x6e, 0x08
+	            ]),
+	            this.Gq.parsePoint([
+	                0xe4, 0x6b, 0xe8, 0xff, 0xb1, 0xa6, 0x12, 0x77,
+	                0x57, 0x4b, 0x4d, 0x4e, 0x75, 0x20, 0xbb, 0x28,
+	                0xdf, 0x1a, 0xa9, 0x2b, 0x75, 0x39, 0x0b, 0xf6,
+	                0xaa, 0x81, 0x98, 0x84, 0xa4, 0x7d, 0xb6, 0x7e,
+	                0x0a, 0x5a, 0x3f, 0x75, 0x4c, 0xef, 0x6d, 0xc5,
+	                0x7d, 0x07, 0x25, 0xc7, 0x96, 0x80, 0x6d, 0x85
+	            ], [
+	                0x1e, 0x0c, 0xfb, 0xc5, 0x09, 0x25, 0x82, 0xf7,
+	                0x02, 0x00, 0x2f, 0xac, 0x85, 0xdd, 0x2f, 0x32,
+	                0xef, 0x56, 0x8e, 0x00, 0x98, 0x01, 0xc3, 0xd7,
+	                0x96, 0x11, 0xaa, 0x3a, 0xa0, 0xee, 0xbf, 0x2d,
+	                0x55, 0x91, 0x01, 0x14, 0x45, 0x12, 0xfb, 0x2c,
+	                0x1a, 0x59, 0x7f, 0x3f, 0x0b, 0x05, 0xf5, 0x43
+	            ]),
+	            this.Gq.parsePoint([
+	                0xf6, 0xd6, 0xdf, 0x3c, 0x86, 0x7b, 0x88, 0x6a,
+	                0x4b, 0xd3, 0x77, 0x56, 0x05, 0x6e, 0x72, 0x00,
+	                0x9d, 0x2e, 0x26, 0x4c, 0xb2, 0x5d, 0xdd, 0x59,
+	                0xc0, 0xb8, 0x3d, 0x4d, 0x0e, 0x40, 0x14, 0x4f,
+	                0x64, 0x9f, 0x43, 0x57, 0xd4, 0x16, 0xa1, 0x77,
+	                0x2f, 0x7a, 0x1e, 0x4e, 0x2b, 0xdd, 0xab, 0x15
+	            ], [
+	                0x06, 0xd9, 0xb5, 0x0e, 0x84, 0x82, 0x46, 0xf3,
+	                0x10, 0xb9, 0x2f, 0x01, 0x83, 0x5d, 0x53, 0xdb,
+	                0xee, 0x8e, 0x27, 0xf8, 0x83, 0xaa, 0x6d, 0x25,
+	                0x49, 0xe5, 0x27, 0xfe, 0x78, 0x08, 0xa9, 0xcb,
+	                0x61, 0x92, 0x31, 0x75, 0xa8, 0xee, 0xcd, 0x33,
+	                0x28, 0x57, 0x4a, 0x3e, 0xd7, 0xbb, 0x59, 0xba
+	            ]),
+	            this.Gq.parsePoint([
+	                0x38, 0x8a, 0x6c, 0xb5, 0x5c, 0x5d, 0x08, 0xbc,
+	                0xea, 0xd8, 0x21, 0x1c, 0xfd, 0x20, 0xe3, 0x2c,
+	                0x78, 0xeb, 0x6f, 0x06, 0xd7, 0x92, 0x10, 0x1a,
+	                0x00, 0xc0, 0xd7, 0x57, 0x48, 0x00, 0x46, 0xf9,
+	                0xc4, 0xaa, 0x5d, 0xf8, 0x82, 0x17, 0x6b, 0xbc,
+	                0x8d, 0x83, 0x1f, 0x72, 0x81, 0x4a, 0x79, 0x0c
+	            ], [
+	                0x42, 0x7b, 0x89, 0x85, 0x18, 0x2f, 0x90, 0x36,
+	                0x01, 0x9d, 0x28, 0x32, 0x56, 0x19, 0xb9, 0xca,
+	                0x94, 0x42, 0x75, 0x08, 0x2b, 0xd2, 0xfd, 0x19,
+	                0x85, 0x00, 0xc1, 0x7c, 0x9b, 0xb8, 0xae, 0x7d,
+	                0x59, 0x1e, 0xfd, 0x64, 0xe1, 0x80, 0x70, 0xc4,
+	                0xcf, 0x31, 0x64, 0xe0, 0x92, 0x6d, 0xfd, 0xcd
+	            ]),
+	            this.Gq.parsePoint([
+	                0xf3, 0x0f, 0xbe, 0xec, 0x91, 0x29, 0x71, 0xdb,
+	                0xaa, 0xd5, 0xed, 0x63, 0x3b, 0x5b, 0x2a, 0x37,
+	                0x6a, 0xe6, 0x0e, 0x27, 0x86, 0xaf, 0x16, 0x96,
+	                0x95, 0xaf, 0x00, 0xf6, 0xda, 0x9b, 0xbc, 0xfd,
+	                0x9a, 0x43, 0x56, 0x40, 0x97, 0xc9, 0x02, 0x25,
+	                0xc5, 0x4e, 0x2a, 0x63, 0xb9, 0xc0, 0x00, 0x4f
+	            ], [
+	                0x31, 0xfe, 0xb5, 0x90, 0x3c, 0xb5, 0x67, 0x9f,
+	                0xe9, 0x68, 0x6f, 0x17, 0x30, 0x3e, 0x8b, 0xcf,
+	                0x83, 0x35, 0xfa, 0x07, 0xf6, 0xfd, 0xe0, 0x6b,
+	                0x70, 0x62, 0xe2, 0xd3, 0x37, 0xf7, 0x2c, 0x7a,
+	                0xa1, 0xad, 0xee, 0x5f, 0xbf, 0x5c, 0xb3, 0x74,
+	                0x28, 0x44, 0xf0, 0x7e, 0x02, 0xfd, 0x47, 0x6d
+	            ]),
+	            this.Gq.parsePoint([
+	                0xbc, 0x56, 0x18, 0x7e, 0x62, 0xb3, 0xa3, 0xc2,
+	                0x46, 0xdf, 0x01, 0xd8, 0xf8, 0x85, 0xc3, 0x4d,
+	                0x54, 0xff, 0x81, 0x42, 0x4a, 0xbd, 0x1d, 0x22,
+	                0x7b, 0x03, 0x3f, 0x06, 0xec, 0xce, 0xc6, 0x27,
+	                0x8d, 0xc0, 0x75, 0x9a, 0x16, 0xd9, 0x0f, 0x0c,
+	                0xc5, 0x16, 0x16, 0xc5, 0x0e, 0x9a, 0x88, 0x45
+	            ], [
+	                0x3a, 0x53, 0x2c, 0xd7, 0x4d, 0x1f, 0x73, 0xdc,
+	                0x02, 0xbe, 0xfd, 0x8b, 0x00, 0x2d, 0xb3, 0x62,
+	                0xeb, 0x13, 0x3b, 0x3d, 0x9c, 0xce, 0xc5, 0x45,
+	                0x29, 0xf1, 0x5d, 0x73, 0x02, 0xda, 0x1d, 0x8b,
+	                0x4c, 0x7b, 0x36, 0x65, 0x4e, 0x4f, 0x8d, 0x2a,
+	                0x3e, 0x4d, 0xa5, 0xeb, 0x9b, 0x29, 0xa7, 0xe2
+	            ]),
+	            this.Gq.parsePoint([
+	                0x89, 0x97, 0x72, 0x12, 0x6f, 0x98, 0x38, 0xec,
+	                0x17, 0x89, 0x61, 0x50, 0x7c, 0xae, 0xd8, 0x25,
+	                0x8b, 0x6f, 0x10, 0x2f, 0x5a, 0x77, 0x08, 0xba,
+	                0xbf, 0x80, 0xdd, 0x1d, 0xcc, 0xdc, 0x70, 0x02,
+	                0x1e, 0x4f, 0x41, 0xc2, 0xf7, 0x43, 0x8b, 0xeb,
+	                0x67, 0xc9, 0xa2, 0xa9, 0xb4, 0xd5, 0x7f, 0x84
+	            ], [
+	                0x71, 0xb9, 0xa6, 0xfd, 0xb9, 0x1e, 0xbd, 0x0a,
+	                0x29, 0x2b, 0xdb, 0x71, 0x83, 0x77, 0x30, 0x8e,
+	                0xde, 0xda, 0x06, 0x3d, 0x07, 0xcb, 0x03, 0x4e,
+	                0x1b, 0xc8, 0x6e, 0xa2, 0xf6, 0x5f, 0xa2, 0x0f,
+	                0x09, 0x35, 0xc6, 0xc8, 0xc3, 0x78, 0xca, 0xee,
+	                0xfe, 0x64, 0xdd, 0xbb, 0x3a, 0xdc, 0x79, 0xed
+	            ]),
+	            this.Gq.parsePoint([
+	                0xcb, 0x2e, 0xbf, 0x80, 0x7f, 0x1e, 0x6f, 0xe4,
+	                0x11, 0xdf, 0x68, 0x98, 0xcd, 0xf6, 0x52, 0xcb,
+	                0xb9, 0xbd, 0xdf, 0x39, 0x47, 0x35, 0x50, 0x11,
+	                0x42, 0x9d, 0x11, 0x1b, 0xb2, 0x61, 0x8d, 0xc4,
+	                0x6d, 0xef, 0xca, 0x46, 0x9a, 0x09, 0xc1, 0x97,
+	                0x48, 0xcf, 0x1d, 0x09, 0xaa, 0x82, 0x19, 0xbe
+	            ], [
+	                0x50, 0x23, 0x8a, 0x8b, 0x27, 0x07, 0xcd, 0xb8,
+	                0x8c, 0x38, 0x1d, 0x57, 0x36, 0x9b, 0x4d, 0x78,
+	                0x38, 0xd7, 0x89, 0x58, 0x76, 0xf9, 0xa3, 0xd8,
+	                0x0a, 0x95, 0x56, 0xa5, 0xc7, 0x97, 0xa4, 0xd0,
+	                0xdb, 0x83, 0x99, 0xfc, 0xd6, 0x57, 0xad, 0xd1,
+	                0x93, 0x8b, 0x65, 0xc7, 0xaf, 0xad, 0x8a, 0x72
+	            ]),
+	            this.Gq.parsePoint([
+	                0x95, 0xfa, 0x79, 0x5a, 0xa4, 0xf4, 0xc0, 0xda,
+	                0x48, 0x64, 0x20, 0xfa, 0x94, 0x1b, 0x25, 0xd7,
+	                0xf7, 0x0c, 0x80, 0x73, 0xb7, 0x8b, 0xcd, 0x88,
+	                0x20, 0xd8, 0x14, 0x66, 0x89, 0xd8, 0x1e, 0x1d,
+	                0xc2, 0xa4, 0x09, 0x8e, 0x86, 0xaf, 0xc2, 0x7b,
+	                0x49, 0xc8, 0x6a, 0xef, 0xed, 0x1b, 0x0d, 0x61
+	            ], [
+	                0x62, 0x3d, 0x37, 0xc1, 0x3d, 0xcb, 0x6e, 0xa9,
+	                0x57, 0x33, 0x72, 0x88, 0x8a, 0xf0, 0x8b, 0xea,
+	                0xcf, 0x94, 0xc8, 0xdf, 0xfc, 0x2c, 0xb6, 0x15,
+	                0x03, 0x0a, 0xe6, 0x12, 0xb0, 0xcf, 0x14, 0x78,
+	                0x75, 0x1d, 0xc3, 0xb5, 0x6a, 0x66, 0xa5, 0x1d,
+	                0xb4, 0xb9, 0x8e, 0x26, 0x4e, 0xb0, 0x16, 0xdd
+	            ]),
+	            this.Gq.parsePoint([
+	                0x22, 0xf4, 0x33, 0x02, 0x0d, 0xc1, 0x29, 0xc7,
+	                0xbe, 0x74, 0x55, 0x8e, 0xf9, 0xc2, 0x91, 0xf3,
+	                0x93, 0x8e, 0x78, 0x17, 0xb4, 0x7d, 0x4b, 0x41,
+	                0xa5, 0x92, 0x21, 0xd8, 0x5b, 0x10, 0xff, 0xd1,
+	                0xb8, 0x15, 0x91, 0x9f, 0xb3, 0x71, 0x7e, 0x3e,
+	                0x7e, 0x15, 0xe9, 0x3f, 0xb9, 0x7f, 0x6f, 0x7c
+	            ], [
+	                0x14, 0x45, 0x4c, 0xae, 0x0e, 0xec, 0xcb, 0xcc,
+	                0x8e, 0x52, 0x15, 0x55, 0xfd, 0x2e, 0xc8, 0x22,
+	                0xc2, 0x90, 0xc4, 0x64, 0x67, 0x1e, 0xa7, 0xaa,
+	                0x99, 0xd5, 0x58, 0x90, 0x9f, 0xdc, 0xcc, 0xf6,
+	                0x8e, 0x4d, 0x70, 0x95, 0xc4, 0x64, 0x7a, 0x16,
+	                0xe4, 0x7f, 0x16, 0xc0, 0xb6, 0x88, 0x51, 0xc1
+	            ]),
+	            this.Gq.parsePoint([
+	                0x45, 0x69, 0x82, 0xb2, 0x35, 0xd9, 0xd0, 0x13,
+	                0xc9, 0x9b, 0x64, 0x09, 0x4d, 0x41, 0x29, 0x63,
+	                0x1f, 0xb1, 0xc6, 0x21, 0x06, 0x28, 0x50, 0x5c,
+	                0x74, 0x41, 0x33, 0xe6, 0xfa, 0x17, 0x5d, 0x14,
+	                0x1f, 0xb4, 0xc0, 0x01, 0x05, 0xf8, 0x10, 0x28,
+	                0x4c, 0x68, 0x80, 0xb4, 0x6a, 0x44, 0x06, 0xdf
+	            ], [
+	                0x52, 0xb8, 0x49, 0x82, 0x56, 0x51, 0x6a, 0x4f,
+	                0xef, 0xde, 0x13, 0xb5, 0xa7, 0xbb, 0xd7, 0x2d,
+	                0x3f, 0x19, 0xaa, 0x00, 0xb3, 0x62, 0x6d, 0xec,
+	                0xdd, 0x9c, 0xd1, 0xff, 0x7d, 0x17, 0x5c, 0xf7,
+	                0x44, 0xe2, 0x24, 0x16, 0xf3, 0x51, 0xf6, 0x2e,
+	                0x5d, 0x01, 0xbe, 0x65, 0x1c, 0xa8, 0x27, 0x47
+	            ]),
+	            this.Gq.parsePoint([
+	                0x45, 0x1f, 0x77, 0xcb, 0xcf, 0x22, 0xbe, 0xe6,
+	                0xa4, 0x07, 0x28, 0x7e, 0xf9, 0xa3, 0x6f, 0x29,
+	                0x3f, 0xa8, 0x22, 0xf3, 0x95, 0xf6, 0x4c, 0x2e,
+	                0xdc, 0xcb, 0x9a, 0xb5, 0xf8, 0xee, 0x3f, 0xde,
+	                0x86, 0xef, 0xdd, 0xcf, 0x33, 0x02, 0xe8, 0xe9,
+	                0x29, 0x37, 0x32, 0xa0, 0x58, 0x33, 0x28, 0x16
+	            ], [
+	                0x77, 0x34, 0x01, 0xa1, 0x0f, 0xe5, 0x06, 0x9d,
+	                0xbc, 0xc6, 0x87, 0x0c, 0xeb, 0x8b, 0x15, 0xd1,
+	                0xcb, 0x35, 0x22, 0x7b, 0xd8, 0xaf, 0x7d, 0x70,
+	                0xb6, 0x3d, 0x36, 0xe9, 0x56, 0x13, 0xde, 0xba,
+	                0x2d, 0x60, 0x03, 0x83, 0x50, 0x27, 0x49, 0x3c,
+	                0x04, 0x63, 0x0e, 0xdb, 0x27, 0x00, 0xb9, 0x65
+	            ]),
+	            this.Gq.parsePoint([
+	                0xa4, 0xad, 0x50, 0xb7, 0xdb, 0xcf, 0xcd, 0xc4,
+	                0x27, 0xe7, 0x2f, 0x85, 0x0a, 0x1b, 0xb0, 0x40,
+	                0x28, 0x1c, 0x5f, 0x99, 0xb9, 0x14, 0x15, 0x1c,
+	                0x47, 0xac, 0x48, 0xf9, 0xfb, 0x7b, 0x85, 0xa0,
+	                0x58, 0x58, 0xf3, 0x03, 0x58, 0x8c, 0x57, 0xd2,
+	                0xff, 0x66, 0xb5, 0x86, 0x71, 0x45, 0xfb, 0xdb
+	            ], [
+	                0x0a, 0x56, 0x43, 0x36, 0xb5, 0xe3, 0x7a, 0xac,
+	                0x39, 0xba, 0xa0, 0x87, 0x8c, 0x6c, 0x50, 0xd3,
+	                0xd3, 0x6f, 0x54, 0x09, 0xf1, 0x02, 0xf9, 0xb8,
+	                0x68, 0x73, 0x28, 0x09, 0x45, 0x62, 0xca, 0x62,
+	                0x88, 0xb2, 0xb6, 0x9f, 0xee, 0x43, 0x89, 0x1a,
+	                0xd5, 0x61, 0xd3, 0x2e, 0xd4, 0xbb, 0x20, 0xf8
+	            ]),
+	            this.Gq.parsePoint([
+	                0xf1, 0xb4, 0xf1, 0x32, 0xb3, 0xc2, 0x9a, 0x9e,
+	                0x34, 0x67, 0xa0, 0x22, 0x08, 0x17, 0xf2, 0x58,
+	                0x78, 0x43, 0xe7, 0x75, 0x43, 0xe8, 0x12, 0xec,
+	                0x52, 0x4d, 0x7d, 0x41, 0x3c, 0x6c, 0x20, 0xc0,
+	                0x3e, 0xc3, 0x9b, 0x55, 0x83, 0x62, 0x20, 0x71,
+	                0x7d, 0xdd, 0x9a, 0xf4, 0x2a, 0xff, 0xe6, 0x67
+	            ], [
+	                0x34, 0x47, 0xa1, 0x34, 0x2d, 0x40, 0xa8, 0xc0,
+	                0x94, 0x06, 0x03, 0x45, 0x10, 0x2e, 0x64, 0xb1,
+	                0xb3, 0x87, 0x1b, 0x80, 0xef, 0x28, 0xd3, 0x27,
+	                0x70, 0xf8, 0x49, 0xb5, 0x7e, 0x76, 0x96, 0x11,
+	                0x8f, 0x59, 0x6b, 0x8b, 0x11, 0x9b, 0xab, 0xdd,
+	                0x2d, 0x7c, 0xcf, 0x27, 0xb5, 0x5a, 0xcd, 0x17
+	            ]),
+	            this.Gq.parsePoint([
+	                0x09, 0x70, 0x27, 0x9c, 0x58, 0x14, 0x7d, 0xd4,
+	                0x0d, 0x2a, 0xaf, 0xeb, 0xce, 0x3e, 0x0b, 0xc1,
+	                0x3e, 0xe4, 0xdd, 0xbb, 0x74, 0x69, 0x09, 0xcc,
+	                0xe2, 0x84, 0x9b, 0xed, 0x98, 0xd8, 0xb7, 0xb3,
+	                0x6e, 0xd9, 0x71, 0xa1, 0x7a, 0x8e, 0x75, 0xcd,
+	                0xb5, 0xf3, 0xeb, 0xdc, 0x3e, 0x71, 0xb4, 0x7b
+	            ], [
+	                0x2c, 0xc1, 0x7a, 0xcd, 0xa0, 0x96, 0xb5, 0x63,
+	                0x93, 0xde, 0x63, 0xc6, 0x6b, 0x23, 0x42, 0xa0,
+	                0x3e, 0x2e, 0x50, 0x4f, 0x12, 0x39, 0x80, 0x01,
+	                0xb8, 0xd9, 0x0f, 0xe1, 0x58, 0x1d, 0x26, 0x96,
+	                0xbf, 0x86, 0x43, 0x46, 0x58, 0x54, 0xe0, 0xd9,
+	                0xad, 0xe9, 0xee, 0x21, 0x45, 0xf3, 0xc0, 0x2f
+	            ]),
+	            this.Gq.parsePoint([
+	                0x2b, 0x5e, 0x17, 0xc2, 0x19, 0xe4, 0xea, 0x95,
+	                0xaf, 0x39, 0xb2, 0x4a, 0x20, 0xdc, 0x4d, 0x50,
+	                0x86, 0x70, 0x7e, 0xd8, 0x06, 0x6b, 0xd2, 0x98,
+	                0xe3, 0x04, 0x7d, 0x64, 0x59, 0x82, 0x3f, 0xf1,
+	                0x02, 0xef, 0x61, 0x7d, 0x46, 0x70, 0xd5, 0x9e,
+	                0x0e, 0xfb, 0x96, 0x5e, 0x17, 0x9b, 0x01, 0xa6
+	            ], [
+	                0x24, 0x20, 0x23, 0x56, 0x7c, 0x67, 0x0b, 0xcf,
+	                0x21, 0xc9, 0xc2, 0xef, 0x69, 0xbb, 0x8b, 0x87,
+	                0xd7, 0xa8, 0xdc, 0xd0, 0x34, 0xb6, 0x66, 0x06,
+	                0x90, 0x08, 0x12, 0x39, 0x3e, 0xe9, 0x98, 0x9b,
+	                0xc3, 0x7e, 0x25, 0xab, 0x67, 0x2a, 0x3e, 0xa4,
+	                0xef, 0x3b, 0x02, 0x8f, 0x83, 0x49, 0x56, 0x23
+	            ]),
+	            this.Gq.parsePoint([
+	                0x81, 0xfe, 0x66, 0xdc, 0x8e, 0x7c, 0x58, 0x3e,
+	                0xd1, 0x52, 0x44, 0xb5, 0xd7, 0xec, 0x86, 0x97,
+	                0x25, 0xbc, 0x35, 0x34, 0x6f, 0xf3, 0x06, 0x3e,
+	                0x6a, 0x22, 0x48, 0x3e, 0x92, 0xd6, 0x70, 0x8b,
+	                0x59, 0x8f, 0x41, 0xe4, 0x26, 0x1d, 0x4c, 0x52,
+	                0xc8, 0x1f, 0xd7, 0x03, 0x85, 0x3c, 0x0b, 0x5d
+	            ], [
+	                0x23, 0xf7, 0x5a, 0x94, 0xe5, 0xf8, 0x64, 0x85,
+	                0x06, 0x97, 0x61, 0x9c, 0xab, 0xb8, 0xb3, 0x4e,
+	                0xff, 0x56, 0x9f, 0x29, 0xd8, 0x82, 0x75, 0xb7,
+	                0xa7, 0xae, 0x1d, 0x77, 0x80, 0x9e, 0x3a, 0x5a,
+	                0x42, 0x5c, 0x82, 0xb5, 0xbd, 0xb8, 0xd7, 0xaa,
+	                0x75, 0xf9, 0x5c, 0x53, 0xa3, 0x7c, 0xf9, 0x60
+	            ]),
+	            this.Gq.parsePoint([
+	                0x46, 0xe4, 0xd4, 0xbc, 0x62, 0x81, 0xd4, 0x94,
+	                0x3e, 0x0b, 0x5c, 0xea, 0xd8, 0x6e, 0xb8, 0xf5,
+	                0x82, 0x1b, 0xff, 0xd4, 0x28, 0x88, 0xb5, 0x79,
+	                0xdb, 0x71, 0x71, 0xc8, 0x24, 0x16, 0xbc, 0xf8,
+	                0x63, 0x18, 0x7d, 0x86, 0x81, 0x55, 0xb4, 0xa0,
+	                0xae, 0x1f, 0x3e, 0x44, 0xcf, 0x71, 0x07, 0xaf
+	            ], [
+	                0x14, 0x64, 0x24, 0x6c, 0x54, 0xca, 0x3a, 0x8b,
+	                0x70, 0xda, 0x3d, 0xa9, 0x3f, 0xfd, 0x88, 0x66,
+	                0x33, 0x6e, 0x7a, 0xba, 0xda, 0x50, 0x9d, 0x39,
+	                0x27, 0x6d, 0x08, 0x5a, 0x9c, 0x9d, 0xd5, 0x5c,
+	                0x04, 0xff, 0xde, 0xf0, 0xc5, 0xec, 0x06, 0x98,
+	                0x3a, 0xab, 0x0e, 0x63, 0xfc, 0x11, 0x86, 0xfd
+	            ]),
+	            this.Gq.parsePoint([
+	                0xe3, 0xd3, 0x27, 0x37, 0x71, 0x44, 0xa4, 0x06,
+	                0xff, 0x2d, 0x22, 0xfb, 0x26, 0xca, 0x63, 0x4d,
+	                0x6a, 0x8a, 0x0e, 0xe4, 0xbb, 0x39, 0xaa, 0xd0,
+	                0xb3, 0x5e, 0x66, 0x36, 0xac, 0xcc, 0xca, 0xf2,
+	                0x0a, 0xca, 0x78, 0xfc, 0x1a, 0x02, 0xcc, 0x60,
+	                0x48, 0x05, 0x33, 0x30, 0x34, 0x07, 0x8e, 0xf8
+	            ], [
+	                0x47, 0xec, 0x98, 0xd3, 0x18, 0xf8, 0x71, 0xcb,
+	                0x6f, 0xe4, 0x91, 0xbf, 0xda, 0xf2, 0x61, 0xd8,
+	                0x62, 0xac, 0x92, 0xea, 0x5d, 0x26, 0x9b, 0x94,
+	                0x18, 0x75, 0xe6, 0x36, 0xdc, 0x5c, 0xe2, 0xcc,
+	                0x74, 0x66, 0x90, 0x8a, 0x60, 0xaf, 0x47, 0x9a,
+	                0xa2, 0xc7, 0x0f, 0x94, 0xba, 0x0a, 0xd3, 0x03
+	            ]),
+	            this.Gq.parsePoint([
+	                0xbd, 0x42, 0x54, 0x97, 0x21, 0x9e, 0x2b, 0xca,
+	                0x3b, 0x47, 0x62, 0x9b, 0x19, 0xf7, 0x9d, 0x4d,
+	                0xcb, 0x27, 0x62, 0x84, 0xb4, 0x5c, 0x3f, 0x5a,
+	                0xc9, 0xb4, 0x7b, 0x76, 0xb9, 0x0e, 0xce, 0x92,
+	                0x35, 0x65, 0x5c, 0xf9, 0x57, 0xf7, 0x7a, 0xda,
+	                0x90, 0x2d, 0xd1, 0x75, 0xe4, 0x94, 0xda, 0x91
+	            ], [
+	                0x29, 0x80, 0xe0, 0xc8, 0xd4, 0x4a, 0x32, 0x34,
+	                0x52, 0x11, 0x55, 0x4b, 0xf1, 0xb7, 0xac, 0x1e,
+	                0xde, 0xf0, 0xc5, 0xcc, 0x1a, 0x60, 0xd4, 0x2a,
+	                0xd4, 0xe1, 0x9e, 0x9b, 0x9a, 0xaa, 0xe4, 0xcf,
+	                0x1f, 0xbc, 0xa9, 0xeb, 0x01, 0xe1, 0x32, 0xdf,
+	                0x66, 0xf8, 0x98, 0x57, 0xb9, 0x30, 0x30, 0x08
+	            ]),
+	            this.Gq.parsePoint([
+	                0x2a, 0x6c, 0x57, 0x6d, 0xf2, 0xaf, 0x7b, 0x14,
+	                0x05, 0xda, 0xad, 0xe9, 0xfb, 0x24, 0xbb, 0xfe,
+	                0xb3, 0xfa, 0x9c, 0x55, 0x86, 0x03, 0x60, 0x88,
+	                0xe0, 0x7d, 0x9d, 0xbd, 0x31, 0x55, 0xe9, 0xa9,
+	                0x69, 0x22, 0xae, 0xe1, 0x85, 0xf7, 0x31, 0x57,
+	                0x9c, 0x7d, 0x8c, 0xd1, 0xa7, 0xa3, 0x44, 0xe4
+	            ], [
+	                0x44, 0x91, 0x6f, 0xe5, 0xda, 0x07, 0xe5, 0xad,
+	                0xfe, 0xf1, 0x83, 0x7d, 0x5d, 0x3f, 0xc2, 0xae,
+	                0xdd, 0xd5, 0xb0, 0x5b, 0x9c, 0xd9, 0xd4, 0x07,
+	                0x15, 0xfe, 0xa4, 0x42, 0x11, 0x48, 0x6d, 0x82,
+	                0xce, 0x95, 0xa2, 0x72, 0x96, 0xb5, 0xab, 0x3a,
+	                0x90, 0x1f, 0x63, 0xd5, 0x01, 0xf2, 0xb1, 0xf7
+	            ]),
+	            this.Gq.parsePoint([
+	                0xe7, 0xe5, 0xb4, 0x2c, 0x72, 0x2f, 0xb4, 0x7b,
+	                0xd9, 0x2c, 0xa5, 0x81, 0xc0, 0x5a, 0xa0, 0x0f,
+	                0x1c, 0x18, 0xc0, 0xff, 0x65, 0x49, 0x39, 0xf1,
+	                0x9c, 0xcc, 0xb6, 0xed, 0x3c, 0x4d, 0xf9, 0xf7,
+	                0xb0, 0xa0, 0x3b, 0xb4, 0x95, 0xc4, 0x4c, 0xbb,
+	                0xbc, 0xe9, 0x3f, 0x48, 0x95, 0x88, 0x26, 0x37
+	            ], [
+	                0x30, 0x92, 0xe3, 0x2a, 0xf3, 0x9c, 0x40, 0xc2,
+	                0x4b, 0x5a, 0x11, 0x10, 0x0b, 0xe8, 0x10, 0x32,
+	                0x9f, 0x05, 0x01, 0x6f, 0x79, 0x2f, 0xaf, 0x50,
+	                0x87, 0x6f, 0x77, 0xf4, 0xf5, 0x61, 0xf1, 0x87,
+	                0x66, 0xb0, 0x1d, 0xa4, 0x4f, 0xb2, 0xe5, 0x4e,
+	                0x84, 0x94, 0x6f, 0x2a, 0x3c, 0x96, 0x70, 0xb0
+	            ]),
+	            this.Gq.parsePoint([
+	                0xa6, 0x95, 0x9a, 0x68, 0xa6, 0xda, 0x7a, 0x46,
+	                0x8d, 0x0e, 0xef, 0x82, 0x74, 0x92, 0xd3, 0x88,
+	                0x8a, 0xf2, 0x81, 0x1d, 0x06, 0x27, 0xc1, 0x8a,
+	                0xa9, 0x09, 0xdd, 0x0a, 0xe4, 0xb0, 0x20, 0xd1,
+	                0x33, 0xe4, 0x8b, 0x91, 0x1b, 0x37, 0x7e, 0x05,
+	                0xcc, 0xb7, 0x7f, 0xee, 0xea, 0x32, 0x66, 0x73
+	            ], [
+	                0x70, 0xed, 0xeb, 0x46, 0x7c, 0x18, 0xd1, 0x59,
+	                0x47, 0x48, 0x24, 0xdf, 0xbe, 0x59, 0x42, 0x9b,
+	                0x4f, 0xad, 0xc9, 0x7c, 0xfe, 0x3f, 0x84, 0x98,
+	                0x63, 0x07, 0xb4, 0xba, 0x50, 0xfa, 0xf2, 0xc4,
+	                0xb6, 0x0d, 0x73, 0xf2, 0xb3, 0x95, 0xb5, 0x95,
+	                0xbb, 0x6e, 0xcd, 0xd9, 0x6a, 0x4f, 0xe3, 0xe9
+	            ]),
+	            this.Gq.parsePoint([
+	                0x99, 0x38, 0x12, 0x7c, 0x58, 0xef, 0x9e, 0xfe,
+	                0x69, 0xcc, 0x43, 0xad, 0x75, 0x8b, 0x3a, 0xf2,
+	                0x3b, 0xff, 0xde, 0x84, 0xf7, 0x18, 0x2f, 0x09,
+	                0x00, 0x95, 0xe1, 0x18, 0x83, 0x4b, 0x67, 0x08,
+	                0x7e, 0xe7, 0x06, 0xb4, 0x64, 0x40, 0x32, 0x38,
+	                0x89, 0x25, 0x3a, 0x22, 0x3e, 0xcf, 0xc8, 0x65
+	            ], [
+	                0x37, 0xf1, 0xc9, 0x42, 0x4f, 0x08, 0x60, 0xe3,
+	                0xec, 0xe2, 0xf8, 0x10, 0x78, 0x00, 0xf6, 0xd8,
+	                0x6c, 0x90, 0x9a, 0x9f, 0x44, 0x67, 0x9c, 0x35,
+	                0x57, 0xec, 0xeb, 0x4b, 0x58, 0x14, 0xb4, 0xb3,
+	                0x96, 0xbc, 0x8e, 0x9a, 0x9a, 0x78, 0xbb, 0xea,
+	                0xb7, 0xc1, 0x31, 0x3f, 0x0a, 0x4b, 0xe3, 0x18
+	            ]),
+	            this.Gq.parsePoint([
+	                0x60, 0xea, 0xe1, 0x69, 0xe1, 0x38, 0xdf, 0x49,
+	                0x79, 0xde, 0xd5, 0x09, 0xba, 0xce, 0xed, 0x03,
+	                0xe6, 0x34, 0x49, 0x10, 0xd3, 0x61, 0x35, 0xea,
+	                0x66, 0x53, 0xef, 0xf5, 0x5c, 0x07, 0x6c, 0xfb,
+	                0x54, 0xc1, 0xee, 0x9b, 0xc0, 0xb5, 0xe8, 0x12,
+	                0x9c, 0x92, 0x9f, 0xda, 0x64, 0x3e, 0x82, 0xd9
+	            ], [
+	                0x65, 0x21, 0x02, 0x12, 0xca, 0x85, 0x21, 0xa0,
+	                0xf9, 0x02, 0x20, 0x63, 0xc3, 0xd8, 0x16, 0x34,
+	                0xa1, 0xb4, 0x64, 0x9b, 0x02, 0x65, 0x19, 0x87,
+	                0xfc, 0xe2, 0xa8, 0x5e, 0x3f, 0xae, 0xa6, 0x03,
+	                0x5b, 0xbf, 0xa2, 0x5e, 0x4d, 0xe4, 0x76, 0x95,
+	                0xd7, 0xef, 0x0b, 0xe7, 0xc6, 0x55, 0x29, 0xf4
+	            ]),
+	            this.Gq.parsePoint([
+	                0xab, 0x09, 0xb0, 0x48, 0x5b, 0xd7, 0xea, 0xe2,
+	                0x4b, 0xf8, 0x2a, 0xca, 0xf4, 0x8c, 0xb3, 0x84,
+	                0x8a, 0x84, 0x1f, 0xe3, 0x82, 0x6c, 0xa2, 0xbf,
+	                0xd9, 0x1d, 0x2a, 0xfe, 0xdf, 0xbe, 0xef, 0x07,
+	                0xa9, 0x1d, 0x1d, 0x35, 0xb7, 0xc4, 0x22, 0x44,
+	                0x53, 0x15, 0xd7, 0x46, 0x66, 0xa2, 0xdc, 0x5b
+	            ], [
+	                0x6b, 0xe9, 0x10, 0x29, 0xfe, 0xd9, 0x01, 0x32,
+	                0x98, 0x2e, 0x34, 0xf5, 0x81, 0xb8, 0x5c, 0xba,
+	                0x8d, 0x69, 0x90, 0x62, 0xb7, 0x65, 0x78, 0x80,
+	                0x86, 0x93, 0xf1, 0x34, 0xf2, 0x03, 0xfa, 0x86,
+	                0x6a, 0x1f, 0xb2, 0xfa, 0xfc, 0x87, 0x77, 0x29,
+	                0x2b, 0xb5, 0xc6, 0x2c, 0x13, 0x0a, 0x94, 0x10
+	            ]),
+	            this.Gq.parsePoint([
+	                0xeb, 0xca, 0x9a, 0x02, 0x48, 0x2d, 0x74, 0x55,
+	                0xd0, 0xe6, 0xaf, 0x49, 0x2e, 0x61, 0x1e, 0xfc,
+	                0x90, 0x8c, 0x1f, 0xb8, 0x51, 0xb5, 0x8f, 0x33,
+	                0x1b, 0x2a, 0xb0, 0x87, 0xa2, 0xd9, 0xb6, 0x48,
+	                0xf3, 0x0f, 0x3f, 0x65, 0x53, 0x3f, 0x4c, 0x55,
+	                0x09, 0x75, 0xbe, 0xb9, 0x16, 0x8b, 0x08, 0x49
+	            ], [
+	                0x68, 0x5d, 0xf7, 0xb2, 0xc2, 0x75, 0x7a, 0x5b,
+	                0x5b, 0xa9, 0x3d, 0x91, 0x28, 0x63, 0x88, 0xf6,
+	                0x57, 0xb8, 0x9b, 0xd1, 0x2e, 0x36, 0xc8, 0xde,
+	                0x9c, 0x95, 0x81, 0x8a, 0xa4, 0xfd, 0x35, 0x7b,
+	                0x4c, 0x14, 0xdf, 0x72, 0xa2, 0xbc, 0x41, 0x36,
+	                0xfd, 0x94, 0x76, 0x16, 0x0a, 0xaf, 0x65, 0x1c
+	            ]),
+	            this.Gq.parsePoint([
+	                0xda, 0xb7, 0x9f, 0xea, 0x35, 0xa2, 0x88, 0x3a,
+	                0x43, 0xc0, 0x28, 0x52, 0xd2, 0x8d, 0xc8, 0xb7,
+	                0xa0, 0x2d, 0x5f, 0x33, 0x1c, 0xf1, 0xa5, 0xb9,
+	                0x61, 0xaa, 0x2b, 0x39, 0xa0, 0x36, 0x75, 0x6b,
+	                0xfc, 0x80, 0xf5, 0x1f, 0x94, 0x57, 0x14, 0x20,
+	                0x9b, 0x0b, 0xe8, 0x81, 0xbb, 0x82, 0xc1, 0xb6
+	            ], [
+	                0x4c, 0x2d, 0x06, 0x3d, 0x40, 0x5b, 0x45, 0x69,
+	                0xaa, 0x6d, 0xc9, 0x29, 0x26, 0xe3, 0xfb, 0x36,
+	                0x3b, 0x3f, 0xec, 0x76, 0x2d, 0x0c, 0x6f, 0x0d,
+	                0xb2, 0x67, 0x07, 0x3c, 0xfe, 0x3f, 0x78, 0xba,
+	                0xa2, 0xb8, 0xcb, 0x5d, 0x70, 0x00, 0xbc, 0x8f,
+	                0xdb, 0x28, 0x1f, 0xf1, 0x48, 0xe6, 0x26, 0x76
+	            ]),
+	            this.Gq.parsePoint([
+	                0x2e, 0xa5, 0x92, 0x5e, 0xed, 0xe0, 0x69, 0x6e,
+	                0x05, 0xb5, 0x75, 0xd1, 0xca, 0x44, 0x66, 0xb1,
+	                0xa7, 0x44, 0x90, 0xfc, 0x91, 0xd2, 0x12, 0x61,
+	                0x25, 0x7e, 0x06, 0xc6, 0xc5, 0xd8, 0xd9, 0x58,
+	                0xdc, 0x1b, 0x34, 0xa3, 0xc2, 0xd1, 0x46, 0x07,
+	                0xed, 0xbc, 0x15, 0x19, 0x9e, 0xe3, 0x6e, 0x73
+	            ], [
+	                0x76, 0x8d, 0xb9, 0xae, 0x8d, 0xe6, 0xa9, 0xd5,
+	                0x1b, 0x73, 0x25, 0xf1, 0x74, 0x71, 0xed, 0x64,
+	                0x22, 0xb8, 0x97, 0x7f, 0xbd, 0xfe, 0xfe, 0xfd,
+	                0xeb, 0x0d, 0x5e, 0xb2, 0x87, 0x9c, 0xf5, 0xb9,
+	                0x9d, 0xe7, 0xa0, 0x6b, 0xee, 0xf3, 0x5d, 0x4d,
+	                0x4b, 0x47, 0x1e, 0x3d, 0xae, 0x96, 0xae, 0x94
+	            ]),
+	            this.Gq.parsePoint([
+	                0x5f, 0xc2, 0x71, 0x13, 0xe1, 0x0e, 0xb4, 0x15,
+	                0x11, 0x88, 0x06, 0x86, 0x94, 0x90, 0x56, 0x9e,
+	                0x9a, 0x42, 0xd4, 0xe3, 0xce, 0xb2, 0x27, 0xd8,
+	                0x93, 0x6d, 0xce, 0xa2, 0x7c, 0xad, 0xb1, 0x6a,
+	                0x86, 0xfe, 0x6c, 0x11, 0x6e, 0x60, 0x75, 0x1a,
+	                0xfc, 0x53, 0x54, 0xf2, 0x9f, 0x98, 0x24, 0xdd
+	            ], [
+	                0x1c, 0x7e, 0x89, 0x0e, 0xa7, 0x6e, 0xca, 0xfe,
+	                0x28, 0xb6, 0x54, 0x5a, 0x20, 0x05, 0xb5, 0xdf,
+	                0x5f, 0xc2, 0x39, 0x18, 0xaa, 0x6d, 0x4c, 0x81,
+	                0xf9, 0x68, 0x10, 0x8f, 0xf5, 0x65, 0xfb, 0xee,
+	                0x01, 0x88, 0x2d, 0xee, 0x44, 0xb2, 0x3f, 0xb4,
+	                0x24, 0x27, 0xd8, 0x94, 0x5f, 0x49, 0xf6, 0xf4
+	            ]),
+	            this.Gq.parsePoint([
+	                0x19, 0xf7, 0x36, 0x91, 0x50, 0x14, 0xc1, 0x21,
+	                0x61, 0x2f, 0xf0, 0xfb, 0xaa, 0x44, 0x79, 0xed,
+	                0xba, 0x30, 0x84, 0x07, 0x36, 0xd0, 0x0f, 0x18,
+	                0xd9, 0xc0, 0x8c, 0xfe, 0x17, 0x70, 0xae, 0xe9,
+	                0x12, 0xb5, 0x16, 0xf8, 0x2a, 0x71, 0xf1, 0x76,
+	                0x25, 0xbc, 0x10, 0xd5, 0x6e, 0xa7, 0x55, 0x86
+	            ], [
+	                0x1a, 0x5a, 0x31, 0x18, 0x94, 0xe9, 0x0d, 0x01,
+	                0x9f, 0xa1, 0x54, 0xc6, 0x89, 0x07, 0x06, 0x8d,
+	                0x1a, 0x29, 0x07, 0xe3, 0x3f, 0xd6, 0x83, 0x61,
+	                0x4f, 0xa0, 0x2c, 0xe9, 0xe2, 0x2d, 0x4c, 0xf4,
+	                0x0f, 0x9c, 0xb7, 0x0f, 0xfa, 0x74, 0x38, 0x83,
+	                0x41, 0xe9, 0x06, 0x35, 0xa2, 0xe2, 0x60, 0xf4
+	            ]),
+	            this.Gq.parsePoint([
+	                0x29, 0x76, 0x37, 0x35, 0xc7, 0xf5, 0x6b, 0xf6,
+	                0xbd, 0x7a, 0x1b, 0x6a, 0x1f, 0x2f, 0x87, 0xbc,
+	                0x7c, 0xd4, 0x85, 0x92, 0x27, 0x0a, 0xf4, 0x65,
+	                0x97, 0x05, 0x31, 0xd6, 0xd9, 0xfa, 0x9a, 0x29,
+	                0x9c, 0x40, 0x73, 0xc2, 0xef, 0x5e, 0xd3, 0xf9,
+	                0x60, 0x5c, 0x7d, 0xd4, 0x33, 0xb2, 0x08, 0xbc
+	            ], [
+	                0x74, 0x84, 0xff, 0x65, 0x32, 0xc7, 0xfb, 0x29,
+	                0x4e, 0xd4, 0x77, 0x4a, 0x62, 0x9a, 0xa2, 0xeb,
+	                0xaf, 0xd0, 0x2b, 0x91, 0x6e, 0xcd, 0x91, 0x84,
+	                0xc1, 0x34, 0xc7, 0x39, 0xcd, 0x2a, 0x59, 0x2a,
+	                0x40, 0x98, 0x4c, 0xd2, 0x1a, 0x61, 0xc8, 0x80,
+	                0x06, 0x7e, 0xef, 0x2c, 0x96, 0x0b, 0x23, 0xa2
+	            ]),
+	            this.Gq.parsePoint([
+	                0x82, 0xde, 0xd0, 0x39, 0x57, 0x7f, 0x4e, 0x1d,
+	                0xb3, 0x87, 0x22, 0x20, 0x0a, 0xdc, 0x9d, 0xee,
+	                0xe4, 0x77, 0xc8, 0x92, 0x94, 0x84, 0x32, 0xea,
+	                0x03, 0x82, 0xf3, 0xd3, 0x14, 0xdc, 0xcb, 0xb8,
+	                0x94, 0x47, 0x18, 0xfb, 0xbf, 0x92, 0xc3, 0x1a,
+	                0x89, 0xa8, 0xc1, 0x0d, 0xaa, 0x77, 0x8a, 0xb0
+	            ], [
+	                0x25, 0x81, 0x02, 0x80, 0xfc, 0xf2, 0x80, 0x9f,
+	                0xb8, 0xe4, 0x6e, 0xa5, 0xf7, 0x5f, 0x9c, 0x8c,
+	                0xd4, 0xae, 0x3e, 0x56, 0x0a, 0xaf, 0xb5, 0xa0,
+	                0xfe, 0x8b, 0xce, 0x7d, 0x8a, 0xc2, 0x81, 0x1e,
+	                0x71, 0x3f, 0xdf, 0xca, 0x7c, 0x28, 0x14, 0x84,
+	                0x1e, 0x64, 0xad, 0xc3, 0x2b, 0xfb, 0x66, 0x2d
+	            ]),
+	            this.Gq.parsePoint([
+	                0x1b, 0x41, 0x50, 0x2e, 0xcd, 0x20, 0x81, 0x7d,
+	                0x3c, 0x85, 0xe7, 0x00, 0x4e, 0x66, 0x96, 0x38,
+	                0xc7, 0x25, 0xd1, 0x15, 0x8a, 0xa8, 0x03, 0xd1,
+	                0x05, 0xab, 0xbf, 0x85, 0x95, 0x51, 0x85, 0x59,
+	                0x8b, 0xd3, 0x16, 0xfb, 0xbc, 0x1e, 0x9d, 0xa4,
+	                0xb0, 0xab, 0x46, 0x7e, 0x34, 0x17, 0x2d, 0x41
+	            ], [
+	                0x0e, 0x37, 0x08, 0xf7, 0x21, 0xdc, 0x69, 0xf9,
+	                0x2a, 0xf8, 0x11, 0x77, 0x6f, 0xb1, 0xe2, 0x48,
+	                0x02, 0x51, 0xb2, 0x04, 0xf5, 0xb1, 0xcd, 0xf4,
+	                0xad, 0xaa, 0xed, 0x66, 0xb0, 0x69, 0x8b, 0xd9,
+	                0xfa, 0x66, 0x62, 0x3c, 0x5b, 0xf0, 0x56, 0xbe,
+	                0xe3, 0x4f, 0x8c, 0xba, 0x26, 0x94, 0x4a, 0x7c
+	            ]),
+	            this.Gq.parsePoint([
+	                0x4a, 0xe5, 0x76, 0xa4, 0x16, 0x41, 0xac, 0x9c,
+	                0xee, 0x68, 0xd7, 0x61, 0x68, 0xca, 0x2d, 0xd3,
+	                0xa5, 0xa8, 0xa1, 0xc2, 0xd1, 0xb0, 0x38, 0x2d,
+	                0xf8, 0xc4, 0xbf, 0x77, 0x00, 0x8b, 0xe3, 0xb2,
+	                0x2d, 0x16, 0xbf, 0xa9, 0xda, 0x4a, 0x5a, 0x1c,
+	                0xd2, 0x77, 0xa3, 0x13, 0x69, 0xad, 0x04, 0xfe
+	            ], [
+	                0x53, 0xc8, 0xce, 0x7a, 0x42, 0xd2, 0xb8, 0xd5,
+	                0xb9, 0x40, 0x95, 0x93, 0x1a, 0x00, 0x5b, 0xd3,
+	                0x20, 0x59, 0x39, 0x55, 0xe6, 0x41, 0xb9, 0xd4,
+	                0x11, 0x02, 0xf8, 0x1f, 0x34, 0x46, 0x5e, 0xd9,
+	                0x67, 0xd6, 0x99, 0x92, 0xb7, 0x81, 0x0e, 0x0b,
+	                0x53, 0x68, 0xe1, 0x1f, 0xa9, 0xbf, 0x4b, 0xc2
+	            ]),
+	            this.Gq.parsePoint([
+	                0xe2, 0xab, 0x87, 0x53, 0xb1, 0x1e, 0xc3, 0x52,
+	                0xfb, 0xdc, 0x31, 0x81, 0x9a, 0xf1, 0x93, 0x7c,
+	                0x1d, 0x72, 0x2d, 0x10, 0x0b, 0x6d, 0x8a, 0x0a,
+	                0x9d, 0xfe, 0xaf, 0x5b, 0xfe, 0x26, 0x1f, 0x78,
+	                0x80, 0x1a, 0x0b, 0x80, 0xa2, 0x02, 0x8c, 0x76,
+	                0x7e, 0x57, 0x90, 0xce, 0xa9, 0x4e, 0xca, 0x1d
+	            ], [
+	                0x04, 0xd7, 0xc7, 0x10, 0x08, 0xa5, 0x0d, 0x8b,
+	                0x5f, 0x16, 0x9d, 0x23, 0xd5, 0x82, 0x16, 0x24,
+	                0xf6, 0x87, 0x9d, 0x3d, 0x69, 0x24, 0x21, 0x8a,
+	                0x94, 0xbb, 0xf8, 0xd6, 0x97, 0x25, 0x77, 0x07,
+	                0x73, 0xaa, 0x87, 0xee, 0x4c, 0xef, 0x01, 0xce,
+	                0x6e, 0x29, 0x43, 0x52, 0x49, 0x11, 0x7f, 0x6f
+	            ]),
+	            this.Gq.parsePoint([
+	                0x37, 0x58, 0x8b, 0x4a, 0xca, 0x0f, 0xc5, 0xab,
+	                0xf5, 0x29, 0x04, 0x60, 0x72, 0xe2, 0x33, 0xf7,
+	                0x7c, 0x4b, 0x63, 0xd9, 0x7d, 0x2a, 0x33, 0x80,
+	                0x0c, 0x10, 0x62, 0xc1, 0x19, 0x6c, 0x53, 0x09,
+	                0x8e, 0x11, 0xf6, 0x43, 0xce, 0xc1, 0xc5, 0x4a,
+	                0xba, 0xa6, 0xa9, 0xb2, 0x7d, 0x1d, 0xeb, 0x7b
+	            ], [
+	                0x0c, 0x19, 0xce, 0xcb, 0x06, 0xa2, 0xdc, 0x7d,
+	                0x0a, 0xe7, 0x6c, 0xe2, 0xc4, 0x50, 0x18, 0x05,
+	                0x25, 0xe3, 0xdd, 0x02, 0xb7, 0x6d, 0x80, 0x97,
+	                0xed, 0x44, 0x0b, 0xc8, 0xd9, 0x41, 0x05, 0xe6,
+	                0xb6, 0xae, 0x57, 0xcc, 0xf3, 0x3c, 0x90, 0x2a,
+	                0x40, 0xc4, 0x5f, 0xbc, 0xff, 0xd6, 0x06, 0x9f
+	            ]),
+	            this.Gq.parsePoint([
+	                0xff, 0xed, 0xb2, 0xa5, 0x73, 0x5c, 0x6e, 0xab,
+	                0x4d, 0x3a, 0x26, 0xab, 0x3f, 0x71, 0x6a, 0xd3,
+	                0x65, 0x2f, 0x1f, 0xa7, 0x04, 0xea, 0x4c, 0x5f,
+	                0x06, 0x4e, 0x09, 0xdf, 0x59, 0xe0, 0x64, 0xfe,
+	                0x9a, 0xab, 0x89, 0xb6, 0x11, 0xd0, 0x52, 0x44,
+	                0x24, 0xb2, 0xec, 0x4d, 0x35, 0x41, 0x35, 0x67
+	            ], [
+	                0x8a, 0xf9, 0x13, 0xbc, 0xe6, 0x0e, 0x84, 0xea,
+	                0x81, 0xc3, 0xd7, 0xaa, 0x63, 0x7d, 0x40, 0x77,
+	                0xe9, 0xa5, 0xcc, 0x4f, 0xa6, 0xa8, 0x01, 0xda,
+	                0xd9, 0xde, 0xa6, 0x9a, 0x56, 0xca, 0xce, 0x6f,
+	                0xa3, 0x8b, 0x89, 0x1e, 0x3d, 0xfa, 0x07, 0xf2,
+	                0xc6, 0xbf, 0xa4, 0x5c, 0x48, 0x0f, 0x42
+	            ]),
+	            this.Gq.parsePoint([
+	                0xe5, 0x1a, 0x94, 0xf1, 0xbb, 0x05, 0x60, 0x52,
+	                0xf4, 0x68, 0xe2, 0xf2, 0x1b, 0xbc, 0x5a, 0xd2,
+	                0xf6, 0x72, 0xed, 0x3f, 0x83, 0x7d, 0xe0, 0x89,
+	                0xbd, 0x59, 0xa9, 0xc7, 0x5a, 0x7b, 0xfb, 0x97,
+	                0xfb, 0x87, 0x10, 0x3f, 0xff, 0x41, 0x5f, 0xb1,
+	                0x94, 0xee, 0x8b, 0x57, 0xf2, 0xdc, 0xdb, 0x25
+	            ], [
+	                0x1b, 0x5f, 0x77, 0x0e, 0xbc, 0x9f, 0x67, 0x41,
+	                0xf9, 0x7d, 0x4e, 0x82, 0x7b, 0xfd, 0x6a, 0xcc,
+	                0x59, 0x2a, 0xce, 0x08, 0x10, 0x7d, 0xb2, 0x6f,
+	                0x3e, 0xb4, 0x28, 0xee, 0x18, 0xcd, 0x19, 0x7e,
+	                0x72, 0xb9, 0x49, 0xe6, 0x17, 0x25, 0x45, 0xdf,
+	                0xde, 0xe0, 0x46, 0x45, 0x57, 0x1a, 0x3d, 0xc7
+	            ])
+	        ];
+	        this.gt = this.Gq.parsePoint([
+	            0xae, 0x14, 0x1e, 0x91, 0x57, 0x8a, 0x26, 0x67,
+	            0xf7, 0xb7, 0x90, 0x61, 0xe0, 0xa0, 0xf5, 0xb9,
+	            0xe4, 0x59, 0xde, 0x30, 0x38, 0xc6, 0x97, 0x75,
+	            0x3d, 0x2f, 0x7e, 0xe1, 0xc0, 0x8a, 0x66, 0x23,
+	            0x16, 0xda, 0x0d, 0x04, 0xc5, 0xd2, 0x11, 0x5c,
+	            0xfc, 0xbe, 0xd0, 0x03, 0xe5, 0x1b, 0x8e, 0x38
+	        ], [
+	            0x4d, 0x4d, 0x60, 0xf7, 0x66, 0x51, 0x83, 0x48,
+	            0x3c, 0x8b, 0xfb, 0x46, 0x6c, 0x36, 0xbf, 0x1e,
+	            0x14, 0x83, 0x7a, 0x77, 0x53, 0xa0, 0xdd, 0x1d,
+	            0xcc, 0x03, 0x6d, 0x91, 0xaf, 0x53, 0xc1, 0x0c,
+	            0xfe, 0x76, 0x5a, 0xc6, 0x19, 0x08, 0x47, 0xd2,
+	            0xf6, 0x68, 0x3b, 0x78, 0xe1, 0xe0, 0x9f, 0x0c
+	        ]);
+	    }
+	}
+	class P521ECGroupParams {
+	    constructor() {
+	        this.descGq = ECGroup.P521;
+	        this.Gq = new Group(this.descGq);
+	        this.oid = "1.3.6.1.4.1.311.75.1.2.3";
+	        this.g = [
+	            this.Gq.parsePoint([
+	                0x01, 0x67, 0x5b, 0x76, 0xe4, 0xf2, 0x1c, 0xef,
+	                0xb1, 0x1f, 0xfe, 0x81, 0xf3, 0x13, 0x7c, 0x19,
+	                0xe6, 0x99, 0x92, 0xd1, 0x44, 0x03, 0x3f, 0x23,
+	                0xf3, 0x93, 0x0d, 0x1d, 0x5b, 0x01, 0x3c, 0xa8,
+	                0x16, 0x98, 0xa1, 0x55, 0xf2, 0x29, 0x85, 0x00,
+	                0xca, 0xee, 0xe3, 0x6b, 0x13, 0xce, 0xf5, 0x2c,
+	                0xa1, 0xc4, 0x21, 0x28, 0x6a, 0xe5, 0x9f, 0x68,
+	                0x68, 0x4c, 0x85, 0x78, 0x62, 0x8b, 0xa1, 0x27,
+	                0x3b, 0x65
+	            ], [
+	                0xc6, 0x31, 0xe6, 0x0a, 0xbc, 0xbd, 0x97, 0x01,
+	                0x36, 0x20, 0x1e, 0x5a, 0x8e, 0x43, 0x59, 0xf8,
+	                0xcd, 0x31, 0x69, 0xcc, 0x39, 0x64, 0x56, 0xb9,
+	                0xa1, 0x2d, 0x04, 0x31, 0x7b, 0x3b, 0xee, 0x9a,
+	                0xa2, 0x7a, 0xc8, 0xfd, 0x84, 0xe6, 0x7a, 0x61,
+	                0x93, 0x4c, 0x63, 0xd1, 0xd9, 0x5c, 0xd3, 0xf8,
+	                0x90, 0x03, 0xfd, 0xb5, 0x7b, 0xfc, 0xbb, 0x71,
+	                0xf8, 0x11, 0xfe, 0xb5, 0x96, 0xda, 0xed, 0x7e,
+	                0x3a
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0xe5, 0x65, 0xee, 0x28, 0x01, 0xf3, 0xd8,
+	                0x22, 0x66, 0x47, 0x77, 0xb0, 0x8b, 0x43, 0xf2,
+	                0xe5, 0x0b, 0x60, 0xaa, 0x66, 0x9e, 0xaf, 0x98,
+	                0x70, 0xb3, 0x7f, 0xe8, 0xf7, 0x37, 0x73, 0xb8,
+	                0xf9, 0x2e, 0xbe, 0x0c, 0x05, 0x19, 0xf4, 0x94,
+	                0xbf, 0x93, 0x8d, 0x55, 0x07, 0x2d, 0xbe, 0xa5,
+	                0x93, 0x95, 0x03, 0x6e, 0x5c, 0x0b, 0xa6, 0x8b,
+	                0x88, 0x5a, 0xd2, 0xab, 0xb4, 0x7c, 0x64, 0x02,
+	                0xb4, 0x63
+	            ], [
+	                0x72, 0x33, 0xdb, 0xf7, 0x46, 0xdd, 0x2c, 0x2b,
+	                0xf6, 0x2a, 0x86, 0x0f, 0x36, 0x45, 0x0c, 0xaf,
+	                0x29, 0x5d, 0x88, 0xd3, 0x95, 0x52, 0x1d, 0x73,
+	                0x56, 0xc9, 0x60, 0xf6, 0x55, 0x78, 0xfc, 0xc8,
+	                0x2c, 0x29, 0xd6, 0xc0, 0x66, 0xf2, 0xc4, 0xa0,
+	                0xf5, 0x48, 0xf8, 0x6c, 0xc1, 0xbc, 0x7e, 0xa1,
+	                0x2e, 0xa7, 0xd3, 0x4c, 0xe2, 0x41, 0xd1, 0x98,
+	                0xf9, 0x54, 0xd9, 0x8c, 0x4f, 0x66, 0x78, 0x78,
+	                0xbd
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0x63, 0xe4, 0x1f, 0x82, 0xb9, 0xd7, 0x56,
+	                0xc7, 0x74, 0xaa, 0x84, 0xa2, 0x08, 0x9e, 0x7d,
+	                0xab, 0x68, 0xa6, 0x44, 0x54, 0x91, 0x2d, 0x90,
+	                0xe3, 0xcf, 0x37, 0xf9, 0x62, 0x3f, 0xbd, 0x7c,
+	                0x74, 0x02, 0x41, 0x7f, 0x66, 0xae, 0x17, 0x51,
+	                0x9d, 0xb4, 0xc6, 0xc6, 0x98, 0xbd, 0x85, 0x3d,
+	                0xbf, 0xea, 0x2f, 0xd3, 0xec, 0x78, 0xef, 0xe8,
+	                0x87, 0xd1, 0xbd, 0x88, 0x7c, 0xdd, 0xbb, 0xa0,
+	                0xbb, 0x06
+	            ], [
+	                0xb0, 0x81, 0x1b, 0xd8, 0x2a, 0xca, 0x45, 0x9f,
+	                0x96, 0x9c, 0xb5, 0xe4, 0x64, 0x2e, 0x5b, 0x67,
+	                0xb5, 0x2d, 0xfc, 0x96, 0x74, 0xe2, 0xba, 0x3d,
+	                0x24, 0xec, 0xe8, 0x62, 0xfe, 0x79, 0xac, 0x51,
+	                0x3e, 0xf6, 0x5e, 0x8c, 0x9d, 0x3f, 0x73, 0xbb,
+	                0x28, 0xc8, 0x4f, 0x20, 0xd6, 0xb4, 0x57, 0xc1,
+	                0x94, 0x14, 0x36, 0xe0, 0xf2, 0x80, 0xbc, 0xd7,
+	                0x61, 0x23, 0xf7, 0x39, 0x7a, 0xf3, 0xa0, 0xfb,
+	                0x8c
+	            ]),
+	            this.Gq.parsePoint([
+	                0x1b, 0xc6, 0x8e, 0x0c, 0xcc, 0xd3, 0xe2, 0xf0,
+	                0x62, 0x75, 0x89, 0x10, 0x62, 0x46, 0x31, 0x7f,
+	                0xb7, 0x33, 0x46, 0xfe, 0xb9, 0x16, 0xe2, 0xca,
+	                0x61, 0x3c, 0x38, 0x82, 0x54, 0xdd, 0x6f, 0x0f,
+	                0x62, 0x1a, 0x9a, 0x5f, 0x56, 0xca, 0xc2, 0x5c,
+	                0x35, 0x34, 0x90, 0xf4, 0x32, 0xe9, 0xdc, 0xa7,
+	                0x6e, 0xf5, 0xa2, 0xff, 0xb1, 0x85, 0x1d, 0xf8,
+	                0x92, 0x08, 0x2c, 0x6d, 0x58, 0x3f, 0x4e, 0xaa,
+	                0x31
+	            ], [
+	                0x42, 0x5a, 0xbc, 0x21, 0xdb, 0x65, 0x8c, 0xb7,
+	                0xd3, 0x32, 0x5d, 0x74, 0x90, 0xd5, 0x37, 0x25,
+	                0x58, 0xf7, 0x62, 0x00, 0x13, 0x69, 0x25, 0x0b,
+	                0x80, 0x86, 0xe4, 0xd4, 0x97, 0x07, 0x06, 0xeb,
+	                0x4b, 0x51, 0xbf, 0x76, 0xc6, 0x43, 0xaa, 0x57,
+	                0xbf, 0xa3, 0xce, 0x5f, 0x6b, 0x78, 0x31, 0xe8,
+	                0xc1, 0x67, 0xff, 0x29, 0xe2, 0xc6, 0x95, 0x8b,
+	                0x52, 0x86, 0xbd, 0xe4, 0xf5, 0xf3, 0x20, 0xeb,
+	                0xeb
+	            ]),
+	            this.Gq.parsePoint([
+	                0x65, 0x11, 0x0b, 0x80, 0xb2, 0xf3, 0xba, 0x19,
+	                0xab, 0x7f, 0x5a, 0x6f, 0xbf, 0xf5, 0x63, 0x3b,
+	                0xb6, 0xb3, 0x14, 0x85, 0x63, 0xbd, 0x1a, 0x29,
+	                0xac, 0x1b, 0xb9, 0xd7, 0x48, 0x80, 0x0d, 0x4f,
+	                0x28, 0xf0, 0x4d, 0xee, 0x10, 0xe8, 0x8f, 0x86,
+	                0xaf, 0xbe, 0xab, 0x7e, 0x10, 0xfc, 0xcf, 0xf6,
+	                0x99, 0x03, 0xd3, 0x3f, 0x7c, 0xbe, 0xf6, 0xfd,
+	                0xdf, 0x65, 0x15, 0x96, 0x78, 0x2c, 0xd7, 0x6c,
+	                0x57
+	            ], [
+	                0xef, 0xa9, 0xbb, 0x04, 0xc1, 0xda, 0x53, 0xc5,
+	                0xd9, 0xa7, 0xe9, 0xa2, 0x6d, 0x33, 0xb6, 0x41,
+	                0x61, 0x3c, 0xd3, 0x74, 0x28, 0x47, 0x5f, 0xdc,
+	                0xf8, 0x21, 0x94, 0x8c, 0x45, 0x72, 0xdb, 0x44,
+	                0x4f, 0x99, 0x7f, 0x90, 0x76, 0x81, 0xf0, 0xc4,
+	                0x66, 0x2d, 0x8b, 0x08, 0xb5, 0x2d, 0x04, 0xa1,
+	                0x09, 0x21, 0x54, 0x36, 0xb0, 0xa3, 0xe4, 0x8f,
+	                0x00, 0x96, 0x3b, 0x99, 0xc4, 0x90, 0xe8, 0xfa,
+	                0x39
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0xf9, 0xff, 0x75, 0xfe, 0x4c, 0xa3, 0xf2,
+	                0xb6, 0x5f, 0x66, 0x85, 0xa2, 0x3f, 0x62, 0x01,
+	                0xed, 0x46, 0x0e, 0x59, 0xd5, 0x17, 0x29, 0x04,
+	                0x05, 0xaf, 0xc7, 0xf7, 0x97, 0xaf, 0x27, 0x2a,
+	                0x06, 0xf4, 0x50, 0x97, 0x17, 0xd1, 0x89, 0x00,
+	                0x5c, 0xe9, 0x3b, 0xe3, 0x32, 0x13, 0x21, 0x84,
+	                0xed, 0x4f, 0xf6, 0x67, 0x97, 0x66, 0xe6, 0x17,
+	                0x26, 0x7e, 0x9d, 0x77, 0x01, 0x74, 0xe9, 0x39,
+	                0x8b, 0x02
+	            ], [
+	                0xe8, 0x7e, 0xbc, 0x53, 0x59, 0x51, 0xba, 0x18,
+	                0xb9, 0xde, 0xff, 0xd8, 0x08, 0xe9, 0x7b, 0x33,
+	                0x7c, 0xc4, 0xec, 0x0b, 0x29, 0x44, 0xae, 0xaa,
+	                0xec, 0xd3, 0x49, 0x34, 0x51, 0x0f, 0xee, 0x96,
+	                0x06, 0xec, 0x6f, 0xf2, 0x8b, 0x4c, 0x49, 0xcc,
+	                0x0b, 0xb6, 0xe8, 0xc5, 0x0c, 0x2a, 0xbd, 0xc9,
+	                0x52, 0xae, 0x95, 0xf6, 0x84, 0x02, 0x7b, 0x15,
+	                0xa1, 0x0d, 0x64, 0xe7, 0x6c, 0xc6, 0x14, 0xf5,
+	                0xe5
+	            ]),
+	            this.Gq.parsePoint([
+	                0xca, 0x01, 0x2f, 0x9a, 0x52, 0xa6, 0x8e, 0x79,
+	                0xad, 0x2e, 0x8e, 0x23, 0x82, 0x89, 0xb5, 0x2f,
+	                0x7d, 0xb5, 0xc3, 0x7b, 0x7e, 0x50, 0xf1, 0xff,
+	                0x00, 0xd2, 0xe4, 0x12, 0x2f, 0xe4, 0xb9, 0x29,
+	                0xd6, 0x17, 0x5a, 0x95, 0xd7, 0xf2, 0x4c, 0x9e,
+	                0x22, 0x06, 0x9d, 0x49, 0xeb, 0x9d, 0xe2, 0xa1,
+	                0x1b, 0xd3, 0x83, 0x2f, 0xd9, 0xd4, 0x6d, 0xa0,
+	                0xed, 0xd0, 0xdb, 0xa0, 0x88, 0x6f, 0xb3, 0x30,
+	                0xa5
+	            ], [
+	                0x25, 0x5a, 0xd2, 0xcf, 0x14, 0x40, 0xe3, 0x12,
+	                0x10, 0xf3, 0x8f, 0xa7, 0x0f, 0xfc, 0xdc, 0xf6,
+	                0x32, 0xe5, 0x3f, 0xb8, 0x07, 0x2f, 0xb0, 0xea,
+	                0x5e, 0xf1, 0x1b, 0x6c, 0x59, 0x0e, 0x0a, 0xa8,
+	                0x16, 0x16, 0x3b, 0xa2, 0x88, 0x14, 0x86, 0x54,
+	                0xbf, 0xb5, 0x4b, 0x71, 0xa4, 0xe3, 0x87, 0xd3,
+	                0xc6, 0x3e, 0x8e, 0x4c, 0x12, 0xf5, 0x47, 0x9d,
+	                0x45, 0x29, 0xf9, 0xfc, 0x0b, 0x2c, 0x93, 0x59,
+	                0xf6
+	            ]),
+	            this.Gq.parsePoint([
+	                0x1f, 0xfa, 0x43, 0x8f, 0xf0, 0x48, 0xba, 0x53,
+	                0x9c, 0xeb, 0x37, 0xe2, 0x33, 0x4e, 0xca, 0x04,
+	                0xc8, 0x2a, 0xf7, 0xe9, 0xbe, 0x21, 0x0c, 0xe5,
+	                0x15, 0x72, 0xdb, 0x53, 0xcb, 0x41, 0xe9, 0xb3,
+	                0x26, 0xb9, 0xa4, 0x14, 0x8a, 0x24, 0x99, 0x1e,
+	                0x66, 0x08, 0xfd, 0x75, 0x3b, 0x2f, 0x34, 0xad,
+	                0xfe, 0x13, 0xab, 0x87, 0xe6, 0x2d, 0xc8, 0xf0,
+	                0x77, 0xe5, 0xba, 0xef, 0x43, 0x7f, 0x58, 0xf6,
+	                0x0d
+	            ], [
+	                0x9f, 0x70, 0xff, 0x23, 0xa4, 0x66, 0x18, 0xa3,
+	                0x4b, 0xa0, 0x00, 0xe7, 0x90, 0x54, 0x4b, 0xa1,
+	                0xbe, 0xbb, 0x18, 0xf9, 0xf9, 0x97, 0x4f, 0x7e,
+	                0x1e, 0x08, 0x44, 0xa5, 0x5b, 0x9a, 0x27, 0x01,
+	                0x83, 0xa1, 0xb6, 0xbb, 0x90, 0x5b, 0xa8, 0x76,
+	                0x81, 0xf9, 0xaa, 0x63, 0xcb, 0x39, 0xb5, 0x7f,
+	                0xaa, 0xc9, 0xbb, 0x93, 0x3e, 0x95, 0x26, 0xb8,
+	                0x91, 0xb2, 0x10, 0x99, 0x91, 0xc2, 0x59, 0xfb,
+	                0xc2
+	            ]),
+	            this.Gq.parsePoint([
+	                0x30, 0x1c, 0xb6, 0x07, 0x5d, 0x05, 0x6b, 0xc6,
+	                0x5e, 0x6a, 0xe3, 0x01, 0xc0, 0x76, 0x75, 0x2e,
+	                0x07, 0xef, 0x2d, 0x21, 0xf1, 0x82, 0xce, 0xde,
+	                0x42, 0xab, 0x6f, 0x56, 0xf0, 0x89, 0xdb, 0x5d,
+	                0x50, 0x66, 0x0f, 0x91, 0x1a, 0x7f, 0x85, 0x79,
+	                0x73, 0x37, 0xa1, 0xa9, 0x50, 0x56, 0xd4, 0x61,
+	                0x3b, 0xa7, 0x5c, 0x7d, 0x69, 0xa5, 0xbc, 0xba,
+	                0xec, 0x23, 0x62, 0xe9, 0x4c, 0x65, 0x96, 0x45,
+	                0x65
+	            ], [
+	                0x2d, 0xee, 0x2d, 0xcd, 0x02, 0xae, 0x5e, 0x3d,
+	                0x50, 0x34, 0x0b, 0x38, 0x86, 0xdb, 0x25, 0xc0,
+	                0x53, 0x6e, 0xad, 0xeb, 0x28, 0x7d, 0x22, 0xab,
+	                0x85, 0x24, 0xfd, 0xf3, 0x2d, 0x40, 0xd2, 0x01,
+	                0x9a, 0x92, 0x02, 0xf9, 0xda, 0x8f, 0xa0, 0x79,
+	                0x27, 0x52, 0xda, 0xfa, 0x23, 0xa0, 0x42, 0xc0,
+	                0x84, 0xf4, 0xd0, 0x8c, 0xe0, 0x79, 0x2f, 0x46,
+	                0x00, 0x3b, 0xf4, 0x77, 0xf0, 0xa8, 0x6c, 0xac,
+	                0x85
+	            ]),
+	            this.Gq.parsePoint([
+	                0x40, 0x7f, 0xc8, 0xe9, 0x84, 0xc8, 0x46, 0x01,
+	                0xf3, 0xe4, 0x19, 0x52, 0xfe, 0xc1, 0x61, 0x42,
+	                0x30, 0x17, 0xe0, 0x73, 0xd3, 0x37, 0x83, 0xff,
+	                0x05, 0xa5, 0x0e, 0x0a, 0x11, 0xb9, 0x4c, 0x4e,
+	                0xbe, 0xd0, 0xc8, 0xd7, 0x67, 0x1e, 0x51, 0x80,
+	                0xf9, 0x93, 0xb1, 0xe9, 0xd1, 0xe3, 0x57, 0xd2,
+	                0x91, 0x77, 0x27, 0x1e, 0xb2, 0x9e, 0xfb, 0x96,
+	                0xcd, 0xef, 0x4e, 0xdf, 0x9d, 0x8c, 0x6b, 0x74,
+	                0x40
+	            ], [
+	                0x43, 0x1d, 0xf6, 0x9b, 0x02, 0x20, 0x04, 0xca,
+	                0xf4, 0xc7, 0x1e, 0xce, 0x51, 0x69, 0x32, 0x02,
+	                0xb5, 0x10, 0xf4, 0x02, 0x07, 0xe4, 0x85, 0x6e,
+	                0x94, 0x09, 0x82, 0x15, 0xc0, 0x1f, 0x55, 0xc1,
+	                0x9a, 0x07, 0x28, 0xc7, 0x48, 0x1c, 0xdf, 0xc2,
+	                0x4b, 0x2f, 0x80, 0xd1, 0xd2, 0x29, 0xec, 0xda,
+	                0xc1, 0xf4, 0xd8, 0x3e, 0x8c, 0x46, 0x6c, 0xd3,
+	                0x58, 0x6f, 0x4e, 0x0d, 0x13, 0xff, 0x25, 0xe9,
+	                0x88
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0xdb, 0xac, 0x6b, 0xe0, 0x86, 0x07, 0x87,
+	                0xde, 0xf0, 0x3f, 0xfc, 0x54, 0x72, 0xdc, 0x23,
+	                0xfa, 0x06, 0xb1, 0x5a, 0xf0, 0x1c, 0xbf, 0x8b,
+	                0xee, 0x8f, 0x5a, 0x0e, 0x71, 0xae, 0x28, 0xb5,
+	                0xec, 0xac, 0x96, 0xfd, 0xa8, 0x2e, 0x85, 0x74,
+	                0x74, 0x1c, 0x21, 0x9f, 0xa6, 0x2d, 0x31, 0xaf,
+	                0xd6, 0x58, 0xbb, 0x95, 0x78, 0xd5, 0x9b, 0x27,
+	                0x9d, 0xf0, 0x94, 0x90, 0x63, 0x12, 0x26, 0x65,
+	                0xcf, 0xb3
+	            ], [
+	                0x36, 0xda, 0x1a, 0x1f, 0xbf, 0xa6, 0x5c, 0x4e,
+	                0xe9, 0x1d, 0x83, 0x6c, 0x2f, 0x42, 0x4a, 0xb2,
+	                0x84, 0x5c, 0xd6, 0xeb, 0x79, 0x62, 0x50, 0x06,
+	                0x65, 0xf7, 0x45, 0xc7, 0xa8, 0x3c, 0x4d, 0xa9,
+	                0x9e, 0x07, 0xcf, 0x2f, 0x57, 0xd9, 0x9e, 0x57,
+	                0x69, 0xbf, 0xa7, 0x0b, 0xdb, 0xde, 0x84, 0xed,
+	                0xe5, 0x62, 0x50, 0x4b, 0x8e, 0x84, 0xb2, 0xc1,
+	                0xe1, 0x59, 0xf0, 0xdb, 0xb9, 0xeb, 0x58, 0x54,
+	                0x9b
+	            ]),
+	            this.Gq.parsePoint([
+	                0xed, 0xa6, 0x25, 0xde, 0x05, 0x83, 0x40, 0x21,
+	                0x3a, 0x85, 0x9d, 0xf9, 0x74, 0x81, 0xc0, 0x62,
+	                0x23, 0x33, 0x7a, 0xb4, 0x2e, 0x45, 0x59, 0x9b,
+	                0xb5, 0x43, 0x19, 0x60, 0xd3, 0xb9, 0xc4, 0x33,
+	                0xd8, 0x7e, 0x6d, 0xf0, 0x1b, 0xdc, 0x89, 0x5a,
+	                0x3c, 0x10, 0x0c, 0xf5, 0xbd, 0x35, 0x7e, 0x42,
+	                0xd4, 0xcd, 0xbb, 0x9e, 0xeb, 0x47, 0xe1, 0x92,
+	                0x98, 0x02, 0xc2, 0x0e, 0xfc, 0x65, 0xe9, 0xe0,
+	                0x44
+	            ], [
+	                0xc9, 0x0a, 0x0e, 0xfa, 0x16, 0xc0, 0xbb, 0x69,
+	                0x8e, 0x2b, 0x67, 0xb5, 0xbd, 0x49, 0x8a, 0x02,
+	                0xd8, 0x69, 0x5c, 0x73, 0xf2, 0x62, 0x6a, 0x96,
+	                0xdd, 0x85, 0x37, 0x1d, 0xc8, 0xd2, 0x36, 0xaf,
+	                0x6f, 0x23, 0x42, 0x93, 0xd0, 0x96, 0x22, 0xaa,
+	                0x10, 0x58, 0x85, 0x9b, 0x36, 0x96, 0x1f, 0xd5,
+	                0x9f, 0x5e, 0x28, 0xcb, 0x48, 0x0c, 0x20, 0x26,
+	                0x24, 0xbe, 0xf4, 0x31, 0x86, 0xfc, 0xcd, 0x39,
+	                0x6e
+	            ]),
+	            this.Gq.parsePoint([
+	                0x05, 0xf8, 0xa4, 0x99, 0xb9, 0x3c, 0x10, 0xc4,
+	                0x9e, 0x1e, 0x29, 0xac, 0x7b, 0xa4, 0x26, 0x71,
+	                0xfb, 0x46, 0xae, 0x8d, 0x03, 0x20, 0xba, 0xcb,
+	                0x5f, 0x01, 0x8f, 0x45, 0x0a, 0x58, 0x77, 0xc0,
+	                0xc6, 0x36, 0x56, 0xee, 0xd3, 0xc8, 0x04, 0x3b,
+	                0xfe, 0x12, 0xc9, 0x34, 0x6a, 0x6a, 0xe1, 0xf8,
+	                0x1d, 0xdb, 0x90, 0xf9, 0x6a, 0x0f, 0xae, 0xf9,
+	                0xde, 0xf3, 0xa9, 0x86, 0xbe, 0xcc, 0xa8, 0x56,
+	                0xfd
+	            ], [
+	                0x63, 0x49, 0x5d, 0x5e, 0xca, 0x21, 0xf2, 0x70,
+	                0xe3, 0xd5, 0x99, 0xfe, 0xf3, 0x49, 0x22, 0x30,
+	                0xec, 0xa6, 0x4c, 0x71, 0x2b, 0xb3, 0x10, 0x0b,
+	                0x14, 0xf4, 0xae, 0x2b, 0x62, 0x18, 0xab, 0x68,
+	                0x35, 0x55, 0x78, 0xca, 0x73, 0xa2, 0x6a, 0xf4,
+	                0xc8, 0x02, 0x02, 0x1f, 0x3a, 0x29, 0x9c, 0x84,
+	                0xd3, 0x43, 0xaa, 0xef, 0x23, 0x7c, 0x1a, 0xd2,
+	                0x05, 0x03, 0x53, 0x2a, 0x46, 0x8d, 0xbe, 0xf9,
+	                0xa5
+	            ]),
+	            this.Gq.parsePoint([
+	                0xaa, 0x86, 0xfc, 0xd1, 0x1c, 0xb4, 0xe5, 0x15,
+	                0x60, 0x21, 0xf5, 0x11, 0xc2, 0x14, 0x5d, 0xf1,
+	                0x98, 0xd8, 0xfc, 0x07, 0xe4, 0x37, 0xf7, 0x49,
+	                0x56, 0x04, 0xef, 0xd3, 0x87, 0x10, 0x0d, 0x6a,
+	                0xc3, 0x38, 0x93, 0x4e, 0x43, 0x07, 0x37, 0x6f,
+	                0xeb, 0x1b, 0x9c, 0xd2, 0x31, 0xf7, 0xe7, 0x4e,
+	                0x1f, 0xf7, 0x68, 0x16, 0x51, 0x89, 0x44, 0x2d,
+	                0x6a, 0x85, 0x18, 0x58, 0xdb, 0x44, 0xc3, 0x94,
+	                0x2f
+	            ], [
+	                0x46, 0xe3, 0x45, 0x90, 0x6c, 0x1f, 0xa9, 0x61,
+	                0xa7, 0x0c, 0xec, 0x67, 0x1f, 0xe9, 0x84, 0xad,
+	                0x62, 0x92, 0x6e, 0x26, 0xaf, 0x0e, 0x49, 0xdb,
+	                0xaf, 0x78, 0x08, 0x1b, 0xd4, 0xc8, 0x0a, 0xf1,
+	                0x42, 0x6c, 0xb3, 0x97, 0xe9, 0xd4, 0x14, 0xb7,
+	                0xc2, 0xe8, 0x30, 0x05, 0xbe, 0x4a, 0xb1, 0x57,
+	                0x1f, 0x28, 0x43, 0xac, 0xd4, 0x83, 0x4d, 0x16,
+	                0x0b, 0x38, 0xf4, 0x70, 0x4c, 0x1c, 0x2d, 0x1a,
+	                0x37
+	            ]),
+	            this.Gq.parsePoint([
+	                0x60, 0xba, 0x95, 0x38, 0x7d, 0x52, 0xd6, 0xf4,
+	                0x22, 0x5f, 0xf4, 0xc2, 0x40, 0xc4, 0xeb, 0x06,
+	                0x1d, 0x6d, 0xa6, 0x01, 0x94, 0x67, 0xf4, 0xa8,
+	                0x45, 0x84, 0xfa, 0xe8, 0xe6, 0x85, 0xea, 0xec,
+	                0x07, 0x8f, 0x00, 0x64, 0xc6, 0xfc, 0x0b, 0x5b,
+	                0x5e, 0x47, 0x9b, 0xda, 0x8b, 0x19, 0x50, 0x8f,
+	                0x64, 0xaa, 0x6f, 0x6b, 0xd3, 0x21, 0xba, 0x3b,
+	                0xb5, 0x59, 0x9b, 0x1f, 0xda, 0x0b, 0xcf, 0x0f,
+	                0x42
+	            ], [
+	                0xd0, 0xfa, 0xd9, 0x20, 0x1e, 0x63, 0x4b, 0x41,
+	                0xf0, 0xb9, 0xfc, 0x75, 0x97, 0xb7, 0x7b, 0x2f,
+	                0xe4, 0x87, 0xe1, 0x2b, 0x83, 0x36, 0x9f, 0xe7,
+	                0xff, 0x0b, 0x65, 0xab, 0xdd, 0xac, 0x92, 0xa0,
+	                0x2d, 0xeb, 0x1a, 0xc5, 0x4c, 0x8d, 0x6e, 0x0f,
+	                0x5e, 0x55, 0x25, 0x84, 0x30, 0xff, 0x61, 0x8f,
+	                0xd1, 0xcb, 0xf0, 0x39, 0x49, 0x0a, 0x03, 0xe2,
+	                0x6e, 0x61, 0x10, 0x4d, 0x80, 0x9d, 0xe4, 0x1e,
+	                0x45
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0xec, 0xae, 0x88, 0x27, 0xa7, 0xb0, 0x94,
+	                0x7d, 0xaa, 0x18, 0x5e, 0x92, 0x90, 0x0e, 0x5c,
+	                0x5e, 0xf2, 0x5d, 0xec, 0x1f, 0x08, 0x21, 0xb8,
+	                0xa6, 0x97, 0x4b, 0xda, 0x81, 0x92, 0xc0, 0x7b,
+	                0x3a, 0x3c, 0x67, 0x69, 0xad, 0xfd, 0xb8, 0x57,
+	                0xc7, 0x3c, 0x96, 0x74, 0xea, 0xd2, 0x6a, 0x3b,
+	                0x57, 0xa5, 0x6f, 0xa6, 0xc1, 0x5a, 0x47, 0x32,
+	                0xc4, 0xbd, 0x63, 0x06, 0x1e, 0x1c, 0xb8, 0xd7,
+	                0x2e, 0xa2
+	            ], [
+	                0x75, 0xd0, 0x1f, 0x5d, 0x3b, 0x38, 0x8a, 0x16,
+	                0x54, 0x6b, 0xc8, 0x3e, 0xfa, 0x7f, 0x97, 0x43,
+	                0x2f, 0xd0, 0x07, 0x1e, 0xc7, 0xe5, 0x92, 0x93,
+	                0x23, 0x2b, 0xe9, 0xc6, 0xaa, 0x48, 0xd1, 0xae,
+	                0x5f, 0xa7, 0x4b, 0xa0, 0xdd, 0x8b, 0x99, 0xeb,
+	                0x84, 0x09, 0xb5, 0x4d, 0x6d, 0x81, 0x1d, 0x16,
+	                0x4a, 0xf4, 0x30, 0x85, 0xef, 0x86, 0x0a, 0x3a,
+	                0x27, 0x77, 0x7c, 0x03, 0x36, 0x24, 0xa8, 0xf6,
+	                0x69
+	            ]),
+	            this.Gq.parsePoint([
+	                0xb4, 0x1a, 0x80, 0xd0, 0xcd, 0xae, 0x1d, 0x86,
+	                0xbf, 0x03, 0x21, 0xa9, 0xad, 0xe6, 0xbf, 0x3c,
+	                0xc1, 0xd6, 0x0b, 0xbc, 0x32, 0xa8, 0xcd, 0x8a,
+	                0xd2, 0x32, 0xc8, 0x22, 0x8e, 0x9c, 0x15, 0xe7,
+	                0x5c, 0xc3, 0x72, 0xd6, 0xca, 0x6e, 0x5a, 0xe7,
+	                0x0d, 0xe5, 0xfe, 0x52, 0x02, 0x88, 0x39, 0x38,
+	                0xb4, 0x2d, 0xf2, 0x23, 0x66, 0x43, 0x56, 0x9c,
+	                0x0e, 0xe6, 0xa7, 0x3e, 0x09, 0x64, 0x54, 0x8c,
+	                0x1d
+	            ], [
+	                0x44, 0xbb, 0x4e, 0xa0, 0x65, 0x9a, 0x27, 0xe6,
+	                0x12, 0xac, 0x00, 0x88, 0x79, 0x49, 0x40, 0x0f,
+	                0xb8, 0xf4, 0x1c, 0x9e, 0xb5, 0xda, 0xff, 0x89,
+	                0xb5, 0xee, 0x4c, 0xe9, 0x79, 0xfa, 0x1d, 0x73,
+	                0xb5, 0xea, 0xda, 0x1f, 0x60, 0x37, 0xc8, 0xe0,
+	                0x16, 0xe4, 0x4c, 0x1c, 0x8a, 0x4f, 0x9d, 0xc2,
+	                0xaf, 0x48, 0x7c, 0xd9, 0x2a, 0x19, 0xf4, 0x50,
+	                0xbd, 0x71, 0xbb, 0x4d, 0x72, 0x3e, 0x9d, 0x04,
+	                0xa9
+	            ]),
+	            this.Gq.parsePoint([
+	                0xd7, 0xea, 0x7e, 0x80, 0x45, 0x29, 0xf3, 0xa0,
+	                0x88, 0x9f, 0xec, 0xa6, 0x32, 0xcc, 0x69, 0x07,
+	                0xa2, 0x43, 0x89, 0xbc, 0x0b, 0xa1, 0xee, 0x0f,
+	                0x64, 0x8d, 0x52, 0xe0, 0xc0, 0xd9, 0x17, 0x44,
+	                0x35, 0x9c, 0xa9, 0x45, 0xe0, 0x29, 0x42, 0x04,
+	                0xa9, 0xd8, 0xa9, 0x05, 0x6c, 0xfc, 0x16, 0xa0,
+	                0x13, 0x84, 0xf4, 0x3c, 0x7b, 0x0f, 0xe2, 0x07,
+	                0xf3, 0x7a, 0x81, 0xad, 0x15, 0x84, 0x55, 0x83,
+	                0x1b
+	            ], [
+	                0x85, 0xfa, 0x66, 0xee, 0xde, 0x6d, 0x45, 0x2d,
+	                0x4c, 0x80, 0xfb, 0x92, 0x43, 0xbb, 0xbc, 0xd5,
+	                0x50, 0x0d, 0x7c, 0x37, 0xa8, 0x7a, 0xc6, 0x87,
+	                0xa4, 0x9c, 0xa0, 0x20, 0xbb, 0xf0, 0x00, 0x15,
+	                0xac, 0xd5, 0xd4, 0x27, 0xb2, 0xe2, 0x0e, 0x73,
+	                0x3a, 0x05, 0x84, 0x9c, 0xc1, 0x3d, 0x2c, 0x20,
+	                0x45, 0xc5, 0x33, 0x3d, 0x7e, 0xc1, 0x0c, 0xc8,
+	                0xf2, 0xa6, 0x3f, 0x63, 0xfe, 0x78, 0x1c, 0xbd,
+	                0x42
+	            ]),
+	            this.Gq.parsePoint([
+	                0x6c, 0xe8, 0x7f, 0x9f, 0x5b, 0x5b, 0x6f, 0xa0,
+	                0xfb, 0xc5, 0x1c, 0x2e, 0x3a, 0x20, 0x11, 0x53,
+	                0x0b, 0xf2, 0x16, 0xcc, 0x03, 0xcd, 0xea, 0x0c,
+	                0x35, 0x27, 0x33, 0xa0, 0xda, 0xb6, 0xef, 0xa7,
+	                0xff, 0x77, 0xef, 0xb2, 0x16, 0x98, 0xd6, 0xa2,
+	                0xa3, 0x06, 0x97, 0xe3, 0x5b, 0x12, 0x8c, 0x6e,
+	                0xe2, 0xa0, 0x2e, 0xbc, 0x94, 0x6b, 0x7d, 0x01,
+	                0xd6, 0xae, 0xf9, 0xc4, 0x38, 0x1c, 0x12, 0x92,
+	                0x5f
+	            ], [
+	                0xd6, 0x03, 0x10, 0x16, 0x60, 0x32, 0x50, 0x13,
+	                0x5e, 0x19, 0xf6, 0xbb, 0x80, 0x86, 0xb7, 0x51,
+	                0x9d, 0x22, 0x3b, 0x08, 0x3e, 0xb8, 0x33, 0xf4,
+	                0xee, 0xdb, 0x01, 0x8c, 0x5a, 0x82, 0x6c, 0xe2,
+	                0x09, 0x29, 0x25, 0xb6, 0x8f, 0x8b, 0x3c, 0x82,
+	                0x57, 0x68, 0xb5, 0x87, 0xe7, 0x40, 0x0c, 0x57,
+	                0xbe, 0x2c, 0xbd, 0x5a, 0xf2, 0xda, 0x4d, 0x9a,
+	                0xdb, 0xfd, 0xae, 0x09, 0x64, 0x1f, 0x3e, 0xb6,
+	                0xc2
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0x07, 0x4f, 0x17, 0x16, 0xca, 0x1d, 0xf0,
+	                0x0f, 0x49, 0x49, 0x0c, 0x85, 0xf9, 0xc4, 0xbe,
+	                0x23, 0x8a, 0xe3, 0x52, 0x9e, 0xc6, 0xb2, 0xc4,
+	                0x9b, 0xad, 0xcf, 0x70, 0x2f, 0x90, 0xb4, 0xbc,
+	                0xcf, 0x91, 0x51, 0x46, 0xfb, 0xcf, 0xa0, 0x7c,
+	                0xf2, 0x04, 0x98, 0x67, 0x7e, 0x82, 0xf4, 0x75,
+	                0x72, 0xbe, 0xd9, 0xe2, 0xbb, 0x58, 0x54, 0x68,
+	                0xa9, 0x64, 0x7d, 0xf1, 0xaa, 0x65, 0xb1, 0x0b,
+	                0x4b, 0xee
+	            ], [
+	                0xe3, 0x73, 0x5d, 0x88, 0x1a, 0x47, 0x13, 0x98,
+	                0xc8, 0x55, 0x4e, 0xcf, 0x7d, 0x25, 0xf5, 0xc8,
+	                0x71, 0x90, 0xc6, 0xde, 0x1a, 0x04, 0xb5, 0xc1,
+	                0x3e, 0xd1, 0x68, 0xe2, 0x37, 0x86, 0x91, 0x26,
+	                0x6f, 0xb9, 0x8f, 0x5b, 0xd5, 0xf3, 0x36, 0x0c,
+	                0xb6, 0x69, 0xcd, 0x9a, 0x4d, 0xb3, 0x2f, 0x42,
+	                0xf6, 0x02, 0x51, 0x5a, 0x74, 0x2d, 0xfe, 0xc7,
+	                0xad, 0xa8, 0x42, 0xd5, 0x95, 0xda, 0x6c, 0x6e,
+	                0x3d
+	            ]),
+	            this.Gq.parsePoint([
+	                0x4e, 0x0a, 0xa3, 0xb9, 0xc2, 0xe7, 0x14, 0x73,
+	                0x86, 0xfa, 0x7b, 0xed, 0x54, 0x3e, 0xbd, 0xd4,
+	                0x15, 0xe8, 0xc3, 0x32, 0x13, 0xc1, 0x5e, 0x28,
+	                0xaa, 0x8a, 0x00, 0x3e, 0x5d, 0xb3, 0x78, 0xe8,
+	                0x0c, 0xb1, 0xda, 0xee, 0x60, 0x02, 0xa5, 0x14,
+	                0xa6, 0x73, 0x9c, 0x8f, 0x61, 0x8d, 0x71, 0x10,
+	                0x4d, 0xbc, 0xc9, 0xd1, 0x6c, 0x71, 0x91, 0xee,
+	                0x65, 0xc9, 0x67, 0xcc, 0x30, 0x68, 0xe7, 0x1f,
+	                0x24
+	            ], [
+	                0x08, 0x43, 0x7e, 0x93, 0xbf, 0x86, 0xdb, 0xd0,
+	                0xea, 0xba, 0x38, 0x3e, 0xf3, 0x07, 0xdd, 0xb9,
+	                0x8d, 0x27, 0xae, 0x63, 0xe7, 0x90, 0x33, 0x8e,
+	                0x85, 0xb2, 0x78, 0x16, 0x80, 0xab, 0x0b, 0xbf,
+	                0xe1, 0x71, 0x24, 0x78, 0x56, 0x8e, 0x12, 0xac,
+	                0xed, 0xb9, 0x76, 0xa8, 0xf3, 0x8a, 0x25, 0x5c,
+	                0x87, 0x0a, 0xc5, 0xf9, 0x7f, 0x45, 0x14, 0x1c,
+	                0x09, 0x77, 0x46, 0x37, 0x70, 0x47, 0x92, 0x71,
+	                0x65
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0x26, 0xb1, 0xe6, 0x05, 0xe3, 0xba, 0xe4,
+	                0x56, 0xc9, 0x86, 0xad, 0xdb, 0x6e, 0xba, 0x0f,
+	                0x75, 0x02, 0x29, 0xb3, 0xf9, 0x71, 0x23, 0x5e,
+	                0xa8, 0x27, 0xa2, 0xe1, 0x6f, 0x45, 0xf3, 0xa9,
+	                0x38, 0x76, 0x5a, 0xf0, 0xa0, 0x81, 0x2f, 0xa2,
+	                0xaf, 0x01, 0x99, 0xe2, 0xe1, 0x80, 0x16, 0x79,
+	                0xe4, 0x3a, 0x1e, 0xf9, 0x42, 0x17, 0x32, 0x59,
+	                0x5d, 0xba, 0x7e, 0x71, 0xd9, 0xf6, 0xd6, 0x8c,
+	                0x30, 0xcf
+	            ], [
+	                0xfb, 0x86, 0x40, 0xe4, 0x9a, 0x5f, 0xa0, 0x9c,
+	                0x4f, 0xcd, 0xf2, 0xc3, 0x76, 0x11, 0xfc, 0x39,
+	                0x7f, 0x5f, 0x7b, 0x59, 0x91, 0x70, 0x9c, 0xc6,
+	                0x78, 0x3b, 0x92, 0x88, 0x5e, 0xe9, 0x79, 0x84,
+	                0x74, 0x44, 0x51, 0xb5, 0x33, 0xd5, 0x71, 0x0c,
+	                0x8b, 0x80, 0x1d, 0x5e, 0x29, 0xce, 0x2e, 0x37,
+	                0x3f, 0xc3, 0x25, 0xf3, 0x29, 0xa7, 0x50, 0x2d,
+	                0x50, 0x3f, 0x42, 0x3e, 0xb2, 0xa3, 0xa9, 0xd4,
+	                0x28
+	            ]),
+	            this.Gq.parsePoint([
+	                0x80, 0x94, 0xe9, 0x4e, 0x19, 0x83, 0xa7, 0x61,
+	                0x1a, 0x0c, 0xd6, 0x24, 0xd9, 0x4c, 0xfa, 0x1b,
+	                0x3c, 0x1e, 0x18, 0xeb, 0xd2, 0x76, 0x7f, 0x4f,
+	                0x41, 0x46, 0xc5, 0x73, 0xdf, 0x36, 0x82, 0x81,
+	                0x69, 0x3d, 0xdf, 0xa5, 0x26, 0x21, 0x7a, 0x0d,
+	                0x93, 0x5d, 0x22, 0x56, 0xa5, 0x26, 0xc8, 0x0f,
+	                0xe5, 0x41, 0x80, 0xd6, 0x3b, 0x44, 0xc5, 0xa3,
+	                0xc4, 0x4a, 0x52, 0x8b, 0xb2, 0x11, 0xd0, 0xd4,
+	                0x0b
+	            ], [
+	                0x2c, 0x57, 0xee, 0xff, 0xc5, 0x12, 0xd8, 0x30,
+	                0xef, 0xf9, 0x0f, 0x8a, 0xa4, 0x1f, 0x86, 0x71,
+	                0x57, 0x92, 0x6a, 0xe5, 0x37, 0x27, 0xb3, 0x65,
+	                0x1d, 0x29, 0x6a, 0x67, 0x03, 0x87, 0x8f, 0x96,
+	                0x73, 0x8f, 0xb3, 0x08, 0xf8, 0x5c, 0xb1, 0x53,
+	                0x0b, 0x39, 0xed, 0x24, 0xcc, 0xb6, 0x0e, 0xaa,
+	                0xef, 0x80, 0xaa, 0x22, 0xf1, 0xca, 0x5e, 0x9a,
+	                0xc7, 0x94, 0x11, 0x0a, 0xc6, 0xcd, 0x04, 0x8d,
+	                0xa9
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0xdd, 0xc9, 0xa9, 0x91, 0xf6, 0x18, 0x0a,
+	                0xbe, 0xfa, 0xae, 0x93, 0x51, 0xed, 0xce, 0x52,
+	                0x4d, 0xb8, 0xb0, 0xd7, 0xe4, 0x27, 0xc3, 0xeb,
+	                0xa5, 0x88, 0x17, 0xa5, 0x08, 0x39, 0x6f, 0x2d,
+	                0xbf, 0x6e, 0x1a, 0x75, 0x43, 0x62, 0x7e, 0x05,
+	                0xc3, 0xbb, 0xe6, 0x5d, 0xfe, 0x40, 0xd0, 0xb3,
+	                0x31, 0x89, 0x40, 0x1e, 0xf1, 0x9a, 0xb1, 0xb1,
+	                0x6f, 0xf3, 0x3b, 0xbc, 0x44, 0x3a, 0x5f, 0xe5,
+	                0x47, 0xf9
+	            ], [
+	                0xfa, 0x05, 0xcc, 0xbe, 0x21, 0xe0, 0xbb, 0xa1,
+	                0x88, 0x81, 0xdc, 0x66, 0x2a, 0xb2, 0x9f, 0x3d,
+	                0x9c, 0x96, 0x11, 0x0b, 0x2a, 0xb6, 0x0f, 0xa5,
+	                0x50, 0x32, 0x21, 0x37, 0x7a, 0xcf, 0xb0, 0x48,
+	                0x51, 0x47, 0x9a, 0x96, 0x12, 0xda, 0xb9, 0x94,
+	                0xda, 0x56, 0x72, 0x57, 0x1d, 0xc5, 0xc4, 0x39,
+	                0x3f, 0x75, 0xb2, 0xc8, 0x4a, 0xab, 0x3f, 0xa6,
+	                0xa0, 0xc4, 0x49, 0x7f, 0x0e, 0x55, 0xb1, 0x2c,
+	                0xb2
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0xeb, 0x90, 0x35, 0x84, 0x06, 0x30, 0xac,
+	                0x6f, 0xd0, 0xa3, 0x01, 0x73, 0xa9, 0x47, 0x93,
+	                0xf7, 0xe8, 0x1f, 0x34, 0x45, 0x5e, 0x2e, 0x1a,
+	                0x60, 0x0f, 0xde, 0xc0, 0x9b, 0xb6, 0x63, 0x61,
+	                0x63, 0xc6, 0xc4, 0xb2, 0x41, 0x75, 0xb5, 0x60,
+	                0x53, 0xe6, 0x7c, 0x3e, 0x37, 0x4d, 0x35, 0x73,
+	                0x9b, 0xe3, 0x18, 0x19, 0xcd, 0xe7, 0xbe, 0xfc,
+	                0x42, 0xeb, 0xc3, 0xae, 0xa0, 0xab, 0xdd, 0x03,
+	                0xef, 0xc7
+	            ], [
+	                0xda, 0x55, 0x65, 0xb4, 0xf6, 0x16, 0xdc, 0xe1,
+	                0x8b, 0xe9, 0x65, 0x7f, 0x38, 0x6f, 0x0c, 0x27,
+	                0x92, 0xfc, 0xf0, 0xf6, 0x02, 0xc6, 0xac, 0xf8,
+	                0x4f, 0xcb, 0xc9, 0x76, 0xbb, 0x27, 0x6d, 0x6d,
+	                0x84, 0x97, 0x78, 0x75, 0xdc, 0x12, 0xf8, 0x87,
+	                0x65, 0x4a, 0xc7, 0xc2, 0x87, 0x3c, 0x3a, 0xef,
+	                0xf1, 0xc0, 0xd4, 0x5c, 0xdd, 0xce, 0x4c, 0xd6,
+	                0x33, 0x28, 0x59, 0x8a, 0x67, 0xb0, 0xb2, 0x22,
+	                0xbf
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0x2a, 0x8c, 0x69, 0x5c, 0x84, 0x96, 0x14,
+	                0xe9, 0xa6, 0xa1, 0xd4, 0xb3, 0x98, 0x8b, 0x6a,
+	                0x56, 0xbb, 0xce, 0xb7, 0x80, 0xd1, 0xcd, 0x2b,
+	                0x2b, 0xe3, 0x37, 0xb1, 0x72, 0x0a, 0x27, 0x93,
+	                0x6f, 0xb0, 0x5e, 0xcf, 0xa2, 0x1a, 0xac, 0x9e,
+	                0x99, 0xb7, 0x03, 0x1b, 0xda, 0x94, 0x21, 0xb5,
+	                0xb3, 0xb9, 0x55, 0x5b, 0xaa, 0xda, 0xc9, 0x6b,
+	                0xab, 0xce, 0x8a, 0x7e, 0xe4, 0xe1, 0xe2, 0x65,
+	                0x75, 0x27
+	            ], [
+	                0x0c, 0x2c, 0x28, 0x76, 0x3f, 0xd1, 0xe3, 0x92,
+	                0xd0, 0x7a, 0xe2, 0xed, 0x96, 0x99, 0x12, 0xdb,
+	                0x6c, 0x78, 0xb8, 0xbb, 0xfa, 0x21, 0x6e, 0x56,
+	                0x52, 0xc6, 0xfb, 0x47, 0x73, 0x1e, 0xc4, 0x55,
+	                0x93, 0x8d, 0xa2, 0x5c, 0x17, 0xfb, 0x58, 0x2e,
+	                0xa5, 0x02, 0x28, 0x10, 0x30, 0x84, 0x97, 0x26,
+	                0xf4, 0x78, 0xca, 0xd1, 0xa8, 0xb5, 0x6b, 0xe9,
+	                0x21, 0xa9, 0x0b, 0x53, 0x61, 0x0b, 0x62, 0xa0,
+	                0x9c
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0x30, 0xb2, 0x74, 0x65, 0xad, 0x69, 0xc6,
+	                0x73, 0x2c, 0xda, 0x11, 0x80, 0x50, 0xcd, 0xdd,
+	                0xa2, 0x88, 0x1a, 0x08, 0x70, 0xf1, 0xee, 0x9c,
+	                0xeb, 0xd8, 0x1a, 0x56, 0x56, 0x75, 0x5c, 0xb6,
+	                0xb0, 0x80, 0xa4, 0x28, 0x93, 0x8b, 0xae, 0xd1,
+	                0xf7, 0xd6, 0x77, 0x2a, 0x8f, 0x55, 0x92, 0x34,
+	                0xfb, 0xa2, 0x0f, 0xd3, 0x00, 0xf9, 0x1d, 0x88,
+	                0xcf, 0xf9, 0x9b, 0x79, 0x4f, 0x1f, 0xad, 0x64,
+	                0x79, 0xd4
+	            ], [
+	                0x8c, 0x65, 0x73, 0xa8, 0x9d, 0x9b, 0x48, 0xd9,
+	                0xee, 0x84, 0x74, 0xd7, 0x47, 0x52, 0x6b, 0xcd,
+	                0x74, 0xb2, 0x0d, 0x54, 0x5c, 0x42, 0xab, 0x75,
+	                0x50, 0xd6, 0xf4, 0x90, 0x61, 0xfc, 0xcb, 0x09,
+	                0x57, 0x9c, 0x39, 0xe6, 0x70, 0xbc, 0x04, 0xbe,
+	                0x08, 0x20, 0xbd, 0x2f, 0xc3, 0x9a, 0x54, 0x11,
+	                0x48, 0x60, 0x41, 0xba, 0x94, 0xe4, 0xb4, 0x05,
+	                0x6a, 0x19, 0x6b, 0x07, 0x6a, 0x22, 0x2b, 0xe0,
+	                0x1b
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0x2c, 0xae, 0xae, 0x62, 0xf4, 0x2d, 0x13,
+	                0x14, 0x1f, 0xc2, 0x8b, 0xf5, 0x23, 0x2f, 0x95,
+	                0xdb, 0xe9, 0xdc, 0xd7, 0x21, 0xb2, 0x59, 0x90,
+	                0x41, 0x50, 0x7d, 0xa3, 0xa5, 0xc1, 0x46, 0x7a,
+	                0x19, 0xfa, 0x46, 0x9b, 0xa0, 0x91, 0x40, 0x10,
+	                0x66, 0x22, 0xe6, 0x77, 0x71, 0xf3, 0x32, 0xe1,
+	                0x9b, 0x3c, 0x17, 0x3a, 0xfd, 0x1e, 0x23, 0xd8,
+	                0x45, 0xdb, 0x96, 0x00, 0xbe, 0x07, 0x55, 0xf8,
+	                0x5e, 0xf6
+	            ], [
+	                0xec, 0x2f, 0x91, 0x95, 0xd2, 0xbf, 0x0f, 0x74,
+	                0x9f, 0x1a, 0x73, 0xdc, 0x13, 0xb7, 0x61, 0x89,
+	                0x24, 0xb3, 0xd3, 0x79, 0xdb, 0x21, 0x29, 0x13,
+	                0x71, 0x88, 0xb9, 0xe8, 0xe5, 0x53, 0x35, 0xc0,
+	                0x96, 0xd6, 0x3a, 0x27, 0xf5, 0xbb, 0x02, 0xf5,
+	                0xb4, 0xf5, 0xac, 0xd7, 0xc5, 0xc4, 0xba, 0x9a,
+	                0x7b, 0xfb, 0xf8, 0xbe, 0xaf, 0x1c, 0x37, 0x47,
+	                0xd9, 0x4a, 0xb2, 0xfc, 0x5f, 0x13, 0x10, 0xfe,
+	                0xd8
+	            ]),
+	            this.Gq.parsePoint([
+	                0xc2, 0x18, 0x2b, 0xa6, 0xe8, 0x20, 0xe8, 0xad,
+	                0x89, 0xac, 0x8f, 0x62, 0x55, 0x21, 0x60, 0xab,
+	                0xca, 0xbd, 0xd1, 0x47, 0xe6, 0x3f, 0x76, 0x9a,
+	                0xdc, 0x69, 0xa6, 0x23, 0xeb, 0xec, 0x89, 0x10,
+	                0x2a, 0xa8, 0x3d, 0xfa, 0x2d, 0x6d, 0x6a, 0xf6,
+	                0x26, 0x3b, 0x49, 0x7a, 0x71, 0x50, 0x61, 0x0e,
+	                0xba, 0x6a, 0xd9, 0x82, 0x97, 0xa2, 0x78, 0xeb,
+	                0x81, 0xd6, 0x62, 0xc2, 0xde, 0xf3, 0x8d, 0xe0,
+	                0x40
+	            ], [
+	                0x9a, 0xe7, 0xe0, 0x67, 0x15, 0x72, 0x61, 0x9b,
+	                0x73, 0x0b, 0x33, 0xab, 0xdc, 0x8c, 0x9a, 0x46,
+	                0x08, 0xd6, 0x41, 0xe1, 0x63, 0x45, 0x63, 0x10,
+	                0xbe, 0x94, 0xcf, 0x55, 0xae, 0x4c, 0x92, 0x5c,
+	                0x6f, 0xe6, 0x3a, 0x08, 0x1f, 0xb1, 0x41, 0x9b,
+	                0x66, 0xc3, 0xa8, 0xfc, 0x19, 0x9e, 0x7e, 0xcb,
+	                0x11, 0x4a, 0x9b, 0xde, 0xb1, 0x3e, 0xe7, 0xac,
+	                0xf3, 0xac, 0x7e, 0xdd, 0x43, 0xf7, 0x22, 0x35,
+	                0x18
+	            ]),
+	            this.Gq.parsePoint([
+	                0x51, 0x7c, 0x31, 0x26, 0x55, 0x63, 0x5d, 0x41,
+	                0xdf, 0x5e, 0xfe, 0x8f, 0x8a, 0xf3, 0x06, 0x77,
+	                0xe0, 0xe3, 0xcf, 0x5a, 0xdd, 0x48, 0xaa, 0xb1,
+	                0x57, 0xf4, 0x5d, 0xff, 0x62, 0x15, 0xcd, 0xcf,
+	                0x5f, 0x5c, 0x1a, 0xd4, 0xdc, 0x34, 0x74, 0xbc,
+	                0xdd, 0x40, 0x1b, 0xfa, 0x8b, 0x77, 0x10, 0x3b,
+	                0x20, 0xc9, 0xc2, 0x89, 0x25, 0xa1, 0x8e, 0xbf,
+	                0xea, 0xcd, 0x8d, 0x2b, 0x0a, 0x1d, 0x52, 0xd4,
+	                0x8d
+	            ], [
+	                0x5d, 0x68, 0x30, 0xd3, 0x3c, 0x7e, 0xdf, 0x55,
+	                0x4d, 0x9f, 0x14, 0xc9, 0xe6, 0xee, 0x50, 0x29,
+	                0x66, 0xf8, 0x33, 0xa1, 0xc5, 0xef, 0x50, 0x6b,
+	                0x6e, 0xf4, 0x4b, 0x91, 0x71, 0x66, 0x4e, 0x99,
+	                0xe5, 0xcc, 0x1c, 0x8b, 0x09, 0xd7, 0x04, 0xff,
+	                0x9e, 0x72, 0xd0, 0xc6, 0x0e, 0x1f, 0x7c, 0xe6,
+	                0xe6, 0xf8, 0x98, 0x9a, 0x88, 0xa0, 0x3b, 0x1c,
+	                0x30, 0x07, 0x34, 0xf0, 0x94, 0xc2, 0xc5, 0x62,
+	                0x4c
+	            ]),
+	            this.Gq.parsePoint([
+	                0x6f, 0x20, 0x17, 0xda, 0x1d, 0x5c, 0x88, 0x27,
+	                0x45, 0x84, 0x75, 0x2c, 0x8a, 0xb8, 0xc7, 0xef,
+	                0x8a, 0xe7, 0xf6, 0xa9, 0xec, 0xeb, 0x3a, 0x8b,
+	                0x3b, 0x9a, 0xf1, 0x6b, 0x5e, 0x03, 0x47, 0xb0,
+	                0x1f, 0xa6, 0x62, 0xb0, 0xdb, 0x27, 0xfb, 0xab,
+	                0x75, 0x74, 0x9a, 0xe6, 0x83, 0x57, 0x13, 0x5f,
+	                0x3d, 0xd2, 0x54, 0x4d, 0x2e, 0x1a, 0x7d, 0x95,
+	                0x94, 0xbf, 0xd7, 0xd7, 0xdd, 0xf9, 0xd6, 0x9c,
+	                0x25
+	            ], [
+	                0xd6, 0x21, 0x95, 0xe1, 0x4e, 0x6b, 0x29, 0x65,
+	                0x41, 0x47, 0xdb, 0x19, 0xd0, 0x2c, 0xd7, 0x33,
+	                0x81, 0x02, 0x0d, 0x7a, 0x55, 0x59, 0x88, 0x0e,
+	                0x3e, 0x2f, 0x41, 0x34, 0x3e, 0xf3, 0x9b, 0xd2,
+	                0x9b, 0x61, 0x3d, 0x8b, 0x55, 0xae, 0x33, 0xd5,
+	                0x59, 0xdf, 0x36, 0xa1, 0x7d, 0x1f, 0xa4, 0xda,
+	                0xe0, 0xb5, 0xa3, 0x52, 0xf4, 0x59, 0x16, 0x8f,
+	                0x94, 0xd0, 0xa5, 0xb4, 0x56, 0x14, 0x70, 0x27,
+	                0x2c
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0xf6, 0x66, 0x42, 0x5f, 0xa8, 0xbd, 0xe9,
+	                0x8b, 0xff, 0x13, 0x81, 0x61, 0x79, 0x6c, 0x12,
+	                0xe0, 0xe1, 0xe4, 0x85, 0xea, 0xda, 0xcd, 0x0e,
+	                0xd5, 0xad, 0xab, 0x17, 0xba, 0x92, 0xb3, 0xa2,
+	                0x93, 0x28, 0xfe, 0x05, 0x71, 0x96, 0xd6, 0x7a,
+	                0x03, 0x6c, 0x92, 0x2f, 0x08, 0x74, 0x36, 0xe9,
+	                0x81, 0x87, 0xa4, 0x25, 0xb9, 0x22, 0x6a, 0xe7,
+	                0x5a, 0x0a, 0x91, 0xb8, 0x48, 0xad, 0xa6, 0x7a,
+	                0x9b, 0xe0
+	            ], [
+	                0xb7, 0x8d, 0x81, 0x52, 0xba, 0xae, 0x1f, 0xe2,
+	                0x90, 0x18, 0x35, 0x64, 0xec, 0x0c, 0xde, 0xdd,
+	                0xef, 0x62, 0x49, 0x22, 0x0b, 0x98, 0x6d, 0xf8,
+	                0xbb, 0xf3, 0xcb, 0x9a, 0x04, 0x7f, 0x06, 0x62,
+	                0x79, 0xd3, 0xcd, 0x07, 0x3b, 0x5d, 0x8f, 0x18,
+	                0x50, 0x8a, 0x17, 0xf7, 0xaf, 0xcc, 0xf4, 0x07,
+	                0x58, 0x32, 0x4f, 0xe2, 0x51, 0xc5, 0x4e, 0x2b,
+	                0xbf, 0xdd, 0x2b, 0xe1, 0x6d, 0xdc, 0xd3, 0x5a,
+	                0xcc
+	            ]),
+	            this.Gq.parsePoint([
+	                0x1c, 0x78, 0xaa, 0x54, 0x76, 0xf6, 0xcc, 0x9b,
+	                0x6d, 0x22, 0xc3, 0xa2, 0x58, 0xbe, 0xbc, 0x1d,
+	                0xf2, 0xce, 0x2e, 0x39, 0x1d, 0xc7, 0x75, 0xb8,
+	                0x14, 0xce, 0xce, 0x94, 0xf6, 0x4f, 0xed, 0x29,
+	                0xc0, 0xc9, 0xa4, 0x0a, 0xe7, 0xb7, 0x8f, 0x21,
+	                0x81, 0xaf, 0x16, 0x3d, 0xec, 0x83, 0x18, 0x67,
+	                0x84, 0x93, 0xd1, 0xb9, 0x85, 0x26, 0x06, 0xe5,
+	                0x8f, 0x96, 0x37, 0x54, 0x65, 0x21, 0x41, 0xcd,
+	                0x1b
+	            ], [
+	                0x3e, 0x4c, 0x46, 0x81, 0x42, 0xcc, 0x1b, 0x6f,
+	                0xb6, 0x41, 0x17, 0xc6, 0x69, 0x7f, 0x29, 0xc3,
+	                0x36, 0xfd, 0xb2, 0x72, 0xa4, 0x83, 0x64, 0x23,
+	                0x39, 0xd8, 0x38, 0x22, 0x06, 0x03, 0xe1, 0x1d,
+	                0x4c, 0x6d, 0xc8, 0x0b, 0x7b, 0x1e, 0x5d, 0x13,
+	                0x21, 0xab, 0x11, 0xa0, 0x2d, 0x7d, 0x81, 0xa2,
+	                0x5a, 0x14, 0xee, 0xd5, 0x80, 0x8c, 0x7a, 0x09,
+	                0x54, 0x81, 0xc7, 0xb9, 0x21, 0x6d, 0x07, 0x65,
+	                0x80
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0x4b, 0xe3, 0x06, 0xc2, 0xa3, 0x0c, 0x0b,
+	                0x90, 0xa7, 0x41, 0xa3, 0x7d, 0xe3, 0x82, 0xb5,
+	                0x65, 0xa0, 0x78, 0x74, 0x71, 0xdb, 0xd3, 0x72,
+	                0x6f, 0x3a, 0xde, 0xde, 0x7a, 0xb1, 0xfd, 0xae,
+	                0x81, 0xbe, 0x59, 0x5a, 0xd9, 0x5e, 0x66, 0xd7,
+	                0xe2, 0xdc, 0xf5, 0x38, 0x75, 0x18, 0xba, 0xdd,
+	                0xe3, 0x12, 0x8e, 0x18, 0xf3, 0x2b, 0xc1, 0x98,
+	                0xcb, 0x70, 0x0f, 0xa3, 0xb8, 0xb0, 0xfc, 0xf3,
+	                0x87, 0x9b
+	            ], [
+	                0xc8, 0x67, 0xc1, 0x21, 0xcb, 0xb3, 0x42, 0x53,
+	                0xc6, 0xd4, 0xed, 0x65, 0xc7, 0x0b, 0xe2, 0x2d,
+	                0x16, 0x17, 0xb6, 0x90, 0x0c, 0xab, 0xce, 0xe9,
+	                0x28, 0xe7, 0x6b, 0x93, 0xbd, 0x16, 0xba, 0x13,
+	                0xd4, 0x93, 0xd1, 0xc7, 0x1e, 0x62, 0x70, 0x94,
+	                0xdd, 0x14, 0xd6, 0xa1, 0xb2, 0xcb, 0xae, 0xa6,
+	                0x45, 0x05, 0xcc, 0x55, 0x24, 0x9c, 0x97, 0x86,
+	                0x97, 0x17, 0x03, 0x50, 0x27, 0x23, 0xdb, 0xeb,
+	                0x23
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0xf9, 0x73, 0x25, 0xc4, 0x55, 0xdd, 0x3b,
+	                0x04, 0xd5, 0x8a, 0x79, 0xc7, 0x6d, 0x80, 0xe4,
+	                0x19, 0xd6, 0xe7, 0x58, 0x27, 0x84, 0x7a, 0x4b,
+	                0x51, 0x48, 0xcc, 0x32, 0x7c, 0x34, 0x0d, 0xe6,
+	                0x67, 0x0a, 0xef, 0xe5, 0x99, 0x88, 0xc1, 0xb6,
+	                0x14, 0x9a, 0xd3, 0x9d, 0x59, 0x49, 0x8a, 0xfe,
+	                0x43, 0x4f, 0xac, 0x28, 0x6f, 0x51, 0x96, 0x7d,
+	                0xe9, 0xe1, 0x26, 0xe5, 0xa2, 0x3a, 0x31, 0x06,
+	                0x1c, 0x82
+	            ], [
+	                0x1a, 0xa4, 0x22, 0xac, 0x52, 0xf5, 0x08, 0x43,
+	                0x93, 0xf4, 0x64, 0x07, 0x68, 0xed, 0xf0, 0xc2,
+	                0x85, 0x8f, 0x79, 0x08, 0x6f, 0x92, 0x4c, 0xe3,
+	                0xc1, 0x80, 0xb7, 0xf1, 0x1d, 0x91, 0xc8, 0xd4,
+	                0x23, 0x5f, 0x9f, 0x74, 0x57, 0x59, 0x3e, 0xc8,
+	                0x21, 0xdd, 0xa0, 0x6a, 0x10, 0x79, 0x2b, 0xd6,
+	                0x9e, 0xc3, 0x41, 0xba, 0x84, 0xb1, 0x26, 0x08,
+	                0x34, 0x2c, 0xc7, 0x15, 0xd1, 0xcd, 0x34, 0x2f,
+	                0xfc
+	            ]),
+	            this.Gq.parsePoint([
+	                0xaf, 0x4b, 0x0e, 0x42, 0x74, 0x00, 0xa8, 0x64,
+	                0xaf, 0x89, 0x9a, 0x2a, 0x56, 0xcf, 0x65, 0x0e,
+	                0xf4, 0xd4, 0xa8, 0x66, 0x58, 0x86, 0x02, 0x7b,
+	                0xbc, 0xce, 0x7c, 0x10, 0x04, 0xdd, 0x72, 0x5e,
+	                0xb4, 0xbb, 0x62, 0xd1, 0xb7, 0x3c, 0x5e, 0x28,
+	                0x5c, 0xf2, 0xae, 0xd3, 0xcd, 0x49, 0x0c, 0x06,
+	                0xff, 0x2a, 0x16, 0x13, 0xeb, 0x66, 0x1f, 0x8c,
+	                0x0a, 0x86, 0x73, 0x8c, 0xae, 0xa2, 0xf5, 0xd4,
+	                0xd9
+	            ], [
+	                0x34, 0x94, 0xaa, 0x6e, 0x02, 0xe8, 0x14, 0x3a,
+	                0x85, 0x7a, 0xfc, 0x9a, 0x6c, 0x79, 0xe8, 0x6c,
+	                0x31, 0xbb, 0x5d, 0xe7, 0xa0, 0x1b, 0xfc, 0xca,
+	                0x4a, 0x57, 0x57, 0x2f, 0xef, 0x37, 0x3a, 0x34,
+	                0x36, 0xe3, 0x22, 0x99, 0x44, 0xcc, 0xa1, 0x5e,
+	                0x52, 0x65, 0x28, 0xa2, 0x2b, 0x0f, 0xb1, 0xa3,
+	                0x51, 0x56, 0x95, 0xa8, 0xe4, 0xdf, 0x14, 0x18,
+	                0x8f, 0x81, 0xc5, 0x55, 0xe7, 0x80, 0x7a, 0x3f,
+	                0x78
+	            ]),
+	            this.Gq.parsePoint([
+	                0x35, 0x93, 0x98, 0x49, 0x17, 0x82, 0x4d, 0xf5,
+	                0xc9, 0x47, 0x02, 0xcf, 0xd7, 0xb0, 0x5b, 0x3e,
+	                0xb1, 0xab, 0xf7, 0x3c, 0xba, 0xb6, 0x2a, 0x43,
+	                0xdf, 0x96, 0x71, 0xdf, 0x61, 0x26, 0xa1, 0x65,
+	                0xa2, 0x72, 0x7d, 0x27, 0x99, 0x7a, 0x2b, 0x91,
+	                0x1d, 0xc1, 0x52, 0x8f, 0xe4, 0x22, 0x63, 0x47,
+	                0x7c, 0xe2, 0xe8, 0xee, 0x8b, 0xf1, 0xec, 0x22,
+	                0xc9, 0x32, 0x45, 0x9a, 0xda, 0xa3, 0x75, 0x8e,
+	                0x0d
+	            ], [
+	                0x3e, 0x00, 0x09, 0x55, 0xd5, 0x68, 0xb3, 0x35,
+	                0xff, 0x04, 0xc7, 0xf0, 0x11, 0xf8, 0xb0, 0xae,
+	                0xae, 0x2e, 0xbd, 0x06, 0x6f, 0x85, 0xbd, 0xe6,
+	                0x88, 0x82, 0xfb, 0x84, 0x0d, 0x05, 0xb2, 0x91,
+	                0xc9, 0x4f, 0x26, 0x6e, 0x82, 0x66, 0x4f, 0x23,
+	                0x9b, 0x96, 0x8a, 0xcb, 0x22, 0x04, 0x11, 0xb5,
+	                0x46, 0xd4, 0x6c, 0xb6, 0xce, 0x72, 0xd9, 0x8c,
+	                0xd7, 0xa6, 0xde, 0xc5, 0x4e, 0x24, 0x69, 0xb6,
+	                0x32
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0x93, 0x20, 0xc9, 0x93, 0x9d, 0xf2, 0x47,
+	                0x11, 0xf9, 0x84, 0x4f, 0x03, 0x12, 0xaa, 0xb8,
+	                0x0e, 0x44, 0x76, 0x99, 0xe4, 0xd0, 0x72, 0xa2,
+	                0xd9, 0xe8, 0x0a, 0x29, 0xda, 0xfe, 0x86, 0xca,
+	                0xf0, 0x58, 0xfa, 0xb3, 0xa8, 0xa8, 0xd4, 0x97,
+	                0x55, 0x15, 0x86, 0x4c, 0x2b, 0x93, 0x1c, 0x7f,
+	                0x7d, 0xb3, 0xb2, 0x5f, 0x2f, 0x5f, 0x9e, 0x5f,
+	                0x8b, 0x53, 0x15, 0xa6, 0x81, 0xb3, 0x93, 0xb0,
+	                0x8a, 0x7f
+	            ], [
+	                0xab, 0x49, 0x05, 0x0e, 0xa4, 0x99, 0x25, 0xfc,
+	                0x1c, 0xb8, 0x6a, 0xce, 0xdf, 0x42, 0x19, 0x65,
+	                0x9b, 0x24, 0x90, 0xe9, 0x1b, 0x09, 0xf4, 0x25,
+	                0xbf, 0xf0, 0x51, 0x60, 0x0a, 0x9e, 0x31, 0x46,
+	                0x4e, 0x2e, 0xa9, 0x69, 0x74, 0x54, 0x5b, 0x7c,
+	                0x74, 0x58, 0x38, 0xa7, 0x5a, 0x49, 0xc8, 0x8b,
+	                0xca, 0xcd, 0x83, 0x7a, 0xc8, 0x95, 0x7f, 0xc1,
+	                0x4f, 0x71, 0x1d, 0xea, 0x93, 0x07, 0x0f, 0x3d,
+	                0x99
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0x2b, 0xa5, 0xb5, 0x32, 0xac, 0xb5, 0xce,
+	                0xee, 0x9c, 0x91, 0xa3, 0x25, 0x69, 0x57, 0x86,
+	                0xbf, 0x7e, 0x18, 0x42, 0xb8, 0x31, 0xf8, 0xda,
+	                0x30, 0xd3, 0x60, 0xd4, 0x28, 0xae, 0x53, 0x3e,
+	                0xf2, 0xd1, 0x07, 0x1e, 0x81, 0x31, 0xf7, 0xa7,
+	                0xa7, 0x29, 0xbc, 0x2e, 0xd1, 0x9a, 0xe0, 0xc1,
+	                0x29, 0xb8, 0xab, 0x03, 0x77, 0xfb, 0x55, 0xe0,
+	                0x19, 0xe6, 0x49, 0x32, 0xeb, 0x28, 0xf8, 0x0b,
+	                0x93, 0x34
+	            ], [
+	                0x80, 0x3c, 0x8e, 0xbe, 0xaa, 0x49, 0x3d, 0x6f,
+	                0xcb, 0x35, 0x6f, 0xb2, 0x56, 0x2b, 0x79, 0xd3,
+	                0xa3, 0x76, 0xb5, 0xbc, 0xbf, 0x9b, 0x22, 0xbb,
+	                0xee, 0x75, 0x61, 0x10, 0x75, 0xf7, 0xb7, 0xab,
+	                0x16, 0x66, 0x6a, 0xbd, 0x97, 0xbe, 0x5b, 0x7e,
+	                0xcb, 0x33, 0x88, 0x41, 0xfe, 0x77, 0xec, 0xe1,
+	                0x35, 0xf4, 0xe2, 0xe4, 0xb8, 0x3a, 0xca, 0xfd,
+	                0x71, 0xe7, 0x04, 0x52, 0x7a, 0x84, 0x78, 0x94,
+	                0x68
+	            ]),
+	            this.Gq.parsePoint([
+	                0xa0, 0x92, 0xee, 0xde, 0xd1, 0x85, 0xfa, 0x76,
+	                0x82, 0xef, 0x7e, 0x4b, 0x2a, 0x19, 0x8a, 0x4e,
+	                0xa0, 0x43, 0xa5, 0xeb, 0xa6, 0x2b, 0x44, 0x79,
+	                0xa8, 0x65, 0x7d, 0x66, 0xd9, 0xda, 0xb7, 0xc5,
+	                0xde, 0x65, 0xe4, 0x76, 0x42, 0xdc, 0xc6, 0x2e,
+	                0x2a, 0x56, 0x1e, 0xb4, 0x94, 0xf1, 0xe2, 0x74,
+	                0x8c, 0xdc, 0x79, 0x2f, 0x01, 0x14, 0xc7, 0x7f,
+	                0x52, 0xb7, 0xd7, 0xc5, 0xf5, 0xc4, 0xb0, 0x58,
+	                0x83
+	            ], [
+	                0xd7, 0x4a, 0x59, 0x4a, 0x66, 0x1d, 0x40, 0xea,
+	                0x62, 0x97, 0x02, 0xdd, 0x12, 0x47, 0x80, 0x8f,
+	                0xb2, 0x88, 0xdd, 0x50, 0x40, 0xe5, 0x41, 0x0d,
+	                0x7d, 0x6b, 0x04, 0x59, 0x1e, 0x39, 0x69, 0x6b,
+	                0xf2, 0x99, 0x95, 0xa3, 0x52, 0x39, 0x28, 0x41,
+	                0x3d, 0x74, 0x6a, 0xcf, 0x2c, 0xdb, 0x55, 0xc4,
+	                0x0a, 0xa0, 0x84, 0xcb, 0x65, 0xa2, 0x89, 0xbd,
+	                0xfc, 0x85, 0x01, 0xfd, 0xcc, 0xb4, 0x02, 0x09,
+	                0xf9
+	            ]),
+	            this.Gq.parsePoint([
+	                0xef, 0x45, 0x1e, 0x11, 0x0d, 0xaf, 0x9d, 0x5e,
+	                0x39, 0x1a, 0x53, 0x59, 0x93, 0x4a, 0x9f, 0x69,
+	                0x69, 0x51, 0x7f, 0x43, 0x8c, 0x7b, 0xea, 0x18,
+	                0x3d, 0x5e, 0x96, 0x29, 0x0d, 0xdc, 0xe1, 0x20,
+	                0x87, 0x3e, 0x45, 0x48, 0x6d, 0x0c, 0x41, 0xc8,
+	                0x87, 0xc4, 0x83, 0xb4, 0x66, 0x1d, 0xfb, 0x48,
+	                0xd8, 0xd7, 0x2c, 0x0f, 0xb8, 0x9e, 0x87, 0xe3,
+	                0x9c, 0x8a, 0x37, 0x16, 0xe9, 0xcd, 0xc7, 0x6d,
+	                0xdd
+	            ], [
+	                0xef, 0xa5, 0xc6, 0x8d, 0x14, 0xde, 0x0e, 0xff,
+	                0x1d, 0x72, 0x90, 0x05, 0xe2, 0x6e, 0x74, 0xf4,
+	                0x9f, 0x8b, 0xc0, 0x83, 0x12, 0x4a, 0x43, 0x2a,
+	                0xe1, 0x8d, 0xd5, 0x13, 0x1c, 0x04, 0x77, 0x6f,
+	                0x59, 0xa3, 0xf9, 0x32, 0x74, 0xc5, 0x17, 0x7f,
+	                0x3c, 0x91, 0xa2, 0x01, 0x60, 0x65, 0x7a, 0x11,
+	                0x4f, 0x5b, 0xc0, 0xdb, 0xcc, 0x5c, 0x80, 0x69,
+	                0x98, 0x4e, 0x34, 0x13, 0x20, 0x41, 0x2a, 0xdf,
+	                0x1a
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0x18, 0x71, 0x3f, 0xa1, 0x1a, 0x53, 0xa2,
+	                0x4b, 0x33, 0xf9, 0xe1, 0x56, 0xce, 0xcf, 0x8b,
+	                0x41, 0x58, 0x74, 0x79, 0x45, 0x08, 0xfe, 0x54,
+	                0x38, 0xf8, 0xc4, 0xda, 0xe1, 0x38, 0x66, 0x6a,
+	                0x5b, 0x88, 0x8e, 0x8e, 0x99, 0x43, 0x8d, 0xab,
+	                0xc1, 0x55, 0x56, 0x46, 0x57, 0x47, 0x11, 0x6a,
+	                0xc4, 0x72, 0xad, 0x95, 0xd2, 0x92, 0x0f, 0xe9,
+	                0xb3, 0x6f, 0x30, 0xbe, 0x09, 0x63, 0xd7, 0xe0,
+	                0xdb, 0x12
+	            ], [
+	                0x95, 0x4b, 0xea, 0x5f, 0x61, 0xe4, 0xa9, 0xd8,
+	                0xd0, 0x93, 0xd1, 0xb9, 0xd6, 0xab, 0x52, 0xb2,
+	                0xfa, 0xc8, 0xb7, 0x86, 0x55, 0x80, 0x20, 0x10,
+	                0xcf, 0x5e, 0xd9, 0x74, 0x59, 0x86, 0x42, 0x71,
+	                0xef, 0x4c, 0x34, 0xd8, 0x04, 0x4c, 0x26, 0xc7,
+	                0x76, 0x3d, 0xe3, 0x28, 0xe5, 0x09, 0xef, 0x0a,
+	                0x68, 0xc1, 0x17, 0x31, 0x30, 0xad, 0x63, 0x01,
+	                0xb2, 0x0c, 0x3b, 0xc8, 0xf8, 0xf2, 0x6a, 0xd2,
+	                0x96
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0x21, 0x0b, 0x8e, 0xfd, 0x90, 0xf3, 0xb9,
+	                0xec, 0x0d, 0x8f, 0x3f, 0x82, 0xf6, 0x87, 0x8a,
+	                0xbf, 0x54, 0xa8, 0x8f, 0xf0, 0x68, 0x72, 0x06,
+	                0x4e, 0xb7, 0xf4, 0xe9, 0x03, 0xb5, 0x30, 0x94,
+	                0x5c, 0x5a, 0x7f, 0x0b, 0xe3, 0xb3, 0x0d, 0x00,
+	                0x48, 0x01, 0x70, 0x0a, 0xe3, 0xdd, 0x25, 0x32,
+	                0x7f, 0x4b, 0xc2, 0x86, 0x08, 0xbe, 0x51, 0x2f,
+	                0x80, 0x0a, 0x84, 0x54, 0xdf, 0x8d, 0x15, 0x06,
+	                0x9a, 0x18
+	            ], [
+	                0x8e, 0x6e, 0xfc, 0x12, 0xaa, 0xd5, 0x47, 0xb3,
+	                0xe0, 0x8d, 0x39, 0xf7, 0xa7, 0x9e, 0x9b, 0x03,
+	                0x46, 0x16, 0xf0, 0x98, 0x17, 0x5f, 0x71, 0x65,
+	                0x61, 0xb7, 0x92, 0x7a, 0xb1, 0x15, 0xa5, 0x4b,
+	                0xe4, 0xfd, 0xec, 0xd3, 0x84, 0x5f, 0x7f, 0x53,
+	                0x58, 0x82, 0x8f, 0x17, 0x5b, 0x83, 0xed, 0x25,
+	                0xef, 0x24, 0x92, 0xc8, 0x72, 0x96, 0xd6, 0xd8,
+	                0x9e, 0xcb, 0x98, 0x81, 0x10, 0x4b, 0xe9, 0xbe,
+	                0x7d
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0xfb, 0xd7, 0x8c, 0x94, 0xec, 0x52, 0xe5,
+	                0xd7, 0x69, 0x39, 0x2c, 0xf0, 0x84, 0xc5, 0xe6,
+	                0x29, 0xb2, 0x9c, 0xf6, 0xe3, 0xbb, 0xa7, 0xf3,
+	                0xcd, 0x0c, 0x61, 0x2c, 0x2f, 0x61, 0x0c, 0xe3,
+	                0x88, 0xbb, 0x72, 0xa9, 0xc7, 0xd4, 0xdd, 0xc3,
+	                0xf5, 0x61, 0x20, 0x86, 0xcb, 0x42, 0xbf, 0x34,
+	                0x0f, 0x1e, 0x4a, 0xc7, 0x32, 0x4c, 0x73, 0x59,
+	                0xef, 0x33, 0x51, 0x09, 0x5c, 0xb0, 0x0a, 0x7a,
+	                0x30, 0x4e
+	            ], [
+	                0x99, 0xdd, 0x83, 0xd1, 0xb4, 0xc0, 0xb2, 0x71,
+	                0xf5, 0x1c, 0x48, 0x51, 0xb2, 0x36, 0xff, 0x7b,
+	                0x7e, 0x86, 0x62, 0x66, 0x80, 0x68, 0x47, 0x96,
+	                0x19, 0x37, 0xef, 0x20, 0xae, 0xcc, 0x98, 0x81,
+	                0x22, 0xc0, 0x76, 0x03, 0x26, 0x74, 0xbe, 0x51,
+	                0x3a, 0xa0, 0x39, 0x46, 0x16, 0x34, 0x77, 0xdd,
+	                0xd2, 0x05, 0x94, 0x5b, 0x39, 0x17, 0xd1, 0xa3,
+	                0xfc, 0xcc, 0xa2, 0xba, 0x9d, 0x42, 0x05, 0xaf,
+	                0xf7
+	            ]),
+	            this.Gq.parsePoint([
+	                0xec, 0xea, 0xda, 0xe3, 0x60, 0x7e, 0xa6, 0xaa,
+	                0x2b, 0x65, 0x4f, 0xf6, 0x7f, 0x0c, 0x15, 0x69,
+	                0xac, 0xc3, 0x23, 0xba, 0x3e, 0x6d, 0xcc, 0x5a,
+	                0xf8, 0xec, 0xea, 0x30, 0xbb, 0xa4, 0x35, 0xbe,
+	                0x1a, 0x62, 0x9a, 0x74, 0xd9, 0xe2, 0x37, 0x36,
+	                0xfb, 0x93, 0xf3, 0xbe, 0xaf, 0xcf, 0xed, 0x2d,
+	                0x36, 0xd5, 0x9e, 0x23, 0x31, 0x7b, 0xd0, 0xfd,
+	                0x1f, 0x95, 0x9b, 0xd4, 0x58, 0x6e, 0x79, 0xf8,
+	                0x9e
+	            ], [
+	                0xf9, 0x73, 0x56, 0x28, 0xa3, 0x82, 0xe2, 0xad,
+	                0x84, 0xfd, 0x1b, 0xad, 0xeb, 0xcf, 0x6c, 0x9e,
+	                0xe5, 0xe3, 0x97, 0x89, 0x39, 0x1d, 0xe6, 0xbf,
+	                0xb4, 0x09, 0xb0, 0xad, 0xac, 0xc1, 0x73, 0x10,
+	                0x50, 0x54, 0x11, 0x8b, 0x44, 0x3c, 0xb4, 0xed,
+	                0xa2, 0x32, 0x42, 0x8f, 0x44, 0x13, 0x18, 0x3a,
+	                0x56, 0x48, 0x6d, 0x07, 0x3b, 0x84, 0xa5, 0x6d,
+	                0x89, 0xcb, 0x72, 0x1e, 0xc9, 0x85, 0xeb, 0xc7,
+	                0x51
+	            ]),
+	            this.Gq.parsePoint([
+	                0xd2, 0x25, 0xf3, 0x9d, 0x10, 0x60, 0x0c, 0xc7,
+	                0x61, 0xc1, 0x7f, 0xe1, 0x5a, 0xce, 0x8b, 0xba,
+	                0xdc, 0x77, 0x6a, 0xba, 0x28, 0xbc, 0xba, 0xe4,
+	                0x82, 0xd1, 0x5f, 0x79, 0xfe, 0x38, 0xdd, 0x0b,
+	                0xc2, 0xc9, 0xbd, 0xe1, 0x2d, 0x6e, 0xe2, 0x50,
+	                0x48, 0x9d, 0x0e, 0x7a, 0x23, 0x48, 0x87, 0x11,
+	                0x85, 0x7f, 0xb9, 0x13, 0xde, 0x74, 0x44, 0x16,
+	                0x76, 0xfd, 0x3c, 0x98, 0xda, 0x4e, 0x8f, 0xd8,
+	                0xf6
+	            ], [
+	                0x97, 0xb3, 0xf4, 0x35, 0xc0, 0x04, 0x16, 0xa5,
+	                0x95, 0x86, 0xe7, 0x59, 0x31, 0x28, 0xc1, 0x2b,
+	                0x73, 0x47, 0x23, 0xaa, 0x88, 0x7f, 0x98, 0xa0,
+	                0xb4, 0x82, 0xd1, 0x8d, 0x38, 0x70, 0x7b, 0xb9,
+	                0x33, 0xe4, 0xb4, 0xbc, 0xcc, 0xdc, 0x71, 0x07,
+	                0x5f, 0x51, 0x74, 0xe8, 0xf2, 0x13, 0x3b, 0x74,
+	                0xb5, 0x44, 0xb2, 0x9a, 0x79, 0x6b, 0x4f, 0xd8,
+	                0xb7, 0x83, 0x66, 0x4a, 0xf1, 0xd3, 0x65, 0x9e,
+	                0x99
+	            ]),
+	            this.Gq.parsePoint([
+	                0xdb, 0xcc, 0x8b, 0xb8, 0x8c, 0x00, 0xc5, 0x31,
+	                0x89, 0x0b, 0xcc, 0x22, 0xa2, 0xf2, 0x21, 0xb8,
+	                0xca, 0x91, 0x6b, 0x9c, 0x32, 0x4c, 0x08, 0x1c,
+	                0x71, 0x23, 0xe5, 0xca, 0x66, 0x06, 0x9e, 0x0b,
+	                0xca, 0xc9, 0x1e, 0x09, 0xbf, 0x95, 0xfa, 0xe7,
+	                0xd1, 0x5f, 0x8a, 0xac, 0xaa, 0x17, 0x26, 0xd7,
+	                0x0a, 0xc0, 0x30, 0x57, 0xf7, 0xd8, 0x6f, 0x0e,
+	                0x27, 0x37, 0x6c, 0xcc, 0x1f, 0xcd, 0x7b, 0x8c,
+	                0x7e
+	            ], [
+	                0x2d, 0x40, 0x01, 0x61, 0x5d, 0x62, 0x5d, 0x51,
+	                0x26, 0x3a, 0x6f, 0x7b, 0xf2, 0x63, 0xc0, 0xe2,
+	                0x1c, 0x65, 0x68, 0x64, 0xbd, 0x9b, 0x39, 0x5c,
+	                0x17, 0x34, 0x36, 0x6c, 0xe3, 0x75, 0x51, 0x8c,
+	                0x05, 0x8a, 0x34, 0xe7, 0x48, 0x11, 0xc1, 0x4c,
+	                0xa0, 0x72, 0x27, 0xba, 0xa0, 0xbd, 0x0b, 0x59,
+	                0xc9, 0x53, 0x56, 0xf4, 0x7f, 0x44, 0xf3, 0x90,
+	                0xc6, 0xa4, 0xd1, 0x6c, 0x4a, 0x6e, 0x0c, 0x6f,
+	                0xec
+	            ]),
+	            this.Gq.parsePoint([
+	                0x01, 0x04, 0x5c, 0xad, 0x53, 0x5d, 0x92, 0x36,
+	                0xd5, 0x46, 0xd0, 0xa1, 0x38, 0x5a, 0x3e, 0xa4,
+	                0x1e, 0x65, 0x86, 0xee, 0x0a, 0x76, 0xc6, 0xff,
+	                0x5b, 0x81, 0xcc, 0x88, 0x7c, 0xb5, 0x8e, 0xa2,
+	                0x59, 0xe5, 0x52, 0x14, 0xc8, 0x28, 0x91, 0x60,
+	                0xdc, 0x19, 0x21, 0xc4, 0x12, 0xe4, 0x15, 0x8b,
+	                0xe0, 0xcb, 0x54, 0xb8, 0x06, 0x41, 0xcb, 0x65,
+	                0x7c, 0x87, 0x3a, 0x5c, 0xa8, 0x4e, 0xf0, 0xe5,
+	                0xbc, 0x5a
+	            ], [
+	                0x56, 0xec, 0x9f, 0x00, 0xa5, 0xbd, 0x39, 0xa7,
+	                0x85, 0x78, 0x36, 0x23, 0x5a, 0x83, 0xf2, 0x4b,
+	                0x21, 0xff, 0x89, 0xb8, 0x54, 0x84, 0xc8, 0xa7,
+	                0x95, 0xfe, 0x3e, 0x3b, 0xae, 0xed, 0x85, 0x32,
+	                0xee, 0x2b, 0x94, 0x19, 0x8c, 0x98, 0x82, 0x03,
+	                0x5c, 0x77, 0xb1, 0xe7, 0x50, 0x85, 0xc5, 0xcb,
+	                0x93, 0x6d, 0xf3, 0x06, 0x3e, 0x71, 0x73, 0x59,
+	                0x2e, 0x27, 0x49, 0x09, 0x9a, 0x62, 0x24, 0x7d,
+	                0x6d
+	            ]),
+	            this.Gq.parsePoint([
+	                0x8b, 0x7a, 0xf7, 0x37, 0x8c, 0xea, 0xe8, 0x5d,
+	                0x55, 0x0b, 0xda, 0x52, 0xec, 0x67, 0x44, 0x13,
+	                0x3b, 0xc0, 0xed, 0x59, 0x3d, 0x61, 0x2a, 0x47,
+	                0x18, 0xa4, 0x3b, 0x0f, 0x85, 0xb0, 0x57, 0xf7,
+	                0x9f, 0x43, 0x46, 0x29, 0xb1, 0x70, 0xd2, 0x03,
+	                0xa5, 0x7a, 0xc4, 0xc0, 0x06, 0xdc, 0x4c, 0x87,
+	                0xb5, 0xc9, 0x2f, 0xa7, 0xd4, 0xaf, 0x37, 0xd5,
+	                0xe3, 0x65, 0x1a, 0x14, 0x15, 0x31, 0xfc, 0x15,
+	                0x1a
+	            ], [
+	                0x09, 0x44, 0x0c, 0x62, 0x16, 0xb4, 0x61, 0x07,
+	                0xb2, 0x53, 0xc4, 0x0b, 0xd7, 0x0f, 0xc5, 0xfc,
+	                0x96, 0xfe, 0x9b, 0x88, 0x6c, 0xf3, 0x29, 0x40,
+	                0x95, 0x8a, 0x80, 0x24, 0xc0, 0x85, 0x95, 0xf9,
+	                0x0a, 0x6d, 0x78, 0x3f, 0x40, 0xa4, 0x8b, 0x1e,
+	                0xa9, 0xbb, 0xc8, 0xe0, 0xad, 0xbb, 0x8e, 0x4d,
+	                0x87, 0x30, 0x0a, 0xca, 0x7f, 0x71, 0x2a, 0x80,
+	                0x20, 0xb0, 0xc4, 0x3d, 0x3b, 0x1f, 0xd7, 0x94,
+	                0xb1
+	            ]),
+	            this.Gq.parsePoint([
+	                0x63, 0x10, 0x5a, 0x1f, 0xf0, 0x44, 0x9d, 0x4d,
+	                0x5d, 0x78, 0x83, 0x95, 0xee, 0x71, 0x41, 0xfd,
+	                0x5c, 0x44, 0xfd, 0x02, 0x27, 0xb3, 0xbd, 0xc3,
+	                0x2b, 0x9e, 0x9d, 0x26, 0xbe, 0x5c, 0x7b, 0x79,
+	                0x45, 0xfa, 0xf8, 0xab, 0x24, 0x7e, 0xed, 0x6e,
+	                0x50, 0xcb, 0x82, 0x4a, 0xbe, 0x7f, 0x5c, 0x4b,
+	                0x7e, 0xd9, 0xed, 0x72, 0x58, 0x92, 0xd2, 0x77,
+	                0xad, 0xa4, 0x62, 0xbb, 0x4e, 0x72, 0xdd, 0x5e,
+	                0x6d
+	            ], [
+	                0xcb, 0x02, 0x80, 0xe5, 0xe9, 0x29, 0x3d, 0x2d,
+	                0xb0, 0x8d, 0x25, 0xca, 0xad, 0x1e, 0x7b, 0x49,
+	                0xaa, 0x52, 0xfc, 0x85, 0x4f, 0xa4, 0x94, 0x02,
+	                0xe0, 0x5e, 0x4b, 0x6f, 0xbc, 0xf0, 0xef, 0xc1,
+	                0x76, 0x48, 0x34, 0xc1, 0xc4, 0xca, 0x13, 0xa3,
+	                0x6c, 0xa2, 0x0e, 0x8b, 0x8f, 0x57, 0xbd, 0x77,
+	                0xac, 0xa8, 0xf5, 0x2b, 0xe0, 0x6b, 0xd9, 0xa6,
+	                0x92, 0x9f, 0x93, 0xca, 0x17, 0x2d, 0x3d, 0x86,
+	                0xd0
+	            ]),
+	            this.Gq.parsePoint([
+	                0xd0, 0xbf, 0xc6, 0x9d, 0x95, 0x7f, 0x2f, 0xc3,
+	                0x8e, 0x51, 0x70, 0xac, 0x3a, 0xae, 0x81, 0x11,
+	                0x0d, 0xcc, 0x7a, 0x07, 0x7c, 0x00, 0x94, 0xdd,
+	                0xd2, 0x9f, 0xf1, 0x20, 0x57, 0xfc, 0xaf, 0x56,
+	                0xe8, 0xd0, 0x14, 0xd0, 0x16, 0x99, 0x8e, 0x44,
+	                0x71, 0x0d, 0xb3, 0xfd, 0xf7, 0x2d, 0xa6, 0x5e,
+	                0x31, 0xcd, 0x66, 0x5a, 0xbc, 0xb3, 0x53, 0x08,
+	                0xa6, 0xb0, 0xac, 0x5f, 0x18, 0xb3, 0xff, 0xb6,
+	                0xf7
+	            ], [
+	                0xbf, 0xab, 0xa1, 0xb7, 0xea, 0x54, 0x55, 0x2b,
+	                0x93, 0x8c, 0xe8, 0x9d, 0x09, 0x07, 0x79, 0x7f,
+	                0x5f, 0x55, 0xdd, 0x08, 0x1c, 0xa3, 0xfb, 0x5c,
+	                0xf0, 0x1f, 0x26, 0x06, 0xd4, 0x64, 0xe3, 0x6e,
+	                0x3a, 0x37, 0xe0, 0x50, 0xcf, 0xa0, 0xfb, 0x9c,
+	                0xee, 0xe0, 0x35, 0x36, 0x70, 0x7c, 0x6d, 0x11,
+	                0x76, 0x65, 0xb3, 0xb1, 0xe8, 0x34, 0x4d, 0x66,
+	                0x93, 0x9b, 0x29, 0x79, 0x20, 0x04, 0x47, 0x50,
+	                0x53
+	            ])
+	        ];
+	        this.gt = this.Gq.parsePoint([
+	            0xd0, 0xbf, 0xc6, 0x9d, 0x95, 0x7f, 0x2f, 0xc3,
+	            0x8e, 0x51, 0x70, 0xac, 0x3a, 0xae, 0x81, 0x11,
+	            0x0d, 0xcc, 0x7a, 0x07, 0x7c, 0x00, 0x94, 0xdd,
+	            0xd2, 0x9f, 0xf1, 0x20, 0x57, 0xfc, 0xaf, 0x56,
+	            0xe8, 0xd0, 0x14, 0xd0, 0x16, 0x99, 0x8e, 0x44,
+	            0x71, 0x0d, 0xb3, 0xfd, 0xf7, 0x2d, 0xa6, 0x5e,
+	            0x31, 0xcd, 0x66, 0x5a, 0xbc, 0xb3, 0x53, 0x08,
+	            0xa6, 0xb0, 0xac, 0x5f, 0x18, 0xb3, 0xff, 0xb6,
+	            0xf7
+	        ], [
+	            0xbf, 0xab, 0xa1, 0xb7, 0xea, 0x54, 0x55, 0x2b,
+	            0x93, 0x8c, 0xe8, 0x9d, 0x09, 0x07, 0x79, 0x7f,
+	            0x5f, 0x55, 0xdd, 0x08, 0x1c, 0xa3, 0xfb, 0x5c,
+	            0xf0, 0x1f, 0x26, 0x06, 0xd4, 0x64, 0xe3, 0x6e,
+	            0x3a, 0x37, 0xe0, 0x50, 0xcf, 0xa0, 0xfb, 0x9c,
+	            0xee, 0xe0, 0x35, 0x36, 0x70, 0x7c, 0x6d, 0x11,
+	            0x76, 0x65, 0xb3, 0xb1, 0xe8, 0x34, 0x4d, 0x66,
+	            0x93, 0x9b, 0x29, 0x79, 0x20, 0x04, 0x47, 0x50,
+	            0x53
+	        ]);
+	    }
+	}
+	function getEcGroup(descGq) {
+	    if (descGq == ECGroup.P256) {
+	        return new P256ECGroupParams();
+	    }
+	    else if (descGq == ECGroup.P384) {
+	        return new P384ECGroupParams();
+	    }
+	    else if (descGq == ECGroup.P521) {
+	        return new P521ECGroupParams();
+	    }
+	    else {
+	        throw "invalid group:" + descGq;
+	    }
+	}
+
+	// Copyright (c) Microsoft Corporation.
+	// Licensed under the MIT license.
+	function hexToBytes(hex) {
+	    if (hex.startsWith('0x')) {
+	        hex = hex.substring(2, hex.length);
+	    }
+	    if (hex.length % 2 == 1) {
+	        // odd-length string, prepend 0
+	        hex = '0' + hex;
+	    }
+	    const bytes = new Uint8Array(hex.length / 2);
+	    for (let i = 0; i < hex.length; i += 2) {
+	        bytes[i / 2] = parseInt(hex.substring(i, i + 2), 16);
+	    }
+	    return bytes;
+	}
+	function bytesToHex(bytes) {
+	    let hex = '';
+	    for (let i = 0; i < bytes.length; i++) {
+	        hex += bytes[i].toString(16).padStart(2, '0');
+	    }
+	    return hex;
+	}
+	function checkUnsignedInt(n) {
+	    if (!Array.isArray(n)) {
+	        n = [n];
+	    }
+	    n.forEach(n => {
+	        if (!Number.isInteger(n) || n < 0) {
+	            throw `invalid integer ${n}`;
+	        }
+	    });
+	}
+	function arrayEqual(a, b) {
+	    if (a === b)
+	        return true;
+	    if (a == null || b == null)
+	        return false;
+	    if (a.length !== b.length)
+	        return false;
+	    for (let i = 0; i < a.length; ++i) {
+	        if (a[i] !== b[i])
+	            return false;
+	    }
+	    return true;
+	}
+	function base64urlToBytes(b64) {
+	    return Uint8Array.from(atob(b64.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
+	}
+	function bytesToBase64url(a) {
+	    return btoa(String.fromCharCode(...a)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+	}
+	function stringToBytes(s) {
+	    return new TextEncoder().encode(s);
+	}
+	function bytesToString(a) {
+	    return new TextDecoder().decode(a);
+	}
+
+	var utils = /*#__PURE__*/Object.freeze({
+		__proto__: null,
+		arrayEqual: arrayEqual,
+		base64urlToBytes: base64urlToBytes,
+		bytesToBase64url: bytesToBase64url,
+		bytesToHex: bytesToHex,
+		bytesToString: bytesToString,
+		checkUnsignedInt: checkUnsignedInt,
+		hexToBytes: hexToBytes,
+		stringToBytes: stringToBytes
+	});
+
+	// Copyright (c) Microsoft Corporation.
+	// Licensed under the MIT license.
+	var ECGroup;
+	(function (ECGroup) {
+	    ECGroup["P256"] = "P-256";
+	    ECGroup["P384"] = "P-384";
+	    ECGroup["P521"] = "P-521"; //"1.3.6.1.4.1.311.75.1.2.3"
+	})(ECGroup || (ECGroup = {}));
+	/**
+	 * IssuerParams
+	 *
+	 * @export
+	 * @class IssuerParams
+	 */
+	class IssuerParams {
+	    /**
+	     * Private constructor that Creates an instance of IssuerParams.
+	     * Use IssuerParams.create() factory to create a new IssuerParams instance.
+	     * @param {Uint8Array} UIDP
+	     * @param {ECGroup} descGq
+	     * @param {string} UIDH
+	     * @param {GroupElement[]} g
+	     * @param {Byte[]} e
+	     * @param {Uint8Array} S
+	     * @param {Group} Gq
+	     * @param {Uint8Array} P
+	     * @memberof IssuerParams
+	     * @private
+	     * @constructor
+	     */
+	    constructor(UIDP, descGq, UIDH, g, e, S, Gq, P) {
+	        this.UIDP = UIDP;
+	        this.descGq = descGq;
+	        this.UIDH = UIDH;
+	        this.g = g;
+	        this.e = e;
+	        this.S = S;
+	        this.Gq = Gq;
+	        this.P = P;
+	    }
+	    /**
+	     * Static factory method to create a new instance of IssuerParams
+	     *
+	     * @example ```
+	     * const params = await IssuerParams(...)
+	     * ```
+	     * @param {Uint8Array} UIDP
+	     * @param {ECGroup} descGq
+	     * @param {string} UIDH
+	     * @param {GroupElement[]} g
+	     * @param {Byte[]} e
+	     * @param {Uint8Array} S
+	     * @return {*}  {Promise<IssuerParams>}
+	     * @memberof IssuerParams
+	     * @public
+	     * @static
+	     * @async
+	    */
+	    static async create(UIDP, descGq, UIDH, g, e, S) {
+	        const Gq = new Group(descGq);
+	        const hash = Gq.getHash();
+	        hash.update(UIDP);
+	        Gq.updateHash(hash);
+	        hash.update(g);
+	        hash.update(e);
+	        hash.update(S);
+	        const P = await hash.digest();
+	        return new IssuerParams(UIDP, descGq, UIDH, g, e, S, Gq, P);
+	    }
+	    // c.f. spec section 2.3.1
+	    verify() {
+	        // no need to verify Gq and the generators, since only the recommended ones are supported
+	        // verify g0
+	        if (this.g[0].equals(this.Gq.getIdentity()) ||
+	            !this.Gq.isValid(this.g[0])) {
+	            throw 'invalid g0';
+	        }
+	    }
+	}
+	// Create Issuer parameters. If UIDP is empty, it will be set to the hash of the other variables
+	// c.f. spec section 2.3.1
+	async function createIssuerKeyAndParams(descGq, n, e = undefined, S = new Uint8Array(), issKeyPair, UIDP) {
+	    if (n < 0 || n > 50) {
+	        throw "n must be between 0 and 50";
+	    }
+	    if (!e) {
+	        e = new Array(n).fill(new Byte(1));
+	    }
+	    if (e.length != n) {
+	        throw "wrong length for e: " + e.length;
+	    }
+	    const groupParams = getEcGroup(descGq);
+	    const Gq = groupParams.Gq;
+	    const Zq = Gq.Zq;
+	    // generate the Issuer key pair
+	    let y0;
+	    let g0;
+	    if (issKeyPair == undefined) {
+	        y0 = Zq.getRandomElement(true);
+	        g0 = groupParams.Gq.modExp(Gq.g, y0);
+	    }
+	    else {
+	        y0 = Zq.getElement(issKeyPair.y0);
+	        g0 = Gq.getElement(issKeyPair.g0);
+	    }
+	    // g = [g0, g1, ... gn, gt]
+	    const g = groupParams.g.slice(0, n); // keep only n generators
+	    g.unshift(g0);
+	    g.push(groupParams.gt);
+	    if (!UIDP) {
+	        // UIDP not define, let's set it to the hash of the other fields
+	        const hash = new Hash(descGq);
+	        hash.update(g);
+	        hash.update(e);
+	        hash.update(S);
+	        UIDP = await hash.digest();
+	    }
+	    return {
+	        ip: await IssuerParams.create(UIDP, descGq, groupToHash(descGq), g, e, S),
+	        y0: y0
+	    };
+	}
+	// c.f. spec section 2.3.5
+	async function computeXt(ip, TI) {
+	    const H = ip.Gq.getHash();
+	    H.update(new Byte(1));
+	    // const p = await ip.P;
+	    H.update(ip.P);
+	    H.update(TI);
+	    return ip.Gq.Zq.getElement(await H.digest());
+	}
+	// c.f. spec section 2.3.5
+	async function computeXi(i, ip, Ai) {
+	    const e_i = ip.e[i - 1].b[0]; // e_i is 0-based
+	    if (e_i === 1) {
+	        const H = ip.Gq.getHash();
+	        return ip.Gq.Zq.getElement(await H.digest(Ai));
+	    }
+	    else if (e_i === 0) {
+	        // verify that 0 <= A < q
+	        const x = ip.Gq.Zq.getElement(Ai);
+	        return x;
+	    }
+	    else {
+	        throw `invalid e[i] index: ${i}`;
+	    }
+	}
+	// c.f. spec section 2.3.6
+	async function verifyTokenSignature(ip, upt) {
+	    const Gq = ip.Gq;
+	    const Zq = Gq.Zq;
+	    if (upt.h.equals(Gq.getIdentity())) {
+	        throw `invalid token`;
+	    }
+	    const H = Gq.getHash();
+	    H.update(upt.h);
+	    H.update(upt.PI);
+	    H.update(upt.sZp);
+	    const exponents = [upt.sRp, Zq.negate(upt.sCp)];
+	    H.update(Gq.multiModExp([Gq.g, ip.g[0]], exponents));
+	    H.update(Gq.multiModExp([upt.h, upt.sZp], exponents));
+	    const value = Zq.getElement(await H.digest());
+	    if (!upt.sCp.equals(value)) {
+	        throw `invalid token`;
+	    }
+	}
+	// c.f. spec section 2.3.7
+	async function computeTokenId(Gq, upt) {
+	    const H = Gq.getHash();
+	    H.update(upt.h);
+	    H.update(upt.sZp);
+	    H.update(upt.sCp);
+	    H.update(upt.sRp);
+	    return await H.digest();
+	}
+	async function computePresentationChallenge(Gq, upt, a, D, xInD, m, md) {
+	    const UIDT = await computeTokenId(Gq, upt);
+	    let H = Gq.getHash();
+	    H.update(UIDT);
+	    H.update(a);
+	    H.update(D);
+	    H.update(xInD);
+	    H.update([]); // <C>
+	    H.update([]); // {cTilda in C}
+	    H.update([]); // {aTilda in C}
+	    H.update(0); // p
+	    H.update(null); // ap
+	    H.update(null); // Ps
+	    H.update(m);
+	    const cp = await H.digest();
+	    H = Gq.getHash();
+	    H.update([cp, md]);
+	    return {
+	        UIDT: UIDT,
+	        c: Gq.Zq.getElement(await H.digest())
+	    };
+	}
+	class IssuanceParticipant {
+	    constructor(n) {
+	        checkUnsignedInt(n);
+	        this.n = n;
+	    }
+	    async computeGamma(A, ip, TI) {
+	        const Gq = ip.Gq;
+	        const x = await Promise.all(A.map(async (a, i, array) => computeXi(i + 1, ip, a)));
+	        x.unshift(Gq.Zq.ONE);
+	        const xt = await computeXt(ip, TI);
+	        x.push(xt);
+	        const gamma = Gq.multiModExp(ip.g, x);
+	        return gamma;
+	    }
+	}
+	class Prover extends IssuanceParticipant {
+	    constructor(ip, TI, PI, n) {
+	        super(n);
+	        this.h = [];
+	        this.t1 = [];
+	        this.t2 = [];
+	        this.sigmaZPrime = [];
+	        this.sigmaAPrime = [];
+	        this.sigmaBPrime = [];
+	        this.sigmaCPrime = [];
+	        this.ip = ip;
+	        const Gq = ip.Gq;
+	        const Zq = Gq.Zq;
+	        this.TI = TI;
+	        this.PI = PI;
+	        // precomputation (NOTE: could move this out to its own function)
+	        this.alpha = Zq.getRandomElements(n, true);
+	        this.beta1 = Zq.getRandomElements(n);
+	        this.beta2 = Zq.getRandomElements(n);
+	    }
+	    /**
+	     * Static Factory for creating instances of Prover
+	     *
+	     * @static
+	     * @param {IssuerParams} ip
+	     * @param {Uint8Array[]} A
+	     * @param {Uint8Array} TI
+	     * @param {Uint8Array} PI
+	     * @param {number} n
+	     * @return {*}  {Promise<Prover>}
+	     * @memberof Prover
+	     */
+	    static async create(ip, A, TI, PI, n) {
+	        const prover = new Prover(ip, TI, PI, n);
+	        const gamma = await prover.computeGamma(A, ip, TI);
+	        const Gq = prover.ip.Gq;
+	        const t1Base = [ip.g[0], Gq.g];
+	        for (let i = 0; i < n; i++) {
+	            prover.h.push(Gq.modExp(gamma, prover.alpha[i]));
+	            prover.t1.push(Gq.multiModExp(t1Base, [prover.beta1[i], prover.beta2[i]]));
+	            prover.t2.push(Gq.modExp(prover.h[i], prover.beta2[i]));
+	        }
+	        return prover;
+	    }
+	    async createSecondMessage(msg1) {
+	        // second message
+	        if (this.n != msg1.sA.length ||
+	            this.n != msg1.sB.length) {
+	            throw `invalid first message`;
+	        }
+	        const sigmaC = [];
+	        const Gq = this.ip.Gq;
+	        const Zq = Gq.Zq;
+	        for (let i = 0; i < this.n; i++) {
+	            this.sigmaZPrime.push(Gq.modExp(msg1.sZ, this.alpha[i]));
+	            this.sigmaAPrime.push(Gq.mul(this.t1[i], msg1.sA[i]));
+	            this.sigmaBPrime.push(Gq.multiModExp([this.sigmaZPrime[i], this.t2[i], msg1.sB[i]], [this.beta1[i], Zq.ONE, this.alpha[i]]));
+	            const H = Gq.getHash();
+	            H.update(this.h[i]);
+	            H.update(this.PI);
+	            H.update(this.sigmaZPrime[i]);
+	            H.update(this.sigmaAPrime[i]);
+	            H.update(this.sigmaBPrime[i]);
+	            this.sigmaCPrime.push(Zq.getElement(await H.digest()));
+	            sigmaC.push(Zq.add(this.sigmaCPrime[i], this.beta1[i]));
+	        }
+	        return { sC: sigmaC };
+	    }
+	    createTokens(msg3, skipValidation = false) {
+	        // U-Prove token generation
+	        if (this.n != msg3.sR.length) {
+	            throw `invalid third message`;
+	        }
+	        const Gq = this.ip.Gq;
+	        const Zq = Gq.Zq;
+	        const uptk = [];
+	        for (let i = 0; i < this.n; i++) {
+	            const sigmaRPrime = Zq.add(msg3.sR[i], this.beta2[i]);
+	            if (!skipValidation) {
+	                const lhs = Gq.mul(this.sigmaAPrime[i], this.sigmaBPrime[i]);
+	                const rhs = Gq.multiModExp([Gq.mul(Gq.g, this.h[i]), Gq.mul(this.ip.g[0], this.sigmaZPrime[i])], [sigmaRPrime, Zq.negate(this.sigmaCPrime[i])]);
+	                if (!lhs.equals(rhs)) {
+	                    throw `invalid token ${i}`;
+	                }
+	            }
+	            uptk.push({
+	                upt: {
+	                    UIDP: this.ip.UIDP,
+	                    h: this.h[i],
+	                    TI: this.TI,
+	                    PI: this.PI,
+	                    sZp: this.sigmaZPrime[i],
+	                    sCp: this.sigmaCPrime[i],
+	                    sRp: sigmaRPrime
+	                },
+	                alphaInverse: Zq.invert(this.alpha[i])
+	            });
+	        }
+	        return uptk;
+	    }
+	}
+	class Issuer extends IssuanceParticipant {
+	    constructor(ikp, n) {
+	        super(n);
+	        this.ikp = ikp;
+	        this.w = [];
+	        this.gamma = {};
+	        this.sigmaZ = {};
+	        this.sigmaA = [];
+	        this.sigmaB = [];
+	        this.Gq = ikp.ip.Gq;
+	        this.y0 = ikp.y0;
+	    }
+	    static async create(ikp, A, TI, n) {
+	        const issuer = new Issuer(ikp, n);
+	        const Gq = issuer.Gq;
+	        const Zq = Gq.Zq;
+	        issuer.gamma = await issuer.computeGamma(A, ikp.ip, TI);
+	        issuer.sigmaZ = Gq.modExp(issuer.gamma, issuer.y0);
+	        // precomputation (NOTE: could move this out to its own function)
+	        issuer.w = Zq.getRandomElements(n);
+	        issuer.sigmaA = issuer.w.map(w_i => Gq.modExp(Gq.g, w_i));
+	        issuer.sigmaB = issuer.w.map(w_i => Gq.modExp(issuer.gamma, w_i));
+	        return issuer;
+	    }
+	    createFirstMessage() {
+	        return {
+	            sZ: this.sigmaZ,
+	            sA: this.sigmaA,
+	            sB: this.sigmaB
+	        };
+	    }
+	    createThirdMessage(msg2) {
+	        if (this.n != msg2.sC.length) {
+	            throw `invalid second message`;
+	        }
+	        const Zq = this.Gq.Zq;
+	        const sigmaR = this.w.map((w_i, i, array) => Zq.add(Zq.mul(msg2.sC[i], this.y0), w_i));
+	        return {
+	            sR: sigmaR
+	        };
+	    }
+	}
+	function sanitizeD(D) {
+	    checkUnsignedInt(D);
+	    const SetD = new Set(D);
+	    D = Array.from(SetD).sort((a, b) => a - b);
+	    return D;
+	}
+	async function generatePresentationProof(ip, D, upkt, m, A, md = new Uint8Array()) {
+	    const n = A.length;
+	    D = sanitizeD(D);
+	    const USet = new Set(Array.from({ length: n }, (e, i) => i + 1));
+	    D.forEach(v => USet.delete(v));
+	    const U = Array.from(USet).sort((a, b) => a - b);
+	    const Gq = ip.Gq;
+	    const Zq = Gq.Zq;
+	    const x = await Promise.all(A.map((a, i, array) => computeXi(i + 1, ip, a)));
+	    const w0 = Zq.getRandomElement();
+	    const w = Zq.getRandomElements(n - D.length);
+	    const H = Gq.getHash();
+	    const a = await H.digest(Gq.multiModExp([upkt.upt.h, ...ip.g.slice(1, n + 1).filter((g, i, array) => U.includes(i + 1))], [w0, ...w]));
+	    const challengeData = await computePresentationChallenge(Gq, upkt.upt, a, D, x.filter((x, i, array) => D.includes(i + 1)), m, md);
+	    const negC = Zq.negate(challengeData.c);
+	    const r = [Zq.add(Zq.mul(challengeData.c, upkt.alphaInverse), w0)];
+	    for (let i = 0; i < U.length; i++) {
+	        r.push(Zq.add(Zq.mul(negC, x[U[i] - 1]), w[i]));
+	    }
+	    const disclosedA = {};
+	    for (const d of D) {
+	        disclosedA[d] = A[d - 1];
+	    }
+	    return {
+	        UIDT: challengeData.UIDT,
+	        pp: {
+	            A: disclosedA,
+	            a: a,
+	            r: r
+	        }
+	    };
+	}
+	async function verifyPresentationProof(ip, upt, m, pp, md = new Uint8Array()) {
+	    const Gq = ip.Gq;
+	    const Zq = Gq.Zq;
+	    // U-Prove token verification
+	    verifyTokenSignature(ip, upt);
+	    // presentation proof verification
+	    const xt = await computeXt(ip, upt.TI);
+	    let D = [];
+	    let x = [];
+	    const px = [];
+	    if (pp.A) {
+	        Object.entries(pp.A).forEach(([iStr, Ai]) => {
+	            const i = Number(iStr);
+	            D.push(i);
+	            px.push(computeXi(i, ip, Ai));
+	        });
+	        x = await Promise.all(px);
+	        // sort the values in case they were out of order in pp.A
+	        D = D.sort((a, b) => a - b);
+	        x = D.map(i => x[D.indexOf(i)]);
+	    }
+	    const challengeData = await computePresentationChallenge(Gq, upt, pp.a, D, x, m, md);
+	    const t = ip.g.length - 1;
+	    const base0 = Gq.multiModExp([ip.g[0], ...ip.g.filter((g, i, array) => D.includes(i)), ip.g[t]], [Zq.ONE, ...x, xt]);
+	    const hashInput = Gq.multiModExp([base0, upt.h, ...ip.g.slice(1, t).filter((g, i, array) => !D.includes(i + 1))], [Zq.negate(challengeData.c), pp.r[0], ...pp.r.slice(1)]);
+	    if (!arrayEqual(pp.a, await Gq.getHash().digest(hashInput))) {
+	        throw `invalid presentation proof`;
+	    }
+	    return {
+	        UIDT: challengeData.UIDT
+	    };
+	}
+
+	var uprove = /*#__PURE__*/Object.freeze({
+		__proto__: null,
+		get ECGroup () { return ECGroup; },
+		IssuanceParticipant: IssuanceParticipant,
+		Issuer: Issuer,
+		IssuerParams: IssuerParams,
+		Prover: Prover,
+		computeXi: computeXi,
+		computeXt: computeXt,
+		createIssuerKeyAndParams: createIssuerKeyAndParams,
+		generatePresentationProof: generatePresentationProof,
+		verifyPresentationProof: verifyPresentationProof,
+		verifyTokenSignature: verifyTokenSignature
+	});
+
+	// Copyright (c) Microsoft Corporation.
+	// Licensed under the MIT license.
+	// This file defines a JSON serialization format for the U-Prove artifacts
+	function encodeIssuerParams(ip) {
+	    return {
+	        UIDP: bytesToBase64url(ip.UIDP),
+	        dGq: ip.descGq,
+	        UIDH: ip.UIDH,
+	        g0: bytesToBase64url(ip.g[0].getBytes()),
+	        e: ip.e.map(e => e.b[0]),
+	        S: bytesToBase64url(ip.S)
+	    };
+	}
+	async function decodeIssuerParams(ipJSON) {
+	    const n = ipJSON.e.length;
+	    let descGq = ECGroup.P256;
+	    switch (ipJSON.dGq) {
+	        case ECGroup.P256:
+	            descGq = ECGroup.P256;
+	            break;
+	        case ECGroup.P384:
+	            descGq = ECGroup.P384;
+	            break;
+	        case ECGroup.P521:
+	            descGq = ECGroup.P521;
+	            break;
+	    }
+	    const groupParams = getEcGroup(descGq);
+	    const Gq = groupParams.Gq;
+	    // g = [g0, g1, ... gn, gt]
+	    const g = groupParams.g.slice(0, n); // keep only n generators
+	    g.unshift(Gq.getElement(base64urlToBytes(ipJSON.g0)));
+	    g.push(groupParams.gt);
+	    return await IssuerParams.create(base64urlToBytes(ipJSON.UIDP), descGq, ipJSON.UIDH, g, ipJSON.e.map(e => new Byte(e)), base64urlToBytes(ipJSON.S));
+	}
+	function encodeUProveToken(upt) {
+	    return {
+	        UIDP: bytesToBase64url(upt.UIDP),
+	        h: bytesToBase64url(upt.h.getBytes()),
+	        TI: bytesToBase64url(upt.TI),
+	        PI: bytesToBase64url(upt.PI),
+	        sZp: bytesToBase64url(upt.sZp.getBytes()),
+	        sCp: bytesToBase64url(upt.sCp.getBytes()),
+	        sRp: bytesToBase64url(upt.sRp.getBytes())
+	    };
+	}
+	function decodeUProveToken(ip, uptJSON) {
+	    const Gq = ip.Gq;
+	    const Zq = Gq.Zq;
+	    return {
+	        UIDP: base64urlToBytes(uptJSON.UIDP),
+	        h: Gq.getElement(base64urlToBytes(uptJSON.h)),
+	        TI: base64urlToBytes(uptJSON.TI),
+	        PI: base64urlToBytes(uptJSON.PI),
+	        sZp: Gq.getElement(base64urlToBytes(uptJSON.sZp)),
+	        sCp: Zq.getElement(base64urlToBytes(uptJSON.sCp)),
+	        sRp: Zq.getElement(base64urlToBytes(uptJSON.sRp))
+	    };
+	}
+	function encodeFirstIssuanceMessage(m1) {
+	    return {
+	        sZ: bytesToBase64url(m1.sZ.getBytes()),
+	        sA: m1.sA.map(sigmaA => bytesToBase64url(sigmaA.getBytes())),
+	        sB: m1.sB.map(sigmaB => bytesToBase64url(sigmaB.getBytes())),
+	    };
+	}
+	function decodeFirstIssuanceMessage(ip, m1JSON) {
+	    const Gq = ip.Gq;
+	    return {
+	        sZ: Gq.getElement(base64urlToBytes(m1JSON.sZ)),
+	        sA: m1JSON.sA.map(sigmaA => Gq.getElement(base64urlToBytes(sigmaA))),
+	        sB: m1JSON.sB.map(sigmaB => Gq.getElement(base64urlToBytes(sigmaB)))
+	    };
+	}
+	function encodeSecondIssuanceMessage(m2) {
+	    return {
+	        sC: m2.sC.map(sigmaC => bytesToBase64url(sigmaC.getBytes()))
+	    };
+	}
+	function decodeSecondIssuanceMessage(ip, m2JSON) {
+	    const Zq = ip.Gq.Zq;
+	    return {
+	        sC: m2JSON.sC.map(sigmaC => Zq.getElement(base64urlToBytes(sigmaC)))
+	    };
+	}
+	function encodeThirdIssuanceMessage(m3) {
+	    return {
+	        sR: m3.sR.map(sigmaR => bytesToBase64url(sigmaR.getBytes()))
+	    };
+	}
+	function decodeThirdIssuanceMessage(ip, m3JSON) {
+	    const Zq = ip.Gq.Zq;
+	    return {
+	        sR: m3JSON.sR.map(sigmaR => Zq.getElement(base64urlToBytes(sigmaR)))
+	    };
+	}
+	function encodePresentationProof(pp) {
+	    const ppJSON = {
+	        a: bytesToBase64url(pp.a),
+	        r: pp.r.map(r => bytesToBase64url(r.getBytes()))
+	    };
+	    if (pp.A && Object.keys(pp.A).length > 0) {
+	        ppJSON.A = Object.entries(pp.A).reduce((acc, [i, Ai]) => {
+	            acc[Number(i)] = bytesToBase64url(Ai);
+	            return acc;
+	        }, {});
+	    }
+	    return ppJSON;
+	}
+	function decodePresentationProof(ip, ppJSON) {
+	    const Zq = ip.Gq.Zq;
+	    const pp = {
+	        a: base64urlToBytes(ppJSON.a),
+	        r: ppJSON.r.map(r => Zq.getElement(base64urlToBytes(r)))
+	    };
+	    if (ppJSON.A) {
+	        pp.A = Object.entries(ppJSON.A).reduce((acc, [i, Ai]) => {
+	            acc[Number(i)] = base64urlToBytes(Ai);
+	            return acc;
+	        }, {});
+	    }
+	    return pp;
+	}
+	function encodeUIDT(UIDT) {
+	    return bytesToBase64url(UIDT);
+	}
+	function decodeUIDT(UIDT) {
+	    return base64urlToBytes(UIDT);
+	}
+
+	var serialization = /*#__PURE__*/Object.freeze({
+		__proto__: null,
+		decodeFirstIssuanceMessage: decodeFirstIssuanceMessage,
+		decodeIssuerParams: decodeIssuerParams,
+		decodePresentationProof: decodePresentationProof,
+		decodeSecondIssuanceMessage: decodeSecondIssuanceMessage,
+		decodeThirdIssuanceMessage: decodeThirdIssuanceMessage,
+		decodeUIDT: decodeUIDT,
+		decodeUProveToken: decodeUProveToken,
+		encodeFirstIssuanceMessage: encodeFirstIssuanceMessage,
+		encodeIssuerParams: encodeIssuerParams,
+		encodePresentationProof: encodePresentationProof,
+		encodeSecondIssuanceMessage: encodeSecondIssuanceMessage,
+		encodeThirdIssuanceMessage: encodeThirdIssuanceMessage,
+		encodeUIDT: encodeUIDT,
+		encodeUProveToken: encodeUProveToken,
+		fromBase64Url: base64urlToBytes,
+		toBase64Url: bytesToBase64url
+	});
+
+	// Copyright (c) Microsoft Corporation.
+	// Licensed under the MIT license.
+	// Implements the U-Prove JSON Framework (UPJF)
+	// expiration functions
+	var ExpirationType;
+	(function (ExpirationType) {
+	    ExpirationType["sec"] = "sec";
+	    ExpirationType["hour"] = "hour";
+	    ExpirationType["day"] = "day";
+	    ExpirationType["week"] = "week";
+	    ExpirationType["year"] = "year";
+	})(ExpirationType || (ExpirationType = {}));
+	const MS_PER_SECOND = 1000;
+	const MS_PER_HOUR = MS_PER_SECOND * 60 * 60;
+	const MS_PER_DAY = MS_PER_HOUR * 24;
+	const MS_PER_WEEK = MS_PER_DAY * 7;
+	const MS_PER_YEAR = MS_PER_WEEK * 52;
+	function msToTypedTime(type, t) {
+	    let typedT;
+	    switch (type) {
+	        case ExpirationType.sec:
+	            typedT = t / MS_PER_SECOND;
+	            break;
+	        case ExpirationType.hour:
+	            typedT = t / MS_PER_HOUR;
+	            break;
+	        case ExpirationType.day:
+	            typedT = t / MS_PER_DAY;
+	            break;
+	        case ExpirationType.week:
+	            typedT = t / MS_PER_WEEK;
+	            break;
+	        case ExpirationType.year:
+	            typedT = t / MS_PER_YEAR;
+	            break;
+	    }
+	    return typedT;
+	}
+	/**
+	 * Gets the expiration date given an expiration type, value, and start time.
+	 * @param {ExpirationType} type - expiration type
+	 * @param {number} t - non-negative integer, number of typed units to add to epoch
+	 * @param {number} start - typed start time; defaults to the current time
+	 * @returns the expiration date, adding `t` units from the `start` time of a given `type`
+	 */
+	function getExp(type, t, start = undefined) {
+	    checkUnsignedInt(t);
+	    if (start) {
+	        checkUnsignedInt(start);
+	    }
+	    else {
+	        // round up current time to next value depending on expiration type
+	        start = Math.ceil(msToTypedTime(type, Date.now()));
+	    }
+	    return start + t;
+	}
+	/**
+	 * Checks if the typed target date is after the expiration
+	 * @param {ExpirationType} type - expiration type
+	 * @param {number} exp - typed expiration date
+	 * @param {number} target - typed target date for comparison; defaults to the current time
+	 * @returns `true` if the target date is expired, `false` otherwise
+	 */
+	function isExpired(type, exp, target = undefined) {
+	    if (!target) {
+	        target = msToTypedTime(type, Date.now());
+	    }
+	    return target > exp;
+	}
+	function parseSpecification(S) {
+	    const spec = JSON.parse(bytesToString(S));
+	    return spec;
+	}
+	async function createIssuerKeyAndParamsUPJF(descGq, specification, issKeyPair) {
+	    const n = specification.n;
+	    checkUnsignedInt(n);
+	    if (n < 0 || n > 50)
+	        throw `${n} is not a valid value for n, must between 0 and 50 inclusively`;
+	    return await createIssuerKeyAndParams(descGq, n, undefined, stringToBytes(JSON.stringify(specification)), issKeyPair, undefined);
+	}
+	var UPAlg;
+	(function (UPAlg) {
+	    UPAlg["UP256"] = "UP256";
+	    UPAlg["UP384"] = "UP384";
+	    UPAlg["UP521"] = "UP521";
+	})(UPAlg || (UPAlg = {}));
+	// encodes Issuer parameters and U-Prove token private keys as base64url
+	function encodePrivateKeyAsBase64Url(key) {
+	    return bytesToBase64url(key.getBytes());
+	}
+	// decodes Issuer parameters and U-Prove token private keys from base64url
+	function decodeBase64UrlAsPrivateKey(ip, b64) {
+	    return ip.Gq.Zq.getElement(base64urlToBytes(b64));
+	}
+	function descGqToUPAlg(descGq) {
+	    switch (descGq) {
+	        case ECGroup.P256: return UPAlg.UP256;
+	        case ECGroup.P384: return UPAlg.UP384;
+	        case ECGroup.P521: return UPAlg.UP521;
+	    }
+	}
+	function encodeIPAsJWK(ip) {
+	    return {
+	        kty: "UP",
+	        alg: descGqToUPAlg(ip.descGq),
+	        kid: bytesToBase64url(ip.UIDP),
+	        g0: bytesToBase64url(ip.g[0].getBytes()),
+	        spec: bytesToBase64url(ip.S)
+	    };
+	}
+	async function decodeJWKAsIP(jwk) {
+	    if (jwk.kty !== "UP") {
+	        throw `${jwk.kty} is not a valid key type, "UP" expected`;
+	    }
+	    let descGq;
+	    switch (jwk.alg) {
+	        case UPAlg.UP256:
+	            descGq = ECGroup.P256;
+	            break;
+	        case UPAlg.UP384:
+	            descGq = ECGroup.P384;
+	            break;
+	        case UPAlg.UP521:
+	            descGq = ECGroup.P521;
+	            break;
+	        default: throw `${jwk.alg} is not a valid algorithm`;
+	    }
+	    const SBytes = base64urlToBytes(jwk.spec);
+	    const spec = JSON.parse(bytesToString(SBytes));
+	    const n = spec.n;
+	    const groupParams = getEcGroup(descGq);
+	    const Gq = groupParams.Gq;
+	    // g = [g0, g1, ... gn, gt]
+	    const g = groupParams.g.slice(0, n); // keep only n generators
+	    g.unshift(Gq.getElement(base64urlToBytes(jwk.g0)));
+	    g.push(groupParams.gt);
+	    const e = jwk.e ? jwk.e : new Array(n).fill(1);
+	    return await IssuerParams.create(base64urlToBytes(jwk.kid), descGq, groupToHash(descGq), g, e.map(e => new Byte(e)), SBytes);
+	}
+	function parseTokenInformation(TI) {
+	    const tokenInformation = JSON.parse(bytesToString(TI));
+	    return tokenInformation;
+	}
+	function encodeTokenInformation(TI) {
+	    return stringToBytes(JSON.stringify(TI));
+	}
+	function createJWS(alg, m, tp) {
+	    const header = bytesToBase64url(stringToBytes(JSON.stringify({ alg: alg })));
+	    const payload = bytesToBase64url(m);
+	    const sig = bytesToBase64url(stringToBytes(JSON.stringify(tp)));
+	    return header + "." + payload + "." + sig;
+	}
+	function parseJWS(jws) {
+	    const parts = jws.split(".");
+	    if (!parts || parts.length != 3) {
+	        throw "can't parse jws into 3 parts";
+	    }
+	    try {
+	        const upJws = {
+	            header: JSON.parse(bytesToString(base64urlToBytes(parts[0]))),
+	            payload: base64urlToBytes(parts[1]),
+	            sig: JSON.parse(bytesToString(base64urlToBytes(parts[2])))
+	        };
+	        return upJws;
+	    }
+	    catch (err) {
+	        throw "can't parse jws" + err;
+	    }
+	}
+
+	var upjf = /*#__PURE__*/Object.freeze({
+		__proto__: null,
+		get ExpirationType () { return ExpirationType; },
+		get UPAlg () { return UPAlg; },
+		createIssuerKeyAndParamsUPJF: createIssuerKeyAndParamsUPJF,
+		createJWS: createJWS,
+		decodeBase64UrlAsPrivateKey: decodeBase64UrlAsPrivateKey,
+		decodeJWKAsIP: decodeJWKAsIP,
+		descGqToUPAlg: descGqToUPAlg,
+		encodeIPAsJWK: encodeIPAsJWK,
+		encodePrivateKeyAsBase64Url: encodePrivateKeyAsBase64Url,
+		encodeTokenInformation: encodeTokenInformation,
+		getExp: getExp,
+		isExpired: isExpired,
+		msToTypedTime: msToTypedTime,
+		parseJWS: parseJWS,
+		parseSpecification: parseSpecification,
+		parseTokenInformation: parseTokenInformation
+	});
+
+	exports.serialization = serialization;
+	exports.upjf = upjf;
+	exports.uprove = uprove;
+	exports.utils = utils;
+
+}));
