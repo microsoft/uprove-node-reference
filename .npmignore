@@ -5,6 +5,7 @@ doc/
 node_modules/
 samples/
 src/
-test/
+tests/
 tsconfig*.json
 rollup.config.js
+eslint*

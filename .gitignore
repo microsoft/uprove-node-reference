@@ -13,3 +13,7 @@ samples/upjf/public/.well-known/jwks.json
 
 # .vscode
 .vscode
+
+# npm install artifacts
+browser
+types
