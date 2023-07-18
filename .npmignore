@@ -8,4 +8,4 @@ src/
 tests/
 tsconfig*.json
 rollup.config.js
-eslint*
+.eslint*
