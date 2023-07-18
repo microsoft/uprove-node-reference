@@ -38,7 +38,7 @@ export default {
         // replace Node's webCrypto api references (crypto.webcrypto) to the global browser crypto object (crypto)
         replace({ "crypto.webcrypto.": 'crypto.', preventAssignment: true }),
         // minifies the output for smaller bundle size
-        terser(),
+        // terser(),
         // remove the @preserve comments from the output, @preserve is required to prevent terser from removing the license
         // the 'delimiters' is required because replace() only replaces on word-boundries and @ apparently isn't a word-boundry
         replace({ "@preserve ": '', delimiters: ['', ''], preventAssignment: true }),
