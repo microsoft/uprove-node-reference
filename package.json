@@ -10,12 +10,13 @@
     "doc": "doc"
   },
   "scripts": {
-    "build": "tsc",
-    "build:browser": "rollup -c && tsc --emitDeclarationOnly -p tsconfig.browser.json",
-    "clean": "rimraf js browser/* types src/*.js src/*.d.ts src/*.map",
+    "build:node": "tsc",
+    "build:browser": "rollup -c",
+    "build:npm": "tsc -p tsconfig.npm.json && npm run build:browser",
+    "clean": "rimraf js browser types src/*.js src/*.d.ts src/*.map",
     "samples": "node js/samples/samples.js",
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --verbose",
-    "prepare": "npm run build"
+    "prepare": "npm run build:npm"
   },
   "author": "Christian Paquin",
   "license": "MIT",

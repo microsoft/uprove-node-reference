@@ -32,11 +32,11 @@ export default {
         commonjs(),
         // converts TypeScript to JavaScript
         typescript({
-           tsconfig: './tsconfig.browser.json', // Specify the path to your tsconfig.json
+           tsconfig: './tsconfig.npm.json', // Specify the path to your tsconfig.json
            useTsconfigDeclarationDir: true, // use the declarations outputted to the declarationDir in tsconfig.json
         }),
         // replace Node's webCrypto api references (crypto.webcrypto) to the global browser crypto object (crypto)
-        replace({ "crypto.webcrypto": 'crypto', preventAssignment: true }),
+        replace({ "crypto.webcrypto.": 'crypto.', preventAssignment: true }),
         // minifies the output for smaller bundle size
         terser(),
         // remove the @preserve comments from the output, @preserve is required to prevent terser from removing the license

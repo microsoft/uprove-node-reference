@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 import {Byte, groupToHash, Hash} from '../src/hash.js';
-import testvectors from '../doc/testvectors/testvectors_hashing.json' assert {type: "json"};
+import testvectors from '../doc/testvectors/testvectors_hashing.json'// assert {type: "json"};
 import { ECGroup } from '../src/uprove.js';
 import * as utils from '../src/utils.js';
 import { Group } from '../src/math.js';
