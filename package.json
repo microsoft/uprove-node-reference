@@ -10,10 +10,10 @@
     "doc": "doc"
   },
   "scripts": {
-    "build:node": "tsc",
+    "build": "tsc",
     "build:browser": "rollup -c",
     "build:npm": "tsc -p tsconfig.npm.json && npm run build:browser",
-    "clean": "rimraf js browser types src/*.js src/*.d.ts src/*.map",
+    "clean": "rimraf js browser types 'src/*.{js,d.ts,map}'",
     "samples": "node js/samples/samples.js",
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --verbose",
     "prepare": "npm run build:npm"
