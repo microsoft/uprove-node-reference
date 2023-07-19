@@ -268,7 +268,7 @@ export class IssuanceParticipant {
 
     protected async computeGamma(A: Uint8Array[], ip: IssuerParams, TI: Uint8Array): Promise<GroupElement> {
         const Gq = ip.Gq;
-        const x = await Promise.all(A.map(async (a, i, array) => computeXi(i + 1, ip, a)));
+        const x = await Promise.all(A.map(async (a, i) => computeXi(i + 1, ip, a)));
         x.unshift(Gq.Zq.ONE);
         const xt = await computeXt(ip, TI);
         x.push(xt);
@@ -299,7 +299,7 @@ export class Prover extends IssuanceParticipant {
         const Zq = Gq.Zq;
         this.TI = TI;
         this.PI = PI;
-        // precomputation (NOTE: could move this out to its own function)
+        // pre-computation (NOTE: could move this out to its own function)
         this.alpha = Zq.getRandomElements(n, true);
         this.beta1 = Zq.getRandomElements(n);
         this.beta2 = Zq.getRandomElements(n);
@@ -418,7 +418,7 @@ export class Issuer extends IssuanceParticipant {
         issuer.gamma = await issuer.computeGamma(A, ikp.ip, TI);
         issuer.sigmaZ = Gq.modExp(issuer.gamma, issuer.y0);
 
-        // precomputation (NOTE: could move this out to its own function)
+        // pre-computation (NOTE: could move this out to its own function)
         issuer.w = Zq.getRandomElements(n);
         issuer.sigmaA = issuer.w.map(w_i => Gq.modExp(Gq.g, w_i));
         issuer.sigmaB = issuer.w.map(w_i => Gq.modExp(issuer.gamma as GroupElement, w_i));
@@ -439,7 +439,7 @@ export class Issuer extends IssuanceParticipant {
             throw `invalid second message`;
         }
         const Zq = this.Gq.Zq;
-        const sigmaR = this.w.map((w_i, i, array) => 
+        const sigmaR = this.w.map((w_i, i) => 
             Zq.add(Zq.mul(msg2.sC[i], this.y0), w_i)
         );
         return {
@@ -477,16 +477,16 @@ export async function generatePresentationProof(ip: IssuerParams, D: number[], u
 
     const Gq = ip.Gq;
     const Zq = Gq.Zq;
-    const x = await Promise.all(A.map((a, i, array) => computeXi(i + 1, ip, a)));
+    const x = await Promise.all(A.map((a, i) => computeXi(i + 1, ip, a)));
     const w0 = Zq.getRandomElement();
     const w = Zq.getRandomElements(n - D.length);
 
     const H = Gq.getHash();
     const a = await H.digest(Gq.multiModExp(
-        [upkt.upt.h, ...ip.g.slice(1, n + 1).filter((g, i, array) => U.includes(i + 1))],
+        [upkt.upt.h, ...ip.g.slice(1, n + 1).filter((g, i) => U.includes(i + 1))],
         [w0, ...w]));
 
-    const challengeData = await computePresentationChallenge(Gq, upkt.upt, a, D, x.filter((x, i, array) => D.includes(i + 1)), m, md);
+    const challengeData = await computePresentationChallenge(Gq, upkt.upt, a, D, x.filter((x, i) => D.includes(i + 1)), m, md);
     const negC = Zq.negate(challengeData.c); a
 
     const r = [Zq.add(Zq.mul(challengeData.c, upkt.alphaInverse), w0)]
@@ -538,10 +538,10 @@ export async function verifyPresentationProof(ip: IssuerParams, upt: UProveToken
     const challengeData = await computePresentationChallenge(Gq, upt, pp.a, D, x, m, md);
     const t = ip.g.length - 1;
     const base0 = Gq.multiModExp(
-        [ip.g[0], ...ip.g.filter((g, i, array) => D.includes(i)), ip.g[t]],
+        [ip.g[0], ...ip.g.filter((g, i) => D.includes(i)), ip.g[t]],
         [Zq.ONE, ...x, xt]);
     const hashInput = Gq.multiModExp(
-        [base0, upt.h, ...ip.g.slice(1, t).filter((g, i, array) => !D.includes(i + 1))],
+        [base0, upt.h, ...ip.g.slice(1, t).filter((g, i) => !D.includes(i + 1))],
         [Zq.negate(challengeData.c), pp.r[0], ...pp.r.slice(1)]
     )
     if (!arrayEqual(pp.a, await Gq.getHash().digest(hashInput))) {

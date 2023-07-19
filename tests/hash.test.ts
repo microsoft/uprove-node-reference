@@ -35,11 +35,11 @@ test("Hash byte", async () => {
     expect(utils.bytesToHex(digest)).toBe(testvectors.hash_byte_digest);
 });
 
-const octetStringInput = utils.hexToBytes(testvectors.hash_octectstring_input);
-test("Hash octect string", async () => {
+const octetStringInput = utils.hexToBytes(testvectors.hash_octetstring_input);
+test("Hash octet string", async () => {
     const hash = new Hash(ECGroup.P256);
     const digest = await hash.digest(octetStringInput);
-    expect(utils.bytesToHex(digest)).toBe(testvectors.hash_octectstring_digest);
+    expect(utils.bytesToHex(digest)).toBe(testvectors.hash_octetstring_digest);
 });
 
 test("Hash null", async () => {

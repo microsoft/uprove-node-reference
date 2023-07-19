@@ -12,7 +12,7 @@ const copyright = `
 // @preserve Licensed under the MIT license.
 /* @preserve eslint-disable */`
 
-const supressKnownWarnings = true
+const suppressKnownWarnings = true
 
 export default {
     input: 'src/index.ts',
@@ -40,11 +40,11 @@ export default {
         // minifies the output for smaller bundle size
         terser(),
         // remove the @preserve comments from the output, @preserve is required to prevent terser from removing the license
-        // the 'delimiters' is required because replace() only replaces on word-boundries and @ apparently isn't a word-boundry
+        // the 'delimiters' is required because replace() only replaces on word-boundaries and @ apparently isn't a word-boundary
         replace({ "@preserve ": '', delimiters: ['', ''], preventAssignment: true }),
     ],
     onwarn(warning, warn) {
-        if (supressKnownWarnings && (
+        if (suppressKnownWarnings && (
             // we know there are circular dependencies in the code
             warning.code === 'CIRCULAR_DEPENDENCY' ||
             // this is a warning about the node crypto not being included in the bundle

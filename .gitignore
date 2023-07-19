@@ -3,7 +3,6 @@ node_modules/
 
 # compiled js files
 js/*
-crypto/configureECC.js
 
 # sample files
 samples/upjf/js/

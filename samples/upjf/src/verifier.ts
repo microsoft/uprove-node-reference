@@ -145,7 +145,7 @@ app.post(settings.PRESENTATION_SUFFIX, async (req, res) => {
         const reqJson = req.body as {jws: string};
         const jws:string = reqJson.jws;
 
-        const verificationData = await verifyJWS(jws, true);
+        void await verifyJWS(jws, true);
 
         const response = { status: "success" };
         console.log('Response', response);

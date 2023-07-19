@@ -45,7 +45,7 @@ for (const ecGroup of Object.values(uprove.ECGroup)) {
             // generate random attributes, token info and prover info fields of random size
             attributes = Array(n)
                 .fill(null)
-                .map((v) => randomBytes(randomNonZeroUint(20)));
+                .map(() => randomBytes(randomNonZeroUint(20)));
             const TI = randomBytes(randomNonZeroUint(20));
             const PI = randomBytes(randomNonZeroUint(20));
 
@@ -93,8 +93,8 @@ for (const ecGroup of Object.values(uprove.ECGroup)) {
             // randomly select which attributes to disclose
             const disclosedIndices = Array(n)
                 .fill(0)
-                .map((v, i, a) => i + 1)
-                .filter((v) => {
+                .map((v, i) => i + 1)
+                .filter(() => {
                     return Math.random() > 0.5;
                 });
             proofData = await uprove.generatePresentationProof(

@@ -4,8 +4,8 @@
     "hash_byte_input" : "0x01",
     "hash_byte_digest": "4bf5122f344554c53bde2ebb8cd2b7e3d1600ad631c385a5d7cce23c7785459a",
 
-    "hash_octectstring_input" : "0x0102030405",
-    "hash_octectstring_digest": "16df7d2d0c3882334fe0457d298a7b2413e1e5b7a880f0b5ec79eeeae7f58dd8",
+    "hash_octetstring_input" : "0x0102030405",
+    "hash_octetstring_digest": "16df7d2d0c3882334fe0457d298a7b2413e1e5b7a880f0b5ec79eeeae7f58dd8",
 
     "hash_null_input" : null,
     "hash_null_digest": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",

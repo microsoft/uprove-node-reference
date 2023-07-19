@@ -32,7 +32,7 @@ test("UPJF expiration", async () => {
     expect(expH === expHnow).toBeTruthy();
 
     // check other calls
-    const expD = UPJF.getExp(UPJF.ExpirationType.day,  0);
-    const expW = UPJF.getExp(UPJF.ExpirationType.week, 0);
-    const expY = UPJF.getExp(UPJF.ExpirationType.year, 0);
+    UPJF.getExp(UPJF.ExpirationType.day,  0);
+    UPJF.getExp(UPJF.ExpirationType.week, 0);
+    UPJF.getExp(UPJF.ExpirationType.year, 0);
 });

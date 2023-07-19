@@ -12,7 +12,7 @@ async function testECParams(descGq: uprove.ECGroup) {
     const ikap = await uprove.createIssuerKeyAndParams(descGq, n, new Array(n).fill(new Byte(0)), stringToBytes('Specification'));
     const ip = ikap.ip;
     ip.verify();
-    const attributes = new Array(n).fill(new Uint8Array()).map((a,i,arr)=>new Uint8Array([i+1])); // directly encode A_i = i
+    const attributes = new Array(n).fill(new Uint8Array()).map((a,i)=>new Uint8Array([i+1])); // directly encode A_i = i
     const TI = stringToBytes("Token Information");
     const PI = stringToBytes("Prover Information");
     const numberOfTokens = 1;
