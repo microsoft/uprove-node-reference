@@ -89,12 +89,6 @@ interface UPJFIssuerSetupData {
     issuerUrl: string
 }
 
-// interface UPJFIssuerSpecification {
-//     n: number,
-//     expType: UPJF.ExpirationType,
-//     attrTypes?: string[]
-// }
-
 const UPJFIssuerSetup = async (descGq: uprove.ECGroup, attributes: string[] = []): Promise<UPJFIssuerSetupData> => {
     // The issuer parameters specification
     const spec: Specification = {
