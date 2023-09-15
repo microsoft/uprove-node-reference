@@ -145,7 +145,7 @@ app.post(settings.PRESENTATION_SUFFIX, async (req, res) => {
         const reqJson = req.body as {jws: string};
         const jws:string = reqJson.jws;
 
-        const verificationData = verifyJWS(jws, true);
+        void await verifyJWS(jws, true);
 
         let response = { status: "success" };
         console.log('Response', response);
@@ -164,7 +164,7 @@ app.get(settings.PRESENTATION_SUFFIX, async (req, res) => {
         console.log(queryParams);
         const jws = queryParams.p as string;
 
-        verifyJWS(jws, false);
+        void await verifyJWS(jws, false);
 
         let response = { status: "success" };
         console.log('Response', response);
@@ -179,4 +179,3 @@ app.get(settings.PRESENTATION_SUFFIX, async (req, res) => {
 http.createServer(app).listen(settings.VERIFIER_PORT, () => {
     console.log("Verifier listening at: " + settings.VERIFIER_URL);
 });
-
