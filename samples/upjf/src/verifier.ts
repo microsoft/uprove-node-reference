@@ -164,7 +164,7 @@ app.get(settings.PRESENTATION_SUFFIX, async (req, res) => {
         console.log(queryParams);
         const jws = queryParams.p as string;
 
-        verifyJWS(jws, false);
+        void await verifyJWS(jws, false);
 
         const response = { status: "success" };
         console.log('Response', response);

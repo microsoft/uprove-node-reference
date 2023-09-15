@@ -3,7 +3,7 @@
 
 // config settings for the sample
 
-export const HOST = "127.0.0.1"
+export const HOST = "localhost"
 
 // issuer settings
 export const ISSUER_PORT =  "9000";
