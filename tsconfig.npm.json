@@ -1,0 +1,27 @@
+/* 
+    While this project is not published to npm, it may be npm-installed from GitHub
+    Only the 'src' files will be transpiled to the 'dist' folder.
+    Declaration files (d.ts) for 'src' will be placed in the 'types' folder.
+    The 'samples' and 'tests' folders will not be transpiled.
+    Rollup will build a single file for the browser into the 'browser' folder.
+
+    browser
+        index.js
+    dist
+        index.js
+        ...
+    types
+        index.d.ts
+        ...
+*/
+{
+    "extends" : "./tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "js",
+        "declaration": true,
+        "declarationDir": "types",
+    },
+    "include": [
+        "src/**/*.ts"
+    ]
+}

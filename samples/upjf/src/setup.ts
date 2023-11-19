@@ -38,7 +38,7 @@ void (async () => {
             case "P521": descGq = ECGroup.P521; break;
             default: throw new Error(`Unsupported curve ${options.curve}`);
         }
-        const ikp = UPJF.createIssuerKeyAndParamsUPJF(descGq,
+        const ikp = await UPJF.createIssuerKeyAndParamsUPJF(descGq,
             { 
                 n: 0, 
                 expType: UPJF.ExpirationType.year,

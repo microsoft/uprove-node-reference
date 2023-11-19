@@ -1,1 +1,11 @@
-
+# .npmignore
+.github/
+.vscode/
+doc/
+node_modules/
+samples/
+src/
+tests/
+tsconfig*.json
+rollup.config.js
+.eslint*

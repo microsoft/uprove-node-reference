@@ -2,18 +2,18 @@
 // Licensed under the MIT license.
 
 // implements the U-Prove hash formatting
-import * as crypto from 'crypto';
 import { GroupElement, FieldZqElement } from './math.js';
 import { ECGroup } from './uprove.js';
+import { webcrypto as crypto } from 'crypto';
 
-export const groupToHash = (g: ECGroup) => { 
-    switch(g) {
+export const groupToHash = (g: ECGroup) => {
+    switch (g) {
         case ECGroup.P256: return 'sha256';
         case ECGroup.P384: return 'sha384';
         case ECGroup.P521: return 'sha512';
         default: throw 'invalid group';
     }
- };
+};
 
 export class Byte {
     b: Uint8Array;
@@ -23,16 +23,14 @@ export class Byte {
     }
 }
 
-export type HashInput = Byte | null | number | Uint8Array | GroupElement | FieldZqElement | ECGroup ;
+export type HashInput = Byte | null | number | Uint8Array | GroupElement | FieldZqElement | ECGroup;
 
 // c.f. spec section 2.2
 export class Hash {
-    private hash: crypto.Hash;
+    private hash = new Uint8Array(0);
     private descGq: ECGroup;
 
     constructor(descGq: ECGroup) {
-        const hashAlg = groupToHash(descGq);
-        this.hash = crypto.createHash(hashAlg);
         this.descGq = descGq;
     }
 
@@ -46,7 +44,10 @@ export class Hash {
     }
 
     updateInternal(data: Uint8Array) {
-        this.hash.update(data);
+        const temp = new Uint8Array(this.hash.length + data.length);
+        temp.set(this.hash);
+        temp.set(data, this.hash.length);
+        this.hash = temp;
     }
 
     update(data: HashInput | HashInput[]) {
@@ -71,10 +72,14 @@ export class Hash {
         }
     }
 
-    digest(data: HashInput | HashInput[] | undefined = undefined): Uint8Array {
+    async digest(data: HashInput | HashInput[] | undefined = undefined): Promise<Uint8Array> {
         if (data || data === null) {
             this.update(data);
         }
-        return this.hash.digest();
+
+        return crypto.subtle.digest({ name: groupToHash(this.descGq).replace('sha', 'sha-') }, this.hash)
+            .then(arrayBuffer => {
+                return new Uint8Array(arrayBuffer);
+            })
     }
 }

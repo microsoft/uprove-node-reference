@@ -5,7 +5,7 @@ import express from 'express';
 import http from 'http';
 import rateLimit from 'express-rate-limit';
 import fs from 'fs';
-import * as crypto from "crypto";
+import { webcrypto as crypto } from "crypto";
 
 import * as io from './io.js';
 import * as settings from './settings.js';
@@ -23,7 +23,7 @@ const PRIVATE_KEY_PATH = "private/ip.key" // created by the setup script
 // read the issuer parameters
 const jwksString = fs.readFileSync(ISSUER_PARAMS_PATH, 'utf8');
 const jwk: UPJF.IssuerParamsJWK = (JSON.parse(jwksString) as io.IssuerParamsJWKS).keys[0]; // we assume there is one param in the key set
-const issuerParams = UPJF.decodeJWKAsIP(jwk);
+const issuerParams = await UPJF.decodeJWKAsIP(jwk);
 console.log("Issuer parameters loaded from: " + ISSUER_PARAMS_PATH);
 
 // read the private key
@@ -100,7 +100,7 @@ app.post(settings.ISSUANCE_SUFFIX, async (req, res) => {
                 n = msg.n <= MAX_TOKEN_COUNT ? msg.n : MAX_TOKEN_COUNT;
             }
             // create a random session ID to recognize the user session on the second call
-            const sessionID = serialization.toBase64Url(crypto.randomBytes(32));
+            const sessionID = serialization.toBase64Url( crypto.getRandomValues(new Uint8Array(32)));
 
             // create the token information object; this will be included in every token and will be visible
             // to Verifiers
@@ -112,7 +112,7 @@ app.post(settings.ISSUANCE_SUFFIX, async (req, res) => {
             }
             const TI = UPJF.encodeTokenInformation(tokenInformation);
 
-            const issuer = new uprove.Issuer(issuerKeyAndParams, [], TI, n);
+            const issuer = await uprove.Issuer.create(issuerKeyAndParams, [], TI, n);
             const message1 = serialization.encodeFirstIssuanceMessage(issuer.createFirstMessage());
 
             response = {

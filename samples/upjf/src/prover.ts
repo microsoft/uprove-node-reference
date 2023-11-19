@@ -30,7 +30,7 @@ void (async () => {
         const jwksJson = await got(jwksUrl).json() as io.IssuerParamsJWKS;
         console.log("received Issuer JWKS", jwksJson);
         const jwk: UPJF.IssuerParamsJWK = jwksJson.keys[0]; // we assume there is one param set in the key set
-        const issuerParams = UPJF.decodeJWKAsIP(jwk);
+        const issuerParams = await UPJF.decodeJWKAsIP(jwk);
         const spec = UPJF.parseSpecification(issuerParams.S);
 
         //
@@ -59,13 +59,13 @@ void (async () => {
             throw "token is expired";
         }
         // check that the lbl value is contained in the specification (protects the user against "tagging attacks")
-        if (!spec.lblType[tokenInfo.lbl]) {
+        if (!(spec.lblType as Record<number, string>)[tokenInfo.lbl as number]) {
             throw "invalid lbl value: " + tokenInfo.lbl;
         }
-        const prover = new uprove.Prover(issuerParams, [], TI, new Uint8Array(), actualNumberOfTokens);
+        const prover = await uprove.Prover.create(issuerParams, [], TI, new Uint8Array(), actualNumberOfTokens);
 
         // prover creates the second message
-        const msg2 = prover.createSecondMessage(msg1);
+        const msg2 = await prover.createSecondMessage(msg1);
         const secondMessage: io.SecondIssuanceMessage = {
             sID: firstMsg.sID,
             msg: serialization.encodeSecondIssuanceMessage(msg2)
@@ -110,7 +110,7 @@ void (async () => {
 
         // create presentation proof
         const uproveToken = serialization.encodeUProveToken(upkt.upt);
-        let presentationData = uprove.generatePresentationProof(issuerParams, [], upkt, message, []);
+        let presentationData = await uprove.generatePresentationProof(issuerParams, [], upkt, message, []);
         let proof = serialization.encodePresentationProof(presentationData.pp);
         let tp:serialization.TokenPresentation = {
             upt: uproveToken,
@@ -141,7 +141,7 @@ void (async () => {
         }
 
         // create presentation proof
-        presentationData = uprove.generatePresentationProof(issuerParams, [], upkt, message, []);
+        presentationData = await uprove.generatePresentationProof(issuerParams, [], upkt, message, []);
         proof = serialization.encodePresentationProof(presentationData.pp);
         // this time we only send the token identifier UIDT instead of the full token
         tp = {

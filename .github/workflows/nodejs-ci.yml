@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - 'main'
-      - 'march2023-update'
+      - 'browser-compatible'
   pull_request:
     branches:
       - 'main'
-      - 'march2023-update'
+      - 'browser-compatible'
 
 jobs:
   build:

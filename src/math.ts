@@ -1,12 +1,12 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT license.
 
-import cryptoECC, { Digits, EllipticCurvePointFp, WeierstrassCurve} from "@microsoft/msrcrypto/scripts/cryptoECC.js";
+import cryptoECC, { Digits, EllipticCurvePointFp, WeierstrassCurve } from "@microsoft/msrcrypto/scripts/cryptoECC.js";
 import cryptoMath, { IntegerGroupElement, IntegerGroup } from "@microsoft/msrcrypto/scripts/cryptoMath.js";
 import "@microsoft/msrcrypto/scripts/curves_NIST.js";
 import { ECGroup } from "./uprove.js";
 import { Hash } from "./hash.js";
-import * as crypto from "crypto";
+import { webcrypto as crypto } from "crypto";
 
 export class FieldZqElement {
     public scalar: IntegerGroupElement;
@@ -30,7 +30,7 @@ export class FieldZq {
     private Zq: IntegerGroup;
     private q: Digits;
     private elementLength: number;
-    
+
     constructor(q: Digits) {
         this.q = q;
         const qBytes = cryptoMath.digitsToBytes(q);
@@ -43,7 +43,7 @@ export class FieldZq {
     getElement(encoded: Uint8Array): FieldZqElement {
         let digits = cryptoMath.bytesToDigits(Array.from(encoded));
         // Check size of the new element
-        let result = cryptoMath.intToDigits(0);
+        const result = cryptoMath.intToDigits(0);
         while (cryptoMath.compareDigits(digits, this.q) >= 0) {
             // too big, reduce (will only call once)
             cryptoMath.subtract(digits, this.q, result); // could I replace result with digits? TODO
@@ -52,11 +52,11 @@ export class FieldZq {
         return new FieldZqElement(this.Zq.createElementFromDigits(digits));
     }
 
-    getRandomElement(nonZero: boolean = false): FieldZqElement {
+    getRandomElement(nonZero = false): FieldZqElement {
         let done = false;
         let randZq: Digits = cryptoMath.Zero;
         while (!done) {
-            const ranBytes = crypto.randomBytes(this.elementLength);
+            const ranBytes = crypto.getRandomValues(new Uint8Array(this.elementLength));            
             randZq = cryptoMath.bytesToDigits(Array.from(ranBytes));
             if (cryptoMath.compareDigits(randZq, this.q) < 0) {
                 done = true;
@@ -68,34 +68,34 @@ export class FieldZq {
         return new FieldZqElement(this.Zq.createElementFromDigits(randZq));
     }
 
-    getRandomElements(n: number, nonZero: boolean = false): FieldZqElement[] {
+    getRandomElements(n: number, nonZero = false): FieldZqElement[] {
         const r: FieldZqElement[] = [];
-        for (let i=0; i<n; i++) {
+        for (let i = 0; i < n; i++) {
             r.push(this.getRandomElement(nonZero));
         }
         return r;
     }
 
-    add(a: FieldZqElement, b:FieldZqElement): FieldZqElement {
-        let sum = this.Zq.createElementFromInteger(0);
+    add(a: FieldZqElement, b: FieldZqElement): FieldZqElement {
+        const sum = this.Zq.createElementFromInteger(0);
         this.Zq.add(a.scalar, b.scalar, sum);
         return new FieldZqElement(sum);
     }
 
-    mul(a: FieldZqElement, b:FieldZqElement): FieldZqElement {
-        let product = this.Zq.createElementFromInteger(0);
+    mul(a: FieldZqElement, b: FieldZqElement): FieldZqElement {
+        const product = this.Zq.createElementFromInteger(0);
         this.Zq.multiply(a.scalar, b.scalar, product);
         return new FieldZqElement(product);
     }
 
     negate(a: FieldZqElement): FieldZqElement {
-        let minusA = this.Zq.createElementFromInteger(0);
+        const minusA = this.Zq.createElementFromInteger(0);
         this.Zq.subtract(this.Zq.createElementFromInteger(0), a.scalar, minusA);
         return new FieldZqElement(minusA);
     }
 
     invert(a: FieldZqElement): FieldZqElement {
-        let aInverse = this.Zq.createElementFromInteger(0);
+        const aInverse = this.Zq.createElementFromInteger(0);
         this.Zq.inverse(a.scalar, aInverse);
         return new FieldZqElement(aInverse);
     }
@@ -116,17 +116,17 @@ export class GroupElement {
     equals(e: GroupElement): boolean {
         return this.point.equals(e.point);
     }
-};
+}
 
 // the underlying cryptoMath lib expects points to be on the same curve object (===)
 // so we instantiate them once
-enum CurveNames {P256 = "P-256", P384 = "P-384", P521 = "P-521"}
+enum CurveNames { P256 = "P-256", P384 = "P-384", P521 = "P-521" }
 const P256Curve = cryptoECC.createCurve(CurveNames.P256) as WeierstrassCurve;
 const P384Curve = cryptoECC.createCurve(CurveNames.P384) as WeierstrassCurve;
 const P521Curve = cryptoECC.createCurve(CurveNames.P521) as WeierstrassCurve;
 
 export class Group {
-    private curve : WeierstrassCurve;
+    private curve: WeierstrassCurve;
     private descGq;
     public Zq: FieldZq;
     public g: GroupElement; // generator
@@ -183,11 +183,16 @@ export class Group {
 
     // return a.b = point + point
     mul(a: GroupElement, b: GroupElement): GroupElement {
+
+        if (a === undefined || b === undefined || a?.point === undefined || b?.point === undefined) {
+            console.log('undefined point in mul');
+        }
+
         const pointA = a.point;
         const pointB = (pointA === b.point) ? b.point.clone() : b.point; // a and b can't be the same
 
         // result must be in Jacobian, Montgomery form for the mixed add
-        let temp = this.curve.allocatePointStorage();
+        const temp = this.curve.allocatePointStorage();
         this.ecOperator.convertToMontgomeryForm(temp);
         this.ecOperator.convertToJacobianForm(temp);
 
@@ -215,7 +220,7 @@ export class Group {
 
     // return g^e = [scalar] point.
     modExp(g: GroupElement, e: FieldZqElement): GroupElement {
-        let result = this.curve.allocatePointStorage();
+        const result = this.curve.allocatePointStorage();
 
         // point must be in Affine, Montgomery form
         if (!g.point.isAffine) this.ecOperator.convertToAffineForm(g.point);
@@ -239,7 +244,7 @@ export class Group {
         }
         let result = this.getIdentity();
         for (let i = 0; i < g.length; i++) {
-            let temp = this.modExp(g[i], e[i]);
+            const temp = this.modExp(g[i], e[i]);
             result = this.mul(result, temp);
         }
         return result;

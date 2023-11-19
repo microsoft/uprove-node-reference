@@ -1,9 +1,11 @@
-# Dependency directories
-node_modules/
+# dependency directories
+node_modules
 
-# compiled js files
-js/*
-crypto/configureECC.js
+# workspace settings (user preferences)
+.vscode/*.code-workspace
+
+# transpiled js files
+js
 
 # sample files
 samples/upjf/js/
@@ -11,4 +13,6 @@ samples/upjf/node_modules/
 samples/upjf/private/ip.key
 samples/upjf/public/.well-known/jwks.json
 
-
+# npm install directories
+browser
+types
